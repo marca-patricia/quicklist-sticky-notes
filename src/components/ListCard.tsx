@@ -6,7 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists, TodoList } from '@/contexts/ListsContext';
 import { Link } from 'react-router-dom';
-import { Trash2, ExternalLink, CheckCircle, Circle } from 'lucide-react';
+import { Trash2, ExternalLink, CheckCircle, Circle, Smartphone } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface ListCardProps {
   list: TodoList;
@@ -15,6 +16,7 @@ interface ListCardProps {
 export const ListCard: React.FC<ListCardProps> = ({ list }) => {
   const { t } = useLanguage();
   const { deleteList } = useLists();
+  const { toast } = useToast();
   
   const totalItems = list.items.length;
   const completedItems = list.items.filter(item => item.completed).length;
@@ -25,28 +27,57 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
     e.stopPropagation();
     if (window.confirm(t('deleteList') || 'Excluir esta lista?')) {
       deleteList(list.id);
+      toast({
+        description: "Lista excluída com sucesso!",
+        duration: 2000,
+      });
     }
   };
 
-  const handleAddToHome = (e: React.MouseEvent) => {
+  const handleAddToHome = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    
     const widgetUrl = `${window.location.origin}/?list=${list.id}&widget=true`;
     
-    if (navigator.share) {
-      navigator.share({
-        title: `QuickList - ${list.title}`,
-        url: widgetUrl
-      });
-    } else {
-      navigator.clipboard.writeText(widgetUrl);
-      alert('Link copiado! Cole na barra de endereços e adicione à tela inicial');
+    try {
+      if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        await navigator.share({
+          title: `QuickList - ${list.title}`,
+          text: `Minha lista: ${list.title}`,
+          url: widgetUrl
+        });
+        toast({
+          description: "Compartilhado! Adicione à tela inicial do seu dispositivo",
+          duration: 4000,
+        });
+      } else {
+        await navigator.clipboard.writeText(widgetUrl);
+        toast({
+          description: "Link copiado! Cole na barra de endereços e adicione à tela inicial",
+          duration: 5000,
+        });
+      }
+    } catch (error) {
+      // Fallback para copiar
+      try {
+        await navigator.clipboard.writeText(widgetUrl);
+        toast({
+          description: "Link copiado! Cole na barra de endereços e adicione à tela inicial",
+          duration: 5000,
+        });
+      } catch (clipboardError) {
+        toast({
+          description: `URL: ${widgetUrl}`,
+          duration: 8000,
+        });
+      }
     }
   };
 
   return (
     <Link to={`/list/${list.id}`} className="block">
-      <Card className={`p-4 hover:shadow-notepad transition-all duration-200 border-l-4 ${list.color} group`}>
+      <Card className={`p-4 hover:shadow-notepad transition-all duration-200 border-l-4 ${list.color} group bg-gradient-notepad`}>
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-lg truncate text-foreground group-hover:text-primary transition-colors">
@@ -96,10 +127,10 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
               variant="ghost"
               size="sm"
               onClick={handleAddToHome}
-              className="h-8 w-8 p-0"
+              className="h-8 w-8 p-0 text-primary hover:bg-primary hover:text-primary-foreground"
               title="Adicionar à tela inicial"
             >
-              <ExternalLink className="h-4 w-4" />
+              <Smartphone className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"

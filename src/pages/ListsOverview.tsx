@@ -4,6 +4,7 @@ import { AddListForm } from '@/components/AddListForm';
 import { ListCard } from '@/components/ListCard';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
 import { EmptyState } from '@/components/EmptyState';
+import { InstallPrompt } from '@/components/InstallPrompt';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import quicklistIcon from '@/assets/quicklist-icon.png';
@@ -15,6 +16,7 @@ export const ListsOverview: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <LanguageSwitch />
+      <InstallPrompt />
       
       <div className="container max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
