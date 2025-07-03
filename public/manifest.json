@@ -1,0 +1,20 @@
+
+{
+  "name": "QuickList - Lista de Tarefas",
+  "short_name": "QuickList",
+  "description": "Lista de tarefas simples, bilíngue e offline",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "pt-BR"
+}

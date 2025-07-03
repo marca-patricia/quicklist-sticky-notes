@@ -25,7 +25,10 @@ const translations = {
     pendingItem: '⭕',
     deleteItem: 'Excluir',
     markComplete: 'Marcar como concluído',
-    markIncomplete: 'Marcar como pendente'
+    markIncomplete: 'Marcar como pendente',
+    deleteList: 'Excluir Lista',
+    newList: 'Nova Lista',
+    addToHome: 'Adicionar à Tela Inicial'
   },
   en: {
     appTitle: 'QuickList',
@@ -43,7 +46,10 @@ const translations = {
     pendingItem: '⭕',
     deleteItem: 'Delete',
     markComplete: 'Mark as complete',
-    markIncomplete: 'Mark as pending'
+    markIncomplete: 'Mark as pending',
+    deleteList: 'Delete List',
+    newList: 'New List',
+    addToHome: 'Add to Home Screen'
   }
 };
 
