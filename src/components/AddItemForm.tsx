@@ -1,0 +1,47 @@
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card } from '@/components/ui/card';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Plus } from 'lucide-react';
+
+interface AddItemFormProps {
+  onAdd: (text: string) => void;
+}
+
+export const AddItemForm: React.FC<AddItemFormProps> = ({ onAdd }) => {
+  const [text, setText] = useState('');
+  const { t } = useLanguage();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (text.trim()) {
+      onAdd(text.trim());
+      setText('');
+    }
+  };
+
+  return (
+    <Card className="p-4 bg-gradient-notepad shadow-notepad border-0">
+      <form onSubmit={handleSubmit} className="flex gap-3">
+        <Input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={t('placeholder')}
+          className="flex-1 bg-background/80 border-border/50 focus:border-primary transition-all duration-200"
+        />
+        <Button 
+          type="submit" 
+          variant="notepad"
+          size="sm"
+          className="px-4"
+          disabled={!text.trim()}
+        >
+          <Plus className="h-4 w-4" />
+          <span className="hidden sm:inline">{t('addItem')}</span>
+        </Button>
+      </form>
+    </Card>
+  );
+};

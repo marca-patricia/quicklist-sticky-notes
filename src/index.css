@@ -8,35 +8,55 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* QuickList Design System - Clean & Colorful */
+    --background: 248 50% 98%;
+    --foreground: 235 20% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 235 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 235 20% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Colorful notepad theme */
+    --primary: 264 75% 70%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 197 71% 92%;
+    --secondary-foreground: 235 20% 15%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 240 10% 96%;
+    --muted-foreground: 235 10% 45%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 50 90% 88%;
+    --accent-foreground: 235 20% 15%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --border: 240 20% 90%;
+    --input: 240 20% 96%;
+    --ring: 264 75% 70%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Custom colors for notepad theme */
+    --notepad-yellow: 47 96% 85%;
+    --notepad-pink: 340 82% 90%;
+    --notepad-blue: 197 71% 85%;
+    --notepad-green: 120 60% 85%;
+    --notepad-purple: 280 70% 88%;
+    
+    /* Gradients */
+    --gradient-notepad: linear-gradient(135deg, hsl(var(--notepad-yellow)), hsl(var(--notepad-pink)));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(280 70% 85%));
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 8px hsl(var(--primary) / 0.1);
+    --shadow-notepad: 0 4px 16px hsl(var(--primary) / 0.15);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 

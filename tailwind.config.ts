@@ -61,7 +61,25 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				notepad: {
+					yellow: 'hsl(var(--notepad-yellow))',
+					pink: 'hsl(var(--notepad-pink))',
+					blue: 'hsl(var(--notepad-blue))',
+					green: 'hsl(var(--notepad-green))',
+					purple: 'hsl(var(--notepad-purple))'
 				}
+			},
+			backgroundImage: {
+				'gradient-notepad': 'var(--gradient-notepad)',
+				'gradient-primary': 'var(--gradient-primary)',
+			},
+			boxShadow: {
+				'soft': 'var(--shadow-soft)',
+				'notepad': 'var(--shadow-notepad)',
+			},
+			transitionTimingFunction: {
+				'smooth': 'var(--transition-smooth)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
