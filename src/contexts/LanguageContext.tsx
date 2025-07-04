@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'pt' | 'en';
@@ -12,7 +13,9 @@ const translations = {
   pt: {
     appTitle: 'QuickList',
     addItem: 'Adicionar item',
+    addList: 'Nova Lista',
     placeholder: 'Digite um novo item...',
+    listPlaceholder: 'Nome da lista...',
     noItems: 'Sua lista está vazia',
     noItemsDesc: 'Adicione alguns itens para começar',
     shareList: 'Compartilhar Lista',
@@ -28,12 +31,31 @@ const translations = {
     markIncomplete: 'Marcar como pendente',
     deleteList: 'Excluir Lista',
     newList: 'Nova Lista',
-    addToHome: 'Adicionar à Tela Inicial'
+    addToHome: 'Adicionar à Tela Inicial',
+    completed: '✅ Concluídos',
+    pending: 'Pendentes',
+    noLists: 'Nenhuma lista ainda',
+    noListsDesc: 'Crie sua primeira lista para começar a organizar suas tarefas',
+    createFirstList: 'Criar primeira lista',
+    allLists: 'Todas as listas',
+    backToLists: 'Voltar às listas',
+    listNotFound: 'Lista não encontrada',
+    addItemHere: 'Adicione alguns itens para começar!',
+    emptyList: 'Lista vazia',
+    addItems: 'Adicionar itens',
+    openFullApp: 'Abrir QuickList completo',
+    installApp: 'Instalar QuickList',
+    installDesc: 'Adicione o QuickList à sua tela inicial para acesso rápido e uso offline!',
+    install: 'Instalar',
+    later: 'Depois',
+    homeScreen: 'Tela inicial'
   },
   en: {
     appTitle: 'QuickList',
     addItem: 'Add item',
+    addList: 'New List',
     placeholder: 'Type a new item...',
+    listPlaceholder: 'List name...',
     noItems: 'Your list is empty',
     noItemsDesc: 'Add some items to get started',
     shareList: 'Share List',
@@ -49,7 +71,24 @@ const translations = {
     markIncomplete: 'Mark as pending',
     deleteList: 'Delete List',
     newList: 'New List',
-    addToHome: 'Add to Home Screen'
+    addToHome: 'Add to Home Screen',
+    completed: '✅ Completed',
+    pending: 'Pending',
+    noLists: 'No lists yet',
+    noListsDesc: 'Create your first list to start organizing your tasks',
+    createFirstList: 'Create first list',
+    allLists: 'All lists',
+    backToLists: 'Back to lists',
+    listNotFound: 'List not found',
+    addItemHere: 'Add some items to get started!',
+    emptyList: 'Empty list',
+    addItems: 'Add items',
+    openFullApp: 'Open full QuickList',
+    installApp: 'Install QuickList',
+    installDesc: 'Add QuickList to your home screen for quick access and offline use!',
+    install: 'Install',
+    later: 'Later',
+    homeScreen: 'Home screen'
   }
 };
 

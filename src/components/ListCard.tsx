@@ -28,7 +28,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
     if (window.confirm(t('deleteList') || 'Excluir esta lista?')) {
       deleteList(list.id);
       toast({
-        description: "Lista excluída com sucesso!",
+        description: t('language') === 'pt' ? "Lista excluída com sucesso!" : "List deleted successfully!",
         duration: 2000,
       });
     }
@@ -48,22 +48,21 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
           url: widgetUrl
         });
         toast({
-          description: "Compartilhado! Adicione à tela inicial do seu dispositivo",
+          description: t('language') === 'pt' ? "Compartilhado! Adicione à tela inicial do seu dispositivo" : "Shared! Add to your device's home screen",
           duration: 4000,
         });
       } else {
         await navigator.clipboard.writeText(widgetUrl);
         toast({
-          description: "Link copiado! Cole na barra de endereços e adicione à tela inicial",
+          description: t('language') === 'pt' ? "Link copiado! Cole na barra de endereços e adicione à tela inicial" : "Link copied! Paste in address bar and add to home screen",
           duration: 5000,
         });
       }
     } catch (error) {
-      // Fallback para copiar
       try {
         await navigator.clipboard.writeText(widgetUrl);
         toast({
-          description: "Link copiado! Cole na barra de endereços e adicione à tela inicial",
+          description: t('language') === 'pt' ? "Link copiado! Cole na barra de endereços e adicione à tela inicial" : "Link copied! Paste in address bar and add to home screen",
           duration: 5000,
         });
       } catch (clipboardError) {
@@ -80,11 +79,18 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
       <Card className={`p-4 hover:shadow-notepad transition-all duration-200 border-l-4 ${list.color} group bg-gradient-notepad`}>
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-lg truncate text-foreground group-hover:text-primary transition-colors">
-              {list.title}
-            </h3>
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <h3 className="font-semibold text-lg truncate text-foreground group-hover:text-primary transition-colors flex-1">
+                {list.title}
+              </h3>
+              {totalItems > 0 && (
+                <Badge variant="secondary" className="text-sm font-medium">
+                  {completedItems}/{totalItems}
+                </Badge>
+              )}
+            </div>
             
-            <div className="flex items-center gap-2 mt-2">
+            <div className="flex items-center gap-2 mb-3">
               {pendingItems > 0 && (
                 <Badge variant="secondary" className="text-xs">
                   <Circle className="w-3 h-3 mr-1" />
@@ -100,22 +106,16 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
             </div>
             
             {list.items.length > 0 && (
-              <div className="mt-3 space-y-1">
-                {list.items.slice(0, 3).map(item => (
+              <div className="space-y-1">
+                {list.items.filter(item => !item.completed).slice(0, 2).map(item => (
                   <div key={item.id} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    {item.completed ? (
-                      <CheckCircle className="w-3 h-3 text-primary" />
-                    ) : (
-                      <Circle className="w-3 h-3" />
-                    )}
-                    <span className={`truncate ${item.completed ? 'line-through' : ''}`}>
-                      {item.text}
-                    </span>
+                    <Circle className="w-3 h-3" />
+                    <span className="truncate">{item.text}</span>
                   </div>
                 ))}
-                {list.items.length > 3 && (
+                {pendingItems > 2 && (
                   <div className="text-xs text-muted-foreground">
-                    +{list.items.length - 3} mais itens
+                    +{pendingItems - 2} {t('language') === 'pt' ? 'mais pendentes' : 'more pending'}
                   </div>
                 )}
               </div>
@@ -128,7 +128,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
               size="sm"
               onClick={handleAddToHome}
               className="h-8 w-8 p-0 text-primary hover:bg-primary hover:text-primary-foreground"
-              title="Adicionar à tela inicial"
+              title={t('addToHome')}
             >
               <Smartphone className="h-4 w-4" />
             </Button>
@@ -137,7 +137,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
               size="sm"
               onClick={handleDelete}
               className="h-8 w-8 p-0 text-destructive hover:bg-destructive hover:text-destructive-foreground"
-              title="Excluir lista"
+              title={t('deleteList')}
             >
               <Trash2 className="h-4 w-4" />
             </Button>

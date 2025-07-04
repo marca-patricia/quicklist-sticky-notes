@@ -32,7 +32,7 @@ export const ListsOverview: React.FC = () => {
             </h1>
           </div>
           <p className="text-muted-foreground">
-            Organize suas listas de forma simples e eficiente
+            {t('language') === 'pt' ? 'Organize suas listas de forma simples e eficiente' : 'Organize your lists simply and efficiently'}
           </p>
         </div>
 
