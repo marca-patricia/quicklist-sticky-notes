@@ -41,7 +41,7 @@ export const ListDetail: React.FC = () => {
   const addItem = (text: string) => {
     addItemToList(list.id, text);
     toast({
-      description: t('language') === 'pt' ? "Item adicionado à lista!" : "Item added to list!",
+      description: t('itemAdded'),
       duration: 2000,
     });
   };
@@ -53,7 +53,7 @@ export const ListDetail: React.FC = () => {
   const deleteItem = (itemId: string) => {
     deleteItemFromList(list.id, itemId);
     toast({
-      description: t('language') === 'pt' ? "Item removido da lista!" : "Item removed from list!",
+      description: t('itemRemoved'),
       duration: 2000,
     });
   };
@@ -71,14 +71,14 @@ export const ListDetail: React.FC = () => {
       } catch (error) {
         await navigator.clipboard.writeText(shareText);
         toast({
-          description: t('language') === 'pt' ? "Lista copiada para área de transferência!" : "List copied to clipboard!",
+          description: t('listCopied'),
           duration: 3000,
         });
       }
     } else {
       await navigator.clipboard.writeText(shareText);
       toast({
-        description: t('language') === 'pt' ? "Lista copiada para área de transferência!" : "List copied to clipboard!",
+        description: t('listCopied'),
         duration: 3000,
       });
     }
@@ -89,7 +89,7 @@ export const ListDetail: React.FC = () => {
     completedItems.forEach(item => deleteItemFromList(list.id, item.id));
     
     toast({
-      description: t('language') === 'pt' ? `${completedItems.length} itens concluídos removidos!` : `${completedItems.length} completed items removed!`,
+      description: `${completedItems.length} ${t('completedItemsRemoved')}`,
       duration: 2000,
     });
   };
@@ -105,7 +105,7 @@ export const ListDetail: React.FC = () => {
     } else {
       navigator.clipboard.writeText(widgetUrl);
       toast({
-        description: t('language') === 'pt' ? "Link copiado! Cole na barra de endereços e adicione à tela inicial" : "Link copied! Paste in address bar and add to home screen",
+        description: t('linkCopied'),
         duration: 4000,
       });
     }

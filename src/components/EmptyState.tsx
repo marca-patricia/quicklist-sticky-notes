@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -16,10 +17,10 @@ export const EmptyState: React.FC = () => {
         />
         <div>
           <h3 className="text-lg font-semibold text-muted-foreground mb-2">
-            {t('noItems')}
+            {t('noLists')}
           </h3>
           <p className="text-sm text-muted-foreground">
-            {t('noItemsDesc')}
+            {t('noListsDesc')}
           </p>
         </div>
       </div>

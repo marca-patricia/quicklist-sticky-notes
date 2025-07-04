@@ -15,7 +15,7 @@ const translations = {
     addItem: 'Adicionar item',
     addList: 'Nova Lista',
     placeholder: 'Digite um novo item...',
-    listPlaceholder: 'Nome da lista...',
+    listPlaceholder: 'Nome da nova lista...',
     noItems: 'Sua lista está vazia',
     noItemsDesc: 'Adicione alguns itens para começar',
     shareList: 'Compartilhar Lista',
@@ -48,14 +48,22 @@ const translations = {
     installDesc: 'Adicione o QuickList à sua tela inicial para acesso rápido e uso offline!',
     install: 'Instalar',
     later: 'Depois',
-    homeScreen: 'Tela inicial'
+    homeScreen: 'Tela inicial',
+    organizeDesc: 'Organize suas listas de forma simples e eficiente',
+    listCreated: 'Nova lista criada!',
+    itemAdded: 'Item adicionado à lista!',
+    itemRemoved: 'Item removido da lista!',
+    completedItemsRemoved: 'itens concluídos removidos!',
+    listCopied: 'Lista copiada para área de transferência!',
+    linkCopied: 'Link copiado! Cole na barra de endereços e adicione à tela inicial',
+    yourListEmpty: 'Sua lista está vazia'
   },
   en: {
     appTitle: 'QuickList',
     addItem: 'Add item',
     addList: 'New List',
     placeholder: 'Type a new item...',
-    listPlaceholder: 'List name...',
+    listPlaceholder: 'New list name...',
     noItems: 'Your list is empty',
     noItemsDesc: 'Add some items to get started',
     shareList: 'Share List',
@@ -88,7 +96,15 @@ const translations = {
     installDesc: 'Add QuickList to your home screen for quick access and offline use!',
     install: 'Install',
     later: 'Later',
-    homeScreen: 'Home screen'
+    homeScreen: 'Home screen',
+    organizeDesc: 'Organize your lists simply and efficiently',
+    listCreated: 'New list created!',
+    itemAdded: 'Item added to list!',
+    itemRemoved: 'Item removed from list!',
+    completedItemsRemoved: 'completed items removed!',
+    listCopied: 'List copied to clipboard!',
+    linkCopied: 'Link copied! Paste in address bar and add to home screen',
+    yourListEmpty: 'Your list is empty'
   }
 };
 

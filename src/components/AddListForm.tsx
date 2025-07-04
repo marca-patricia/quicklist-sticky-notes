@@ -20,7 +20,7 @@ export const AddListForm: React.FC = () => {
       addList(title.trim());
       setTitle('');
       toast({
-        description: "Nova lista criada!",
+        description: t('listCreated'),
         duration: 2000,
       });
     }
@@ -33,7 +33,7 @@ export const AddListForm: React.FC = () => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Nome da nova lista..."
+          placeholder={t('listPlaceholder')}
           className="flex-1 bg-background/80 border-border/50 focus:border-primary transition-all duration-200"
         />
         <Button 
@@ -44,7 +44,7 @@ export const AddListForm: React.FC = () => {
           disabled={!title.trim()}
         >
           <Plus className="h-4 w-4" />
-          <span className="hidden sm:inline">Nova Lista</span>
+          <span className="hidden sm:inline">{t('newList')}</span>
         </Button>
       </form>
     </Card>
