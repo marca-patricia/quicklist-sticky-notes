@@ -3,6 +3,7 @@
   "name": "QuickList - Lista de Tarefas",
   "short_name": "QuickList",
   "description": "Lista de tarefas simples, bilíngue e offline com widgets",
+  "version": "1.0.0",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

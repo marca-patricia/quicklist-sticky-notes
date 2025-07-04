@@ -6,9 +6,6 @@ const config: CapacitorConfig = {
   appName: 'QuickList',
   webDir: 'dist',
   bundledWebRuntime: false,
-  server: {
-    androidScheme: 'https'
-  },
   plugins: {
     SplashScreen: {
       launchShowDuration: 2000,
@@ -22,6 +19,9 @@ const config: CapacitorConfig = {
     StatusBar: {
       style: "LIGHT_CONTENT",
       backgroundColor: "#8B5CF6"
+    },
+    App: {
+      appendUserAgent: "QuickList/1.0"
     }
   }
 };
