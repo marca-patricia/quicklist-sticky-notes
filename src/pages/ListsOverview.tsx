@@ -5,16 +5,29 @@ import { ListCard } from '@/components/ListCard';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
 import { EmptyState } from '@/components/EmptyState';
 import { InstallPrompt } from '@/components/InstallPrompt';
+import { AdBanner } from '@/components/AdBanner';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
+import { useAdMob } from '@/hooks/useAdMob';
 import quicklistIcon from '@/assets/quicklist-icon.png';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
   const { lists } = useLists();
+  const { showInterstitialAd } = useAdMob();
+
+  // Mostrar intersticial a cada 3 ações (criar lista)
+  const handleListCreated = () => {
+    const actionsCount = parseInt(localStorage.getItem('actionsCount') || '0') + 1;
+    localStorage.setItem('actionsCount', actionsCount.toString());
+    
+    if (actionsCount % 3 === 0) {
+      showInterstitialAd();
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       <LanguageSwitch />
       <InstallPrompt />
       
@@ -36,6 +49,11 @@ export const ListsOverview: React.FC = () => {
           </p>
         </div>
 
+        {/* Banner Ad no topo */}
+        <div className="mb-6">
+          <AdBanner />
+        </div>
+
         {/* Add List Form */}
         <div className="mb-8">
           <AddListForm />
@@ -46,11 +64,24 @@ export const ListsOverview: React.FC = () => {
           <EmptyState />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {lists.map(list => (
-              <ListCard key={list.id} list={list} />
+            {lists.map((list, index) => (
+              <React.Fragment key={list.id}>
+                <ListCard list={list} />
+                {/* Banner a cada 6 listas */}
+                {(index + 1) % 6 === 0 && (
+                  <div className="md:col-span-2 lg:col-span-3">
+                    <AdBanner className="my-4" />
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
         )}
+
+        {/* Banner fixo no final */}
+        <div className="mt-8">
+          <AdBanner />
+        </div>
       </div>
     </div>
   );
