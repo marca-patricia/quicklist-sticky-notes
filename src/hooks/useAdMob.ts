@@ -7,9 +7,9 @@ export const useAdMob = () => {
 
   // Seus IDs reais do AdMob
   const AD_UNIT_IDS = {
-    banner: 'ca-app-pub-8706315446837033/9648930704', // Seu ID real
-    interstitial: 'ca-app-pub-8706315446837033/1234567890', // Você precisa criar este
-    reward: 'ca-app-pub-8706315446837033/0987654321' // Você precisa criar este
+    banner: 'ca-app-pub-8706315446837033/9648930704', // Banner ID
+    interstitial: 'ca-app-pub-8706315446837033/9212966379', // Intersticial ID
+    reward: 'ca-app-pub-8706315446837033/1061377136' // Reward ID
   };
 
   const initializeAdMob = async () => {
@@ -81,7 +81,7 @@ export const useAdMob = () => {
       await AdMob.prepareRewardVideoAd(options);
       const result = await AdMob.showRewardVideoAd();
       
-      if (result && result.reward) {
+      if (result && result.rewarded) {
         console.log('Usuário ganhou recompensa!');
         return true;
       }
