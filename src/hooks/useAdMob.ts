@@ -1,5 +1,5 @@
 
-import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, InterstitialAdPluginOptions, RewardAdOptions } from '@capacitor-community/admob';
+import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, RewardAdOptions } from '@capacitor-community/admob';
 import { useEffect, useState } from 'react';
 
 export const useAdMob = () => {
@@ -56,7 +56,7 @@ export const useAdMob = () => {
     if (!isInitialized) return;
 
     try {
-      const options: InterstitialAdPluginOptions = {
+      const options = {
         adId: AD_UNIT_IDS.interstitial,
         isTesting: false // Produção
       };
@@ -81,7 +81,7 @@ export const useAdMob = () => {
       await AdMob.prepareRewardVideoAd(options);
       const result = await AdMob.showRewardVideoAd();
       
-      if (result && result.rewarded) {
+      if (result && result.reward) {
         console.log('Usuário ganhou recompensa!');
         return true;
       }
