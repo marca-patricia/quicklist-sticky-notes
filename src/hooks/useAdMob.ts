@@ -1,23 +1,22 @@
 
-import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, InterstitialAdOptions, RewardAdOptions } from '@capacitor-community/admob';
+import { AdMob, BannerAdOptions, BannerAdSize, BannerAdPosition, InterstitialAdPluginOptions, RewardAdOptions } from '@capacitor-community/admob';
 import { useEffect, useState } from 'react';
 
 export const useAdMob = () => {
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // IDs de teste - SUBSTITUA pelos seus IDs reais do AdMob
+  // Seus IDs reais do AdMob
   const AD_UNIT_IDS = {
-    banner: 'ca-app-pub-3940256099942544/6300978111', // ID de teste
-    interstitial: 'ca-app-pub-3940256099942544/1033173712', // ID de teste
-    reward: 'ca-app-pub-3940256099942544/5224354917' // ID de teste
+    banner: 'ca-app-pub-8706315446837033/9648930704', // Seu ID real
+    interstitial: 'ca-app-pub-8706315446837033/1234567890', // Você precisa criar este
+    reward: 'ca-app-pub-8706315446837033/0987654321' // Você precisa criar este
   };
 
   const initializeAdMob = async () => {
     try {
       await AdMob.initialize({
-        requestTrackingAuthorization: true,
-        testingDevices: ['YOUR_DEVICE_ID'], // Adicione seu device ID para testes
-        initializeForTesting: true
+        testingDevices: [], // Remove IDs de teste para produção
+        initializeForTesting: false // Mudado para produção
       });
       setIsInitialized(true);
       console.log('AdMob inicializado com sucesso!');
@@ -35,7 +34,7 @@ export const useAdMob = () => {
         adSize: BannerAdSize.BANNER,
         position: BannerAdPosition.BOTTOM_CENTER,
         margin: 0,
-        isTesting: true // Mude para false em produção
+        isTesting: false // Produção
       };
       
       await AdMob.showBanner(options);
@@ -57,9 +56,9 @@ export const useAdMob = () => {
     if (!isInitialized) return;
 
     try {
-      const options: InterstitialAdOptions = {
+      const options: InterstitialAdPluginOptions = {
         adId: AD_UNIT_IDS.interstitial,
-        isTesting: true // Mude para false em produção
+        isTesting: false // Produção
       };
 
       await AdMob.prepareInterstitial(options);
@@ -76,13 +75,13 @@ export const useAdMob = () => {
     try {
       const options: RewardAdOptions = {
         adId: AD_UNIT_IDS.reward,
-        isTesting: true // Mude para false em produção
+        isTesting: false // Produção
       };
 
       await AdMob.prepareRewardVideoAd(options);
       const result = await AdMob.showRewardVideoAd();
       
-      if (result.rewarded) {
+      if (result && result.reward) {
         console.log('Usuário ganhou recompensa!');
         return true;
       }

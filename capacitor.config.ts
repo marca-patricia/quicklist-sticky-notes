@@ -24,8 +24,8 @@ const config: CapacitorConfig = {
       appendUserAgent: "QuickList/1.0"
     },
     AdMob: {
-      appId: "ca-app-pub-3940256099942544~3347511713", // Substitua pelo seu App ID real
-      testingDevices: ["YOUR_DEVICE_ID"]
+      appId: "ca-app-pub-8706315446837033~1234567890", // Você precisa obter o App ID completo no AdMob
+      testingDevices: [] // Removido para produção
     }
   }
 };
