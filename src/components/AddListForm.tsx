@@ -23,9 +23,6 @@ export const AddListForm: React.FC = () => {
         description: t('listCreated'),
         duration: 2000,
       });
-
-      // Disparar evento para mostrar anúncio
-      window.dispatchEvent(new CustomEvent('listCreated'));
     }
   };
 
