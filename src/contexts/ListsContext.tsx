@@ -1,11 +1,13 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { Category } from '@/components/CategoryManager';
 
 export interface ListItem {
   id: string;
   text: string;
   completed: boolean;
   createdAt: Date;
+  categories?: string[];
 }
 
 export interface TodoList {
@@ -14,6 +16,7 @@ export interface TodoList {
   color: string;
   items: ListItem[];
   createdAt: Date;
+  categories?: Category[];
 }
 
 interface ListsContextType {
@@ -21,10 +24,13 @@ interface ListsContextType {
   addList: (title: string) => void;
   deleteList: (listId: string) => void;
   updateList: (listId: string, updates: Partial<TodoList>) => void;
-  addItemToList: (listId: string, text: string) => void;
+  addItemToList: (listId: string, text: string, categories?: string[]) => void;
   toggleItemInList: (listId: string, itemId: string) => void;
   deleteItemFromList: (listId: string, itemId: string) => void;
+  updateItemInList: (listId: string, itemId: string, updates: Partial<ListItem>) => void;
   getListById: (listId: string) => TodoList | undefined;
+  addCategoryToList: (listId: string, category: Omit<Category, 'id'>) => void;
+  deleteCategoryFromList: (listId: string, categoryId: string) => void;
 }
 
 const ListsContext = createContext<ListsContextType | undefined>(undefined);
@@ -93,6 +99,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       title,
       color: notepadColors[Math.floor(Math.random() * notepadColors.length)],
       items: [],
+      categories: [],
       createdAt: new Date()
     };
     setLists(prev => [newList, ...prev]);
@@ -108,11 +115,12 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     ));
   };
 
-  const addItemToList = (listId: string, text: string) => {
+  const addItemToList = (listId: string, text: string, categories: string[] = []) => {
     const newItem: ListItem = {
       id: Date.now().toString(),
       text,
       completed: false,
+      categories,
       createdAt: new Date()
     };
     
@@ -144,6 +152,47 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     ));
   };
 
+  const updateItemInList = (listId: string, itemId: string, updates: Partial<ListItem>) => {
+    setLists(prev => prev.map(list => 
+      list.id === listId 
+        ? {
+            ...list,
+            items: list.items.map(item => 
+              item.id === itemId ? { ...item, ...updates } : item
+            )
+          }
+        : list
+    ));
+  };
+
+  const addCategoryToList = (listId: string, category: Omit<Category, 'id'>) => {
+    const newCategory: Category = {
+      id: Date.now().toString(),
+      ...category
+    };
+    
+    setLists(prev => prev.map(list => 
+      list.id === listId 
+        ? { ...list, categories: [...(list.categories || []), newCategory] }
+        : list
+    ));
+  };
+
+  const deleteCategoryFromList = (listId: string, categoryId: string) => {
+    setLists(prev => prev.map(list => 
+      list.id === listId 
+        ? { 
+            ...list, 
+            categories: (list.categories || []).filter(cat => cat.id !== categoryId),
+            items: list.items.map(item => ({
+              ...item,
+              categories: (item.categories || []).filter(catId => catId !== categoryId)
+            }))
+          }
+        : list
+    ));
+  };
+
   const getListById = (listId: string) => {
     return lists.find(list => list.id === listId);
   };
@@ -157,7 +206,10 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       addItemToList,
       toggleItemInList,
       deleteItemFromList,
-      getListById
+      updateItemInList,
+      getListById,
+      addCategoryToList,
+      deleteCategoryFromList
     }}>
       {children}
     </ListsContext.Provider>
