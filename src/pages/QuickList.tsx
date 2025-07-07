@@ -1,43 +1,41 @@
+
 import React, { useState, useEffect } from 'react';
 import { AddItemForm } from '@/components/AddItemForm';
 import { QuickListItem } from '@/components/QuickListItem';
 import { QuickListStats } from '@/components/QuickListStats';
-import { EmptyState } from '@/components/EmptyState';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { SearchAndFilter } from '@/components/SearchAndFilter';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
-import quicklistIcon from '@/assets/quicklist-icon.png';
 
-interface ListItem {
+interface Item {
   id: string;
   text: string;
   completed: boolean;
-  color: string;
   createdAt: Date;
+  categories?: string[];
+  dueDate?: Date;
+  priority?: 'low' | 'medium' | 'high';
 }
 
-const notepadColors = [
-  'border-l-notepad-yellow',
-  'border-l-notepad-pink', 
-  'border-l-notepad-blue',
-  'border-l-notepad-green',
-  'border-l-notepad-purple'
-];
-
 export const QuickList: React.FC = () => {
-  const [items, setItems] = useState<ListItem[]>([]);
   const { t } = useLanguage();
   const { toast } = useToast();
+  const [items, setItems] = useState<Item[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showCompleted, setShowCompleted] = useState(true);
+  const [sortBy, setSortBy] = useState<'recent' | 'alphabetical' | 'completed'>('recent');
 
-  // Load items from localStorage on mount
+  // Load items from localStorage
   useEffect(() => {
-    const saved = localStorage.getItem('quicklist-items');
-    if (saved) {
+    const savedItems = localStorage.getItem('quicklist-items');
+    if (savedItems) {
       try {
-        const parsed = JSON.parse(saved);
+        const parsed = JSON.parse(savedItems);
         setItems(parsed.map((item: any) => ({
           ...item,
-          createdAt: new Date(item.createdAt)
+          createdAt: new Date(item.createdAt),
+          dueDate: item.dueDate ? new Date(item.dueDate) : undefined
         })));
       } catch (error) {
         console.error('Error loading saved items:', error);
@@ -45,23 +43,24 @@ export const QuickList: React.FC = () => {
     }
   }, []);
 
-  // Save items to localStorage whenever items change
+  // Save items to localStorage
   useEffect(() => {
     localStorage.setItem('quicklist-items', JSON.stringify(items));
   }, [items]);
 
-  const addItem = (text: string) => {
-    const newItem: ListItem = {
+  const addItem = (text: string, categories?: string[], dueDate?: Date, priority?: 'low' | 'medium' | 'high') => {
+    const newItem: Item = {
       id: Date.now().toString(),
       text,
       completed: false,
-      color: notepadColors[Math.floor(Math.random() * notepadColors.length)],
+      categories,
+      dueDate,
+      priority,
       createdAt: new Date()
     };
     setItems(prev => [newItem, ...prev]);
-    
     toast({
-      description: "Item adicionado à lista!",
+      description: t('itemAdded'),
       duration: 2000,
     });
   };
@@ -74,108 +73,124 @@ export const QuickList: React.FC = () => {
 
   const deleteItem = (id: string) => {
     setItems(prev => prev.filter(item => item.id !== id));
-    
     toast({
-      description: "Item removido da lista!",
+      description: t('itemRemoved'),
       duration: 2000,
     });
   };
+
+  // Filter and sort items
+  const filteredItems = items.filter(item => {
+    const matchesSearch = item.text.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCompletedFilter = showCompleted || !item.completed;
+    return matchesSearch && matchesCompletedFilter;
+  });
+
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    switch (sortBy) {
+      case 'alphabetical':
+        return a.text.localeCompare(b.text);
+      case 'completed':
+        return Number(a.completed) - Number(b.completed);
+      case 'recent':
+      default:
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    }
+  });
 
   const shareList = async () => {
     const listText = items.map(item => 
       `${item.completed ? t('completedItem') : t('pendingItem')} ${item.text}`
     ).join('\n');
     
-    const shareText = t('sharedText') + listText;
+    const shareText = `QuickList:\n\n${listText}`;
     
     if (navigator.share && navigator.canShare({ text: shareText })) {
       try {
         await navigator.share({ text: shareText });
       } catch (error) {
-        // Fallback to clipboard
         await navigator.clipboard.writeText(shareText);
         toast({
-          description: "Lista copiada para área de transferência!",
+          description: t('listCopied'),
           duration: 3000,
         });
       }
     } else {
-      // Fallback to clipboard
       await navigator.clipboard.writeText(shareText);
       toast({
-        description: "Lista copiada para área de transferência!",
+        description: t('listCopied'),
         duration: 3000,
       });
     }
   };
 
   const clearCompleted = () => {
-    const completedCount = items.filter(item => item.completed).length;
+    const completedItems = items.filter(item => item.completed);
     setItems(prev => prev.filter(item => !item.completed));
     
     toast({
-      description: `${completedCount} itens concluídos removidos!`,
+      description: `${completedItems.length} ${t('completedItemsRemoved')}`,
       duration: 2000,
     });
   };
 
-  const completedItems = items.filter(item => item.completed).length;
+  const completedItems = items.filter(item => item.completed);
 
   return (
     <div className="min-h-screen bg-background">
       <LanguageSwitch />
       
       <div className="container max-w-2xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <img 
-              src={quicklistIcon} 
-              alt="QuickList" 
-              className="w-12 h-12" 
-            />
-            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              {t('appTitle')}
-            </h1>
-          </div>
-          <p className="text-muted-foreground">
-            Sua lista de tarefas simples e eficiente
-          </p>
-        </div>
+        <h1 className="text-3xl font-bold mb-6 text-center bg-gradient-primary bg-clip-text text-transparent">
+          QuickList
+        </h1>
 
-        {/* Add Item Form */}
         <div className="mb-6">
           <AddItemForm onAdd={addItem} />
         </div>
 
-        {/* Stats */}
+        <div className="mb-6">
+          <SearchAndFilter
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            showCompleted={showCompleted}
+            onShowCompletedChange={setShowCompleted}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
+          />
+        </div>
+
         <div className="mb-6">
           <QuickListStats
             totalItems={items.length}
-            completedItems={completedItems}
+            completedItems={completedItems.length}
             onShare={shareList}
             onClearCompleted={clearCompleted}
           />
         </div>
 
-        {/* Items List */}
         <div className="space-y-3">
-          {items.length === 0 ? (
-            <EmptyState />
-          ) : (
-            items.map(item => (
-              <QuickListItem
-                key={item.id}
-                id={item.id}
-                text={item.text}
-                completed={item.completed}
-                color={item.color}
-                onToggle={toggleItem}
-                onDelete={deleteItem}
-              />
-            ))
-          )}
+          {sortedItems.map(item => (
+            <QuickListItem
+              key={item.id}
+              id={item.id}
+              text={item.text}
+              completed={item.completed}
+              categories={item.categories}
+              listId="default"
+              color="border-l-notepad-yellow"
+              onToggle={toggleItem}
+              onDelete={deleteItem}
+            />
+          ))}
         </div>
+
+        {items.length === 0 && (
+          <div className="text-center py-8 text-muted-foreground">
+            <p>{t('noItems')}</p>
+            <p>{t('addItemHere')}</p>
+          </div>
+        )}
       </div>
     </div>
   );
