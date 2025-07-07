@@ -5,20 +5,24 @@ import { AddItemForm } from '@/components/AddItemForm';
 import { QuickListItem } from '@/components/QuickListItem';
 import { QuickListStats } from '@/components/QuickListStats';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { SearchAndFilter } from '@/components/SearchAndFilter';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Calendar, Clock } from 'lucide-react';
 import quicklistIcon from '@/assets/quicklist-icon.png';
 
 export const ListDetail: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
   const { t } = useLanguage();
-  const { getListById, addItemToList, toggleItemInList, deleteItemFromList } = useLists();
+  const { getListById, addItemToList, toggleItemInList, deleteItemFromList, addCategoryToList, deleteCategoryFromList } = useLists();
   const { toast } = useToast();
   const [showCompleted, setShowCompleted] = React.useState(false);
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [showCompletedFilter, setShowCompletedFilter] = React.useState(true);
+  const [sortBy, setSortBy] = React.useState<'recent' | 'alphabetical' | 'completed'>('recent');
 
   const list = listId ? getListById(listId) : undefined;
 
@@ -38,8 +42,8 @@ export const ListDetail: React.FC = () => {
     );
   }
 
-  const addItem = (text: string) => {
-    addItemToList(list.id, text);
+  const addItem = (text: string, categories?: string[]) => {
+    addItemToList(list.id, text, categories);
     toast({
       description: t('itemAdded'),
       duration: 2000,
@@ -57,6 +61,25 @@ export const ListDetail: React.FC = () => {
       duration: 2000,
     });
   };
+
+  // Filter and sort items
+  const filteredItems = list.items.filter(item => {
+    const matchesSearch = item.text.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCompletedFilter = showCompletedFilter || !item.completed;
+    return matchesSearch && matchesCompletedFilter;
+  });
+
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    switch (sortBy) {
+      case 'alphabetical':
+        return a.text.localeCompare(b.text);
+      case 'completed':
+        return Number(a.completed) - Number(b.completed);
+      case 'recent':
+      default:
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    }
+  });
 
   const shareList = async () => {
     const listText = list.items.map(item => 
@@ -111,8 +134,16 @@ export const ListDetail: React.FC = () => {
     }
   };
 
-  const pendingItems = list.items.filter(item => !item.completed);
-  const completedItems = list.items.filter(item => item.completed);
+  const handleCategoryCreate = (category: Omit<import('@/components/CategoryManager').Category, 'id'>) => {
+    addCategoryToList(list.id, category);
+  };
+
+  const handleCategoryDelete = (categoryId: string) => {
+    deleteCategoryFromList(list.id, categoryId);
+  };
+
+  const pendingItems = sortedItems.filter(item => !item.completed);
+  const completedItems = sortedItems.filter(item => item.completed);
 
   return (
     <div className="min-h-screen bg-background">
@@ -157,14 +188,31 @@ export const ListDetail: React.FC = () => {
 
         {/* Add Item Form */}
         <div className="mb-6">
-          <AddItemForm onAdd={addItem} />
+          <AddItemForm 
+            onAdd={addItem} 
+            categories={list.categories} 
+            onCategoryCreate={handleCategoryCreate}
+            onCategoryDelete={handleCategoryDelete}
+          />
+        </div>
+
+        {/* Search and Filter */}
+        <div className="mb-6">
+          <SearchAndFilter
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            showCompleted={showCompletedFilter}
+            onShowCompletedChange={setShowCompletedFilter}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
+          />
         </div>
 
         {/* Stats */}
         <div className="mb-6">
           <QuickListStats
             totalItems={list.items.length}
-            completedItems={completedItems.length}
+            completedItems={list.items.filter(item => item.completed).length}
             onShare={shareList}
             onClearCompleted={clearCompleted}
           />
@@ -173,7 +221,8 @@ export const ListDetail: React.FC = () => {
         {/* Pending Items */}
         {pendingItems.length > 0 && (
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-foreground">
+            <h3 className="text-lg font-semibold mb-3 text-foreground flex items-center gap-2">
+              <Clock className="w-5 h-5" />
               {t('pending')} ({pendingItems.length})
             </h3>
             <div className="space-y-3">
@@ -183,6 +232,8 @@ export const ListDetail: React.FC = () => {
                   id={item.id}
                   text={item.text}
                   completed={item.completed}
+                  categories={item.categories}
+                  listId={list.id}
                   color={list.color}
                   onToggle={toggleItem}
                   onDelete={deleteItem}
@@ -200,7 +251,8 @@ export const ListDetail: React.FC = () => {
                 variant="ghost" 
                 className="w-full justify-between p-0 h-auto text-lg font-semibold mb-3 hover:bg-transparent"
               >
-                <span className="text-muted-foreground">
+                <span className="text-muted-foreground flex items-center gap-2">
+                  <Calendar className="w-5 h-5" />
                   {t('completed')} ({completedItems.length})
                 </span>
                 {showCompleted ? (
@@ -217,6 +269,8 @@ export const ListDetail: React.FC = () => {
                   id={item.id}
                   text={item.text}
                   completed={item.completed}
+                  categories={item.categories}
+                  listId={list.id}
                   color={list.color}
                   onToggle={toggleItem}
                   onDelete={deleteItem}

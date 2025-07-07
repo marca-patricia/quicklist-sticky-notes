@@ -3,6 +3,7 @@ import React from 'react';
 import { AddListForm } from '@/components/AddListForm';
 import { ListCard } from '@/components/ListCard';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { EmptyState } from '@/components/EmptyState';
 import { InstallPrompt } from '@/components/InstallPrompt';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -15,7 +16,12 @@ export const ListsOverview: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <LanguageSwitch />
+      <div className="flex justify-between items-center p-4">
+        <div className="flex gap-2">
+          <LanguageSwitch />
+          <ThemeToggle />
+        </div>
+      </div>
       <InstallPrompt />
       
       <div className="container max-w-4xl mx-auto px-4 py-8">

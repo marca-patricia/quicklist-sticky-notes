@@ -8,6 +8,9 @@ export interface ListItem {
   completed: boolean;
   createdAt: Date;
   categories?: string[];
+  dueDate?: Date;
+  priority?: 'low' | 'medium' | 'high';
+  notes?: string;
 }
 
 export interface TodoList {
@@ -17,14 +20,15 @@ export interface TodoList {
   items: ListItem[];
   createdAt: Date;
   categories?: Category[];
+  description?: string;
 }
 
 interface ListsContextType {
   lists: TodoList[];
-  addList: (title: string) => void;
+  addList: (title: string, description?: string) => void;
   deleteList: (listId: string) => void;
   updateList: (listId: string, updates: Partial<TodoList>) => void;
-  addItemToList: (listId: string, text: string, categories?: string[]) => void;
+  addItemToList: (listId: string, text: string, categories?: string[], dueDate?: Date, priority?: 'low' | 'medium' | 'high') => void;
   toggleItemInList: (listId: string, itemId: string) => void;
   deleteItemFromList: (listId: string, itemId: string) => void;
   updateItemInList: (listId: string, itemId: string, updates: Partial<ListItem>) => void;
@@ -59,7 +63,8 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           createdAt: new Date(list.createdAt),
           items: list.items.map((item: any) => ({
             ...item,
-            createdAt: new Date(item.createdAt)
+            createdAt: new Date(item.createdAt),
+            dueDate: item.dueDate ? new Date(item.dueDate) : undefined
           }))
         })));
       } catch (error) {
@@ -93,10 +98,11 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     localStorage.setItem('quicklist-lists', JSON.stringify(lists));
   }, [lists]);
 
-  const addList = (title: string) => {
+  const addList = (title: string, description?: string) => {
     const newList: TodoList = {
       id: Date.now().toString(),
       title,
+      description,
       color: notepadColors[Math.floor(Math.random() * notepadColors.length)],
       items: [],
       categories: [],
@@ -115,12 +121,14 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     ));
   };
 
-  const addItemToList = (listId: string, text: string, categories: string[] = []) => {
+  const addItemToList = (listId: string, text: string, categories: string[] = [], dueDate?: Date, priority: 'low' | 'medium' | 'high' = 'medium') => {
     const newItem: ListItem = {
       id: Date.now().toString(),
       text,
       completed: false,
       categories,
+      dueDate,
+      priority,
       createdAt: new Date()
     };
     
