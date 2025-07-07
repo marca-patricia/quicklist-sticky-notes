@@ -175,29 +175,28 @@ export const ListTemplates: React.FC = () => {
   const { toast } = useToast();
 
   const createListFromTemplate = (template: Template) => {
-    // Create the list
     addList(template.name, template.description);
     
-    // Get the created list ID (it will be the most recent one)
-    setTimeout(() => {
-      const lists = JSON.parse(localStorage.getItem('quicklist-lists') || '[]');
-      const newList = lists[0]; // Most recent list
-      
-      if (newList && template.categories) {
-        // Add categories to the list
-        template.categories.forEach(category => {
-          addCategoryToList(newList.id, category);
-        });
-      }
-      
-      // Note: Items would need to be added manually by the user
-      // This keeps the template simple and allows users to customize
-    }, 100);
+    if (template.categories && template.categories.length > 0) {
+      // Get the newly created list
+      setTimeout(() => {
+        const lists = JSON.parse(localStorage.getItem('quicklist-lists') || '[]');
+        const newList = lists[0]; // The most recently added list
+        if (newList) {
+          template.categories!.forEach(category => {
+            addCategoryToList(newList.id, {
+              name: category.name,
+              color: category.color,
+              icon: '🏷️' // Default icon for template categories
+            });
+          });
+        }
+      }, 100);
+    }
     
     toast({
-      title: 'Template Aplicado!',
-      description: `Lista "${template.name}" criada com sucesso. Adicione as tarefas conforme necessário.`,
-      duration: 3000,
+      description: `Lista "${template.name}" criada com sucesso!`,
+      duration: 2000,
     });
   };
 

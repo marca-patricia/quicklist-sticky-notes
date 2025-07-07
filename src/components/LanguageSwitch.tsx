@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -11,10 +12,10 @@ export const LanguageSwitch: React.FC = () => {
 
   return (
     <Button
-      variant="language"
+      variant="ghost"
       size="sm"
       onClick={toggleLanguage}
-      className="fixed top-4 right-4 z-50 font-semibold"
+      className="font-semibold"
     >
       {language === 'pt' ? '🇺🇸 EN' : '🇧🇷 PT'}
     </Button>
