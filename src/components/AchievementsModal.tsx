@@ -17,7 +17,7 @@ export const AchievementsModal: React.FC = () => {
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="relative">
           <Trophy className="w-4 h-4 mr-2" />
-          <span className="hidden sm:inline">Conquistas</span>
+          <span className="hidden sm:inline">{t('achievements')}</span>
           <Badge variant="secondary" className="ml-2 px-1 text-xs">
             {getUnlockedCount()}/{achievements.length}
           </Badge>
@@ -27,7 +27,7 @@ export const AchievementsModal: React.FC = () => {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Award className="w-5 h-5" />
-            Suas Conquistas
+            {t('achievementsUnlocked')}
           </DialogTitle>
         </DialogHeader>
         

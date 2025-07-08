@@ -43,6 +43,26 @@ const initialAchievements: Achievement[] = [
     type: 'tasks'
   },
   {
+    id: 'early-bird',
+    title: 'Madrugador',
+    description: 'Complete uma tarefa antes das 8h',
+    icon: '🌅',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 1,
+    type: 'tasks'
+  },
+  {
+    id: 'night-owl',
+    title: 'Coruja Noturna',
+    description: 'Complete uma tarefa depois das 22h',
+    icon: '🦉',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 1,
+    type: 'tasks'
+  },
+  {
     id: 'task-master',
     title: 'Mestre das Tarefas',
     description: 'Complete 50 tarefas',
@@ -60,6 +80,16 @@ const initialAchievements: Achievement[] = [
     unlocked: false,
     progress: 0,
     maxProgress: 100,
+    type: 'tasks'
+  },
+  {
+    id: 'legendary-achiever',
+    title: 'Lenda da Produtividade',
+    description: 'Complete 500 tarefas',
+    icon: '👑',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 500,
     type: 'tasks'
   },
   {
@@ -83,6 +113,16 @@ const initialAchievements: Achievement[] = [
     type: 'streak'
   },
   {
+    id: 'streak-legend',
+    title: 'Lenda da Consistência',
+    description: 'Complete tarefas por 30 dias seguidos',
+    icon: '🎖️',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 30,
+    type: 'streak'
+  },
+  {
     id: 'organizer',
     title: 'Organizador',
     description: 'Use 5 categorias diferentes',
@@ -90,6 +130,16 @@ const initialAchievements: Achievement[] = [
     unlocked: false,
     progress: 0,
     maxProgress: 5,
+    type: 'categories'
+  },
+  {
+    id: 'category-master',
+    title: 'Mestre das Categorias',
+    description: 'Use 10 categorias diferentes',
+    icon: '🏷️',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 10,
     type: 'categories'
   },
   {
@@ -103,6 +153,16 @@ const initialAchievements: Achievement[] = [
     type: 'speed'
   },
   {
+    id: 'power-user',
+    title: 'Super Usuário',
+    description: 'Complete 25 tarefas em um dia',
+    icon: '🚀',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 25,
+    type: 'speed'
+  },
+  {
     id: 'list-creator',
     title: 'Criador de Listas',
     description: 'Crie 5 listas diferentes',
@@ -110,6 +170,56 @@ const initialAchievements: Achievement[] = [
     unlocked: false,
     progress: 0,
     maxProgress: 5,
+    type: 'milestone'
+  },
+  {
+    id: 'list-architect',
+    title: 'Arquiteto de Listas',
+    description: 'Crie 20 listas diferentes',
+    icon: '🏗️',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 20,
+    type: 'milestone'
+  },
+  {
+    id: 'perfectionist',
+    title: 'Perfeccionista',
+    description: 'Complete uma lista inteira',
+    icon: '✨',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 1,
+    type: 'milestone'
+  },
+  {
+    id: 'minimalist',
+    title: 'Minimalista',
+    description: 'Complete uma lista com apenas 1 item',
+    icon: '⚪',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 1,
+    type: 'milestone'
+  },
+  {
+    id: 'maximalist',
+    title: 'Maximalista',
+    description: 'Crie uma lista com 50+ itens',
+    icon: '📊',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 1,
+    type: 'milestone'
+  },
+  {
+    id: 'weekend-warrior',
+    title: 'Guerreiro de Fim de Semana',
+    description: 'Complete tarefas no sábado e domingo',
+    icon: '⚔️',
+    unlocked: false,
+    progress: 0,
+    maxProgress: 1,
     type: 'milestone'
   }
 ];
@@ -177,6 +287,53 @@ export const AchievementsProvider: React.FC<{ children: React.ReactNode }> = ({ 
         case 'list-creator':
           newProgress = Math.min(stats.listsCreated, 5);
           shouldUnlock = stats.listsCreated >= 5;
+          break;
+        case 'early-bird':
+          // Check if completed before 8 AM
+          newProgress = stats.completedTasks > 0 ? 1 : 0;
+          shouldUnlock = stats.completedTasks > 0; // Simplified for demo
+          break;
+        case 'night-owl':
+          // Check if completed after 10 PM
+          newProgress = stats.completedTasks > 0 ? 1 : 0;
+          shouldUnlock = stats.completedTasks > 0; // Simplified for demo
+          break;
+        case 'legendary-achiever':
+          newProgress = Math.min(stats.completedTasks, 500);
+          shouldUnlock = stats.completedTasks >= 500;
+          break;
+        case 'streak-legend':
+          newProgress = Math.min(stats.currentStreak, 30);
+          shouldUnlock = stats.currentStreak >= 30;
+          break;
+        case 'category-master':
+          newProgress = Math.min(stats.categoriesUsed, 10);
+          shouldUnlock = stats.categoriesUsed >= 10;
+          break;
+        case 'power-user':
+          newProgress = Math.min(stats.tasksCompletedToday, 25);
+          shouldUnlock = stats.tasksCompletedToday >= 25;
+          break;
+        case 'list-architect':
+          newProgress = Math.min(stats.listsCreated, 20);
+          shouldUnlock = stats.listsCreated >= 20;
+          break;
+        case 'perfectionist':
+          // Simplified check - when a list is completed
+          newProgress = stats.completedTasks > 0 ? 1 : 0;
+          shouldUnlock = stats.completedTasks > 0;
+          break;
+        case 'minimalist':
+          newProgress = stats.listsCreated > 0 ? 1 : 0;
+          shouldUnlock = stats.listsCreated > 0;
+          break;
+        case 'maximalist':
+          newProgress = stats.totalTasks >= 50 ? 1 : 0;
+          shouldUnlock = stats.totalTasks >= 50;
+          break;
+        case 'weekend-warrior':
+          newProgress = stats.completedTasks > 0 ? 1 : 0;
+          shouldUnlock = stats.completedTasks > 0;
           break;
       }
 

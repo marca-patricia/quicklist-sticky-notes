@@ -205,14 +205,14 @@ export const ListTemplates: React.FC = () => {
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <FileText className="w-4 h-4 mr-2" />
-          <span className="hidden sm:inline">Templates</span>
+          <span className="hidden sm:inline">{t('templates')}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <FileText className="w-5 h-5" />
-            Templates de Listas
+            {t('templates')}
           </DialogTitle>
         </DialogHeader>
         
@@ -264,7 +264,7 @@ export const ListTemplates: React.FC = () => {
                 className="w-full"
                 size="sm"
               >
-                Usar Template
+                {t('useTemplate')}
               </Button>
             </Card>
           ))}

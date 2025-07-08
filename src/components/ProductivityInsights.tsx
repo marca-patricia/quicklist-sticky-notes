@@ -99,14 +99,14 @@ export const ProductivityInsights: React.FC = () => {
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <BarChart3 className="w-4 h-4 mr-2" />
-          <span className="hidden sm:inline">Insights</span>
+          <span className="hidden sm:inline">{t('insights')}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <TrendingUp className="w-5 h-5" />
-            Insights de Produtividade
+            {t('productivityInsights')}
           </DialogTitle>
         </DialogHeader>
         
