@@ -9,50 +9,57 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* QuickList Original Design System */
+    /* QuickList Color System - Exact from reference */
     --background: 0 0% 98%;
-    --foreground: 0 0% 15%;
+    --foreground: 0 0% 16%; /* #2A2A2A */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 0 0% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 0 0% 16%;
 
-    /* Vibrant purple like in original images */
-    --primary: 280 100% 70%;
+    /* Header purple - #B685F0 */
+    --primary: 268 76% 73%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 280 20% 96%;
-    --secondary-foreground: 0 0% 15%;
+    --secondary: 268 20% 96%;
+    --secondary-foreground: 0 0% 16%;
 
     --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 50%;
+    --muted-foreground: 220 8% 41%; /* #6A6A6A */
 
-    --accent: 280 30% 92%;
-    --accent-foreground: 0 0% 15%;
+    --accent: 268 30% 92%;
+    --accent-foreground: 0 0% 16%;
 
-    --destructive: 0 84% 60%;
+    /* Delete button red - #F05A5A */
+    --destructive: 0 86% 65%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 90%;
     --input: 0 0% 96%;
-    --ring: 280 100% 70%;
+    --ring: 268 76% 73%;
 
-    /* Custom colors matching original images */
-    --notepad-yellow: 45 100% 85%;
-    --notepad-pink: 350 100% 90%;
-    --notepad-blue: 210 100% 85%;
-    --notepad-green: 120 50% 85%;
-    --notepad-purple: 280 80% 88%;
+    /* Exact app colors */
+    --header-purple: 268 76% 73%; /* #B685F0 */
+    --title-purple: 266 78% 67%; /* #B674ED */
+    --subtitle-gray: 220 8% 41%; /* #6A6A6A */
+    --text-dark: 0 0% 16%; /* #2A2A2A */
+    --strikethrough-lilac: 270 66% 73%; /* #C1A4F2 */
+    --share-purple: 268 71% 73%; /* #B88CF2 */
+    --delete-red: 0 86% 65%; /* #F05A5A */
+    --completed-green: 144 69% 58%; /* #4AD273 */
+    --notepad-yellow: 45 100% 67%; /* #FFD15B */
+    --coral-lines: 11 86% 69%; /* #F17D6E */
+    --shadow-blue: 225 38% 56%; /* #5D7EC9 */
     
-    /* Original-style gradients */
-    --gradient-notepad: linear-gradient(135deg, hsl(45 100% 75%), hsl(25 100% 80%));
-    --gradient-primary: linear-gradient(135deg, hsl(280 100% 70%), hsl(290 80% 75%));
+    /* Gradient: Yellow to Peach/Pink */
+    --gradient-primary: linear-gradient(135deg, hsl(49 100% 84%), hsl(5 84% 88%)); /* #FFF2AC to #F9C7C4 */
+    --gradient-notepad: linear-gradient(135deg, hsl(45 100% 67%), hsl(11 86% 69%));
     
     /* Softer shadows */
-    --shadow-soft: 0 2px 8px hsl(280 30% 50% / 0.08);
-    --shadow-notepad: 0 4px 16px hsl(280 30% 50% / 0.12);
+    --shadow-soft: 0 2px 8px hsl(225 38% 56% / 0.15);
+    --shadow-notepad: 0 4px 16px hsl(225 38% 56% / 0.2);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -60,13 +67,13 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 9%;
-    --sidebar-primary: 262 83% 58%;
+    --sidebar-foreground: 0 0% 16%;
+    --sidebar-primary: 268 76% 73%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 270 100% 95%;
-    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-accent: 268 30% 95%;
+    --sidebar-accent-foreground: 0 0% 16%;
     --sidebar-border: 0 0% 91%;
-    --sidebar-ring: 262 83% 58%;
+    --sidebar-ring: 268 76% 73%;
   }
 
   .dark {
