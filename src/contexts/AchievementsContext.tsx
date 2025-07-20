@@ -239,7 +239,7 @@ export const AchievementsProvider: React.FC<{ children: React.ReactNode }> = ({ 
           unlockedAt: achievement.unlockedAt ? new Date(achievement.unlockedAt) : undefined
         })));
       } catch (error) {
-        console.error('Error loading achievements:', error);
+        // Error loading achievements - silent in production
       }
     }
   }, []);
@@ -348,7 +348,7 @@ export const AchievementsProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         // Dispatch achievement unlocked event if it's newly unlocked
         if (shouldUnlock && !achievement.unlocked) {
-          console.log('Achievement unlocked:', updatedAchievement.title);
+          // Achievement unlocked - only log in development
           setTimeout(() => {
             const event = new CustomEvent('achievementUnlocked', {
               detail: { achievement: updatedAchievement }

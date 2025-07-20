@@ -3,19 +3,25 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>QuickList - Lista de Tarefas Simples</title>
-    <meta name="description" content="QuickList - Sua lista de tarefas simples, bilíngue e offline. Organize suas tarefas de forma rápida e eficiente." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    <title>QuickList - Lista de Tarefas Simples e Offline</title>
+    <meta name="description" content="QuickList - Sua lista de tarefas simples, bilíngue e offline. Organize suas tarefas de forma rápida e eficiente. PWA com sincronização e achievements." />
     <meta name="author" content="QuickList App" />
-    <meta name="keywords" content="lista, tarefas, notas, produtividade, offline, bilíngue" />
+    <meta name="keywords" content="lista, tarefas, notas, produtividade, offline, bilíngue, pwa, app, achievements, sincronização" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+    <link rel="canonical" href="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com" />
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#8B5CF6" />
+    <meta name="theme-color" content="#B674ED" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="QuickList" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="QuickList" />
+    <meta name="msapplication-TileColor" content="#B674ED" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
 
     <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" href="/src/assets/quicklist-icon.png" />
@@ -27,26 +33,32 @@
     <link rel="shortcut icon" href="/src/assets/quicklist-icon.png" type="image/png" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="QuickList - Lista de Tarefas Simples" />
-    <meta property="og:description" content="QuickList - Sua lista de tarefas simples, bilíngue e offline. Organize suas tarefas de forma rápida e eficiente." />
+    <meta property="og:title" content="QuickList - Lista de Tarefas Simples e Offline" />
+    <meta property="og:description" content="Organize suas tarefas com o QuickList - App PWA bilíngue, offline, com achievements e sincronização automática." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com" />
+    <meta property="og:image" content="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com/src/assets/quicklist-icon.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="QuickList" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:title" content="QuickList - Lista de Tarefas Simples" />
+    <meta name="twitter:description" content="App PWA bilíngue e offline para organizar suas tarefas com achievements e sincronização automática." />
+    <meta name="twitter:image" content="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com/src/assets/quicklist-icon.png" />
 
     <script>
-      // Registrar Service Worker
+      // Registrar Service Worker - silently in production
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
+            .then(() => {
+              // SW registered successfully - silent in production
             })
-            .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
+            .catch(() => {
+              // SW registration failed - silent in production
             });
         });
       }

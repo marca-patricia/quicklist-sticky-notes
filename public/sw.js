@@ -14,11 +14,9 @@ const urlsToCache = [
 
 // Install Service Worker
 self.addEventListener('install', (event) => {
-  console.log('Service Worker installing...');
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
-        console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
       .then(() => {
@@ -29,13 +27,11 @@ self.addEventListener('install', (event) => {
 
 // Activate Service Worker
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker activating...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
-            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -116,8 +112,6 @@ self.addEventListener('fetch', (event) => {
 
 // Background Sync for offline actions
 self.addEventListener('sync', (event) => {
-  console.log('Background sync triggered:', event.tag);
-  
   if (event.tag === 'quicklist-sync') {
     event.waitUntil(syncQuicklistData());
   }
@@ -125,8 +119,6 @@ self.addEventListener('sync', (event) => {
 
 // Push notifications
 self.addEventListener('push', (event) => {
-  console.log('Push notification received:', event);
-  
   const options = {
     body: event.data ? event.data.text() : 'Nova notificação do QuickList',
     icon: '/assets/quicklist-icon.png',
@@ -157,8 +149,6 @@ self.addEventListener('push', (event) => {
 
 // Notification click handling
 self.addEventListener('notificationclick', (event) => {
-  console.log('Notification click received.');
-
   event.notification.close();
 
   if (event.action === 'explore') {
@@ -171,23 +161,16 @@ self.addEventListener('notificationclick', (event) => {
 // Sync QuickList data when back online
 async function syncQuicklistData() {
   try {
-    console.log('Syncing QuickList data...');
-    
-    // In a real app, this would sync with your backend
-    // For now, we'll just log the sync attempt
     const pendingActions = JSON.parse(localStorage.getItem('quicklist-pending-actions') || '[]');
     
     if (pendingActions.length > 0) {
-      console.log(`Syncing ${pendingActions.length} pending actions`);
       // Simulate API calls
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Clear pending actions after successful sync
       localStorage.removeItem('quicklist-pending-actions');
-      console.log('Sync completed successfully');
     }
   } catch (error) {
-    console.error('Sync failed:', error);
     throw error;
   }
 }

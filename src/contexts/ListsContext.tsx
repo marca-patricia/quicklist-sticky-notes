@@ -72,7 +72,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           }))
         })));
       } catch (error) {
-        console.error('Error loading saved lists:', error);
+        // Error loading saved lists - silent in production
       }
     } else if (oldItems) {
       // Migrate old single list data
@@ -92,7 +92,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           setLists([migratedList]);
         }
       } catch (error) {
-        console.error('Error migrating old data:', error);
+        // Error migrating old data - silent in production
       }
     }
   }, []);

@@ -83,7 +83,7 @@ export const ListsOverview: React.FC = () => {
   React.useEffect(() => {
     if (!hasPermission) {
       // Don't auto-request, let user decide
-      console.log('Notifications not enabled. User can enable in settings.');
+      // Notifications not enabled - silent in production
     }
   }, [hasPermission]);
 
