@@ -123,7 +123,7 @@ All colors MUST be HSL.
   }
 
   body {
-    background: #E8D5F5 !important; /* Fundo roxo suave como nas imagens */
+    background: #F0E8F8 !important; /* Fundo roxo mais claro */
     color: hsl(var(--foreground));
   }
 }

@@ -72,7 +72,7 @@ export const ListsOverview: React.FC = () => {
   }, [hasPermission]);
 
   return (
-    <div className="min-h-screen" style={{ background: '#E8D5F5' }}>
+    <div className="min-h-screen" style={{ background: '#F0E8F8' }}>
       {/* Enhanced Header */}
       <header className="sticky top-0 z-40 shadow-soft border-b border-white/20" style={{ background: 'linear-gradient(135deg, #FFF2AC, #F9C7C4)' }}>
         <div className="container max-w-6xl mx-auto px-4 py-4">

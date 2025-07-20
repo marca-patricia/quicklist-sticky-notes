@@ -7,11 +7,12 @@ export const LanguageSwitch: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className="fixed top-4 left-4 z-50">
+    <div className="flex items-center">
       <Button
-        variant="language"
+        variant="ghost"
         size="sm"
         onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
+        className="bg-transparent hover:bg-white/20 text-gray-700 border-none"
       >
         {language === 'pt' ? '🇺🇸 EN' : '🇧🇷 PT'}
       </Button>
