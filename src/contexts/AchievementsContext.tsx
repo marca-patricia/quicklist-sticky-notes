@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useLanguage } from './LanguageContext';
 
 export interface Achievement {
   id: string;
@@ -32,11 +33,37 @@ interface UserStats {
 
 const AchievementsContext = createContext<AchievementsContextType | undefined>(undefined);
 
-const initialAchievements: Achievement[] = [
+// Mapping function from achievement ID to translation keys
+const getAchievementTranslationKeys = (id: string) => {
+  const keyMap: Record<string, { title: string; description: string }> = {
+    'first-task': { title: 'firstStep', description: 'firstStepDesc' },
+    'early-bird': { title: 'earlyBird', description: 'earlyBirdDesc' },
+    'night-owl': { title: 'nightOwl', description: 'nightOwlDesc' },
+    'task-master': { title: 'taskMaster', description: 'taskMasterDesc' },
+    'productivity-hero': { title: 'productivityHero', description: 'productivityHeroDesc' },
+    'legendary-achiever': { title: 'legendaryAchiever', description: 'legendaryAchieverDesc' },
+    'streak-starter': { title: 'streakStarter', description: 'streakStarterDesc' },
+    'streak-master': { title: 'streakMaster', description: 'streakMasterDesc' },
+    'streak-legend': { title: 'streakLegend', description: 'streakLegendDesc' },
+    'organizer': { title: 'organizer', description: 'organizerDesc' },
+    'category-master': { title: 'categoryMaster', description: 'categoryMasterDesc' },
+    'speed-demon': { title: 'speedDemon', description: 'speedDemonDesc' },
+    'power-user': { title: 'powerUser', description: 'powerUserDesc' },
+    'list-creator': { title: 'listCreator', description: 'listCreatorDesc' },
+    'list-architect': { title: 'listArchitect', description: 'listArchitectDesc' },
+    'perfectionist': { title: 'perfectionist', description: 'perfectionistDesc' },
+    'minimalist': { title: 'minimalist', description: 'minimalistDesc' },
+    'maximalist': { title: 'maximalist', description: 'maximalistDesc' },
+    'weekend-warrior': { title: 'weekendWarrior', description: 'weekendWarriorDesc' }
+  };
+  return keyMap[id] || { title: id, description: id };
+};
+
+const getInitialAchievements = (t: (key: string) => string): Achievement[] => [
   {
     id: 'first-task',
-    title: 'Primeiro Passo',
-    description: 'Complete sua primeira tarefa',
+    title: t('firstStep'),
+    description: t('firstStepDesc'),
     icon: '🎯',
     unlocked: false,
     progress: 0,
@@ -45,8 +72,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'early-bird',
-    title: 'Madrugador',
-    description: 'Complete uma tarefa antes das 8h',
+    title: t('earlyBird'),
+    description: t('earlyBirdDesc'),
     icon: '🌅',
     unlocked: false,
     progress: 0,
@@ -55,8 +82,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'night-owl',
-    title: 'Coruja Noturna',
-    description: 'Complete uma tarefa depois das 22h',
+    title: t('nightOwl'),
+    description: t('nightOwlDesc'),
     icon: '🦉',
     unlocked: false,
     progress: 0,
@@ -65,8 +92,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'task-master',
-    title: 'Mestre das Tarefas',
-    description: 'Complete 50 tarefas',
+    title: t('taskMaster'),
+    description: t('taskMasterDesc'),
     icon: '⭐',
     unlocked: false,
     progress: 0,
@@ -75,8 +102,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'productivity-hero',
-    title: 'Herói da Produtividade',
-    description: 'Complete 100 tarefas',
+    title: t('productivityHero'),
+    description: t('productivityHeroDesc'),
     icon: '🏆',
     unlocked: false,
     progress: 0,
@@ -85,8 +112,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'legendary-achiever',
-    title: 'Lenda da Produtividade',
-    description: 'Complete 500 tarefas',
+    title: t('legendaryAchiever'),
+    description: t('legendaryAchieverDesc'),
     icon: '👑',
     unlocked: false,
     progress: 0,
@@ -95,8 +122,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'streak-starter',
-    title: 'Sequência Iniciada',
-    description: 'Complete tarefas por 3 dias seguidos',
+    title: t('streakStarter'),
+    description: t('streakStarterDesc'),
     icon: '🔥',
     unlocked: false,
     progress: 0,
@@ -105,8 +132,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'streak-master',
-    title: 'Mestre da Consistência',
-    description: 'Complete tarefas por 7 dias seguidos',
+    title: t('streakMaster'),
+    description: t('streakMasterDesc'),
     icon: '💪',
     unlocked: false,
     progress: 0,
@@ -115,8 +142,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'streak-legend',
-    title: 'Lenda da Consistência',
-    description: 'Complete tarefas por 30 dias seguidos',
+    title: t('streakLegend'),
+    description: t('streakLegendDesc'),
     icon: '🎖️',
     unlocked: false,
     progress: 0,
@@ -125,8 +152,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'organizer',
-    title: 'Organizador',
-    description: 'Use 5 categorias diferentes',
+    title: t('organizer'),
+    description: t('organizerDesc'),
     icon: '📝',
     unlocked: false,
     progress: 0,
@@ -135,8 +162,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'category-master',
-    title: 'Mestre das Categorias',
-    description: 'Use 10 categorias diferentes',
+    title: t('categoryMaster'),
+    description: t('categoryMasterDesc'),
     icon: '🏷️',
     unlocked: false,
     progress: 0,
@@ -145,8 +172,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'speed-demon',
-    title: 'Velocista',
-    description: 'Complete 10 tarefas em um dia',
+    title: t('speedDemon'),
+    description: t('speedDemonDesc'),
     icon: '⚡',
     unlocked: false,
     progress: 0,
@@ -155,8 +182,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'power-user',
-    title: 'Super Usuário',
-    description: 'Complete 25 tarefas em um dia',
+    title: t('powerUser'),
+    description: t('powerUserDesc'),
     icon: '🚀',
     unlocked: false,
     progress: 0,
@@ -165,8 +192,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'list-creator',
-    title: 'Criador de Listas',
-    description: 'Crie 5 listas diferentes',
+    title: t('listCreator'),
+    description: t('listCreatorDesc'),
     icon: '📋',
     unlocked: false,
     progress: 0,
@@ -175,8 +202,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'list-architect',
-    title: 'Arquiteto de Listas',
-    description: 'Crie 20 listas diferentes',
+    title: t('listArchitect'),
+    description: t('listArchitectDesc'),
     icon: '🏗️',
     unlocked: false,
     progress: 0,
@@ -185,8 +212,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'perfectionist',
-    title: 'Perfeccionista',
-    description: 'Complete uma lista inteira',
+    title: t('perfectionist'),
+    description: t('perfectionistDesc'),
     icon: '✨',
     unlocked: false,
     progress: 0,
@@ -195,8 +222,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'minimalist',
-    title: 'Minimalista',
-    description: 'Complete uma lista com apenas 1 item',
+    title: t('minimalist'),
+    description: t('minimalistDesc'),
     icon: '⚪',
     unlocked: false,
     progress: 0,
@@ -205,8 +232,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'maximalist',
-    title: 'Maximalista',
-    description: 'Crie uma lista com 50+ itens',
+    title: t('maximalist'),
+    description: t('maximalistDesc'),
     icon: '📊',
     unlocked: false,
     progress: 0,
@@ -215,8 +242,8 @@ const initialAchievements: Achievement[] = [
   },
   {
     id: 'weekend-warrior',
-    title: 'Guerreiro de Fim de Semana',
-    description: 'Complete tarefas no sábado e domingo',
+    title: t('weekendWarrior'),
+    description: t('weekendWarriorDesc'),
     icon: '⚔️',
     unlocked: false,
     progress: 0,
@@ -226,7 +253,22 @@ const initialAchievements: Achievement[] = [
 ];
 
 export const AchievementsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [achievements, setAchievements] = useState<Achievement[]>(initialAchievements);
+  const { t, language } = useLanguage();
+  const [achievements, setAchievements] = useState<Achievement[]>(() => getInitialAchievements(t));
+
+  // Update achievements when language changes
+  useEffect(() => {
+    setAchievements(prev => 
+      prev.map(achievement => {
+        const translationKeys = getAchievementTranslationKeys(achievement.id);
+        return {
+          ...achievement,
+          title: t(translationKeys.title),
+          description: t(translationKeys.description)
+        };
+      })
+    );
+  }, [language, t]);
 
   // Load achievements from localStorage
   useEffect(() => {
@@ -234,15 +276,21 @@ export const AchievementsProvider: React.FC<{ children: React.ReactNode }> = ({ 
     if (savedAchievements) {
       try {
         const parsed = JSON.parse(savedAchievements);
-        setAchievements(parsed.map((achievement: any) => ({
-          ...achievement,
-          unlockedAt: achievement.unlockedAt ? new Date(achievement.unlockedAt) : undefined
-        })));
+        const loadedAchievements = parsed.map((achievement: any) => {
+          const translationKeys = getAchievementTranslationKeys(achievement.id);
+          return {
+            ...achievement,
+            title: t(translationKeys.title),
+            description: t(translationKeys.description),
+            unlockedAt: achievement.unlockedAt ? new Date(achievement.unlockedAt) : undefined
+          };
+        });
+        setAchievements(loadedAchievements);
       } catch (error) {
         // Error loading achievements - silent in production
       }
     }
-  }, []);
+  }, [t]);
 
   // Save achievements to localStorage
   useEffect(() => {
