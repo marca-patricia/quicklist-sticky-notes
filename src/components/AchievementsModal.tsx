@@ -23,29 +23,6 @@ export const AchievementsModal: React.FC = () => {
   const [open, setOpen] = useState(false);
   const unlockedCount = getUnlockedCount();
 
-  // Simple achievements tracking using object instead of array
-  const simpleAchievements = {
-    firstStep: false,
-    taskMaster: false,
-    productivityHero: false,
-    streakStarter: false,
-    streakMaster: false,
-    organizer: false,
-    speedDemon: false,
-    listCreator: false
-  };
-
-  const achievementsList = [
-    { key: 'firstStep', requirement: 1 },
-    { key: 'taskMaster', requirement: 50 },
-    { key: 'productivityHero', requirement: 100 },
-    { key: 'streakStarter', requirement: 3 },
-    { key: 'streakMaster', requirement: 7 },
-    { key: 'organizer', requirement: 5 },
-    { key: 'speedDemon', requirement: 10 },
-    { key: 'listCreator', requirement: 5 }
-  ];
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -70,53 +47,80 @@ export const AchievementsModal: React.FC = () => {
             <Trophy className="w-5 h-5" />
             {t('achievements')}
             <span className="text-sm text-muted-foreground ml-2">
-              ({unlockedCount}/{achievementsList.length} {t('unlocked').toLowerCase()})
+              ({unlockedCount}/{achievements.length} {t('unlocked').toLowerCase()})
             </span>
           </DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          {achievementsList.map((achievement) => {
-            const isUnlocked = simpleAchievements[achievement.key as keyof typeof simpleAchievements];
-            const Icon = achievementIcons[achievement.key as keyof typeof achievementIcons];
-            
+          {achievements.map((achievement) => {
             return (
               <div 
-                key={achievement.key} 
-                className={`border rounded-lg p-4 transition-all ${
-                  isUnlocked 
-                    ? 'border-primary/50 bg-primary/5 shadow-md' 
+                key={achievement.id} 
+                className={`border rounded-lg p-4 transition-all animate-fade-in ${
+                  achievement.unlocked 
+                    ? 'border-primary/50 bg-primary/10 shadow-lg ring-1 ring-primary/20' 
                     : 'border-muted bg-muted/20'
                 }`}
               >
                 <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    {isUnlocked ? (
-                      <Icon className="w-6 h-6 text-primary" />
-                    ) : (
-                      <Lock className="w-6 h-6 text-muted-foreground" />
-                    )}
-                    <h3 className={`font-medium ${isUnlocked ? 'text-foreground' : 'text-muted-foreground'}`}>
-                      {t(achievement.key)}
-                    </h3>
-                  </div>
-                  {isUnlocked && (
-                    <div className="flex items-center gap-1 text-xs text-primary">
-                      <Trophy className="w-3 h-3" />
-                      {t('unlocked')}
+                  <div className="flex items-center gap-3">
+                    <div className={`text-2xl ${achievement.unlocked ? 'animate-scale-in' : 'opacity-50'}`}>
+                      {achievement.unlocked ? achievement.icon : '🔒'}
                     </div>
-                  )}
+                    <div>
+                      <h3 className={`font-semibold ${achievement.unlocked ? 'text-foreground' : 'text-muted-foreground'}`}>
+                        {achievement.title}
+                      </h3>
+                      {achievement.unlocked && achievement.unlockedAt && (
+                        <div className="flex items-center gap-1 text-xs text-primary mt-1">
+                          <Trophy className="w-3 h-3" />
+                          Desbloqueado!
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <p className={`text-sm ${isUnlocked ? 'text-foreground' : 'text-muted-foreground'}`}>
-                  {t(`${achievement.key}Desc`)}
+                <p className={`text-sm mb-3 ${achievement.unlocked ? 'text-foreground' : 'text-muted-foreground'}`}>
+                  {achievement.description}
                 </p>
+                
+                {/* Progress bar */}
+                <div className="w-full bg-muted rounded-full h-2">
+                  <div 
+                    className={`h-2 rounded-full transition-all duration-500 ${
+                      achievement.unlocked ? 'bg-primary' : 'bg-muted-foreground/30'
+                    }`}
+                    style={{ 
+                      width: `${Math.min((achievement.progress / achievement.maxProgress) * 100, 100)}%` 
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between items-center mt-2 text-xs">
+                  <span className={achievement.unlocked ? 'text-primary font-medium' : 'text-muted-foreground'}>
+                    {achievement.progress}/{achievement.maxProgress}
+                  </span>
+                  <span className={achievement.unlocked ? 'text-primary font-medium' : 'text-muted-foreground'}>
+                    {Math.round((achievement.progress / achievement.maxProgress) * 100)}%
+                  </span>
+                </div>
               </div>
             );
           })}
         </div>
+        
         {unlockedCount === 0 && (
           <div className="text-center py-8 text-muted-foreground">
             <Trophy className="w-12 h-12 mx-auto mb-3 opacity-50" />
             <p>Complete tarefas para desbloquear conquistas!</p>
+          </div>
+        )}
+        
+        {unlockedCount > 0 && (
+          <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
+            <h4 className="font-semibold text-primary mb-2">🎉 Parabéns!</h4>
+            <p className="text-sm text-foreground">
+              Você já desbloqueou {unlockedCount} conquista{unlockedCount > 1 ? 's' : ''}! Continue assim para desbloquear mais.
+            </p>
           </div>
         )}
       </DialogContent>
