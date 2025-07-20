@@ -157,6 +157,11 @@ All colors MUST be HSL.
     background: var(--gradient-header);
   }
   
+  /* Force header background */
+  .header-purple {
+    background: #B685F0 !important;
+  }
+  
   /* Glass morphism effect */
   .backdrop-blur-glass {
     backdrop-filter: blur(16px) saturate(180%);

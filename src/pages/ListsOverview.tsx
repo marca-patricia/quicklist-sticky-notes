@@ -74,7 +74,7 @@ export const ListsOverview: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
       {/* Enhanced Header */}
-      <header className="sticky top-0 z-40 bg-gradient-header shadow-soft border-b border-white/20">
+      <header className="sticky top-0 z-40 header-purple shadow-soft border-b border-white/20" style={{ background: '#B685F0' }}>
         <div className="container max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
