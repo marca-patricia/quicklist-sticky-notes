@@ -55,7 +55,7 @@ export const AchievementsModal: React.FC = () => {
                     </h3>
                     {achievement.unlocked && (
                       <Badge variant="secondary" className="text-xs">
-                        Desbloqueada
+                        {t('unlocked')}
                       </Badge>
                     )}
                   </div>
@@ -80,7 +80,7 @@ export const AchievementsModal: React.FC = () => {
                   
                   {achievement.unlocked && achievement.unlockedAt && (
                     <p className="text-xs text-muted-foreground">
-                      Desbloqueada em {achievement.unlockedAt.toLocaleDateString()}
+                      {t('unlockedOn')} {achievement.unlockedAt.toLocaleDateString()}
                     </p>
                   )}
                 </div>

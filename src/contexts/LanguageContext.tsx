@@ -104,7 +104,9 @@ const translations = {
     speedDemon: 'Velocista',
     speedDemonDesc: 'Complete 10 tarefas em um dia',
     listCreator: 'Criador de Listas',
-    listCreatorDesc: 'Crie 5 listas diferentes'
+    listCreatorDesc: 'Crie 5 listas diferentes',
+    unlocked: 'Desbloqueada',
+    unlockedOn: 'Desbloqueada em'
   },
   en: {
     appTitle: 'QuickList',
@@ -200,7 +202,9 @@ const translations = {
     speedDemon: 'Speed Demon',
     speedDemonDesc: 'Complete 10 tasks in one day',
     listCreator: 'List Creator',
-    listCreatorDesc: 'Create 5 different lists'
+    listCreatorDesc: 'Create 5 different lists',
+    unlocked: 'Unlocked',
+    unlockedOn: 'Unlocked on'
   }
 };
 
