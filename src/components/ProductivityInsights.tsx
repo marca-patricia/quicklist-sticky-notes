@@ -18,6 +18,7 @@ export const ProductivityInsights: React.FC = () => {
   );
   const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
   
+  // Tasks completed today
   const today = new Date();
   const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   const tasksToday = lists.reduce((acc, list) => {
@@ -28,6 +29,7 @@ export const ProductivityInsights: React.FC = () => {
     }).length;
   }, 0);
 
+  // Tasks this week
   const thisWeekStart = new Date(today);
   thisWeekStart.setDate(today.getDate() - today.getDay());
   thisWeekStart.setHours(0, 0, 0, 0);
@@ -40,6 +42,41 @@ export const ProductivityInsights: React.FC = () => {
     }).length;
   }, 0);
 
+  // Calculate current streak
+  let currentStreak = 0;
+  const todayDate = new Date();
+  for (let i = 0; i < 30; i++) {
+    const checkDate = new Date(todayDate);
+    checkDate.setDate(todayDate.getDate() - i);
+    checkDate.setHours(0, 0, 0, 0);
+    
+    const nextDay = new Date(checkDate);
+    nextDay.setDate(checkDate.getDate() + 1);
+    
+    const hasCompletedTask = lists.some(list => 
+      list.items.some(item => {
+        if (!item.completed) return false;
+        const itemDate = new Date(item.createdAt);
+        itemDate.setHours(0, 0, 0, 0);
+        return itemDate.getTime() === checkDate.getTime();
+      })
+    );
+    
+    if (hasCompletedTask) {
+      currentStreak++;
+    } else {
+      break;
+    }
+  }
+
+  // Active lists (lists with pending tasks)
+  const activeLists = lists.filter(list => 
+    list.items.some(item => !item.completed)
+  ).length;
+
+  // Average tasks per day (last 7 days)
+  const averageTasksPerDay = Math.round(tasksThisWeek / 7);
+
   const insights = [
     {
       icon: Target,
@@ -49,7 +86,7 @@ export const ProductivityInsights: React.FC = () => {
     },
     {
       icon: Award,
-      label: t('totalTasksCompleted'),
+      label: t('totalTasksCompleted'), 
       value: completedTasks,
       color: 'text-green-600'
     },
@@ -70,6 +107,12 @@ export const ProductivityInsights: React.FC = () => {
       label: t('thisWeek'),
       value: tasksThisWeek,
       color: 'text-indigo-600'
+    },
+    {
+      icon: Award,
+      label: t('currentStreak'),
+      value: `${currentStreak} ${t('days')}`,
+      color: 'text-red-600'
     }
   ];
 
