@@ -76,7 +76,12 @@ export const ListTemplates: React.FC = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button 
+          variant="ghost" 
+          size="sm"
+          className="bg-transparent hover:bg-white/20 border-none"
+          style={{ color: '#B674ED' }}
+        >
           <FileText className="w-4 h-4 mr-2" />
           <span className="hidden sm:inline">{t('templates')}</span>
         </Button>

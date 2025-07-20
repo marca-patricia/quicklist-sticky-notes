@@ -49,7 +49,12 @@ export const AchievementsModal: React.FC = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="relative">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="relative bg-transparent hover:bg-white/20 border-none"
+          style={{ color: '#B674ED' }}
+        >
           <Trophy className="w-4 h-4 mr-2" />
           <span className="hidden sm:inline">{t('achievements')}</span>
           {unlockedCount > 0 && (
