@@ -14,12 +14,16 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useAchievements } from '@/contexts/AchievementsContext';
 import { useNotifications } from '@/hooks/useNotifications';
+import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
   const { lists } = useLists();
   const { checkAchievements } = useAchievements();
   const { requestPermission, hasPermission } = useNotifications();
+  
+  // Activate achievement notifications
+  useAchievementNotifications();
 
   // Calculate user stats for achievements
   React.useEffect(() => {
