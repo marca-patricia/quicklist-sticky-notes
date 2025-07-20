@@ -38,22 +38,34 @@ export const ListsOverview: React.FC = () => {
       item.createdAt.toDateString() === today
     ).length;
 
-    // Calculate current streak
+    // Calculate current streak (check if tasks were completed on consecutive days)
     let currentStreak = 0;
     const today_date = new Date();
-    for (let i = 0; i < 30; i++) {
-      const checkDate = new Date(today_date);
-      checkDate.setDate(today_date.getDate() - i);
+    
+    // Check if user completed tasks today first
+    const todayString = today_date.toDateString();
+    const hasTasksToday = completedItems.some(item => 
+      new Date(item.createdAt).toDateString() === todayString
+    );
+    
+    if (hasTasksToday) {
+      currentStreak = 1;
       
-      const hasCompletedTask = completedItems.some(item => {
-        const itemDate = new Date(item.createdAt);
-        return itemDate.toDateString() === checkDate.toDateString();
-      });
-      
-      if (hasCompletedTask) {
-        currentStreak++;
-      } else {
-        break;
+      // Check previous days
+      for (let i = 1; i < 30; i++) {
+        const checkDate = new Date(today_date);
+        checkDate.setDate(today_date.getDate() - i);
+        
+        const hasCompletedTask = completedItems.some(item => {
+          const itemDate = new Date(item.createdAt);
+          return itemDate.toDateString() === checkDate.toDateString();
+        });
+        
+        if (hasCompletedTask) {
+          currentStreak++;
+        } else {
+          break;
+        }
       }
     }
 

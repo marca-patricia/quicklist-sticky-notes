@@ -250,101 +250,118 @@ export const AchievementsProvider: React.FC<{ children: React.ReactNode }> = ({ 
   }, [achievements]);
 
   const checkAchievements = (stats: UserStats) => {
-    setAchievements(prev => prev.map(achievement => {
-      if (achievement.unlocked) return achievement;
+    setAchievements(prev => {
+      const newAchievements = prev.map(achievement => {
+        if (achievement.unlocked) return achievement;
 
-      let newProgress = achievement.progress;
-      let shouldUnlock = false;
+        let newProgress = achievement.progress;
+        let shouldUnlock = false;
 
-      switch (achievement.id) {
-        case 'first-task':
-          newProgress = Math.min(stats.completedTasks, 1);
-          shouldUnlock = stats.completedTasks >= 1;
-          break;
-        case 'task-master':
-          newProgress = Math.min(stats.completedTasks, 50);
-          shouldUnlock = stats.completedTasks >= 50;
-          break;
-        case 'productivity-hero':
-          newProgress = Math.min(stats.completedTasks, 100);
-          shouldUnlock = stats.completedTasks >= 100;
-          break;
-        case 'streak-starter':
-          newProgress = Math.min(stats.currentStreak, 3);
-          shouldUnlock = stats.currentStreak >= 3;
-          break;
-        case 'streak-master':
-          newProgress = Math.min(stats.currentStreak, 7);
-          shouldUnlock = stats.currentStreak >= 7;
-          break;
-        case 'organizer':
-          newProgress = Math.min(stats.categoriesUsed, 5);
-          shouldUnlock = stats.categoriesUsed >= 5;
-          break;
-        case 'speed-demon':
-          newProgress = Math.min(stats.tasksCompletedToday, 10);
-          shouldUnlock = stats.tasksCompletedToday >= 10;
-          break;
-        case 'list-creator':
-          newProgress = Math.min(stats.listsCreated, 5);
-          shouldUnlock = stats.listsCreated >= 5;
-          break;
-        case 'early-bird':
-          // Check if completed before 8 AM
-          newProgress = stats.completedTasks > 0 ? 1 : 0;
-          shouldUnlock = stats.completedTasks > 0; // Simplified for demo
-          break;
-        case 'night-owl':
-          // Check if completed after 10 PM
-          newProgress = stats.completedTasks > 0 ? 1 : 0;
-          shouldUnlock = stats.completedTasks > 0; // Simplified for demo
-          break;
-        case 'legendary-achiever':
-          newProgress = Math.min(stats.completedTasks, 500);
-          shouldUnlock = stats.completedTasks >= 500;
-          break;
-        case 'streak-legend':
-          newProgress = Math.min(stats.currentStreak, 30);
-          shouldUnlock = stats.currentStreak >= 30;
-          break;
-        case 'category-master':
-          newProgress = Math.min(stats.categoriesUsed, 10);
-          shouldUnlock = stats.categoriesUsed >= 10;
-          break;
-        case 'power-user':
-          newProgress = Math.min(stats.tasksCompletedToday, 25);
-          shouldUnlock = stats.tasksCompletedToday >= 25;
-          break;
-        case 'list-architect':
-          newProgress = Math.min(stats.listsCreated, 20);
-          shouldUnlock = stats.listsCreated >= 20;
-          break;
-        case 'perfectionist':
-          // Simplified check - when a list is completed
-          newProgress = stats.completedTasks > 0 ? 1 : 0;
-          shouldUnlock = stats.completedTasks > 0;
-          break;
-        case 'minimalist':
-          newProgress = stats.listsCreated > 0 ? 1 : 0;
-          shouldUnlock = stats.listsCreated > 0;
-          break;
-        case 'maximalist':
-          newProgress = stats.totalTasks >= 50 ? 1 : 0;
-          shouldUnlock = stats.totalTasks >= 50;
-          break;
-        case 'weekend-warrior':
-          newProgress = stats.completedTasks > 0 ? 1 : 0;
-          shouldUnlock = stats.completedTasks > 0;
-          break;
-      }
+        switch (achievement.id) {
+          case 'first-task':
+            newProgress = Math.min(stats.completedTasks, 1);
+            shouldUnlock = stats.completedTasks >= 1;
+            break;
+          case 'task-master':
+            newProgress = Math.min(stats.completedTasks, 50);
+            shouldUnlock = stats.completedTasks >= 50;
+            break;
+          case 'productivity-hero':
+            newProgress = Math.min(stats.completedTasks, 100);
+            shouldUnlock = stats.completedTasks >= 100;
+            break;
+          case 'streak-starter':
+            newProgress = Math.min(stats.currentStreak, 3);
+            shouldUnlock = stats.currentStreak >= 3;
+            break;
+          case 'streak-master':
+            newProgress = Math.min(stats.currentStreak, 7);
+            shouldUnlock = stats.currentStreak >= 7;
+            break;
+          case 'organizer':
+            newProgress = Math.min(stats.categoriesUsed, 5);
+            shouldUnlock = stats.categoriesUsed >= 5;
+            break;
+          case 'speed-demon':
+            newProgress = Math.min(stats.tasksCompletedToday, 10);
+            shouldUnlock = stats.tasksCompletedToday >= 10;
+            break;
+          case 'list-creator':
+            newProgress = Math.min(stats.listsCreated, 5);
+            shouldUnlock = stats.listsCreated >= 5;
+            break;
+          case 'early-bird':
+            // Check if completed before 8 AM
+            newProgress = stats.completedTasks > 0 ? 1 : 0;
+            shouldUnlock = stats.completedTasks > 0; // Simplified for demo
+            break;
+          case 'night-owl':
+            // Check if completed after 10 PM
+            newProgress = stats.completedTasks > 0 ? 1 : 0;
+            shouldUnlock = stats.completedTasks > 0; // Simplified for demo
+            break;
+          case 'legendary-achiever':
+            newProgress = Math.min(stats.completedTasks, 500);
+            shouldUnlock = stats.completedTasks >= 500;
+            break;
+          case 'streak-legend':
+            newProgress = Math.min(stats.currentStreak, 30);
+            shouldUnlock = stats.currentStreak >= 30;
+            break;
+          case 'category-master':
+            newProgress = Math.min(stats.categoriesUsed, 10);
+            shouldUnlock = stats.categoriesUsed >= 10;
+            break;
+          case 'power-user':
+            newProgress = Math.min(stats.tasksCompletedToday, 25);
+            shouldUnlock = stats.tasksCompletedToday >= 25;
+            break;
+          case 'list-architect':
+            newProgress = Math.min(stats.listsCreated, 20);
+            shouldUnlock = stats.listsCreated >= 20;
+            break;
+          case 'perfectionist':
+            // Simplified check - when a list is completed
+            newProgress = stats.completedTasks > 0 ? 1 : 0;
+            shouldUnlock = stats.completedTasks > 0;
+            break;
+          case 'minimalist':
+            newProgress = stats.listsCreated > 0 ? 1 : 0;
+            shouldUnlock = stats.listsCreated > 0;
+            break;
+          case 'maximalist':
+            newProgress = stats.totalTasks >= 50 ? 1 : 0;
+            shouldUnlock = stats.totalTasks >= 50;
+            break;
+          case 'weekend-warrior':
+            newProgress = stats.completedTasks > 0 ? 1 : 0;
+            shouldUnlock = stats.completedTasks > 0;
+            break;
+        }
 
-      return {
-        ...achievement,
-        progress: newProgress,
-        unlocked: shouldUnlock,
-        unlockedAt: shouldUnlock && !achievement.unlocked ? new Date() : achievement.unlockedAt
-      };
-    }));
+        const updatedAchievement = {
+          ...achievement,
+          progress: newProgress,
+          unlocked: shouldUnlock,
+          unlockedAt: shouldUnlock && !achievement.unlocked ? new Date() : achievement.unlockedAt
+        };
+
+        // Dispatch achievement unlocked event if it's newly unlocked
+        if (shouldUnlock && !achievement.unlocked) {
+          console.log('Achievement unlocked:', updatedAchievement.title);
+          setTimeout(() => {
+            const event = new CustomEvent('achievementUnlocked', {
+              detail: { achievement: updatedAchievement }
+            });
+            window.dispatchEvent(event);
+          }, 100);
+        }
+
+        return updatedAchievement;
+      });
+
+      return newAchievements;
+    });
   };
 
   const unlockedAchievements = achievements.filter(a => a.unlocked);
