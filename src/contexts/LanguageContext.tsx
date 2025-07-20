@@ -73,6 +73,13 @@ const translations = {
     studyDesc: 'Organize seus materiais e tarefas acadêmicas',
     eventTemplate: 'Planejamento de Evento',
     eventDesc: 'Organize um evento ou festa',
+    // Template items
+    personalItems: 'Beber água, Exercitar-se, Ler livro, Meditar, Ligar para família',
+    workItems: 'Verificar emails, Reunião equipe, Relatório mensal, Revisar projeto, Planejar semana',
+    shoppingItems: 'Pão, Leite, Ovos, Frutas, Verduras, Carne, Arroz',
+    travelItems: 'Documentos, Passagem, Hotel, Seguro viagem, Medicamentos, Roupas',
+    studyItems: 'Ler capítulo 1, Fazer exercícios, Revisar anotações, Preparar apresentação',
+    eventItems: 'Local, Convidados, Decoração, Comida, Bebidas, Música, Lembranças',
     // Insights
     insights: 'Insights',
     productivityInsights: 'Insights de Produtividade',
@@ -171,6 +178,13 @@ const translations = {
     studyDesc: 'Organize your materials and academic tasks',
     eventTemplate: 'Event Planning',
     eventDesc: 'Organize an event or party',
+    // Template items
+    personalItems: 'Drink water, Exercise, Read book, Meditate, Call family',
+    workItems: 'Check emails, Team meeting, Monthly report, Review project, Plan week',
+    shoppingItems: 'Bread, Milk, Eggs, Fruits, Vegetables, Meat, Rice',
+    travelItems: 'Documents, Flight ticket, Hotel, Travel insurance, Medications, Clothes',
+    studyItems: 'Read chapter 1, Do exercises, Review notes, Prepare presentation',
+    eventItems: 'Venue, Guests, Decoration, Food, Drinks, Music, Souvenirs',
     // Insights
     insights: 'Insights',
     productivityInsights: 'Productivity Insights',

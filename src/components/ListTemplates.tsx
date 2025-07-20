@@ -12,42 +12,42 @@ const templates = [
     icon: User,
     key: 'personalTemplate',
     descKey: 'personalDesc',
-    items: ['Beber água', 'Exercitar-se', 'Ler livro', 'Meditar', 'Ligar para família']
+    itemsKey: 'personalItems'
   },
   {
     id: 'work',
     icon: Briefcase,
     key: 'workTemplate',
     descKey: 'workDesc',
-    items: ['Verificar emails', 'Reunião equipe', 'Relatório mensal', 'Revisar projeto', 'Planejar semana']
+    itemsKey: 'workItems'
   },
   {
     id: 'shopping',
     icon: ShoppingCart,
     key: 'shoppingTemplate',
     descKey: 'shoppingDesc',
-    items: ['Pão', 'Leite', 'Ovos', 'Frutas', 'Verduras', 'Carne', 'Arroz']
+    itemsKey: 'shoppingItems'
   },
   {
     id: 'travel',
     icon: Plane,
     key: 'travelTemplate',
     descKey: 'travelDesc',
-    items: ['Documentos', 'Passagem', 'Hotel', 'Seguro viagem', 'Medicamentos', 'Roupas']
+    itemsKey: 'travelItems'
   },
   {
     id: 'study',
     icon: BookOpen,
     key: 'studyTemplate',
     descKey: 'studyDesc',
-    items: ['Ler capítulo 1', 'Fazer exercícios', 'Revisar anotações', 'Preparar apresentação']
+    itemsKey: 'studyItems'
   },
   {
     id: 'event',
     icon: Calendar,
     key: 'eventTemplate',
     descKey: 'eventDesc',
-    items: ['Local', 'Convidados', 'Decoração', 'Comida', 'Bebidas', 'Música', 'Lembranças']
+    itemsKey: 'eventItems'
   }
 ];
 
@@ -61,11 +61,14 @@ export const ListTemplates: React.FC = () => {
     const listId = Date.now().toString();
     addList(t(template.key));
     
+    // Get translated items and convert to array
+    const translatedItems = t(template.itemsKey).split(', ');
+    
     // Add items to the list after a short delay to ensure the list is created
     setTimeout(() => {
-      template.items.forEach((item, index) => {
+      translatedItems.forEach((item, index) => {
         setTimeout(() => {
-          addItemToList(listId, item);
+          addItemToList(listId, item.trim());
         }, index * 50); // Stagger the item creation
       });
     }, 200);
@@ -114,8 +117,8 @@ export const ListTemplates: React.FC = () => {
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">{t(template.descKey)}</p>
                 <div className="text-xs text-muted-foreground">
-                  {template.items.slice(0, 3).join(', ')}
-                  {template.items.length > 3 && '...'}
+                  {t(template.itemsKey).split(', ').slice(0, 3).join(', ')}
+                  {t(template.itemsKey).split(', ').length > 3 && '...'}
                 </div>
               </div>
             );
