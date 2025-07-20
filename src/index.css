@@ -123,7 +123,7 @@ All colors MUST be HSL.
   }
 
   body {
-    background: #F0E8F8 !important; /* Fundo roxo mais claro */
+    background: #F8F8FC !important; /* Quase branco com toque roxo */
     color: hsl(var(--foreground));
   }
 }
