@@ -6,7 +6,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { useLists } from '@/contexts/ListsContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CheckCircle, Circle, ExternalLink, Plus, ChevronDown, ChevronRight } from 'lucide-react';
-import quicklistIcon from '@/assets/quicklist-icon.png';
+import { QuickListIcon } from '@/components/QuickListIcon';
 
 interface ListWidgetProps {
   listId: string;
@@ -22,7 +22,7 @@ export const ListWidget: React.FC<ListWidgetProps> = ({ listId }) => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="p-6 text-center bg-gradient-notepad shadow-notepad">
-          <img src={quicklistIcon} alt="QuickList" className="w-12 h-12 mx-auto mb-4" />
+          <QuickListIcon className="w-12 h-12 mx-auto mb-4" />
           <h2 className="text-lg font-semibold mb-2">{t('listNotFound')}</h2>
           <p className="text-sm text-muted-foreground mb-4">
             {t('language') === 'pt' ? 'Esta lista pode ter sido removida ou o link está incorreto.' : 'This list may have been removed or the link is incorrect.'}
@@ -50,7 +50,7 @@ export const ListWidget: React.FC<ListWidgetProps> = ({ listId }) => {
           {/* Header */}
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2 min-w-0 flex-1">
-              <img src={quicklistIcon} alt="QuickList" className="w-5 h-5 flex-shrink-0" />
+              <QuickListIcon className="w-5 h-5 flex-shrink-0" />
               <h1 className="font-bold text-base sm:text-lg truncate">{list.title}</h1>
               <span className="text-sm font-medium text-muted-foreground bg-secondary px-2 py-1 rounded flex-shrink-0">
                 {completedItems.length}/{list.items.length}

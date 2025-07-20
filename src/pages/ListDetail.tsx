@@ -12,7 +12,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Calendar, Clock } from 'lucide-react';
-import quicklistIcon from '@/assets/quicklist-icon.png';
+import { QuickListIcon } from '@/components/QuickListIcon';
 
 export const ListDetail: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
@@ -161,11 +161,7 @@ export const ListDetail: React.FC = () => {
           
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 flex-1 min-w-0">
-              <img 
-                src={quicklistIcon} 
-                alt="QuickList" 
-                className="w-8 h-8 flex-shrink-0" 
-              />
+              <QuickListIcon className="w-8 h-8 flex-shrink-0" />
               <h1 className={`text-2xl font-bold border-l-4 ${list.color} pl-3 truncate`}>
                 {list.title}
               </h1>
