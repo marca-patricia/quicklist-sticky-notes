@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { AddListForm } from '@/components/AddListForm';
 import { ListCard } from '@/components/ListCard';
@@ -10,11 +9,11 @@ import { AchievementsModal } from '@/components/AchievementsModal';
 import { ProductivityInsights } from '@/components/ProductivityInsights';
 import { ListTemplates } from '@/components/ListTemplates';
 import { OfflineStatus } from '@/components/OfflineStatus';
+import { QuickListIcon } from '@/components/QuickListIcon';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useAchievements } from '@/contexts/AchievementsContext';
 import { useNotifications } from '@/hooks/useNotifications';
-import quicklistIcon from '@/assets/quicklist-icon.png';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
@@ -91,11 +90,7 @@ export const ListsOverview: React.FC = () => {
                 onClick={() => window.location.reload()}
                 className="flex items-center gap-3 hover:opacity-80 transition-opacity"
               >
-                <img 
-                  src={quicklistIcon} 
-                  alt="QuickList" 
-                  className="w-8 h-8" 
-                />
+                <QuickListIcon className="w-8 h-8" />
                 <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                   {t('appTitle')}
                 </span>
@@ -121,11 +116,7 @@ export const ListsOverview: React.FC = () => {
             onClick={() => window.location.reload()}
             className="flex items-center justify-center gap-4 mb-6 sm:hidden hover:opacity-80 transition-opacity"
           >
-            <img 
-              src={quicklistIcon} 
-              alt="QuickList" 
-              className="w-16 h-16 drop-shadow-lg" 
-            />
+            <QuickListIcon className="w-16 h-16 drop-shadow-lg" />
             <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
               {t('appTitle')}
             </h1>

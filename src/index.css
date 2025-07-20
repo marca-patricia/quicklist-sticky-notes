@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,50 +9,50 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* QuickList Design System - Clean & Colorful */
-    --background: 248 50% 98%;
-    --foreground: 235 20% 15%;
+    /* QuickList Design System - Professional Blue/Purple */
+    --background: 0 0% 100%;
+    --foreground: 220 14% 35%;
 
     --card: 0 0% 100%;
-    --card-foreground: 235 20% 15%;
+    --card-foreground: 220 14% 35%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 235 20% 15%;
+    --popover-foreground: 220 14% 35%;
 
-    /* Colorful notepad theme */
-    --primary: 260 100% 80%;
+    /* Professional blue/purple theme */
+    --primary: 220 14% 35%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 197 71% 92%;
-    --secondary-foreground: 235 20% 15%;
+    --secondary: 225 71% 92%;
+    --secondary-foreground: 220 14% 35%;
 
-    --muted: 240 10% 96%;
-    --muted-foreground: 235 10% 45%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 14% 45%;
 
-    --accent: 50 90% 88%;
-    --accent-foreground: 235 20% 15%;
+    --accent: 225 71% 85%;
+    --accent-foreground: 220 14% 35%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 20% 90%;
-    --input: 240 20% 96%;
-    --ring: 264 75% 70%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 225 71% 77%;
 
-    /* Custom colors for notepad theme */
+    /* Custom colors for professional theme */
     --notepad-yellow: 47 96% 85%;
     --notepad-pink: 340 82% 90%;
-    --notepad-blue: 197 71% 85%;
+    --notepad-blue: 225 71% 85%;
     --notepad-green: 120 60% 85%;
     --notepad-purple: 280 70% 88%;
     
-    /* Gradients */
-    --gradient-notepad: linear-gradient(135deg, hsl(var(--notepad-yellow)), hsl(var(--notepad-pink)));
-    --gradient-primary: linear-gradient(135deg, hsl(260 100% 80%), hsl(300 100% 85%));
+    /* Professional gradients */
+    --gradient-notepad: linear-gradient(135deg, hsl(225 71% 85%), hsl(225 71% 92%));
+    --gradient-primary: linear-gradient(135deg, hsl(220 14% 35%), hsl(225 71% 77%));
     
     /* Shadows */
-    --shadow-soft: 0 2px 8px hsl(var(--primary) / 0.1);
-    --shadow-notepad: 0 4px 16px hsl(var(--primary) / 0.15);
+    --shadow-soft: 0 2px 8px hsl(220 14% 35% / 0.1);
+    --shadow-notepad: 0 4px 16px hsl(220 14% 35% / 0.15);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -59,58 +60,52 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
+    --sidebar-foreground: 220 14% 35%;
+    --sidebar-primary: 220 14% 35%;
     --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
+    --sidebar-accent: 225 71% 92%;
+    --sidebar-accent-foreground: 220 14% 35%;
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 225 71% 77%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 220 84% 4%;
+    --foreground: 225 71% 92%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 84% 4%;
+    --card-foreground: 225 71% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 84% 4%;
+    --popover-foreground: 225 71% 92%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 225 71% 77%;
+    --primary-foreground: 220 14% 11%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 14% 17%;
+    --secondary-foreground: 225 71% 92%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 14% 17%;
+    --muted-foreground: 225 20% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 220 14% 17%;
+    --accent-foreground: 225 71% 92%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 225 71% 92%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 220 14% 17%;
+    --input: 220 14% 17%;
+    --ring: 225 71% 77%;
+    
+    --sidebar-background: 220 14% 10%;
+    --sidebar-foreground: 225 71% 92%;
+    --sidebar-primary: 225 71% 77%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 14% 15%;
+    --sidebar-accent-foreground: 225 71% 92%;
+    --sidebar-border: 220 14% 15%;
+    --sidebar-ring: 225 71% 77%;
   }
 }
 
