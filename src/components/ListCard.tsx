@@ -55,10 +55,10 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
         </div>
       </div>
 
-      <Link to={`/list/${list.id}`}>
+      <Link to={`/list/${list.id}`} className="block">
         <Button variant="outline" className="w-full">
           <ExternalLink className="w-4 h-4 mr-2" />
-          {t('openFullApp')}
+          {list.title}
         </Button>
       </Link>
     </div>
