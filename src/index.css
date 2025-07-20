@@ -19,7 +19,7 @@ All colors MUST be HSL.
     --popover-foreground: 235 20% 15%;
 
     /* Colorful notepad theme */
-    --primary: 264 75% 70%;
+    --primary: 260 100% 80%;
     --primary-foreground: 0 0% 100%;
     
     --secondary: 197 71% 92%;
@@ -47,7 +47,7 @@ All colors MUST be HSL.
     
     /* Gradients */
     --gradient-notepad: linear-gradient(135deg, hsl(var(--notepad-yellow)), hsl(var(--notepad-pink)));
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(280 70% 85%));
+    --gradient-primary: linear-gradient(135deg, hsl(260 100% 80%), hsl(300 100% 85%));
     
     /* Shadows */
     --shadow-soft: 0 2px 8px hsl(var(--primary) / 0.1);

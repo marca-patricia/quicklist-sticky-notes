@@ -87,14 +87,19 @@ export const ListsOverview: React.FC = () => {
             
             {/* Center - App Brand */}
             <div className="hidden sm:flex items-center gap-3">
-              <img 
-                src={quicklistIcon} 
-                alt="QuickList" 
-                className="w-8 h-8" 
-              />
-              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                {t('appTitle')}
-              </span>
+              <button 
+                onClick={() => window.location.reload()}
+                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              >
+                <img 
+                  src={quicklistIcon} 
+                  alt="QuickList" 
+                  className="w-8 h-8" 
+                />
+                <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                  {t('appTitle')}
+                </span>
+              </button>
             </div>
 
             {/* Right side controls */}
@@ -112,7 +117,10 @@ export const ListsOverview: React.FC = () => {
       <main className="container max-w-5xl mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-4 mb-6 sm:hidden">
+          <button 
+            onClick={() => window.location.reload()}
+            className="flex items-center justify-center gap-4 mb-6 sm:hidden hover:opacity-80 transition-opacity"
+          >
             <img 
               src={quicklistIcon} 
               alt="QuickList" 
@@ -121,7 +129,7 @@ export const ListsOverview: React.FC = () => {
             <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
               {t('appTitle')}
             </h1>
-          </div>
+          </button>
           <div className="hidden sm:block mb-6">
             <h1 className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
               {t('appTitle')}
