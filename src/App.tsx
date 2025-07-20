@@ -1,63 +1,27 @@
-
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import { ListsProvider } from "@/contexts/ListsContext";
-import { AchievementsProvider } from "@/contexts/AchievementsContext";
-import { ListsOverview } from "./pages/ListsOverview";
-import { ListDetail } from "./pages/ListDetail";
-import { ListWidget } from "./components/ListWidget";
-import NotFound from "./pages/NotFound";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
+const SimpleComponent = () => {
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold">QuickList Test</h1>
+      <p>Testing basic React functionality...</p>
+    </div>
+  );
+};
+
 const App = () => {
-  // Check if this is a widget view
-  const urlParams = new URLSearchParams(window.location.search);
-  const listId = urlParams.get('list');
-  const isWidget = urlParams.get('widget') === 'true';
-
-  if (isWidget && listId) {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <LanguageProvider>
-          <ListsProvider>
-            <AchievementsProvider>
-              <TooltipProvider>
-                <Toaster />
-                <Sonner />
-                <ListWidget listId={listId} />
-              </TooltipProvider>
-            </AchievementsProvider>
-          </ListsProvider>
-        </LanguageProvider>
-      </QueryClientProvider>
-    );
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <ListsProvider>
-          <AchievementsProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<ListsOverview />} />
-                  <Route path="/list/:listId" element={<ListDetail />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </BrowserRouter>
-            </TooltipProvider>
-          </AchievementsProvider>
-        </ListsProvider>
-      </LanguageProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SimpleComponent />} />
+          <Route path="*" element={<div>Not Found</div>} />
+        </Routes>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 };
