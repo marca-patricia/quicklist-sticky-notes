@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => ({
       }
     },
     target: 'esnext',
-    minify: 'terser',
-    sourcemap: false
+    minify: mode === 'production' ? 'terser' : false,
+    sourcemap: mode === 'development'
   },
 }));
