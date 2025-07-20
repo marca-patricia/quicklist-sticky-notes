@@ -74,14 +74,14 @@ export const ListsOverview: React.FC = () => {
   return (
     <div className="min-h-screen" style={{ background: '#E8D5F5' }}>
       {/* Enhanced Header */}
-      <header className="sticky top-0 z-40 header-purple shadow-soft border-b border-white/20" style={{ background: '#B685F0' }}>
+      <header className="sticky top-0 z-40 shadow-soft border-b border-white/20" style={{ background: 'linear-gradient(135deg, #FFF2AC, #F9C7C4)' }}>
         <div className="container max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
             <div className="flex items-center gap-2">
-              <div className="text-white/90"><LanguageSwitch /></div>
-              <div className="text-white/90"><ThemeToggle /></div>
-              <div className="text-white/90"><OfflineStatus /></div>
+              <div className="text-gray-700"><LanguageSwitch /></div>
+              <div className="text-gray-700"><ThemeToggle /></div>
+              <div className="text-gray-700"><OfflineStatus /></div>
             </div>
             
             {/* Center - App Brand */}
@@ -91,7 +91,7 @@ export const ListsOverview: React.FC = () => {
                 className="flex items-center gap-3 hover:opacity-80 transition-opacity"
               >
                 <QuickListIcon className="w-8 h-8" />
-                <span className="text-xl font-bold text-white">
+                <span className="text-xl font-bold" style={{ color: '#B674ED' }}>
                   {t('appTitle')}
                 </span>
               </button>
@@ -99,9 +99,9 @@ export const ListsOverview: React.FC = () => {
 
             {/* Right side controls */}
             <div className="flex items-center gap-2">
-              <div className="text-white/90"><ListTemplates /></div>
-              <div className="text-white/90"><ProductivityInsights /></div>
-              <div className="text-white/90"><AchievementsModal /></div>
+              <div className="text-gray-700"><ListTemplates /></div>
+              <div className="text-gray-700"><ProductivityInsights /></div>
+              <div className="text-gray-700"><AchievementsModal /></div>
             </div>
           </div>
         </div>
