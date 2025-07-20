@@ -17,6 +17,32 @@ const achievementIcons = {
   listCreator: Users
 };
 
+const getAchievementTranslation = (achievement: any, t: (key: string) => string) => {
+  const translationMap: Record<string, { title: string; description: string }> = {
+    'first-task': { title: t('firstStep'), description: t('firstStepDesc') },
+    'early-bird': { title: t('earlyBird'), description: t('earlyBirdDesc') },
+    'night-owl': { title: t('nightOwl'), description: t('nightOwlDesc') },
+    'task-master': { title: t('taskMaster'), description: t('taskMasterDesc') },
+    'productivity-hero': { title: t('productivityHero'), description: t('productivityHeroDesc') },
+    'legendary-achiever': { title: t('legendaryAchiever'), description: t('legendaryAchieverDesc') },
+    'streak-starter': { title: t('streakStarter'), description: t('streakStarterDesc') },
+    'streak-master': { title: t('streakMaster'), description: t('streakMasterDesc') },
+    'streak-legend': { title: t('streakLegend'), description: t('streakLegendDesc') },
+    'organizer': { title: t('organizer'), description: t('organizerDesc') },
+    'category-master': { title: t('categoryMaster'), description: t('categoryMasterDesc') },
+    'speed-demon': { title: t('speedDemon'), description: t('speedDemonDesc') },
+    'power-user': { title: t('powerUser'), description: t('powerUserDesc') },
+    'list-creator': { title: t('listCreator'), description: t('listCreatorDesc') },
+    'list-architect': { title: t('listArchitect'), description: t('listArchitectDesc') },
+    'perfectionist': { title: t('perfectionist'), description: t('perfectionistDesc') },
+    'minimalist': { title: t('minimalist'), description: t('minimalistDesc') },
+    'maximalist': { title: t('maximalist'), description: t('maximalistDesc') },
+    'weekend-warrior': { title: t('weekendWarrior'), description: t('weekendWarriorDesc') }
+  };
+  
+  return translationMap[achievement.id] || { title: achievement.title, description: achievement.description };
+};
+
 export const AchievementsModal: React.FC = () => {
   const { t } = useLanguage();
   const { achievements, getUnlockedCount } = useAchievements();
@@ -63,6 +89,7 @@ export const AchievementsModal: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" role="list">
           {achievements.map((achievement) => {
+            const translation = getAchievementTranslation(achievement, t);
             return (
               <div 
                 key={achievement.id} 
@@ -85,7 +112,7 @@ export const AchievementsModal: React.FC = () => {
                     </div>
                     <div>
                       <h3 className={`font-semibold ${achievement.unlocked ? 'text-foreground' : 'text-muted-foreground'}`}>
-                        {achievement.title}
+                        {translation.title}
                       </h3>
                       {achievement.unlocked && achievement.unlockedAt && (
                         <div className="flex items-center gap-1 text-xs text-primary mt-1">
@@ -102,7 +129,7 @@ export const AchievementsModal: React.FC = () => {
                   className={`text-sm mb-3 ${achievement.unlocked ? 'text-foreground' : 'text-muted-foreground'}`}
                   id={`achievement-desc-${achievement.id}`}
                 >
-                  {achievement.description}
+                  {translation.description}
                 </p>
                 
                 {/* Progress bar */}
