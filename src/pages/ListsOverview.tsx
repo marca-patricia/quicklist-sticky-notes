@@ -73,55 +73,96 @@ export const ListsOverview: React.FC = () => {
   }, [hasPermission]);
 
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <div className="flex justify-between items-center p-4">
-        <div className="flex gap-2">
-          <LanguageSwitch />
-          <ThemeToggle />
-          <OfflineStatus />
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
+      {/* Enhanced Header */}
+      <header className="sticky top-0 z-40 backdrop-blur-lg bg-background/80 border-b border-border/40 shadow-soft">
+        <div className="container max-w-6xl mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            {/* Left side controls */}
+            <div className="flex items-center gap-2">
+              <LanguageSwitch />
+              <ThemeToggle />
+              <OfflineStatus />
+            </div>
+            
+            {/* Center - App Brand */}
+            <div className="hidden sm:flex items-center gap-3">
+              <img 
+                src={quicklistIcon} 
+                alt="QuickList" 
+                className="w-8 h-8" 
+              />
+              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                {t('appTitle')}
+              </span>
+            </div>
+
+            {/* Right side controls */}
+            <div className="flex items-center gap-2">
+              <ListTemplates />
+              <ProductivityInsights />
+              <AchievementsModal />
+            </div>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <ListTemplates />
-          <ProductivityInsights />
-          <AchievementsModal />
-        </div>
-      </div>
+      </header>
+
       <InstallPrompt />
       
-      <div className="container max-w-4xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
+      <main className="container max-w-5xl mx-auto px-4 py-8">
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-4 mb-6 sm:hidden">
             <img 
               src={quicklistIcon} 
               alt="QuickList" 
-              className="w-12 h-12" 
+              className="w-16 h-16 drop-shadow-lg" 
             />
-            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
               {t('appTitle')}
             </h1>
           </div>
-          <p className="text-muted-foreground">
+          <div className="hidden sm:block mb-6">
+            <h1 className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+              {t('appTitle')}
+            </h1>
+          </div>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             {t('organizeDesc')}
           </p>
         </div>
 
         {/* Add List Form */}
-        <div className="mb-8">
+        <div className="max-w-2xl mx-auto mb-12">
           <AddListForm />
         </div>
 
-        {/* Lists Grid */}
-        {lists.length === 0 ? (
-          <EmptyState />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {lists.map((list) => (
-              <ListCard key={list.id} list={list} />
-            ))}
-          </div>
-        )}
-      </div>
+        {/* Lists Section */}
+        <section>
+          {lists.length === 0 ? (
+            <EmptyState />
+          ) : (
+            <>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-semibold text-foreground">
+                  {t('allLists')} 
+                  <span className="text-sm font-normal text-muted-foreground ml-2">
+                    ({lists.length})
+                  </span>
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {lists.map((list) => (
+                  <ListCard key={list.id} list={list} />
+                ))}
+              </div>
+            </>
+          )}
+        </section>
+      </main>
+      
+      {/* Spacer for mobile */}
+      <div className="h-20"></div>
     </div>
   );
 };
