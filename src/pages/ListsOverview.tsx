@@ -74,14 +74,14 @@ export const ListsOverview: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
       {/* Enhanced Header */}
-      <header className="sticky top-0 z-40 backdrop-blur-lg bg-background/80 border-b border-border/40 shadow-soft">
+      <header className="sticky top-0 z-40 bg-gradient-header shadow-soft border-b border-white/20">
         <div className="container max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
             <div className="flex items-center gap-2">
-              <LanguageSwitch />
-              <ThemeToggle />
-              <OfflineStatus />
+              <div className="text-white/90"><LanguageSwitch /></div>
+              <div className="text-white/90"><ThemeToggle /></div>
+              <div className="text-white/90"><OfflineStatus /></div>
             </div>
             
             {/* Center - App Brand */}
@@ -91,7 +91,7 @@ export const ListsOverview: React.FC = () => {
                 className="flex items-center gap-3 hover:opacity-80 transition-opacity"
               >
                 <QuickListIcon className="w-8 h-8" />
-                <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                <span className="text-xl font-bold text-white">
                   {t('appTitle')}
                 </span>
               </button>
@@ -99,9 +99,9 @@ export const ListsOverview: React.FC = () => {
 
             {/* Right side controls */}
             <div className="flex items-center gap-2">
-              <ListTemplates />
-              <ProductivityInsights />
-              <AchievementsModal />
+              <div className="text-white/90"><ListTemplates /></div>
+              <div className="text-white/90"><ProductivityInsights /></div>
+              <div className="text-white/90"><AchievementsModal /></div>
             </div>
           </div>
         </div>
@@ -117,16 +117,16 @@ export const ListsOverview: React.FC = () => {
             className="flex items-center justify-center gap-4 mb-6 sm:hidden hover:opacity-80 transition-opacity"
           >
             <QuickListIcon className="w-16 h-16 drop-shadow-lg" />
-            <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold" style={{ color: '#B674ED' }}>
               {t('appTitle')}
             </h1>
           </button>
           <div className="hidden sm:block mb-6">
-            <h1 className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+            <h1 className="text-5xl font-bold mb-4" style={{ color: '#B674ED' }}>
               {t('appTitle')}
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: '#6A6A6A' }}>
             {t('organizeDesc')}
           </p>
         </div>

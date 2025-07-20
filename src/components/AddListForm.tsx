@@ -32,9 +32,13 @@ export const AddListForm: React.FC = () => {
         placeholder={t('listPlaceholder')}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="flex-1"
+        className="flex-1 bg-gradient-primary border-none text-gray-800 placeholder:text-gray-600"
       />
-      <Button type="submit" disabled={!title.trim()}>
+      <Button 
+        type="submit" 
+        disabled={!title.trim()}
+        className="bg-gradient-primary text-gray-800 hover:opacity-90 border-none font-semibold"
+      >
         <Plus className="w-4 h-4 mr-2" />
         {t('addList')}
       </Button>
