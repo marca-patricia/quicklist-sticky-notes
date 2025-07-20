@@ -17,30 +17,30 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="light"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <TooltipProvider>
-          <LanguageProvider>
-            <ListsProvider>
-              <AchievementsProvider>
-                <BrowserRouter>
+      <BrowserRouter>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>
+            <LanguageProvider>
+              <ListsProvider>
+                <AchievementsProvider>
                   <Routes>
                     <Route path="/" element={<ListsOverview />} />
                     <Route path="/list/:listId" element={<ListDetail />} />
                     <Route path="*" element={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Página não encontrada</p></div>} />
                   </Routes>
-                </BrowserRouter>
-                <Toaster />
-                <Sonner />
-              </AchievementsProvider>
-            </ListsProvider>
-          </LanguageProvider>
-        </TooltipProvider>
-      </ThemeProvider>
+                  <Toaster />
+                  <Sonner />
+                </AchievementsProvider>
+              </ListsProvider>
+            </LanguageProvider>
+          </TooltipProvider>
+        </ThemeProvider>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 };
