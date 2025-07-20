@@ -1,29 +1,21 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-import quicklistIcon from '@/assets/quicklist-icon.png';
+import { Plus } from 'lucide-react';
 
 export const EmptyState: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <Card className="p-8 text-center bg-muted/30 border-dashed border-2 border-border/50">
-      <div className="flex flex-col items-center gap-4">
-        <img 
-          src={quicklistIcon} 
-          alt="QuickList" 
-          className="w-16 h-16 opacity-60" 
-        />
-        <div>
-          <h3 className="text-lg font-semibold text-muted-foreground mb-2">
-            {t('noLists')}
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            {t('noListsDesc')}
-          </p>
+    <div className="text-center py-12">
+      <div className="mb-6">
+        <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
+          <Plus className="w-12 h-12 text-muted-foreground" />
         </div>
+        <h3 className="text-xl font-semibold mb-2">{t('noLists')}</h3>
+        <p className="text-muted-foreground">{t('noListsDesc')}</p>
       </div>
-    </Card>
+    </div>
   );
 };

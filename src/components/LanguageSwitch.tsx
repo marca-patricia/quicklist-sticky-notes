@@ -6,18 +6,15 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export const LanguageSwitch: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'pt' ? 'en' : 'pt');
-  };
-
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={toggleLanguage}
-      className="font-semibold"
-    >
-      {language === 'pt' ? '🇺🇸 EN' : '🇧🇷 PT'}
-    </Button>
+    <div className="fixed top-4 left-4 z-50">
+      <Button
+        variant="language"
+        size="sm"
+        onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
+      >
+        {language === 'pt' ? '🇺🇸 EN' : '🇧🇷 PT'}
+      </Button>
+    </div>
   );
 };
