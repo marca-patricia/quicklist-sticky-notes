@@ -87,6 +87,14 @@ export const ListsOverview: React.FC = () => {
     }
   }, [hasPermission]);
 
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  // Simulate loading for better UX
+  React.useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen" style={{ background: '#F8F8FC' }}>
       {/* Enhanced Header */}
@@ -94,7 +102,7 @@ export const ListsOverview: React.FC = () => {
         <div className="container max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2" role="group" aria-label="Configurações do aplicativo">
               <div className="text-gray-700"><LanguageSwitch /></div>
               <div className="text-gray-700"><ThemeToggle /></div>
               <div className="text-gray-700"><OfflineStatus /></div>
@@ -105,8 +113,9 @@ export const ListsOverview: React.FC = () => {
               <button 
                 onClick={() => window.location.reload()}
                 className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                aria-label="Recarregar aplicativo QuickList"
               >
-                <QuickListIcon className="w-8 h-8" />
+                <QuickListIcon className="w-8 h-8" aria-hidden="true" />
                 <span className="text-xl font-bold" style={{ color: '#B674ED' }}>
                   {t('appTitle')}
                 </span>
@@ -114,7 +123,7 @@ export const ListsOverview: React.FC = () => {
             </div>
 
             {/* Right side controls */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2" role="group" aria-label="Ferramentas e estatísticas">
               <div className="text-gray-700"><ListTemplates /></div>
               <div className="text-gray-700"><ProductivityInsights /></div>
               <div className="text-gray-700"><AchievementsModal /></div>
@@ -131,8 +140,9 @@ export const ListsOverview: React.FC = () => {
           <button 
             onClick={() => window.location.reload()}
             className="flex items-center justify-center gap-4 mb-6 sm:hidden hover:opacity-80 transition-opacity"
+            aria-label="Recarregar aplicativo QuickList"
           >
-            <QuickListIcon className="w-16 h-16 drop-shadow-lg" />
+            <QuickListIcon className="w-16 h-16 drop-shadow-lg" aria-hidden="true" />
             <h1 className="text-4xl font-bold" style={{ color: '#B674ED' }}>
               {t('appTitle')}
             </h1>
@@ -142,19 +152,48 @@ export const ListsOverview: React.FC = () => {
               {t('appTitle')}
             </h1>
           </div>
-          <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: '#6A6A6A' }}>
+          <p className="text-lg max-w-2xl mx-auto leading-relaxed text-muted-foreground">
             {t('organizeDesc')}
           </p>
         </div>
 
         {/* Add List Form */}
-        <div className="max-w-2xl mx-auto mb-12">
-          <AddListForm />
-        </div>
+        <section className="max-w-2xl mx-auto mb-12" aria-label="Criar nova lista">
+          {isLoading ? (
+            <div className="flex gap-2">
+              <div className="animate-pulse bg-muted rounded h-10 flex-1"></div>
+              <div className="animate-pulse bg-muted rounded-full h-10 w-10"></div>
+              <div className="animate-pulse bg-muted rounded h-10 w-24"></div>
+            </div>
+          ) : (
+            <AddListForm />
+          )}
+        </section>
 
         {/* Lists Section */}
-        <section>
-          {lists.length === 0 ? (
+        <section aria-label={lists.length > 0 ? `${lists.length} listas criadas` : "Nenhuma lista criada"}>
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="rounded-lg p-4 shadow-soft border border-gray-200 bg-white">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="animate-pulse bg-muted rounded h-6 w-32"></div>
+                    <div className="flex items-center gap-2">
+                      <div className="animate-pulse bg-muted rounded-full h-8 w-8"></div>
+                      <div className="animate-pulse bg-muted rounded-full h-8 w-8"></div>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <div className="flex justify-between mb-1">
+                      <div className="animate-pulse bg-muted rounded h-4 w-20"></div>
+                      <div className="animate-pulse bg-muted rounded h-4 w-12"></div>
+                    </div>
+                    <div className="animate-pulse bg-muted rounded-full h-2 w-full"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : lists.length === 0 ? (
             <EmptyState />
           ) : (
             <>

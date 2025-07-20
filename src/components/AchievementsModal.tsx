@@ -31,27 +31,37 @@ export const AchievementsModal: React.FC = () => {
           size="sm" 
           className="relative bg-transparent hover:bg-white/20 border-none"
           style={{ color: '#B674ED' }}
+          aria-label={`Conquistas: ${unlockedCount} de ${achievements.length} desbloqueadas`}
         >
-          <Trophy className="w-4 h-4 mr-2" />
+          <Trophy className="w-4 h-4 mr-2" aria-hidden="true" />
           <span className="hidden sm:inline">{t('achievements')}</span>
           {unlockedCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+            <span 
+              className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center"
+              aria-label={`${unlockedCount} conquistas desbloqueadas`}
+            >
               {unlockedCount}
             </span>
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto animate-fade-in">
+      <DialogContent 
+        className="max-w-2xl max-h-[80vh] overflow-y-auto animate-fade-in"
+        aria-describedby="achievements-description"
+      >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Trophy className="w-5 h-5" />
+            <Trophy className="w-5 h-5" aria-hidden="true" />
             {t('achievements')}
             <span className="text-sm text-muted-foreground ml-2">
               ({unlockedCount}/{achievements.length} {t('unlocked').toLowerCase()})
             </span>
           </DialogTitle>
         </DialogHeader>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div id="achievements-description" className="sr-only">
+          Lista de conquistas do aplicativo. {unlockedCount} de {achievements.length} conquistas foram desbloqueadas.
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" role="list">
           {achievements.map((achievement) => {
             return (
               <div 
@@ -61,10 +71,16 @@ export const AchievementsModal: React.FC = () => {
                     ? 'border-primary/50 bg-primary/10 shadow-lg ring-1 ring-primary/20' 
                     : 'border-muted bg-muted/20'
                 }`}
+                role="listitem"
+                aria-describedby={`achievement-desc-${achievement.id}`}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className={`text-2xl ${achievement.unlocked ? 'animate-scale-in' : 'opacity-50'}`}>
+                    <div 
+                      className={`text-2xl ${achievement.unlocked ? 'animate-scale-in' : 'opacity-50'}`}
+                      role="img"
+                      aria-label={achievement.unlocked ? `Conquista desbloqueada: ${achievement.icon}` : "Conquista bloqueada"}
+                    >
                       {achievement.unlocked ? achievement.icon : '🔒'}
                     </div>
                     <div>
@@ -73,19 +89,24 @@ export const AchievementsModal: React.FC = () => {
                       </h3>
                       {achievement.unlocked && achievement.unlockedAt && (
                         <div className="flex items-center gap-1 text-xs text-primary mt-1">
-                          <Trophy className="w-3 h-3" />
-                          Desbloqueado!
+                          <Trophy className="w-3 h-3" aria-hidden="true" />
+                          <span aria-label={`Desbloqueado em ${achievement.unlockedAt.toLocaleDateString()}`}>
+                            Desbloqueado!
+                          </span>
                         </div>
                       )}
                     </div>
                   </div>
                 </div>
-                <p className={`text-sm mb-3 ${achievement.unlocked ? 'text-foreground' : 'text-muted-foreground'}`}>
+                <p 
+                  className={`text-sm mb-3 ${achievement.unlocked ? 'text-foreground' : 'text-muted-foreground'}`}
+                  id={`achievement-desc-${achievement.id}`}
+                >
                   {achievement.description}
                 </p>
                 
                 {/* Progress bar */}
-                <div className="w-full bg-muted rounded-full h-2">
+                <div className="w-full bg-muted rounded-full h-2" role="progressbar" aria-label="Progresso da conquista">
                   <div 
                     className={`h-2 rounded-full transition-all duration-500 ${
                       achievement.unlocked ? 'bg-primary' : 'bg-muted-foreground/30'
@@ -93,6 +114,9 @@ export const AchievementsModal: React.FC = () => {
                     style={{ 
                       width: `${Math.min((achievement.progress / achievement.maxProgress) * 100, 100)}%` 
                     }}
+                    aria-valuenow={Math.min((achievement.progress / achievement.maxProgress) * 100, 100)}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
                   />
                 </div>
                 <div className="flex justify-between items-center mt-2 text-xs">
@@ -109,14 +133,14 @@ export const AchievementsModal: React.FC = () => {
         </div>
         
         {unlockedCount === 0 && (
-          <div className="text-center py-8 text-muted-foreground">
-            <Trophy className="w-12 h-12 mx-auto mb-3 opacity-50" />
+          <div className="text-center py-8 text-muted-foreground" role="status">
+            <Trophy className="w-12 h-12 mx-auto mb-3 opacity-50" aria-hidden="true" />
             <p>Complete tarefas para desbloquear conquistas!</p>
           </div>
         )}
         
         {unlockedCount > 0 && (
-          <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
+          <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20" role="status">
             <h4 className="font-semibold text-primary mb-2">🎉 Parabéns!</h4>
             <p className="text-sm text-foreground">
               Você já desbloqueou {unlockedCount} conquista{unlockedCount > 1 ? 's' : ''}! Continue assim para desbloquear mais.

@@ -28,25 +28,32 @@ export const AddListForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form onSubmit={handleSubmit} className="flex gap-2" role="form" aria-label="Criar nova lista">
       <Input
         type="text"
         placeholder={t('listPlaceholder')}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="flex-1 bg-gradient-primary border-none text-gray-800 placeholder:text-gray-600"
+        className="flex-1 bg-gradient-primary border-none text-foreground placeholder:text-muted-foreground"
+        aria-label="Nome da nova lista"
+        aria-describedby="list-input-help"
       />
+      <div id="list-input-help" className="sr-only">
+        Digite o nome da sua nova lista e clique em adicionar
+      </div>
       <ColorPicker 
         selectedColor={selectedColor}
         onColorChange={setSelectedColor}
         className="flex-shrink-0"
+        aria-label="Escolher cor da lista"
       />
       <Button 
         type="submit" 
         disabled={!title.trim()}
-        className="bg-gradient-primary text-gray-800 hover:opacity-90 border-none font-semibold"
+        className="bg-gradient-primary text-foreground hover:opacity-90 border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        aria-label={title.trim() ? `Criar lista "${title.trim()}"` : "Digite um nome para criar a lista"}
       >
-        <Plus className="w-4 h-4 mr-2" />
+        <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
         {t('addList')}
       </Button>
     </form>
