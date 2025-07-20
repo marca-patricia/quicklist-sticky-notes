@@ -40,12 +40,15 @@ interface ListsContextType {
 
 const ListsContext = createContext<ListsContextType | undefined>(undefined);
 
-const notepadColors = [
-  'border-l-notepad-yellow',
-  'border-l-notepad-pink', 
-  'border-l-notepad-blue',
-  'border-l-notepad-green',
-  'border-l-notepad-purple'
+export const pastelColors = [
+  { name: 'Rosa', value: 'hsl(340, 100%, 95%)', class: 'bg-[hsl(340,100%,95%)]' },
+  { name: 'Azul', value: 'hsl(200, 100%, 95%)', class: 'bg-[hsl(200,100%,95%)]' },
+  { name: 'Verde', value: 'hsl(120, 60%, 95%)', class: 'bg-[hsl(120,60%,95%)]' },
+  { name: 'Amarelo', value: 'hsl(50, 100%, 95%)', class: 'bg-[hsl(50,100%,95%)]' },
+  { name: 'Roxo', value: 'hsl(280, 60%, 95%)', class: 'bg-[hsl(280,60%,95%)]' },
+  { name: 'Laranja', value: 'hsl(30, 100%, 95%)', class: 'bg-[hsl(30,100%,95%)]' },
+  { name: 'Menta', value: 'hsl(160, 60%, 95%)', class: 'bg-[hsl(160,60%,95%)]' },
+  { name: 'Pêssego', value: 'hsl(15, 100%, 95%)', class: 'bg-[hsl(15,100%,95%)]' }
 ];
 
 export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -79,7 +82,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           const migratedList: TodoList = {
             id: Date.now().toString(),
             title: 'Minha Lista',
-            color: notepadColors[0],
+            color: pastelColors[0].value,
             items: parsed.map((item: any) => ({
               ...item,
               createdAt: new Date(item.createdAt)
@@ -104,7 +107,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       id: Date.now().toString(),
       title,
       description,
-      color: notepadColors[Math.floor(Math.random() * notepadColors.length)],
+      color: pastelColors[Math.floor(Math.random() * pastelColors.length)].value,
       items: [],
       categories: [],
       createdAt: new Date()

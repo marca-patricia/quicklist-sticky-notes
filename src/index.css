@@ -53,6 +53,16 @@ All colors MUST be HSL.
     --coral-lines: 11 86% 69%; /* #F17D6E */
     --shadow-blue: 225 38% 56%; /* #5D7EC9 */
     
+    /* Cores pastéis para post-its das listas */
+    --pastel-pink: 340 100% 95%;     /* #FFE5E5 - Rosa claro */
+    --pastel-blue: 200 100% 95%;     /* #E5F3FF - Azul claro */
+    --pastel-green: 120 60% 95%;     /* #E5F5E5 - Verde claro */
+    --pastel-yellow: 50 100% 95%;    /* #FFFCE5 - Amarelo claro */
+    --pastel-purple: 280 60% 95%;    /* #F0E5FF - Roxo claro */
+    --pastel-orange: 30 100% 95%;    /* #FFE5CC - Laranja claro */
+    --pastel-mint: 160 60% 95%;      /* #E5FFF0 - Menta claro */
+    --pastel-peach: 15 100% 95%;     /* #FFE5D9 - Pêssego claro */
+    
     /* Gradient: Yellow to Peach/Pink - CORES EXATAS */
     --gradient-primary: linear-gradient(135deg, #FFF2AC, #F9C7C4); /* Amarelo claro → Rosa claro */
     --gradient-notepad: linear-gradient(135deg, #FFD15B, #F17D6E); /* Amarelo → Coral */

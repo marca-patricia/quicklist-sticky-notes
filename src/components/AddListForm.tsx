@@ -2,13 +2,15 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useLists } from '@/contexts/ListsContext';
+import { useLists, pastelColors } from '@/contexts/ListsContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { Plus } from 'lucide-react';
+import { ColorPicker } from '@/components/ColorPicker';
 
 export const AddListForm: React.FC = () => {
   const [title, setTitle] = useState('');
+  const [selectedColor, setSelectedColor] = useState(pastelColors[0].value);
   const { addList } = useLists();
   const { t } = useLanguage();
   const { toast } = useToast();
@@ -33,6 +35,11 @@ export const AddListForm: React.FC = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         className="flex-1 bg-gradient-primary border-none text-gray-800 placeholder:text-gray-600"
+      />
+      <ColorPicker 
+        selectedColor={selectedColor}
+        onColorChange={setSelectedColor}
+        className="flex-shrink-0"
       />
       <Button 
         type="submit" 

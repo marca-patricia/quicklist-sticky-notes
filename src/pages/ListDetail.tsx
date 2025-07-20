@@ -146,7 +146,7 @@ export const ListDetail: React.FC = () => {
   const completedItems = sortedItems.filter(item => item.completed);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: '#F8F8FC' }}>
       <LanguageSwitch />
       
       <div className="container max-w-2xl mx-auto px-4 py-8">
@@ -181,6 +181,12 @@ export const ListDetail: React.FC = () => {
             </Button>
           </div>
         </div>
+
+        {/* Main List Container - Com cor da lista */}
+        <div 
+          className="rounded-xl p-6 shadow-soft border border-gray-200"
+          style={{ backgroundColor: list.color }}
+        >
 
         {/* Add Item Form */}
         <div className="mb-6">
@@ -283,6 +289,8 @@ export const ListDetail: React.FC = () => {
             <p>{t('addItemHere')}</p>
           </div>
         )}
+        </div>
+        {/* Fim do Main List Container */}
       </div>
     </div>
   );
