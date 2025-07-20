@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { CategoryManager, Category } from '@/components/CategoryManager';
 import { DatePicker } from '@/components/DatePicker';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Plus, Flag } from 'lucide-react';
+import { Plus, Flag, Settings2 } from 'lucide-react';
 
 interface AddItemFormProps {
   onAdd: (text: string, categories?: string[], dueDate?: Date, priority?: 'low' | 'medium' | 'high') => void;
@@ -78,7 +78,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             onClick={() => setShowAdvanced(!showAdvanced)}
             className="px-3"
           >
-            <Plus className={`h-4 w-4 transition-transform ${showAdvanced ? 'rotate-45' : ''}`} />
+            <Settings2 className="h-4 w-4" />
           </Button>
           <Button 
             type="submit" 
