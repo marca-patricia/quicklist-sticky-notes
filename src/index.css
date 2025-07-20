@@ -9,50 +9,50 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* QuickList Design System - Original Purple/Vibrant */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
+    /* QuickList Original Design System */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover-foreground: 0 0% 15%;
 
-    /* Original vibrant purple theme */
-    --primary: 262 83% 58%;
+    /* Vibrant purple like in original images */
+    --primary: 280 100% 70%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 270 100% 98%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 280 20% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 50%;
 
-    --accent: 270 100% 95%;
-    --accent-foreground: 0 0% 9%;
+    --accent: 280 30% 92%;
+    --accent-foreground: 0 0% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 91%;
-    --input: 0 0% 91%;
-    --ring: 262 83% 58%;
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
+    --ring: 280 100% 70%;
 
-    /* Custom colors for vibrant theme */
-    --notepad-yellow: 47 96% 85%;
-    --notepad-pink: 340 82% 90%;
-    --notepad-blue: 225 71% 85%;
-    --notepad-green: 120 60% 85%;
-    --notepad-purple: 280 70% 88%;
+    /* Custom colors matching original images */
+    --notepad-yellow: 45 100% 85%;
+    --notepad-pink: 350 100% 90%;
+    --notepad-blue: 210 100% 85%;
+    --notepad-green: 120 50% 85%;
+    --notepad-purple: 280 80% 88%;
     
-    /* Vibrant gradients */
-    --gradient-notepad: linear-gradient(135deg, hsl(47 96% 65%), hsl(25 95% 75%));
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(280 70% 68%));
+    /* Original-style gradients */
+    --gradient-notepad: linear-gradient(135deg, hsl(45 100% 75%), hsl(25 100% 80%));
+    --gradient-primary: linear-gradient(135deg, hsl(280 100% 70%), hsl(290 80% 75%));
     
-    /* Shadows */
-    --shadow-soft: 0 2px 8px hsl(262 83% 58% / 0.1);
-    --shadow-notepad: 0 4px 16px hsl(262 83% 58% / 0.15);
+    /* Softer shadows */
+    --shadow-soft: 0 2px 8px hsl(280 30% 50% / 0.08);
+    --shadow-notepad: 0 4px 16px hsl(280 30% 50% / 0.12);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
