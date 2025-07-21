@@ -88,42 +88,74 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 0 0% 9%;
-    --foreground: 0 0% 95%;
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 262 83% 68%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 268 76% 73%;
+    --primary-foreground: 0 0% 8%;
 
-    --secondary: 0 0% 17%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 17%;
+    --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 0 0% 17%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 95%;
+    --destructive: 0 86% 65%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 17%;
-    --input: 0 0% 17%;
-    --ring: 262 83% 68%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 268 76% 73%;
+
+    /* Dark mode app colors */
+    --header-purple: 268 76% 73%;
+    --title-purple: 266 78% 67%;
+    --subtitle-gray: 0 0% 65%;
+    --text-dark: 0 0% 98%;
+    --strikethrough-lilac: 270 66% 73%;
+    --share-purple: 268 71% 73%;
+    --delete-red: 0 86% 65%;
+    --completed-green: 120 67% 55%;
+    --notepad-yellow: 45 93% 65%;
+    --coral-lines: 15 86% 75%;
+    --shadow-color: 0 0% 5%;
+
+    /* Dark mode pastel colors */
+    --pastel-blue: 210 50% 20%;
+    --pastel-green: 120 50% 20%;
+    --pastel-pink: 330 50% 20%;
+    --pastel-yellow: 50 50% 20%;
+    --pastel-purple: 280 50% 20%;
+    --pastel-orange: 30 50% 20%;
+    --pastel-mint: 160 50% 20%;
+    --pastel-peach: 15 50% 20%;
     
-    --sidebar-background: 0 0% 10%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 262 83% 68%;
-    --sidebar-primary-foreground: 0 0% 100%;
+    /* Dark mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(45 50% 25%), hsl(15 50% 25%));
+    --gradient-notepad: linear-gradient(135deg, hsl(45 70% 30%), hsl(15 70% 35%));
+    --gradient-header: linear-gradient(180deg, hsl(268 76% 73%), hsl(268 76% 60%));
+    
+    /* Dark mode shadows */
+    --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.3);
+    --shadow-notepad: 0 4px 16px hsl(0 0% 0% / 0.4);
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 268 76% 73%;
+    --sidebar-primary-foreground: 0 0% 8%;
     --sidebar-accent: 0 0% 15%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 262 83% 68%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 268 76% 73%;
   }
 }
 
@@ -133,7 +165,12 @@ All colors MUST be HSL.
   }
 
   body {
-    background: #F8F8FC !important; /* Quase branco com toque roxo */
+    background: #F8F8FC !important;
+    color: hsl(var(--foreground));
+  }
+
+  .dark body {
+    background: hsl(var(--background)) !important;
     color: hsl(var(--foreground));
   }
 }
@@ -180,7 +217,7 @@ All colors MUST be HSL.
   }
   
   .dark .backdrop-blur-glass {
-    background-color: rgba(17, 25, 40, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
   }
   
   /* Enhanced hover effects */
