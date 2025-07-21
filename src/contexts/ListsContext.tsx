@@ -22,6 +22,7 @@ export interface TodoList {
   createdAt: Date;
   categories?: Category[];
   description?: string;
+  archived?: boolean;
 }
 
 interface ListsContextType {

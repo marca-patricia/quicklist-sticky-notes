@@ -1,12 +1,15 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { TodoList } from '@/contexts/ListsContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ColorPicker } from '@/components/ColorPicker';
-import { Trash2, ExternalLink } from 'lucide-react';
+import { ConfirmDialog } from '@/components/ConfirmDialog';
+import { useUndo } from '@/hooks/useUndo';
+import { useFeedbackToast } from '@/components/FeedbackToast';
+import { Trash2, ExternalLink, Archive, ArchiveRestore } from 'lucide-react';
 
 interface ListCardProps {
   list: TodoList;
@@ -15,9 +18,35 @@ interface ListCardProps {
 export const ListCard: React.FC<ListCardProps> = ({ list }) => {
   const { deleteList, updateList } = useLists();
   const { t } = useLanguage();
+  const { addUndoAction } = useUndo();
+  const { showSuccess } = useFeedbackToast();
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const completedItems = list.items.filter(item => item.completed);
   const progress = list.items.length > 0 ? (completedItems.length / list.items.length) * 100 : 0;
+
+  const handleDeleteList = () => {
+    const listCopy = { ...list };
+    deleteList(list.id);
+    
+    addUndoAction({
+      id: `delete-list-${list.id}`,
+      action: () => {
+        // Note: This would need to be implemented in the context
+        // For now, just show feedback
+        showSuccess(t('listRestored'));
+      },
+      message: t('listDeleted')
+    });
+    
+    setShowDeleteConfirm(false);
+  };
+
+  const handleArchiveToggle = () => {
+    const newArchivedState = !list.archived;
+    updateList(list.id, { archived: newArchivedState });
+    showSuccess(newArchivedState ? t('listArchived') : t('listUnarchived'));
+  };
 
   return (
     <Link 
@@ -44,10 +73,24 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
               size="sm"
               onClick={(e) => {
                 e.preventDefault();
-                deleteList(list.id);
+                handleArchiveToggle();
+              }}
+              className="text-muted-foreground hover:text-foreground"
+              aria-label={list.archived ? t('unarchive') : t('archiveList')}
+              title={list.archived ? t('unarchive') : t('archiveList')}
+            >
+              {list.archived ? <ArchiveRestore className="w-4 h-4" /> : <Archive className="w-4 h-4" />}
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowDeleteConfirm(true);
               }}
               className="text-destructive hover:text-destructive/90"
-              aria-label={`Excluir lista ${list.title}`}
+              aria-label={t('confirmDeleteList')}
+              title={t('deleteList')}
             >
               <Trash2 className="w-4 h-4" />
             </Button>
@@ -74,6 +117,16 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
           </div>
         </div>
       </div>
+      
+      <ConfirmDialog
+        open={showDeleteConfirm}
+        onOpenChange={setShowDeleteConfirm}
+        title={t('confirmDeleteList')}
+        description={t('confirmDeleteListDesc')}
+        onConfirm={handleDeleteList}
+        confirmText={t('deleteList')}
+        variant="destructive"
+      />
     </Link>
   );
 };

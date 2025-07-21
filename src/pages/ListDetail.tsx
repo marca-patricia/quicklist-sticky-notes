@@ -6,6 +6,7 @@ import { QuickListItem } from '@/components/QuickListItem';
 import { QuickListStats } from '@/components/QuickListStats';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
 import { SearchAndFilter } from '@/components/SearchAndFilter';
+import { ExportButton } from '@/components/ExportButton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -298,14 +299,15 @@ export const ListDetail: React.FC = () => {
           />
         </div>
 
-        {/* Stats */}
-        <div className="mb-6">
+        {/* Stats and Export */}
+        <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <QuickListStats
             totalItems={list.items.length}
             completedItems={list.items.filter(item => item.completed).length}
             onShare={shareList}
             onClearCompleted={clearCompleted}
           />
+          <ExportButton list={list} />
         </div>
 
         {/* Pending Items */}

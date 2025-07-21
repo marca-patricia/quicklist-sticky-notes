@@ -141,7 +141,44 @@ const translations = {
     save: 'Salvar',
     cancel: 'Cancelar',
     clickToEdit: 'Clique para editar',
-    listUpdated: 'Lista atualizada!'
+    listUpdated: 'Lista atualizada!',
+    // Confirmations and feedback
+    confirm: 'Confirmar',
+    confirmDeleteList: 'Confirmar exclusão da lista',
+    confirmDeleteListDesc: 'Esta ação não pode ser desfeita. Todos os itens da lista serão perdidos.',
+    confirmDeleteItem: 'Confirmar exclusão do item',
+    confirmDeleteItemDesc: 'Este item será removido permanentemente.',
+    listDeleted: 'Lista excluída',
+    itemDeleted: 'Item excluído',
+    undo: 'Desfazer',
+    undone: 'Desfeito',
+    clickToUndo: 'Clique para desfazer',
+    itemSaved: 'Item salvo',
+    listSaved: 'Lista salva',
+    changesSaved: 'Alterações salvas',
+    // Archive functionality
+    archive: 'Arquivar',
+    archived: 'Arquivadas',
+    unarchive: 'Desarquivar',
+    showArchived: 'Mostrar arquivadas',
+    hideArchived: 'Ocultar arquivadas',
+    archiveList: 'Arquivar lista',
+    listArchived: 'Lista arquivada',
+    listUnarchived: 'Lista desarquivada',
+    // Export functionality
+    export: 'Exportar',
+    exportPdf: 'Exportar PDF',
+    exportTxt: 'Exportar TXT',
+    exportJson: 'Exportar JSON',
+    exported: 'Exportado com sucesso',
+    // Additional missing translations
+    listRestored: 'Lista restaurada',
+    itemRestored: 'Item restaurado',
+    tooltip: 'Dica',
+    dragToReorder: 'Arraste para reordenar',
+    clickToComplete: 'Clique para completar',
+    doubleClickToEdit: 'Clique duas vezes para editar',
+    noArchivedLists: 'Nenhuma lista arquivada'
   },
   en: {
     appTitle: 'QuickList',
@@ -274,7 +311,44 @@ const translations = {
     save: 'Save',
     cancel: 'Cancel',
     clickToEdit: 'Click to edit',
-    listUpdated: 'List updated!'
+    listUpdated: 'List updated!',
+    // Confirmations and feedback
+    confirm: 'Confirm',
+    confirmDeleteList: 'Confirm list deletion',
+    confirmDeleteListDesc: 'This action cannot be undone. All items in the list will be lost.',
+    confirmDeleteItem: 'Confirm item deletion',
+    confirmDeleteItemDesc: 'This item will be permanently removed.',
+    listDeleted: 'List deleted',
+    itemDeleted: 'Item deleted',
+    undo: 'Undo',
+    undone: 'Undone',
+    clickToUndo: 'Click to undo',
+    itemSaved: 'Item saved',
+    listSaved: 'List saved',
+    changesSaved: 'Changes saved',
+    // Archive functionality
+    archive: 'Archive',
+    archived: 'Archived',
+    unarchive: 'Unarchive',
+    showArchived: 'Show archived',
+    hideArchived: 'Hide archived',
+    archiveList: 'Archive list',
+    listArchived: 'List archived',
+    listUnarchived: 'List unarchived',
+    // Export functionality
+    export: 'Export',
+    exportPdf: 'Export PDF',
+    exportTxt: 'Export TXT',
+    exportJson: 'Export JSON',
+    exported: 'Exported successfully',
+    // Additional missing translations
+    listRestored: 'List restored',
+    itemRestored: 'Item restored',
+    tooltip: 'Tip',
+    dragToReorder: 'Drag to reorder',
+    clickToComplete: 'Click to complete',
+    doubleClickToEdit: 'Double click to edit',
+    noArchivedLists: 'No archived lists'
   }
 };
 

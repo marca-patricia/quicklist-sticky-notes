@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AddListForm } from '@/components/AddListForm';
 import { ListCard } from '@/components/ListCard';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
@@ -10,17 +10,20 @@ import { ProductivityInsights } from '@/components/ProductivityInsights';
 import { ListTemplates } from '@/components/ListTemplates';
 import { OfflineStatus } from '@/components/OfflineStatus';
 import { QuickListIcon } from '@/components/QuickListIcon';
+import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useAchievements } from '@/contexts/AchievementsContext';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
+import { Archive, ArchiveRestore, Filter } from 'lucide-react';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
   const { lists } = useLists();
   const { checkAchievements } = useAchievements();
   const { requestPermission, hasPermission } = useNotifications();
+  const [showArchived, setShowArchived] = useState(false);
   
   // Activate achievement notifications
   useAchievementNotifications();
@@ -201,15 +204,43 @@ export const ListsOverview: React.FC = () => {
                 <h2 className="text-2xl font-semibold text-foreground">
                   {t('allLists')} 
                   <span className="text-sm font-normal text-muted-foreground ml-2">
-                    ({lists.length})
+                    ({lists.filter(list => showArchived ? list.archived : !list.archived).length})
                   </span>
                 </h2>
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowArchived(!showArchived)}
+                  className="flex items-center gap-2"
+                >
+                  {showArchived ? <ArchiveRestore className="w-4 h-4" /> : <Archive className="w-4 h-4" />}
+                  {showArchived ? t('hideArchived') : t('showArchived')}
+                </Button>
               </div>
+              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {lists.map((list) => (
-                  <ListCard key={list.id} list={list} />
-                ))}
+                {lists
+                  .filter(list => showArchived ? list.archived : !list.archived)
+                  .map((list) => (
+                    <ListCard key={list.id} list={list} />
+                  ))}
               </div>
+              
+              {lists.filter(list => showArchived ? list.archived : !list.archived).length === 0 && (
+                <div className="text-center py-12">
+                  <div className="text-muted-foreground">
+                    {showArchived ? 
+                      <div>
+                        <Archive className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                        <p className="text-lg">{t('noArchivedLists')}</p>
+                      </div>
+                      :
+                      <EmptyState />
+                    }
+                  </div>
+                </div>
+              )}
             </>
           )}
         </section>
