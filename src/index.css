@@ -9,30 +9,29 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* QuickList Color System - Exact from reference */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 16%; /* #2A2A2A */
+    /* Clean Modern Color System */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 16%;
+    --card-foreground: 0 0% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 16%;
+    --popover-foreground: 0 0% 9%;
 
-    /* Header purple - #B685F0 */
+    /* Clean purple accent */
     --primary: 268 76% 73%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 268 20% 96%;
-    --secondary-foreground: 0 0% 16%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 0 0% 95%;
-    --muted-foreground: 220 8% 35%; /* Improved contrast from 41% to 35% */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 268 30% 92%;
-    --accent-foreground: 0 0% 16%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
 
-    /* Delete button red - #F05A5A */
     --destructive: 0 86% 65%;
     --destructive-foreground: 0 0% 100%;
 
@@ -40,50 +39,50 @@ All colors MUST be HSL.
     --input: 0 0% 96%;
     --ring: 268 76% 73%;
 
-    /* Exact app colors */
-    --header-purple: 268 76% 73%; /* #B685F0 */
-    --title-purple: 266 78% 67%; /* #B674ED */
-    --subtitle-gray: 220 8% 41%; /* #6A6A6A */
-    --text-dark: 0 0% 16%; /* #2A2A2A */
-    --strikethrough-lilac: 270 66% 73%; /* #C1A4F2 */
-    --share-purple: 268 71% 73%; /* #B88CF2 */
-    --delete-red: 0 86% 65%; /* #F05A5A */
-    --completed-green: 144 69% 58%; /* #4AD273 */
-    --notepad-yellow: 45 100% 67%; /* #FFD15B */
-    --coral-lines: 11 86% 69%; /* #F17D6E */
-    --shadow-blue: 225 38% 56%; /* #5D7EC9 */
+    /* Clean app colors */
+    --header-purple: 268 76% 73%;
+    --title-purple: 268 76% 73%;
+    --subtitle-gray: 0 0% 45%;
+    --text-dark: 0 0% 9%;
+    --strikethrough-lilac: 268 50% 70%;
+    --share-purple: 268 76% 73%;
+    --delete-red: 0 86% 65%;
+    --completed-green: 142 76% 36%;
+    --notepad-yellow: 47 100% 85%;
+    --coral-lines: 15 86% 75%;
+    --shadow-color: 0 0% 80%;
+
+    /* Clean pastel colors */
+    --pastel-blue: 210 100% 97%;
+    --pastel-green: 120 100% 97%;
+    --pastel-pink: 330 100% 97%;
+    --pastel-yellow: 50 100% 97%;
+    --pastel-purple: 280 100% 97%;
+    --pastel-orange: 30 100% 97%;
+    --pastel-mint: 160 100% 97%;
+    --pastel-peach: 15 100% 97%;
     
-    /* Cores pastéis para post-its das listas */
-    --pastel-pink: 340 100% 95%;     /* #FFE5E5 - Rosa claro */
-    --pastel-blue: 200 100% 95%;     /* #E5F3FF - Azul claro */
-    --pastel-green: 120 60% 95%;     /* #E5F5E5 - Verde claro */
-    --pastel-yellow: 50 100% 95%;    /* #FFFCE5 - Amarelo claro */
-    --pastel-purple: 280 60% 95%;    /* #F0E5FF - Roxo claro */
-    --pastel-orange: 30 100% 95%;    /* #FFE5CC - Laranja claro */
-    --pastel-mint: 160 60% 95%;      /* #E5FFF0 - Menta claro */
-    --pastel-peach: 15 100% 95%;     /* #FFE5D9 - Pêssego claro */
+    /* No gradients - clean flat design */
+    --gradient-primary: hsl(0 0% 100%);
+    --gradient-notepad: hsl(50 100% 97%);
+    --gradient-header: hsl(268 76% 73%);
     
-    /* Gradient: Yellow to Peach/Pink - CORES EXATAS */
-    --gradient-primary: linear-gradient(135deg, #FFF2AC, #F9C7C4); /* Amarelo claro → Rosa claro */
-    --gradient-notepad: linear-gradient(135deg, #FFD15B, #F17D6E); /* Amarelo → Coral */
-    --gradient-header: linear-gradient(180deg, #B685F0, #9A6FD8); /* Roxo claro header */
-    
-    /* Softer shadows */
-    --shadow-soft: 0 2px 8px hsl(225 38% 56% / 0.15);
-    --shadow-notepad: 0 4px 16px hsl(225 38% 56% / 0.2);
+    /* Soft shadows */
+    --shadow-soft: 0 1px 3px hsl(0 0% 0% / 0.1);
+    --shadow-notepad: 0 4px 12px hsl(0 0% 0% / 0.1);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 0 0% 16%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 9%;
     --sidebar-primary: 268 76% 73%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 268 30% 95%;
-    --sidebar-accent-foreground: 0 0% 16%;
-    --sidebar-border: 0 0% 91%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-border: 0 0% 90%;
     --sidebar-ring: 268 76% 73%;
   }
 
@@ -165,8 +164,9 @@ All colors MUST be HSL.
   }
 
   body {
-    background: #F8F8FC !important;
+    background: hsl(var(--background)) !important;
     color: hsl(var(--foreground));
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
   .dark body {
