@@ -279,7 +279,7 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
                     e.stopPropagation();
                     handleEdit();
                   }}
-                  className="h-8 w-8 p-0 text-blue-600 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+                  className="h-8 w-8 p-0 text-blue-600 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-all duration-200"
                   title={t('edit')}
                 >
                   <Edit3 className="h-4 w-4" />
