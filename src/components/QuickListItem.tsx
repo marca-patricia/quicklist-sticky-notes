@@ -64,9 +64,14 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
     const currentX = e.touches[0].clientX;
     const diffX = currentX - touchStartX.current;
     
-    // Only allow left swipe for delete action
-    if (diffX < 0) {
-      setSwipeOffset(Math.max(diffX, -100));
+    // Improved mobile drag detection
+    if (Math.abs(diffX) > 10) {
+      e.preventDefault(); // Prevent scrolling
+      
+      // Only allow left swipe for delete action
+      if (diffX < 0) {
+        setSwipeOffset(Math.max(diffX, -100));
+      }
     }
   };
 
