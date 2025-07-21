@@ -13,13 +13,15 @@ interface AddItemFormProps {
   categories?: Category[];
   onCategoryCreate?: (category: Omit<Category, 'id'>) => void;
   onCategoryDelete?: (categoryId: string) => void;
+  listColor?: string;
 }
 
 export const AddItemForm: React.FC<AddItemFormProps> = ({ 
   onAdd, 
   categories = [],
   onCategoryCreate,
-  onCategoryDelete
+  onCategoryDelete,
+  listColor
 }) => {
   const [text, setText] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -60,8 +62,53 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
     high: t('language') === 'pt' ? 'Alta' : 'High'
   };
 
+  // Function to create a darker shade of the list color
+  const getDarkerColor = (color: string) => {
+    if (!color) return 'rgba(255, 255, 255, 0.8)';
+    
+    // Extract HSL values from the color string
+    const hslMatch = color.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+    if (hslMatch) {
+      const [, hue, saturation, lightness] = hslMatch;
+      // Decrease lightness by 8% to make it slightly darker
+      const newLightness = Math.max(parseInt(lightness) - 8, 5);
+      return `hsl(${hue}, ${saturation}%, ${newLightness}%)`;
+    }
+    
+    return color;
+  };
+
+  const cardStyle = listColor ? {
+    backgroundColor: getDarkerColor(listColor),
+    border: 'none'
+  } : {};
+
+  // Create button styles that match the list color theme
+  const getButtonStyle = (isSubmit = false) => {
+    if (!listColor) return {};
+    
+    // For submit button, use the same color as the list color but slightly darker
+    if (isSubmit) {
+      return {
+        backgroundColor: getDarkerColor(listColor),
+        borderColor: getDarkerColor(listColor),
+        color: '#374151' // dark gray text for better readability
+      };
+    }
+    
+    // For settings button, use subtle styling
+    return {
+      backgroundColor: 'rgba(255, 255, 255, 0.6)',
+      borderColor: getDarkerColor(listColor),
+      color: '#374151'
+    };
+  };
+
   return (
-    <Card className="p-4 bg-gradient-notepad shadow-notepad border-0">
+    <Card 
+      className="p-4 shadow-notepad transition-all duration-200" 
+      style={cardStyle}
+    >
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="flex gap-3">
           <Input
@@ -69,25 +116,26 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={t('placeholder')}
-            className="flex-1 bg-background/80 border-border/50 focus:border-primary transition-all duration-200"
+            className="flex-1 bg-white/70 border-gray-300 focus:border-gray-500 transition-all duration-200 placeholder-gray-500"
           />
           <Button 
             type="button"
             variant="outline"
             size="sm"
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className="px-3"
+            className="px-3 hover:bg-white/50"
+            style={getButtonStyle()}
           >
-            <Settings2 className="h-4 w-4" />
+            <Settings2 className="h-4 w-4" style={{ color: '#374151' }} />
           </Button>
           <Button 
             type="submit" 
-            variant="notepad"
             size="sm"
-            className="px-4"
+            className="px-4 hover:opacity-90"
             disabled={!text.trim()}
+            style={getButtonStyle(true)}
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4" style={{ color: '#374151' }} />
             <span className="hidden sm:inline">{t('addItem')}</span>
           </Button>
         </div>

@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { Check, X, Trash2, Edit3, Tag } from 'lucide-react';
@@ -29,12 +30,15 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
   color
 }) => {
   const { t } = useLanguage();
-  const { getListById } = useLists();
+  const { getListById, updateItemInList } = useLists();
   const [isDeleting, setIsDeleting] = useState(false);
   const [swipeOffset, setSwipeOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(text);
   const touchStartX = useRef(0);
   const itemRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const list = getListById(listId);
   const itemCategories = categories.map(catId => 
@@ -113,6 +117,39 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
     onToggle(id);
   };
 
+  const handleEdit = () => {
+    setIsEditing(true);
+    setEditText(text);
+  };
+
+  const handleSaveEdit = () => {
+    if (editText.trim() && editText.trim() !== text) {
+      updateItemInList(listId, id, { text: editText.trim() });
+    }
+    setIsEditing(false);
+  };
+
+  const handleCancelEdit = () => {
+    setEditText(text);
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSaveEdit();
+    } else if (e.key === 'Escape') {
+      handleCancelEdit();
+    }
+  };
+
+  // Focus input when editing starts
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEditing]);
+
   // Animate swipe offset
   useEffect(() => {
     if (!isDragging && swipeOffset !== 0) {
@@ -136,10 +173,11 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
 
       <Card 
         ref={itemRef}
-        className={`p-4 transition-all duration-300 hover:shadow-notepad border-l-4 ${color} cursor-pointer select-none ${
+        className={`p-4 transition-all duration-300 hover:shadow-notepad border-l-4 cursor-pointer select-none group ${
           isDeleting ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
         } ${completed ? 'opacity-70' : 'opacity-100'}`}
         style={{
+          borderLeftColor: color,
           transform: `translateX(${swipeOffset}px)`,
           transition: isDragging ? 'none' : 'transform 0.2s ease-out'
         }}
@@ -167,13 +205,26 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
           </Button>
           
           <div className="flex-1 min-w-0">
-            <span 
-              className={`block transition-all duration-200 ${
-                completed ? 'line-through text-muted-foreground' : 'text-foreground'
-              }`}
-            >
-              {text}
-            </span>
+            {isEditing ? (
+              <Input
+                ref={inputRef}
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onBlur={handleSaveEdit}
+                className="border-primary focus:border-primary text-sm"
+              />
+            ) : (
+              <span 
+                className={`block transition-all duration-200 cursor-pointer ${
+                  completed ? 'line-through text-muted-foreground' : 'text-foreground'
+                }`}
+                onClick={() => !completed && handleEdit()}
+                title={!completed ? t('clickToEdit') : ''}
+              >
+                {text}
+              </span>
+            )}
             
             {itemCategories && itemCategories.length > 0 && (
               <div className="flex flex-wrap gap-1 mt-2">
@@ -191,18 +242,63 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
             )}
           </div>
           
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDelete();
-            }}
-            className="h-8 w-8 p-0 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100 flex-shrink-0"
-            title={t('deleteItem')}
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
+          <div className="flex gap-1 flex-shrink-0">
+            {isEditing ? (
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSaveEdit();
+                  }}
+                  className="h-8 w-8 p-0 text-green-600 hover:bg-green-50 hover:text-green-700 rounded-full transition-all duration-200"
+                  title={t('save')}
+                >
+                  <Check className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCancelEdit();
+                  }}
+                  className="h-8 w-8 p-0 text-red-600 hover:bg-red-50 hover:text-red-700 rounded-full transition-all duration-200"
+                  title={t('cancel')}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEdit();
+                  }}
+                  className="h-8 w-8 p-0 text-blue-600 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+                  title={t('edit')}
+                >
+                  <Edit3 className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete();
+                  }}
+                  className="h-8 w-8 p-0 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+                  title={t('deleteItem')}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       </Card>
     </div>

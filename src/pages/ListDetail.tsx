@@ -7,22 +7,26 @@ import { QuickListStats } from '@/components/QuickListStats';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
 import { SearchAndFilter } from '@/components/SearchAndFilter';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Calendar, Clock, Edit3, Check, X } from 'lucide-react';
 import { QuickListIcon } from '@/components/QuickListIcon';
 
 export const ListDetail: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
   const { t } = useLanguage();
-  const { getListById, addItemToList, toggleItemInList, deleteItemFromList, addCategoryToList, deleteCategoryFromList } = useLists();
+  const { getListById, addItemToList, toggleItemInList, deleteItemFromList, addCategoryToList, deleteCategoryFromList, updateList } = useLists();
   const { toast } = useToast();
   const [showCompleted, setShowCompleted] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState('');
   const [showCompletedFilter, setShowCompletedFilter] = React.useState(true);
   const [sortBy, setSortBy] = React.useState<'recent' | 'alphabetical' | 'completed'>('recent');
+  const [isEditingTitle, setIsEditingTitle] = React.useState(false);
+  const [editTitle, setEditTitle] = React.useState('');
+  const titleInputRef = React.useRef<HTMLInputElement>(null);
 
   const list = listId ? getListById(listId) : undefined;
 
@@ -142,6 +146,43 @@ export const ListDetail: React.FC = () => {
     deleteCategoryFromList(list.id, categoryId);
   };
 
+  const handleEditTitle = () => {
+    setIsEditingTitle(true);
+    setEditTitle(list.title);
+  };
+
+  const handleSaveTitle = () => {
+    if (editTitle.trim() && editTitle.trim() !== list.title) {
+      updateList(list.id, { title: editTitle.trim() });
+      toast({
+        description: t('listUpdated'),
+        duration: 2000,
+      });
+    }
+    setIsEditingTitle(false);
+  };
+
+  const handleCancelEditTitle = () => {
+    setEditTitle(list.title);
+    setIsEditingTitle(false);
+  };
+
+  const handleTitleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSaveTitle();
+    } else if (e.key === 'Escape') {
+      handleCancelEditTitle();
+    }
+  };
+
+  // Focus input when editing title starts
+  React.useEffect(() => {
+    if (isEditingTitle && titleInputRef.current) {
+      titleInputRef.current.focus();
+      titleInputRef.current.select();
+    }
+  }, [isEditingTitle]);
+
   const pendingItems = sortedItems.filter(item => !item.completed);
   const completedItems = sortedItems.filter(item => item.completed);
 
@@ -160,12 +201,58 @@ export const ListDetail: React.FC = () => {
           </Link>
           
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className="flex items-center gap-3 flex-1 min-w-0 group">
               <QuickListIcon className="w-8 h-8 flex-shrink-0" />
-              <h1 className={`text-2xl font-bold border-l-4 ${list.color} pl-3 truncate`}>
-                {list.title}
-              </h1>
-              <span className="text-lg font-medium text-muted-foreground bg-secondary px-2 py-1 rounded">
+              
+              {isEditingTitle ? (
+                <div className="flex items-center gap-2 flex-1">
+                  <Input
+                    ref={titleInputRef}
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    onKeyDown={handleTitleKeyDown}
+                    onBlur={handleSaveTitle}
+                    className="text-2xl font-bold border-primary focus:border-primary flex-1"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleSaveTitle}
+                    className="text-green-600 hover:bg-green-50"
+                  >
+                    <Check className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleCancelEditTitle}
+                    className="text-red-600 hover:bg-red-50"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <h1 
+                    className={`text-2xl font-bold border-l-4 pl-3 truncate cursor-pointer hover:text-primary transition-colors`}
+                    style={{ borderColor: list.color }}
+                    onClick={handleEditTitle}
+                    title={t('clickToEdit')}
+                  >
+                    {list.title}
+                  </h1>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleEditTitle}
+                    className="text-blue-600 hover:bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <Edit3 className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+              
+              <span className="text-lg font-medium text-muted-foreground bg-secondary px-2 py-1 rounded flex-shrink-0">
                 {completedItems.length}/{list.items.length}
               </span>
             </div>
@@ -195,6 +282,7 @@ export const ListDetail: React.FC = () => {
             categories={list.categories} 
             onCategoryCreate={handleCategoryCreate}
             onCategoryDelete={handleCategoryDelete}
+            listColor={list.color}
           />
         </div>
 

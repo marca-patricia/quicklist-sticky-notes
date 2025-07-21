@@ -136,7 +136,13 @@ const translations = {
     weekendWarrior: 'Guerreiro de Fim de Semana',
     weekendWarriorDesc: 'Complete tarefas no sábado e domingo',
     unlocked: 'Desbloqueada',
-    unlockedOn: 'Desbloqueada em'
+    unlockedOn: 'Desbloqueada em',
+    // Edit functionality
+    edit: 'Editar',
+    save: 'Salvar',
+    cancel: 'Cancelar',
+    clickToEdit: 'Clique para editar',
+    listUpdated: 'Lista atualizada!'
   },
   en: {
     appTitle: 'QuickList',
@@ -263,7 +269,13 @@ const translations = {
     weekendWarrior: 'Weekend Warrior',
     weekendWarriorDesc: 'Complete tasks on Saturday and Sunday',
     unlocked: 'Unlocked',
-    unlockedOn: 'Unlocked on'
+    unlockedOn: 'Unlocked on',
+    // Edit functionality
+    edit: 'Edit',
+    save: 'Save',
+    cancel: 'Cancel',
+    clickToEdit: 'Click to edit',
+    listUpdated: 'List updated!'
   }
 };
 
