@@ -55,7 +55,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
       aria-label={`Abrir lista ${list.title} com ${completedItems.length} de ${list.items.length} tarefas concluídas`}
     >
       <div 
-        className="rounded-lg p-4 shadow-soft hover:shadow-notepad transition-all border border-gray-200 cursor-pointer hover:scale-105"
+        className="rounded-lg p-4 shadow-soft hover:shadow-notepad transition-smooth border border-gray-200 cursor-pointer hover:scale-105 animate-fade-in-up"
         style={{ backgroundColor: list.color }}
         role="article"
         aria-describedby={`list-progress-${list.id}`}
