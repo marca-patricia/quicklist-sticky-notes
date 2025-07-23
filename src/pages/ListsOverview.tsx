@@ -14,16 +14,27 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useAchievements } from '@/contexts/AchievementsContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
-import { Archive, ArchiveRestore, Filter } from 'lucide-react';
+import { Archive, ArchiveRestore, Filter, LogOut, User } from 'lucide-react';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
   const { lists } = useLists();
   const { checkAchievements } = useAchievements();
+  const { user, signOut, loading } = useAuth();
+  const navigate = useNavigate();
   const { requestPermission, hasPermission } = useNotifications();
   const [showArchived, setShowArchived] = useState(false);
+
+  // Redirect to auth if not logged in
+  React.useEffect(() => {
+    if (!loading && !user) {
+      navigate('/auth');
+    }
+  }, [user, loading, navigate]);
   
   // Activate achievement notifications
   useAchievementNotifications();
@@ -130,6 +141,17 @@ export const ListsOverview: React.FC = () => {
               <div className="text-gray-700"><ListTemplates /></div>
               <div className="text-gray-700"><ProductivityInsights /></div>
               <div className="text-gray-700"><AchievementsModal /></div>
+              {user && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => signOut()}
+                  className="text-gray-700 hover:text-gray-900 flex items-center gap-2"
+                >
+                  <User className="w-4 h-4" />
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              )}
             </div>
           </div>
         </div>

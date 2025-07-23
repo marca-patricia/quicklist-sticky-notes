@@ -9,8 +9,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ListsProvider } from "@/contexts/ListsContext";
 import { AchievementsProvider } from "@/contexts/AchievementsContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { ListsOverview } from "./pages/ListsOverview";
 import { ListDetail } from "./pages/ListDetail";
+import AuthPage from "./pages/AuthPage";
 import { LoadingSpinner } from "./components/LoadingSpinner";
 
 const queryClient = new QueryClient();
@@ -53,17 +55,20 @@ const App = () => {
         >
           <TooltipProvider>
             <LanguageProvider>
-              <ListsProvider>
-                <AchievementsProvider>
-                  <Routes>
-                    <Route path="/" element={<ListsOverview />} />
-                    <Route path="/list/:listId" element={<ListDetail />} />
-                    <Route path="*" element={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Página não encontrada</p></div>} />
-                  </Routes>
-                  <Toaster />
-                  <Sonner />
-                </AchievementsProvider>
-              </ListsProvider>
+              <AuthProvider>
+                <ListsProvider>
+                  <AchievementsProvider>
+                    <Routes>
+                      <Route path="/" element={<ListsOverview />} />
+                      <Route path="/list/:listId" element={<ListDetail />} />
+                      <Route path="/auth" element={<AuthPage />} />
+                      <Route path="*" element={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Página não encontrada</p></div>} />
+                    </Routes>
+                    <Toaster />
+                    <Sonner />
+                  </AchievementsProvider>
+                </ListsProvider>
+              </AuthProvider>
             </LanguageProvider>
           </TooltipProvider>
         </ThemeProvider>
