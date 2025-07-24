@@ -102,7 +102,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
         description: list.description || undefined,
         createdAt: new Date(list.created_at),
         updatedAt: new Date(list.updated_at),
-        categories: list.categories || [],
+        categories: Array.isArray(list.categories) ? list.categories : [],
         items: (list.list_items || []).map(item => ({
           id: item.id,
           text: item.text,

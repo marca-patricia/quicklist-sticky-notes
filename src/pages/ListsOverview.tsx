@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
 import { Archive, ArchiveRestore, Filter, LogOut, User } from 'lucide-react';
+import { FloatingAddButton } from '@/components/FloatingAddButton';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
@@ -28,6 +29,7 @@ export const ListsOverview: React.FC = () => {
   const navigate = useNavigate();
   const { requestPermission, hasPermission } = useNotifications();
   const [showArchived, setShowArchived] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
 
   // Redirect to auth if not logged in
   React.useEffect(() => {
@@ -110,16 +112,16 @@ export const ListsOverview: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ background: '#F8F8FC' }}>
+    <div className="min-h-screen bg-background">
       {/* Enhanced Header */}
-      <header className="sticky top-0 z-40 shadow-soft border-b border-white/20" style={{ background: 'linear-gradient(135deg, #FFF2AC, #F9C7C4)' }}>
+      <header className="sticky top-0 z-40 shadow-soft border-b border-border bg-gradient-header">
         <div className="container max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
             <div className="flex items-center gap-2" role="group" aria-label="Configurações do aplicativo">
-              <div className="text-gray-700"><LanguageSwitch /></div>
-              <div className="text-gray-700"><ThemeToggle /></div>
-              <div className="text-gray-700"><OfflineStatus /></div>
+              <div className="text-primary-foreground"><LanguageSwitch /></div>
+              <div className="text-primary-foreground"><ThemeToggle /></div>
+              <div className="text-primary-foreground"><OfflineStatus /></div>
             </div>
             
             {/* Center - App Brand */}
@@ -130,7 +132,7 @@ export const ListsOverview: React.FC = () => {
                 aria-label="Recarregar aplicativo QuickList"
               >
                 <QuickListIcon className="w-8 h-8" aria-hidden="true" />
-                <span className="text-xl font-bold" style={{ color: '#B674ED' }}>
+                <span className="text-xl font-bold text-primary-foreground">
                   {t('appTitle')}
                 </span>
               </button>
@@ -138,15 +140,15 @@ export const ListsOverview: React.FC = () => {
 
             {/* Right side controls */}
             <div className="flex items-center gap-2" role="group" aria-label="Ferramentas e estatísticas">
-              <div className="text-gray-700"><ListTemplates /></div>
-              <div className="text-gray-700"><ProductivityInsights /></div>
-              <div className="text-gray-700"><AchievementsModal /></div>
+              <div className="text-primary-foreground"><ListTemplates /></div>
+              <div className="text-primary-foreground"><ProductivityInsights /></div>
+              <div className="text-primary-foreground"><AchievementsModal /></div>
               {user && (
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => signOut()}
-                  className="text-gray-700 hover:text-gray-900 flex items-center gap-2"
+                  className="text-primary-foreground hover:text-primary-foreground/80 flex items-center gap-2"
                 >
                   <User className="w-4 h-4" />
                   <LogOut className="w-4 h-4" />
@@ -168,12 +170,12 @@ export const ListsOverview: React.FC = () => {
             aria-label="Recarregar aplicativo QuickList"
           >
             <QuickListIcon className="w-16 h-16 drop-shadow-lg" aria-hidden="true" />
-            <h1 className="text-4xl font-bold" style={{ color: '#B674ED' }}>
+            <h1 className="text-4xl font-bold text-primary">
               {t('appTitle')}
             </h1>
           </button>
           <div className="hidden sm:block mb-6">
-            <h1 className="text-5xl font-bold mb-4" style={{ color: '#B674ED' }}>
+            <h1 className="text-5xl font-bold mb-4 text-primary">
               {t('appTitle')}
             </h1>
           </div>
@@ -182,18 +184,22 @@ export const ListsOverview: React.FC = () => {
           </p>
         </div>
 
-        {/* Add List Form */}
-        <section className="max-w-2xl mx-auto mb-12" aria-label="Criar nova lista">
-          {isLoading ? (
-            <div className="flex gap-2">
-              <div className="animate-pulse bg-muted rounded h-10 flex-1"></div>
-              <div className="animate-pulse bg-muted rounded-full h-10 w-10"></div>
-              <div className="animate-pulse bg-muted rounded h-10 w-24"></div>
-            </div>
-          ) : (
-            <AddListForm />
-          )}
-        </section>
+        {/* Add List Form - Now conditional */}
+        {showAddForm && (
+          <section className="max-w-2xl mx-auto mb-12" aria-label="Criar nova lista">
+            {isLoading ? (
+              <div className="flex gap-2">
+                <div className="animate-pulse bg-muted rounded h-10 flex-1"></div>
+                <div className="animate-pulse bg-muted rounded-full h-10 w-10"></div>
+                <div className="animate-pulse bg-muted rounded h-10 w-24"></div>
+              </div>
+            ) : (
+              <div className="bg-white rounded-lg shadow-soft p-6 border border-border">
+                <AddListForm />
+              </div>
+            )}
+          </section>
+        )}
 
         {/* Lists Section */}
         <section aria-label={lists.length > 0 ? `${lists.length} listas criadas` : "Nenhuma lista criada"}>
@@ -267,6 +273,9 @@ export const ListsOverview: React.FC = () => {
           )}
         </section>
       </main>
+      
+      {/* Floating Add Button */}
+      <FloatingAddButton onClick={() => setShowAddForm(!showAddForm)} />
       
       {/* Spacer for mobile */}
       <div className="h-20"></div>

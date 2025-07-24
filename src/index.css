@@ -9,28 +9,28 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Clean Modern Color System */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
+    /* Enhanced Modern Color System - Better Contrast */
+    --background: 0 0% 98%;
+    --foreground: 224 71% 4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card-foreground: 224 71% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover-foreground: 224 71% 4%;
 
-    /* Clean purple accent */
-    --primary: 268 76% 73%;
-    --primary-foreground: 0 0% 100%;
+    /* Enhanced primary with yellow accent */
+    --primary: 47 96% 53%;
+    --primary-foreground: 26 83% 14%;
     
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 9% 46%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 9%;
+    --accent: 47 96% 88%;
+    --accent-foreground: 26 83% 14%;
 
     --destructive: 0 86% 65%;
     --destructive-foreground: 0 0% 100%;
@@ -48,24 +48,24 @@ All colors MUST be HSL.
     --share-purple: 268 76% 73%;
     --delete-red: 0 86% 65%;
     --completed-green: 142 76% 36%;
-    --notepad-yellow: 47 100% 85%;
-    --coral-lines: 15 86% 75%;
+    --notepad-yellow: 47 96% 53%;
+    --coral-lines: 339 82% 52%;
     --shadow-color: 0 0% 80%;
 
-    /* Clean pastel colors */
-    --pastel-blue: 210 100% 97%;
-    --pastel-green: 120 100% 97%;
-    --pastel-pink: 330 100% 97%;
-    --pastel-yellow: 50 100% 97%;
-    --pastel-purple: 280 100% 97%;
-    --pastel-orange: 30 100% 97%;
-    --pastel-mint: 160 100% 97%;
-    --pastel-peach: 15 100% 97%;
+    /* Enhanced pastel colors - Better contrast */
+    --pastel-blue: 213 94% 68%;
+    --pastel-green: 152 69% 52%;
+    --pastel-pink: 339 82% 84%;
+    --pastel-yellow: 47 96% 53%;
+    --pastel-purple: 268 76% 73%;
+    --pastel-orange: 30 100% 70%;
+    --pastel-mint: 160 84% 52%;
+    --pastel-peach: 15 86% 75%;
     
-    /* No gradients - clean flat design */
-    --gradient-primary: hsl(0 0% 100%);
-    --gradient-notepad: hsl(50 100% 97%);
-    --gradient-header: hsl(268 76% 73%);
+    /* Enhanced gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(47 96% 53%), hsl(47 96% 63%));
+    --gradient-notepad: linear-gradient(135deg, hsl(47 96% 53%), hsl(47 96% 63%));
+    --gradient-header: linear-gradient(135deg, hsl(47 96% 88%), hsl(339 82% 84%));
     
     /* Soft shadows */
     --shadow-soft: 0 1px 3px hsl(0 0% 0% / 0.1);
@@ -87,33 +87,33 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 0 0% 8%;
-    --foreground: 0 0% 98%;
+    --background: 222 84% 5%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 98%;
+    --card: 222 84% 5%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 222 84% 5%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 268 76% 73%;
-    --primary-foreground: 0 0% 8%;
+    --primary: 47 96% 53%;
+    --primary-foreground: 222 84% 5%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 86% 65%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 268 76% 73%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 47 96% 53%;
 
     /* Dark mode app colors */
     --header-purple: 268 76% 73%;
@@ -175,11 +175,21 @@ All colors MUST be HSL.
     color: hsl(var(--foreground));
   }
 
-  /* Better mobile touch targets */
+  /* Better mobile touch targets and safe area */
   @media (max-width: 768px) {
     button {
       min-height: 44px;
       min-width: 44px;
+    }
+    
+    /* Add safe area padding for mobile devices */
+    .mobile-safe-bottom {
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+    
+    /* Ensure floating buttons respect safe area */
+    .floating-button-mobile {
+      bottom: max(24px, calc(24px + env(safe-area-inset-bottom)));
     }
   }
 
