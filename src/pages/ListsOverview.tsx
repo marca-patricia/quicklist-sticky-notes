@@ -10,6 +10,7 @@ import { ProductivityInsights } from '@/components/ProductivityInsights';
 import { ListTemplates } from '@/components/ListTemplates';
 import { OfflineStatus } from '@/components/OfflineStatus';
 import { QuickListIcon } from '@/components/QuickListIcon';
+import { QuickListLogo } from '@/components/QuickListLogo';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
@@ -128,13 +129,10 @@ export const ListsOverview: React.FC = () => {
             <div className="hidden sm:flex items-center gap-3">
               <button 
                 onClick={() => window.location.reload()}
-                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                className="hover:opacity-80 transition-opacity"
                 aria-label="Recarregar aplicativo QuickList"
               >
-                <QuickListIcon className="w-8 h-8" aria-hidden="true" />
-                <span className="text-xl font-bold text-primary-foreground">
-                  {t('appTitle')}
-                </span>
+                <QuickListLogo size="md" showText={true} className="text-primary-foreground" />
               </button>
             </div>
 
@@ -169,15 +167,10 @@ export const ListsOverview: React.FC = () => {
             className="flex items-center justify-center gap-4 mb-6 sm:hidden hover:opacity-80 transition-opacity"
             aria-label="Recarregar aplicativo QuickList"
           >
-            <QuickListIcon className="w-16 h-16 drop-shadow-lg" aria-hidden="true" />
-            <h1 className="text-4xl font-bold text-primary">
-              {t('appTitle')}
-            </h1>
+            <QuickListLogo size="xl" showText={true} />
           </button>
-          <div className="hidden sm:block mb-6">
-            <h1 className="text-5xl font-bold mb-4 text-primary">
-              {t('appTitle')}
-            </h1>
+          <div className="hidden sm:block mb-6 flex justify-center">
+            <QuickListLogo size="xl" showText={true} />
           </div>
           <p className="text-lg max-w-2xl mx-auto leading-relaxed text-muted-foreground">
             {t('organizeDesc')}

@@ -55,13 +55,16 @@ export const ListCard: React.FC<ListCardProps> = ({ list }) => {
       aria-label={`Abrir lista ${list.title} com ${completedItems.length} de ${list.items.length} tarefas concluídas`}
     >
       <div 
-        className="rounded-lg p-4 shadow-soft hover:shadow-notepad transition-smooth border border-gray-200 cursor-pointer hover:scale-105 animate-fade-in-up"
-        style={{ backgroundColor: list.color }}
+        className="rounded-xl p-5 shadow-soft hover:shadow-notepad transition-all duration-300 border border-border cursor-pointer hover:scale-[1.02] animate-fade-in-up bg-card"
+        style={{ 
+          backgroundColor: list.color,
+          borderLeft: `4px solid hsl(var(--primary))`,
+        }}
         role="article"
         aria-describedby={`list-progress-${list.id}`}
       >
         <div className="flex justify-between items-start mb-3">
-          <h3 className="font-semibold text-lg truncate flex-1 text-foreground">{list.title}</h3>
+          <h3 className="font-semibold text-xl truncate flex-1" style={{ color: 'hsl(var(--note-text))' }}>{list.title}</h3>
           <div className="flex items-center gap-2" onClick={(e) => e.preventDefault()}>
             <ColorPicker 
               selectedColor={list.color}

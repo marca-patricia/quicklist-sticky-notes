@@ -9,28 +9,28 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Enhanced Modern Color System - Better Contrast */
-    --background: 0 0% 98%;
-    --foreground: 224 71% 4%;
+    /* QuickList Professional Color System - Light Theme */
+    --background: 0 0% 97.5%; /* #F9F9F9 - Soft white background */
+    --foreground: 0 0% 20%; /* #333333 - Dark gray text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 0 0% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover-foreground: 0 0% 20%;
 
-    /* Enhanced primary with yellow accent */
-    --primary: 47 96% 53%;
-    --primary-foreground: 26 83% 14%;
+    /* QuickList Yellow Brand Colors */
+    --primary: 47 96% 55%; /* #FFEB3B - Vibrant yellow */
+    --primary-foreground: 0 0% 0%; /* Black text on yellow */
     
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 9% 46%;
+    --secondary: 0 0% 93%; /* #EDEDED - Light gray search fields */
+    --secondary-foreground: 0 0% 46%; /* #757575 - Medium gray text */
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 0 0% 93%; /* Consistent with secondary */
+    --muted-foreground: 0 0% 46%;
 
-    --accent: 47 96% 88%;
-    --accent-foreground: 26 83% 14%;
+    --accent: 47 96% 88%; /* #FFF9C4 - Light yellow notes */
+    --accent-foreground: 0 0% 13%; /* #212121 - Dark gray on notes */
 
     --destructive: 0 86% 65%;
     --destructive-foreground: 0 0% 100%;
@@ -39,33 +39,36 @@ All colors MUST be HSL.
     --input: 0 0% 96%;
     --ring: 268 76% 73%;
 
-    /* Clean app colors */
-    --header-purple: 268 76% 73%;
-    --title-purple: 268 76% 73%;
-    --subtitle-gray: 0 0% 45%;
-    --text-dark: 0 0% 9%;
-    --strikethrough-lilac: 268 50% 70%;
-    --share-purple: 268 76% 73%;
+    /* QuickList Semantic Colors - Light Theme */
+    --note-yellow: 45 100% 88%; /* #FFF9C4 - Light yellow notes */
+    --note-blue: 210 100% 92%; /* #E3F2FD - Light blue notes */
+    --note-green: 166 100% 90%; /* #E0F2F1 - Light green notes */
+    --note-text: 0 0% 13%; /* #212121 - Dark text on notes */
+    
+    --floating-button: 47 96% 55%; /* #FFEB3B - Yellow floating button */
+    --floating-button-text: 0 0% 0%; /* Black text on floating button */
+    
+    --search-background: 0 0% 93%; /* #EDEDED - Search field background */
+    --search-text: 0 0% 46%; /* #757575 - Search placeholder text */
+    
     --delete-red: 0 86% 65%;
     --completed-green: 142 76% 36%;
-    --notepad-yellow: 47 96% 53%;
-    --coral-lines: 339 82% 52%;
-    --shadow-color: 0 0% 80%;
+    --shadow-color: 0 0% 85%;
 
-    /* Enhanced pastel colors - Better contrast */
-    --pastel-blue: 213 94% 68%;
-    --pastel-green: 152 69% 52%;
-    --pastel-pink: 339 82% 84%;
-    --pastel-yellow: 47 96% 53%;
-    --pastel-purple: 268 76% 73%;
-    --pastel-orange: 30 100% 70%;
-    --pastel-mint: 160 84% 52%;
-    --pastel-peach: 15 86% 75%;
+    /* QuickList Note Colors - Light Theme */
+    --note-yellow-light: 45 100% 88%; /* #FFF9C4 */
+    --note-blue-light: 210 100% 92%; /* #E3F2FD */
+    --note-green-light: 166 100% 90%; /* #E0F2F1 */
+    --note-pink-light: 339 82% 94%; /* Light pink */
+    --note-purple-light: 268 76% 93%; /* Light purple */
+    --note-orange-light: 30 100% 90%; /* Light orange */
+    --note-mint-light: 160 84% 90%; /* Light mint */
+    --note-peach-light: 15 86% 92%; /* Light peach */
     
-    /* Enhanced gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(47 96% 53%), hsl(47 96% 63%));
-    --gradient-notepad: linear-gradient(135deg, hsl(47 96% 53%), hsl(47 96% 63%));
-    --gradient-header: linear-gradient(135deg, hsl(47 96% 88%), hsl(339 82% 84%));
+    /* QuickList Gradients - Light Theme */
+    --gradient-primary: linear-gradient(135deg, hsl(47 96% 55%), hsl(47 96% 60%));
+    --gradient-notepad: linear-gradient(135deg, hsl(45 100% 88%), hsl(45 100% 92%));
+    --gradient-header: linear-gradient(135deg, hsl(47 96% 55%), hsl(47 96% 65%));
     
     /* Soft shadows */
     --shadow-soft: 0 1px 3px hsl(0 0% 0% / 0.1);
@@ -87,26 +90,28 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222 84% 5%;
-    --foreground: 210 40% 98%;
+    /* QuickList Professional Color System - Dark Theme */
+    --background: 0 0% 7%; /* #121212 - True black background */
+    --foreground: 0 0% 100%; /* #FFFFFF - Pure white text */
 
-    --card: 222 84% 5%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 7%; /* True black cards */
+    --card-foreground: 0 0% 100%;
 
-    --popover: 222 84% 5%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 47 96% 53%;
-    --primary-foreground: 222 84% 5%;
+    /* QuickList Dark Theme Colors */
+    --primary: 47 96% 55%; /* #FBC02D - Gold yellow */
+    --primary-foreground: 0 0% 0%; /* Black text on yellow */
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 16%; /* #2A2A2A - Dark gray search fields */
+    --secondary-foreground: 0 0% 65%; /* #A5A5A5 - Light gray text */
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 16%; /* Consistent with secondary */
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 45 96% 72%; /* #FDD835 - Dark theme yellow notes */
+    --accent-foreground: 0 0% 100%; /* White text on dark notes */
 
     --destructive: 0 86% 65%;
     --destructive-foreground: 0 0% 98%;
@@ -115,33 +120,36 @@ All colors MUST be HSL.
     --input: 217 33% 17%;
     --ring: 47 96% 53%;
 
-    /* Dark mode app colors */
-    --header-purple: 268 76% 73%;
-    --title-purple: 266 78% 67%;
-    --subtitle-gray: 0 0% 65%;
-    --text-dark: 0 0% 98%;
-    --strikethrough-lilac: 270 66% 73%;
-    --share-purple: 268 71% 73%;
+    /* QuickList Semantic Colors - Dark Theme */
+    --note-yellow: 45 96% 72%; /* #FDD835 - Strong yellow notes */
+    --note-blue: 210 100% 78%; /* #90CAF9 - Deep blue notes */
+    --note-green: 120 47% 65%; /* #A5D6A7 - Medium green notes */
+    --note-text: 0 0% 100%; /* #FFFFFF - White text on notes */
+    
+    --floating-button: 47 96% 50%; /* #FBC02D - Gold floating button */
+    --floating-button-text: 0 0% 0%; /* Black text on floating button */
+    
+    --search-background: 0 0% 16%; /* #2A2A2A - Dark search field */
+    --search-text: 0 0% 65%; /* #A5A5A5 - Light gray placeholder */
+    
     --delete-red: 0 86% 65%;
     --completed-green: 120 67% 55%;
-    --notepad-yellow: 45 93% 65%;
-    --coral-lines: 15 86% 75%;
     --shadow-color: 0 0% 5%;
 
-    /* Dark mode pastel colors */
-    --pastel-blue: 210 50% 20%;
-    --pastel-green: 120 50% 20%;
-    --pastel-pink: 330 50% 20%;
-    --pastel-yellow: 50 50% 20%;
-    --pastel-purple: 280 50% 20%;
-    --pastel-orange: 30 50% 20%;
-    --pastel-mint: 160 50% 20%;
-    --pastel-peach: 15 50% 20%;
+    /* QuickList Note Colors - Dark Theme */
+    --note-yellow-dark: 45 96% 72%; /* #FDD835 */
+    --note-blue-dark: 210 100% 78%; /* #90CAF9 */
+    --note-green-dark: 120 47% 65%; /* #A5D6A7 */
+    --note-pink-dark: 339 82% 75%; /* Dark pink */
+    --note-purple-dark: 268 76% 75%; /* Dark purple */
+    --note-orange-dark: 30 100% 75%; /* Dark orange */
+    --note-mint-dark: 160 84% 65%; /* Dark mint */
+    --note-peach-dark: 15 86% 75%; /* Dark peach */
     
-    /* Dark mode gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(45 50% 25%), hsl(15 50% 25%));
-    --gradient-notepad: linear-gradient(135deg, hsl(45 70% 30%), hsl(15 70% 35%));
-    --gradient-header: linear-gradient(180deg, hsl(268 76% 73%), hsl(268 76% 60%));
+    /* QuickList Gradients - Dark Theme */
+    --gradient-primary: linear-gradient(135deg, hsl(47 96% 50%), hsl(47 96% 60%));
+    --gradient-notepad: linear-gradient(135deg, hsl(45 96% 72%), hsl(45 96% 80%));
+    --gradient-header: linear-gradient(135deg, hsl(47 96% 50%), hsl(47 96% 55%));
     
     /* Dark mode shadows */
     --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.3);
@@ -166,8 +174,12 @@ All colors MUST be HSL.
   body {
     background: hsl(var(--background)) !important;
     color: hsl(var(--foreground));
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px; /* Professional base font size */
+    line-height: 1.6; /* Better readability */
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   .dark body {
@@ -184,12 +196,13 @@ All colors MUST be HSL.
     
     /* Add safe area padding for mobile devices */
     .mobile-safe-bottom {
-      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
     }
     
     /* Ensure floating buttons respect safe area */
     .floating-button-mobile {
-      bottom: max(24px, calc(24px + env(safe-area-inset-bottom)));
+      bottom: max(28px, calc(28px + env(safe-area-inset-bottom)));
+      right: 20px;
     }
   }
 
@@ -309,6 +322,17 @@ All colors MUST be HSL.
   
   .bg-gradient-header {
     background: var(--gradient-header);
+  }
+  
+  /* Professional QuickList styles */
+  .quicklist-note {
+    background: hsl(var(--note-yellow));
+    color: hsl(var(--note-text));
+  }
+  
+  .quicklist-search {
+    background: hsl(var(--search-background));
+    color: hsl(var(--search-text));
   }
   
   /* Force header background */
