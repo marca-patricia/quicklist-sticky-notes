@@ -178,7 +178,47 @@ const translations = {
     dragToReorder: 'Arraste para reordenar',
     clickToComplete: 'Clique para completar',
     doubleClickToEdit: 'Clique duas vezes para editar',
-    noArchivedLists: 'Nenhuma lista arquivada'
+    noArchivedLists: 'Nenhuma lista arquivada',
+    
+    // Search and filters
+    searchPlaceholder: 'Buscar tarefas...',
+    searchLists: 'Buscar listas...',
+    noResultsFound: 'Nenhum resultado encontrado',
+    clearSearch: 'Limpar busca',
+    
+    // View modes
+    listView: 'Lista',
+    gridView: 'Grade',
+    switchToListView: 'Alternar para visualização em lista',
+    switchToGridView: 'Alternar para visualização em grade',
+    
+    // Notifications and reminders
+    scheduleReminder: 'Agendar Lembrete',
+    reminderScheduled: 'Lembrete agendado',
+    reminderFor: 'Lembrete para',
+    reminderText: 'Texto do lembrete',
+    selectDateAndTime: 'Selecione data e hora',
+    selectFutureDateTime: 'Selecione uma data e hora futura',
+    notificationPermissionDenied: 'Permissão de notificação negada',
+    activeReminders: 'Lembretes ativos',
+    reminderRemoved: 'Lembrete removido',
+    
+    // Categories and colors
+    selectColor: 'Selecionar cor',
+    changeColor: 'Alterar cor',
+    categoryColor: 'Cor da categoria',
+    
+    // Accessibility
+    keyboardNavigation: 'Navegação por teclado disponível',
+    pressEnterToActivate: 'Pressione Enter para ativar',
+    pressEscapeToCancel: 'Pressione Esc para cancelar',
+    
+    // Advanced features
+    itemMoved: 'Item movido',
+    error: 'Erro',
+    exportAs: 'Exportar como',
+    exportMd: 'Markdown (.md)',
+    listExported: 'Lista exportada com sucesso!'
   },
   en: {
     appTitle: 'QuickList',
@@ -348,7 +388,47 @@ const translations = {
     dragToReorder: 'Drag to reorder',
     clickToComplete: 'Click to complete',
     doubleClickToEdit: 'Double click to edit',
-    noArchivedLists: 'No archived lists'
+    noArchivedLists: 'No archived lists',
+    
+    // Search and filters
+    searchPlaceholder: 'Search tasks...',
+    searchLists: 'Search lists...',
+    noResultsFound: 'No results found',
+    clearSearch: 'Clear search',
+    
+    // View modes
+    listView: 'List',
+    gridView: 'Grid',
+    switchToListView: 'Switch to list view',
+    switchToGridView: 'Switch to grid view',
+    
+    // Notifications and reminders
+    scheduleReminder: 'Schedule Reminder',
+    reminderScheduled: 'Reminder scheduled',
+    reminderFor: 'Reminder for',
+    reminderText: 'Reminder text',
+    selectDateAndTime: 'Select date and time',
+    selectFutureDateTime: 'Select a future date and time',
+    notificationPermissionDenied: 'Notification permission denied',
+    activeReminders: 'Active reminders',
+    reminderRemoved: 'Reminder removed',
+    
+    // Categories and colors
+    selectColor: 'Select color',
+    changeColor: 'Change color',
+    categoryColor: 'Category color',
+    
+    // Accessibility
+    keyboardNavigation: 'Keyboard navigation available',
+    pressEnterToActivate: 'Press Enter to activate',
+    pressEscapeToCancel: 'Press Esc to cancel',
+    
+    // Advanced features
+    itemMoved: 'Item moved',
+    error: 'Error',
+    exportAs: 'Export as',
+    exportMd: 'Markdown (.md)',
+    listExported: 'List exported successfully!'
   }
 };
 

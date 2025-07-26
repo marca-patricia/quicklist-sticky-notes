@@ -21,6 +21,8 @@ import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
 import { Archive, ArchiveRestore, Filter, LogOut, User } from 'lucide-react';
 import { FloatingAddButton } from '@/components/FloatingAddButton';
+import { SearchInput } from '@/components/SearchInput';
+import { GridViewToggle } from '@/components/GridViewToggle';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
@@ -31,6 +33,8 @@ export const ListsOverview: React.FC = () => {
   const { requestPermission, hasPermission } = useNotifications();
   const [showArchived, setShowArchived] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isGridView, setIsGridView] = useState(false);
 
   // Redirect to auth if not logged in
   React.useEffect(() => {
@@ -194,10 +198,47 @@ export const ListsOverview: React.FC = () => {
           </section>
         )}
 
+        {/* Search and Filter Section */}
+        {lists.length > 0 && (
+          <section className="max-w-2xl mx-auto mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 items-center">
+              <div className="flex-1 w-full">
+                <SearchInput
+                  value={searchTerm}
+                  onChange={setSearchTerm}
+                  placeholder={t('searchLists')}
+                  className="w-full"
+                />
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <GridViewToggle
+                  isGridView={isGridView}
+                  onToggle={setIsGridView}
+                />
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowArchived(!showArchived)}
+                  className="flex items-center gap-2"
+                >
+                  {showArchived ? <ArchiveRestore className="w-4 h-4" /> : <Archive className="w-4 h-4" />}
+                  {showArchived ? t('hideArchived') : t('showArchived')}
+                </Button>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Lists Section */}
         <section aria-label={lists.length > 0 ? `${lists.length} listas criadas` : "Nenhuma lista criada"}>
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={`grid gap-6 ${
+              isGridView 
+                ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' 
+                : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            }`}>
               {Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="rounded-lg p-4 shadow-soft border border-gray-200 bg-white">
                   <div className="flex justify-between items-start mb-3">
@@ -221,47 +262,66 @@ export const ListsOverview: React.FC = () => {
             <EmptyState />
           ) : (
             <>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-semibold text-foreground">
-                  {t('allLists')} 
-                  <span className="text-sm font-normal text-muted-foreground ml-2">
-                    ({lists.filter(list => showArchived ? list.archived : !list.archived).length})
-                  </span>
-                </h2>
-                
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowArchived(!showArchived)}
-                  className="flex items-center gap-2"
-                >
-                  {showArchived ? <ArchiveRestore className="w-4 h-4" /> : <Archive className="w-4 h-4" />}
-                  {showArchived ? t('hideArchived') : t('showArchived')}
-                </Button>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {lists
+              {/* Filter and display lists */}
+              {(() => {
+                const filteredLists = lists
                   .filter(list => showArchived ? list.archived : !list.archived)
-                  .map((list) => (
-                    <ListCard key={list.id} list={list} />
-                  ))}
-              </div>
-              
-              {lists.filter(list => showArchived ? list.archived : !list.archived).length === 0 && (
-                <div className="text-center py-12">
-                  <div className="text-muted-foreground">
-                    {showArchived ? 
-                      <div>
-                        <Archive className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                        <p className="text-lg">{t('noArchivedLists')}</p>
+                  .filter(list => 
+                    searchTerm === '' || 
+                    list.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    list.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    list.items.some(item => item.text.toLowerCase().includes(searchTerm.toLowerCase()))
+                  );
+
+                if (filteredLists.length === 0) {
+                  return (
+                    <div className="text-center py-12">
+                      <div className="text-muted-foreground">
+                        {searchTerm ? (
+                          <div>
+                            <p className="text-lg">{t('noResultsFound')}</p>
+                            <p className="text-sm mt-2">Tente uma busca diferente</p>
+                          </div>
+                        ) : showArchived ? (
+                          <div>
+                            <Archive className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                            <p className="text-lg">{t('noArchivedLists')}</p>
+                          </div>
+                        ) : (
+                          <EmptyState />
+                        )}
                       </div>
-                      :
-                      <EmptyState />
-                    }
-                  </div>
-                </div>
-              )}
+                    </div>
+                  );
+                }
+
+                return (
+                  <>
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-2xl font-semibold text-foreground">
+                        {searchTerm ? `${t('searchLists')} "${searchTerm}"` : t('allLists')}
+                        <span className="text-sm font-normal text-muted-foreground ml-2">
+                          ({filteredLists.length})
+                        </span>
+                      </h2>
+                    </div>
+
+                    <div className={`grid gap-6 ${
+                      isGridView 
+                        ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' 
+                        : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+                    }`}>
+                      {filteredLists.map((list) => (
+                        <ListCard 
+                          key={list.id} 
+                          list={list} 
+                          isGridView={isGridView}
+                        />
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
             </>
           )}
         </section>

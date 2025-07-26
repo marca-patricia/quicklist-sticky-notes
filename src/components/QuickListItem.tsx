@@ -11,6 +11,7 @@ import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { useUndo } from '@/hooks/useUndo';
 import { useFeedbackToast } from '@/components/FeedbackToast';
 import { Check, X, Trash2, Edit3, Tag, GripVertical } from 'lucide-react';
+import { NotificationScheduler } from '@/components/NotificationScheduler';
 
 interface QuickListItemProps {
   id: string;
@@ -355,6 +356,22 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
                       <p>{t('edit')}</p>
                     </TooltipContent>
                   </Tooltip>
+                  
+                  {!completed && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div onClick={(e) => e.stopPropagation()}>
+                          <NotificationScheduler
+                            itemId={id}
+                            itemText={text}
+                          />
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{t('scheduleReminder')}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button

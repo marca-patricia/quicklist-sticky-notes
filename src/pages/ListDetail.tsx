@@ -15,11 +15,12 @@ import { useLists } from '@/contexts/ListsContext';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Calendar, Clock, Edit3, Check, X } from 'lucide-react';
 import { QuickListIcon } from '@/components/QuickListIcon';
+import { DragDropList } from '@/components/DragDropList';
 
 export const ListDetail: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
   const { t } = useLanguage();
-  const { getListById, addItemToList, toggleItemInList, deleteItemFromList, addCategoryToList, deleteCategoryFromList, updateList } = useLists();
+  const { getListById, addItemToList, toggleItemInList, deleteItemFromList, addCategoryToList, deleteCategoryFromList, updateList, updateItemInList } = useLists();
   const { toast } = useToast();
   const [showCompleted, setShowCompleted] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -176,6 +177,23 @@ export const ListDetail: React.FC = () => {
     }
   };
 
+  const handleReorderItems = (dragIndex: number, hoverIndex: number) => {
+    const items = [...list.items];
+    const draggedItem = items[dragIndex];
+    
+    // Remove the dragged item and insert it at the new position
+    items.splice(dragIndex, 1);
+    items.splice(hoverIndex, 0, draggedItem);
+    
+    // Update the list with reordered items
+    updateList(list.id, { items });
+    
+    toast({
+      description: t('itemMoved'),
+      duration: 1000,
+    });
+  };
+
   // Focus input when editing title starts
   React.useEffect(() => {
     if (isEditingTitle && titleInputRef.current) {
@@ -317,21 +335,14 @@ export const ListDetail: React.FC = () => {
               <Clock className="w-5 h-5" />
               {t('pending')} ({pendingItems.length})
             </h3>
-            <div className="space-y-3">
-              {pendingItems.map(item => (
-                <QuickListItem
-                  key={item.id}
-                  id={item.id}
-                  text={item.text}
-                  completed={item.completed}
-                  categories={item.categories}
-                  listId={list.id}
-                  color={list.color}
-                  onToggle={toggleItem}
-                  onDelete={deleteItem}
-                />
-              ))}
-            </div>
+            <DragDropList
+              items={pendingItems}
+              listId={list.id}
+              listColor={list.color}
+              onToggleItem={toggleItem}
+              onDeleteItem={deleteItem}
+              onReorderItems={handleReorderItems}
+            />
           </div>
         )}
 
@@ -354,20 +365,15 @@ export const ListDetail: React.FC = () => {
                 )}
               </Button>
             </CollapsibleTrigger>
-            <CollapsibleContent className="space-y-3">
-              {completedItems.map(item => (
-                <QuickListItem
-                  key={item.id}
-                  id={item.id}
-                  text={item.text}
-                  completed={item.completed}
-                  categories={item.categories}
-                  listId={list.id}
-                  color={list.color}
-                  onToggle={toggleItem}
-                  onDelete={deleteItem}
-                />
-              ))}
+            <CollapsibleContent>
+              <DragDropList
+                items={completedItems}
+                listId={list.id}
+                listColor={list.color}
+                onToggleItem={toggleItem}
+                onDeleteItem={deleteItem}
+                onReorderItems={handleReorderItems}
+              />
             </CollapsibleContent>
           </Collapsible>
         )}
