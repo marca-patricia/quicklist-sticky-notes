@@ -9,160 +9,89 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* QuickList Professional Color System - Light Theme */
-    --background: 0 0% 97.5%; /* #F9F9F9 - Soft white background */
-    --foreground: 0 0% 20%; /* #333333 - Dark gray text */
+    /* QuickList Guia de Cores - Legibilidade Otimizada - Modo Claro */
+    --background: 0 0% 100%; /* #FFFFFF - Fundo branco */
+    --foreground: 0 0% 0%; /* #000000 - Texto preto para alto contraste */
 
-    --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 0 0% 20%;
+    --card: 55 100% 95%; /* #FFFACD - Amarelo claro pastel para post-its */
+    --card-foreground: 0 0% 0%; /* #000000 - Texto preto nos post-its */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%;
+    --popover-foreground: 0 0% 0%;
 
-    /* QuickList Yellow Brand Colors */
-    --primary: 47 96% 55%; /* #FFEB3B - Vibrant yellow */
-    --primary-foreground: 0 0% 0%; /* Black text on yellow */
+    /* Cores principais - Botões e ícones azul forte */
+    --primary: 211 100% 50%; /* #007BFF - Azul forte para botões */
+    --primary-foreground: 0 0% 100%; /* Texto branco nos botões */
     
-    --secondary: 0 0% 93%; /* #EDEDED - Light gray search fields */
-    --secondary-foreground: 0 0% 46%; /* #757575 - Medium gray text */
+    --secondary: 0 0% 80%; /* #CCCCCC - Bordas cinza claro */
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 0 0% 93%; /* Consistent with secondary */
-    --muted-foreground: 0 0% 46%;
+    --muted: 0 0% 80%;
+    --muted-foreground: 0 0% 30%;
 
-    --accent: 47 96% 88%; /* #FFF9C4 - Light yellow notes */
-    --accent-foreground: 0 0% 13%; /* #212121 - Dark gray on notes */
+    --accent: 194 100% 94%; /* #E0FFFF - Azul claro para notas */
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 86% 65%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
+    --border: 0 0% 80%; /* #CCCCCC - Bordas suaves */
     --input: 0 0% 96%;
-    --ring: 268 76% 73%;
+    --ring: 211 100% 50%;
 
-    /* QuickList Semantic Colors - Light Theme */
-    --note-yellow: 45 100% 88%; /* #FFF9C4 - Light yellow notes */
-    --note-blue: 210 100% 92%; /* #E3F2FD - Light blue notes */
-    --note-green: 166 100% 90%; /* #E0F2F1 - Light green notes */
-    --note-text: 0 0% 13%; /* #212121 - Dark text on notes */
+    /* Post-it Colors - Modo Claro */
+    --note-yellow: 55 100% 95%; /* #FFFACD - Amarelo claro */
+    --note-blue: 194 100% 94%; /* #E0FFFF - Azul claro */
+    --note-green: 60 29% 92%; /* #F5F5DC - Bege */
+    --note-text: 0 0% 0%; /* #000000 - Texto preto */
     
-    --floating-button: 47 96% 55%; /* #FFEB3B - Yellow floating button */
-    --floating-button-text: 0 0% 0%; /* Black text on floating button */
-    
-    --search-background: 0 0% 93%; /* #EDEDED - Search field background */
-    --search-text: 0 0% 46%; /* #757575 - Search placeholder text */
-    
-    --delete-red: 0 86% 65%;
-    --completed-green: 142 76% 36%;
-    --shadow-color: 0 0% 85%;
-
-    /* QuickList Note Colors - Light Theme */
-    --note-yellow-light: 45 100% 88%; /* #FFF9C4 */
-    --note-blue-light: 210 100% 92%; /* #E3F2FD */
-    --note-green-light: 166 100% 90%; /* #E0F2F1 */
-    --note-pink-light: 339 82% 94%; /* Light pink */
-    --note-purple-light: 268 76% 93%; /* Light purple */
-    --note-orange-light: 30 100% 90%; /* Light orange */
-    --note-mint-light: 160 84% 90%; /* Light mint */
-    --note-peach-light: 15 86% 92%; /* Light peach */
-    
-    /* QuickList Gradients - Light Theme */
-    --gradient-primary: linear-gradient(135deg, hsl(47 96% 55%), hsl(47 96% 60%));
-    --gradient-notepad: linear-gradient(135deg, hsl(45 100% 88%), hsl(45 100% 92%));
-    --gradient-header: linear-gradient(135deg, hsl(47 96% 55%), hsl(47 96% 65%));
-    
-    /* Soft shadows */
-    --shadow-soft: 0 1px 3px hsl(0 0% 0% / 0.1);
-    --shadow-notepad: 0 4px 12px hsl(0 0% 0% / 0.1);
-    
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --floating-button: 211 100% 50%; /* #007BFF - Botão azul forte */
+    --floating-button-text: 0 0% 100%; /* Texto branco */
 
     --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 9%;
-    --sidebar-primary: 268 76% 73%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 9%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 268 76% 73%;
   }
 
   .dark {
-    /* QuickList Professional Color System - Dark Theme */
-    --background: 0 0% 7%; /* #121212 - True black background */
-    --foreground: 0 0% 100%; /* #FFFFFF - Pure white text */
+    /* QuickList Guia de Cores - Legibilidade Otimizada - Modo Noturno */
+    --background: 0 0% 7%; /* #121212 - Preto fosco */
+    --foreground: 0 0% 88%; /* #E0E0E0 - Cinza claro */
 
-    --card: 0 0% 7%; /* True black cards */
-    --card-foreground: 0 0% 100%;
+    --card: 0 0% 17%; /* #2C2C2C - Cinza escuro para post-its */
+    --card-foreground: 0 0% 88%; /* #E0E0E0 - Texto cinza claro */
 
     --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 100%;
+    --popover-foreground: 0 0% 88%;
 
-    /* QuickList Dark Theme Colors */
-    --primary: 47 96% 55%; /* #FBC02D - Gold yellow */
-    --primary-foreground: 0 0% 0%; /* Black text on yellow */
+    /* Cores principais - Azul vibrante para modo escuro */
+    --primary: 210 100% 56%; /* #1E90FF - Azul vibrante */
+    --primary-foreground: 0 0% 0%; /* Texto preto nos botões */
 
-    --secondary: 0 0% 16%; /* #2A2A2A - Dark gray search fields */
-    --secondary-foreground: 0 0% 65%; /* #A5A5A5 - Light gray text */
+    --secondary: 0 0% 27%; /* #444444 - Bordas cinza escuro */
+    --secondary-foreground: 0 0% 88%;
 
-    --muted: 0 0% 16%; /* Consistent with secondary */
-    --muted-foreground: 0 0% 65%;
+    --muted: 0 0% 27%;
+    --muted-foreground: 0 0% 64%;
 
-    --accent: 45 96% 72%; /* #FDD835 - Dark theme yellow notes */
-    --accent-foreground: 0 0% 100%; /* White text on dark notes */
+    --accent: 0 0% 22%; /* #3A3A3A - Cinza médio para notas */
+    --accent-foreground: 0 0% 88%;
 
     --destructive: 0 86% 65%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 88%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 47 96% 53%;
+    --border: 0 0% 27%; /* #444444 - Bordas escuras */
+    --input: 0 0% 17%;
+    --ring: 210 100% 56%;
 
-    /* QuickList Semantic Colors - Dark Theme */
-    --note-yellow: 45 96% 72%; /* #FDD835 - Strong yellow notes */
-    --note-blue: 210 100% 78%; /* #90CAF9 - Deep blue notes */
-    --note-green: 120 47% 65%; /* #A5D6A7 - Medium green notes */
-    --note-text: 0 0% 100%; /* #FFFFFF - White text on notes */
+    /* Post-it Colors - Modo Noturno */
+    --note-yellow: 0 0% 17%; /* #2C2C2C - Cinza escuro */
+    --note-blue: 0 0% 22%; /* #3A3A3A - Cinza médio */
+    --note-green: 0 0% 20%; /* Cinza escuro variação */
+    --note-text: 0 0% 88%; /* #E0E0E0 - Texto cinza claro */
     
-    --floating-button: 47 96% 50%; /* #FBC02D - Gold floating button */
-    --floating-button-text: 0 0% 0%; /* Black text on floating button */
-    
-    --search-background: 0 0% 16%; /* #2A2A2A - Dark search field */
-    --search-text: 0 0% 65%; /* #A5A5A5 - Light gray placeholder */
-    
-    --delete-red: 0 86% 65%;
-    --completed-green: 120 67% 55%;
-    --shadow-color: 0 0% 5%;
+    --floating-button: 210 100% 56%; /* #1E90FF - Botão azul vibrante */
+    --floating-button-text: 0 0% 100%; /* Texto branco */
 
-    /* QuickList Note Colors - Dark Theme */
-    --note-yellow-dark: 45 96% 72%; /* #FDD835 */
-    --note-blue-dark: 210 100% 78%; /* #90CAF9 */
-    --note-green-dark: 120 47% 65%; /* #A5D6A7 */
-    --note-pink-dark: 339 82% 75%; /* Dark pink */
-    --note-purple-dark: 268 76% 75%; /* Dark purple */
-    --note-orange-dark: 30 100% 75%; /* Dark orange */
-    --note-mint-dark: 160 84% 65%; /* Dark mint */
-    --note-peach-dark: 15 86% 75%; /* Dark peach */
-    
-    /* QuickList Gradients - Dark Theme */
-    --gradient-primary: linear-gradient(135deg, hsl(47 96% 50%), hsl(47 96% 60%));
-    --gradient-notepad: linear-gradient(135deg, hsl(45 96% 72%), hsl(45 96% 80%));
-    --gradient-header: linear-gradient(135deg, hsl(47 96% 50%), hsl(47 96% 55%));
-    
-    /* Dark mode shadows */
-    --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.3);
-    --shadow-notepad: 0 4px 16px hsl(0 0% 0% / 0.4);
-
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 268 76% 73%;
-    --sidebar-primary-foreground: 0 0% 8%;
-    --sidebar-accent: 0 0% 15%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 268 76% 73%;
+    --radius: 0.75rem;
   }
 }
 
