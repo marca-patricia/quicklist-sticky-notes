@@ -9,87 +9,87 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* QuickList Guia de Cores - Legibilidade MÁXIMA - Modo Claro */
-    --background: 0 0% 98%; /* #FAFAFA - Fundo cinza muito claro para reduzir brilho */
-    --foreground: 0 0% 10%; /* #1A1A1A - Texto quase preto para alto contraste */
+    /* QuickList - Cores baseadas na imagem de referência - Modo Claro */
+    --background: 0 0% 100%; /* #FFFFFF - Fundo branco puro */
+    --foreground: 0 0% 0%; /* #000000 - Texto preto puro */
 
-    --card: 0 0% 100%; /* #FFFFFF - Cards brancos para destaque */
-    --card-foreground: 0 0% 10%; /* #1A1A1A - Texto escuro nos cards */
+    --card: 0 0% 100%; /* #FFFFFF - Cards brancos */
+    --card-foreground: 0 0% 0%; /* #000000 - Texto preto nos cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Cores principais - Azul mais escuro para melhor legibilidade */
-    --primary: 213 94% 40%; /* #0F5BBB - Azul mais escuro para melhor contraste */
-    --primary-foreground: 0 0% 100%; /* Texto branco nos botões */
+    /* Cores principais */
+    --primary: 45 100% 50%; /* #FFD700 - Amarelo dourado para botões */
+    --primary-foreground: 0 0% 0%; /* Texto preto nos botões */
     
-    --secondary: 0 0% 90%; /* #E6E6E6 - Cinza mais claro */
-    --secondary-foreground: 0 0% 15%; /* #262626 - Texto mais escuro */
+    --secondary: 0 0% 96%; /* #F5F5F5 - Cinza muito claro */
+    --secondary-foreground: 0 0% 40%; /* #666666 - Texto cinza */
 
-    --muted: 0 0% 92%; /* #EBEBEB - Fundo muted mais claro */
-    --muted-foreground: 0 0% 25%; /* #404040 - Texto muted mais escuro */
+    --muted: 0 0% 96%; /* #F5F5F5 - Fundo muted */
+    --muted-foreground: 0 0% 40%; /* #666666 - Texto muted */
 
-    --accent: 0 0% 96%; /* #F5F5F5 - Accent neutro */
-    --accent-foreground: 0 0% 15%; /* #262626 - Texto escuro */
+    --accent: 0 0% 96%; /* #F5F5F5 - Accent */
+    --accent-foreground: 0 0% 0%; /* #000000 - Texto preto */
 
-    --destructive: 0 75% 45%; /* #CC3333 - Vermelho mais escuro */
+    --destructive: 0 84% 60%; /* Vermelho */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 85%; /* #D9D9D9 - Bordas mais visíveis */
+    --border: 0 0% 90%; /* #E6E6E6 - Bordas claras */
     --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
-    --ring: 213 94% 40%;
+    --ring: 45 100% 50%;
 
-    /* Post-it Colors - Modo Claro (MANTIDAS as cores pastel) */
-    --note-yellow: 55 100% 95%; /* #FFFACD - Amarelo claro pastel */
-    --note-blue: 194 100% 94%; /* #E0FFFF - Azul claro pastel */
-    --note-green: 60 29% 92%; /* #F5F5DC - Bege pastel */
-    --note-text: 0 0% 5%; /* #0D0D0D - Texto muito escuro nos post-its */
+    /* Post-it Colors - Modo Claro (baseado na imagem) */
+    --note-yellow: 45 100% 90%; /* Amarelo pastel como na imagem */
+    --note-blue: 200 100% 90%; /* Azul claro pastel */
+    --note-green: 120 30% 85%; /* Verde claro pastel */
+    --note-text: 0 0% 0%; /* #000000 - Texto preto nos post-its */
     
-    --floating-button: 213 94% 40%; /* Azul escuro consistente */
-    --floating-button-text: 0 0% 100%;
+    --floating-button: 45 100% 50%; /* Amarelo dourado */
+    --floating-button-text: 0 0% 0%; /* Texto preto */
 
     --radius: 0.75rem;
   }
 
   .dark {
-    /* QuickList Guia de Cores - Legibilidade MÁXIMA - Modo Noturno */
-    --background: 0 0% 7%; /* #121212 - Preto fosco para reduzir fadiga ocular */
-    --foreground: 0 0% 95%; /* #F2F2F2 - Texto quase branco para alto contraste */
+    /* QuickList - Cores baseadas na imagem de referência - Modo Noturno */
+    --background: 0 0% 8%; /* #141414 - Fundo preto como na imagem */
+    --foreground: 0 0% 100%; /* #FFFFFF - Texto branco puro */
 
-    --card: 0 0% 12%; /* #1F1F1F - Cards cinza escuro */
-    --card-foreground: 0 0% 95%; /* #F2F2F2 - Texto claro nos cards */
+    --card: 0 0% 12%; /* #1F1F1F - Cards escuros */
+    --card-foreground: 0 0% 100%; /* #FFFFFF - Texto branco nos cards */
 
     --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover-foreground: 0 0% 100%;
 
-    /* Cores principais - Azul mais claro para melhor visibilidade no escuro */
-    --primary: 210 100% 65%; /* #33A3FF - Azul mais claro e vibrante */
-    --primary-foreground: 0 0% 5%; /* #0D0D0D - Texto escuro nos botões */
+    /* Cores principais */
+    --primary: 45 100% 50%; /* #FFD700 - Amarelo dourado mantido */
+    --primary-foreground: 0 0% 0%; /* Texto preto nos botões */
 
-    --secondary: 0 0% 20%; /* #333333 - Cinza médio */
-    --secondary-foreground: 0 0% 95%; /* #F2F2F2 - Texto claro */
+    --secondary: 0 0% 20%; /* #333333 - Cinza escuro */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF - Texto branco */
 
-    --muted: 0 0% 15%; /* #262626 - Fundo muted mais escuro */
-    --muted-foreground: 0 0% 75%; /* #BFBFBF - Texto muted mais claro */
+    --muted: 0 0% 15%; /* #262626 - Fundo muted escuro */
+    --muted-foreground: 0 0% 70%; /* #B3B3B3 - Texto cinza claro */
 
-    --accent: 0 0% 18%; /* #2E2E2E - Accent mais escuro */
-    --accent-foreground: 0 0% 95%; /* #F2F2F2 - Texto claro */
+    --accent: 0 0% 18%; /* #2E2E2E - Accent escuro */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF - Texto branco */
 
-    --destructive: 0 75% 60%; /* #E63946 - Vermelho mais claro */
+    --destructive: 0 84% 60%; /* Vermelho */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 25%; /* #404040 - Bordas mais visíveis */
-    --input: 0 0% 12%; /* #1F1F1F - Inputs escuros */
-    --ring: 210 100% 65%;
+    --border: 0 0% 25%; /* #404040 - Bordas escuras */
+    --input: 0 0% 15%; /* #262626 - Inputs escuros */
+    --ring: 45 100% 50%;
 
-    /* Post-it Colors - Modo Noturno (MANTIDAS as cores pastel adaptadas) */
-    --note-yellow: 48 30% 25%; /* #3D3A2A - Amarelo escuro pastel */
-    --note-blue: 200 25% 25%; /* #263033 - Azul escuro pastel */
-    --note-green: 80 20% 25%; /* #2E332A - Verde escuro pastel */
-    --note-text: 0 0% 95%; /* #F2F2F2 - Texto bem claro nos post-its */
+    /* Post-it Colors - Modo Noturno (baseado na imagem) */
+    --note-yellow: 45 100% 50%; /* Amarelo mantém a cor vibrante */
+    --note-blue: 200 50% 30%; /* Azul escuro como na imagem */
+    --note-green: 120 40% 30%; /* Verde escuro como na imagem */
+    --note-text: 0 0% 100%; /* #FFFFFF - Texto branco nos post-its escuros */
     
-    --floating-button: 210 100% 65%; /* Azul claro consistente */
-    --floating-button-text: 0 0% 5%; /* #0D0D0D - Texto escuro */
+    --floating-button: 45 100% 50%; /* Amarelo dourado */
+    --floating-button-text: 0 0% 0%; /* Texto preto */
 
     --radius: 0.75rem;
   }
