@@ -1,5 +1,4 @@
 import React from 'react';
-import { StickyNote } from 'lucide-react';
 
 interface QuickListLogoProps {
   className?: string;
@@ -13,10 +12,10 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
   showText = true 
 }) => {
   const sizeClasses = {
-    sm: 'w-5 h-5',
-    md: 'w-6 h-6',
-    lg: 'w-8 h-8',
-    xl: 'w-10 h-10'
+    sm: 'w-8 h-8',
+    md: 'w-10 h-10',
+    lg: 'w-12 h-12',
+    xl: 'w-16 h-16'
   };
 
   const textSizeClasses = {
@@ -27,12 +26,12 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
   };
 
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
-      <div className="bg-note-yellow rounded-lg p-1.5 shadow-sm">
-        <StickyNote 
-          className={`${sizeClasses[size]} text-note-text`}
-        />
-      </div>
+    <div className={`flex items-center gap-3 ${className}`}>
+      <img 
+        src="/lovable-uploads/0958c7bb-8106-43f9-b694-e35a4f9ff4fd.png"
+        alt="QuickList Logo" 
+        className={`${sizeClasses[size]} object-contain drop-shadow-sm`}
+      />
       {showText && (
         <span className={`font-bold text-foreground ${textSizeClasses[size]} tracking-tight`}>
           QuickList

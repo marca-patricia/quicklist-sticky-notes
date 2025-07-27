@@ -9,53 +9,53 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* QuickList - Design Elegante e Minimalista - Modo Claro (Padrão) */
-    --background: 0 0% 98%; /* #FAFAFA - Fundo suave */
-    --foreground: 220 13% 18%; /* #2C3E50 - Texto escuro elegante */
+    /* QuickList - Paleta baseada na logo (amarelo principal) - Modo Claro */
+    --background: 0 0% 99%; /* #FCFCFC - Fundo bem clarinho */
+    --foreground: 210 10% 23%; /* #3A3F47 - Texto escuro suave */
 
     --card: 0 0% 100%; /* #FFFFFF - Cards brancos */
-    --card-foreground: 220 13% 18%; /* #2C3E50 - Texto escuro nos cards */
+    --card-foreground: 210 10% 23%; /* Texto escuro nos cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 18%;
+    --popover-foreground: 210 10% 23%;
 
-    /* Cores principais - Azul elegante */
-    --primary: 217 91% 60%; /* #3B82F6 - Azul moderno */
-    --primary-foreground: 0 0% 100%; /* Texto branco nos botões */
+    /* Cores principais - Amarelo da logo */
+    --primary: 48 96% 53%; /* #F6D55C - Amarelo da logo */
+    --primary-foreground: 210 10% 23%; /* Texto escuro nos botões */
     
-    --secondary: 210 40% 96%; /* #F1F5F9 - Cinza azulado claro */
-    --secondary-foreground: 220 13% 18%; /* Texto escuro */
+    --secondary: 48 30% 95%; /* #F9F7F1 - Amarelo muito claro */
+    --secondary-foreground: 210 10% 23%; /* Texto escuro */
 
-    --muted: 210 40% 94%; /* #E2E8F0 - Fundo muted suave */
-    --muted-foreground: 215 25% 27%; /* #475569 - Texto muted */
+    --muted: 48 15% 96%; /* #F8F7F5 - Fundo muted suave */
+    --muted-foreground: 210 8% 46%; /* #6B7280 - Texto muted */
 
-    --accent: 210 40% 96%; /* #F1F5F9 - Accent suave */
-    --accent-foreground: 220 13% 18%; /* Texto escuro */
+    --accent: 48 30% 95%; /* #F9F7F1 - Accent suave */
+    --accent-foreground: 210 10% 23%; /* Texto escuro */
 
-    --destructive: 0 84% 60%; /* #EF4444 - Vermelho moderno */
+    --destructive: 0 84% 60%; /* #EF4444 - Vermelho */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%; /* #E2E8F0 - Bordas suaves */
+    --border: 48 15% 91%; /* #F0EFEB - Bordas suaves */
     --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
-    --ring: 217 91% 60%;
+    --ring: 48 96% 53%;
 
-    /* Post-it Colors - Modo Claro - Cores pastel elegantes */
-    --note-yellow: 48 100% 88%; /* #FEF3C7 - Amarelo suave */
-    --note-blue: 213 100% 93%; /* #DBEAFE - Azul suave */
-    --note-green: 142 76% 88%; /* #D1FAE5 - Verde suave */
-    --note-pink: 327 73% 92%; /* #FCE7F3 - Rosa suave */
-    --note-text: 220 13% 18%; /* #2C3E50 - Texto escuro legível */
+    /* Post-it Colors - Baseado na logo */
+    --note-yellow: 48 96% 53%; /* #F6D55C - Amarelo da logo */
+    --note-blue: 213 93% 68%; /* #60A5FA - Azul suave */
+    --note-green: 142 71% 45%; /* #10B981 - Verde suave */
+    --note-pink: 327 73% 57%; /* #EC4899 - Rosa suave */
+    --note-text: 210 10% 23%; /* #3A3F47 - Texto escuro */
     
-    --floating-button: 217 91% 60%; /* Azul elegante */
-    --floating-button-text: 0 0% 100%; /* Texto branco */
+    --floating-button: 48 96% 53%; /* Amarelo da logo */
+    --floating-button-text: 210 10% 23%; /* Texto escuro */
 
     --radius: 0.75rem;
   }
 
   .dark {
-    /* QuickList - Design Elegante - Modo Escuro */
+    /* QuickList - Modo Escuro mantendo o amarelo */
     --background: 222 84% 5%; /* #0F172A - Azul escuro profundo */
-    --foreground: 210 40% 98%; /* #F8FAFC - Texto quase branco */
+    --foreground: 210 40% 98%; /* #F8FAFC - Texto claro */
 
     --card: 222 84% 8%; /* #1E293B - Cards escuros */
     --card-foreground: 210 40% 98%; /* Texto claro nos cards */
@@ -63,8 +63,8 @@ All colors MUST be HSL.
     --popover: 222 84% 8%;
     --popover-foreground: 210 40% 98%;
 
-    /* Cores principais - Azul vibrante para contraste */
-    --primary: 217 91% 60%; /* #3B82F6 - Azul vibrante */
+    /* Cores principais - Amarelo vibrante */
+    --primary: 48 96% 53%; /* #F6D55C - Amarelo da logo mantido */
     --primary-foreground: 222 84% 5%; /* Texto escuro nos botões */
 
     --secondary: 215 25% 15%; /* #334155 - Cinza escuro */
@@ -81,16 +81,16 @@ All colors MUST be HSL.
 
     --border: 215 25% 20%; /* #475569 - Bordas escuras */
     --input: 215 25% 12%; /* #1E293B - Inputs escuros */
-    --ring: 217 91% 60%;
+    --ring: 48 96% 53%;
 
-    /* Post-it Colors - Modo Escuro - Cores mais vibrantes */
-    --note-yellow: 45 93% 47%; /* #EAB308 - Amarelo vibrante */
+    /* Post-it Colors - Modo Escuro com cores mais vibrantes */
+    --note-yellow: 48 96% 53%; /* #F6D55C - Amarelo da logo */
     --note-blue: 213 94% 68%; /* #60A5FA - Azul vibrante */
     --note-green: 142 71% 45%; /* #10B981 - Verde vibrante */
     --note-pink: 327 73% 57%; /* #EC4899 - Rosa vibrante */
     --note-text: 222 84% 5%; /* Texto escuro nos post-its vibrantes */
     
-    --floating-button: 217 91% 60%; /* Azul vibrante */
+    --floating-button: 48 96% 53%; /* Amarelo da logo */
     --floating-button-text: 222 84% 5%; /* Texto escuro */
 
     --radius: 0.75rem;
