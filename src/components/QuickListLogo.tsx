@@ -31,6 +31,7 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
         src="/lovable-uploads/0958c7bb-8106-43f9-b694-e35a4f9ff4fd.png"
         alt="QuickList Logo" 
         className={`${sizeClasses[size]} object-contain drop-shadow-sm`}
+        style={{ backgroundColor: 'transparent' }}
       />
       {showText && (
         <span className={`font-bold text-foreground ${textSizeClasses[size]} tracking-tight`}>

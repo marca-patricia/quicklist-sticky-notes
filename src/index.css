@@ -9,89 +9,101 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* QuickList - Paleta baseada na logo (amarelo principal) - Modo Claro */
-    --background: 0 0% 99%; /* #FCFCFC - Fundo bem clarinho */
-    --foreground: 210 10% 23%; /* #3A3F47 - Texto escuro suave */
+    /* QuickList - Paleta elegante baseada na logo amarela - Modo Claro */
+    --background: 48 20% 98%; /* #FEFCF7 - Fundo amarelo muito claro */
+    --foreground: 210 15% 15%; /* #1F2428 - Texto escuro forte */
 
-    --card: 0 0% 100%; /* #FFFFFF - Cards brancos */
-    --card-foreground: 210 10% 23%; /* Texto escuro nos cards */
+    --card: 0 0% 100%; /* #FFFFFF - Cards brancos puros */
+    --card-foreground: 210 15% 15%; /* Texto escuro nos cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 10% 23%;
+    --popover-foreground: 210 15% 15%;
 
     /* Cores principais - Amarelo da logo */
     --primary: 48 96% 53%; /* #F6D55C - Amarelo da logo */
-    --primary-foreground: 210 10% 23%; /* Texto escuro nos botões */
+    --primary-foreground: 210 15% 15%; /* Texto escuro nos botões */
     
-    --secondary: 48 30% 95%; /* #F9F7F1 - Amarelo muito claro */
-    --secondary-foreground: 210 10% 23%; /* Texto escuro */
+    --secondary: 48 25% 92%; /* #F7F4E8 - Amarelo bem claro */
+    --secondary-foreground: 210 15% 15%; /* Texto escuro */
 
-    --muted: 48 15% 96%; /* #F8F7F5 - Fundo muted suave */
-    --muted-foreground: 210 8% 46%; /* #6B7280 - Texto muted */
+    --muted: 48 20% 95%; /* #F9F7F1 - Fundo muted suave */
+    --muted-foreground: 210 10% 45%; /* #64748B - Texto muted */
 
-    --accent: 48 30% 95%; /* #F9F7F1 - Accent suave */
-    --accent-foreground: 210 10% 23%; /* Texto escuro */
+    --accent: 48 25% 92%; /* #F7F4E8 - Accent suave */
+    --accent-foreground: 210 15% 15%; /* Texto escuro */
 
     --destructive: 0 84% 60%; /* #EF4444 - Vermelho */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 48 15% 91%; /* #F0EFEB - Bordas suaves */
+    --border: 48 20% 88%; /* #EDE8D8 - Bordas suaves */
     --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
     --ring: 48 96% 53%;
 
-    /* Post-it Colors - Baseado na logo */
-    --note-yellow: 48 96% 53%; /* #F6D55C - Amarelo da logo */
-    --note-blue: 213 93% 68%; /* #60A5FA - Azul suave */
-    --note-green: 142 71% 45%; /* #10B981 - Verde suave */
-    --note-pink: 327 73% 57%; /* #EC4899 - Rosa suave */
-    --note-text: 210 10% 23%; /* #3A3F47 - Texto escuro */
+    /* Post-it Colors - Paleta harmoniosa */
+    --note-yellow: 48 90% 65%; /* #F4D03F - Amarelo suave */
+    --note-blue: 213 85% 75%; /* #87CEEB - Azul claro */
+    --note-green: 142 60% 70%; /* #7DCEA0 - Verde menta */
+    --note-pink: 327 65% 75%; /* #F8BBD9 - Rosa claro */
+    --note-orange: 25 85% 75%; /* #FDBCB4 - Laranja claro */
+    --note-purple: 260 60% 80%; /* #C8B2DB - Roxo claro */
+    --note-text: 210 15% 15%; /* #1F2428 - Texto escuro para todos os post-its */
     
     --floating-button: 48 96% 53%; /* Amarelo da logo */
-    --floating-button-text: 210 10% 23%; /* Texto escuro */
+    --floating-button-text: 210 15% 15%; /* Texto escuro */
+    
+    /* Gradientes elegantes */
+    --gradient-bg: linear-gradient(135deg, hsl(48, 20%, 98%) 0%, hsl(48, 25%, 96%) 100%);
+    --gradient-header: linear-gradient(90deg, hsl(48, 96%, 53%) 0%, hsl(45, 90%, 60%) 100%);
 
     --radius: 0.75rem;
   }
 
   .dark {
-    /* QuickList - Modo Escuro mantendo o amarelo */
-    --background: 222 84% 5%; /* #0F172A - Azul escuro profundo */
-    --foreground: 210 40% 98%; /* #F8FAFC - Texto claro */
+    /* QuickList - Modo Escuro elegante */
+    --background: 210 20% 8%; /* #0D1117 - Fundo escuro suave */
+    --foreground: 210 15% 95%; /* #F0F6FC - Texto claro */
 
-    --card: 222 84% 8%; /* #1E293B - Cards escuros */
-    --card-foreground: 210 40% 98%; /* Texto claro nos cards */
+    --card: 210 20% 10%; /* #161B22 - Cards escuros */
+    --card-foreground: 210 15% 95%; /* Texto claro nos cards */
 
-    --popover: 222 84% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 210 20% 10%;
+    --popover-foreground: 210 15% 95%;
 
     /* Cores principais - Amarelo vibrante */
     --primary: 48 96% 53%; /* #F6D55C - Amarelo da logo mantido */
-    --primary-foreground: 222 84% 5%; /* Texto escuro nos botões */
+    --primary-foreground: 210 20% 8%; /* Texto escuro nos botões */
 
-    --secondary: 215 25% 15%; /* #334155 - Cinza escuro */
-    --secondary-foreground: 210 40% 98%; /* Texto claro */
+    --secondary: 210 15% 15%; /* #21262D - Cinza escuro */
+    --secondary-foreground: 210 15% 95%; /* Texto claro */
 
-    --muted: 215 25% 12%; /* #1E293B - Fundo muted escuro */
-    --muted-foreground: 217 10% 65%; /* #94A3B8 - Texto muted claro */
+    --muted: 210 15% 12%; /* #1C2128 - Fundo muted escuro */
+    --muted-foreground: 210 10% 65%; /* #8B949E - Texto muted claro */
 
-    --accent: 215 25% 15%; /* #334155 - Accent escuro */
-    --accent-foreground: 210 40% 98%; /* Texto claro */
+    --accent: 210 15% 15%; /* #21262D - Accent escuro */
+    --accent-foreground: 210 15% 95%; /* Texto claro */
 
     --destructive: 0 84% 60%; /* #EF4444 - Vermelho */
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 210 15% 95%;
 
-    --border: 215 25% 20%; /* #475569 - Bordas escuras */
-    --input: 215 25% 12%; /* #1E293B - Inputs escuros */
+    --border: 210 15% 18%; /* #30363D - Bordas escuras */
+    --input: 210 15% 12%; /* #1C2128 - Inputs escuros */
     --ring: 48 96% 53%;
 
-    /* Post-it Colors - Modo Escuro com cores mais vibrantes */
-    --note-yellow: 48 96% 53%; /* #F6D55C - Amarelo da logo */
-    --note-blue: 213 94% 68%; /* #60A5FA - Azul vibrante */
-    --note-green: 142 71% 45%; /* #10B981 - Verde vibrante */
-    --note-pink: 327 73% 57%; /* #EC4899 - Rosa vibrante */
-    --note-text: 222 84% 5%; /* Texto escuro nos post-its vibrantes */
+    /* Post-it Colors - Modo Escuro com cores vibrantes */
+    --note-yellow: 48 96% 60%; /* #F7DC6F - Amarelo vibrante */
+    --note-blue: 213 94% 70%; /* #74B9FF - Azul vibrante */
+    --note-green: 142 71% 55%; /* #00D68F - Verde vibrante */
+    --note-pink: 327 73% 65%; /* #FF7675 - Rosa vibrante */
+    --note-orange: 25 85% 65%; /* #FDCB6E - Laranja vibrante */
+    --note-purple: 260 60% 70%; /* #A29BFE - Roxo vibrante */
+    --note-text: 210 20% 8%; /* Texto escuro nos post-its vibrantes */
     
     --floating-button: 48 96% 53%; /* Amarelo da logo */
-    --floating-button-text: 222 84% 5%; /* Texto escuro */
+    --floating-button-text: 210 20% 8%; /* Texto escuro */
+    
+    /* Gradientes escuros elegantes */
+    --gradient-bg: linear-gradient(135deg, hsl(210, 20%, 8%) 0%, hsl(210, 15%, 10%) 100%);
+    --gradient-header: linear-gradient(90deg, hsl(48, 96%, 53%) 0%, hsl(45, 90%, 60%) 100%);
 
     --radius: 0.75rem;
   }
@@ -103,7 +115,7 @@ All colors MUST be HSL.
   }
 
   body {
-    background: hsl(var(--background)) !important;
+    background: var(--gradient-bg) !important;
     color: hsl(var(--foreground));
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 16px; /* Professional base font size */
@@ -114,7 +126,7 @@ All colors MUST be HSL.
   }
 
   .dark body {
-    background: hsl(var(--background)) !important;
+    background: var(--gradient-bg) !important;
     color: hsl(var(--foreground));
   }
 

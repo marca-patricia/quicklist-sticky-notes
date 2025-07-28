@@ -118,15 +118,15 @@ export const ListsOverview: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Enhanced Header */}
-      <header className="sticky top-0 z-40 shadow-soft border-b border-border bg-gradient-header">
-        <div className="container max-w-6xl mx-auto px-4 py-4">
+      {/* Enhanced Header - Fixed on mobile */}
+      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header">
+        <div className="container max-w-6xl mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
             <div className="flex items-center gap-2" role="group" aria-label="Configurações do aplicativo">
-              <div className="text-primary-foreground"><LanguageSwitch /></div>
-              <div className="text-primary-foreground"><ThemeToggle /></div>
-              <div className="text-primary-foreground"><OfflineStatus /></div>
+              <LanguageSwitch />
+              <ThemeToggle />
+              <OfflineStatus />
             </div>
             
             {/* Center - App Brand */}
@@ -136,21 +136,21 @@ export const ListsOverview: React.FC = () => {
                 className="hover:opacity-80 transition-opacity"
                 aria-label="Recarregar aplicativo QuickList"
               >
-                <QuickListLogo size="md" showText={true} className="text-primary-foreground" />
+                <QuickListLogo size="md" showText={true} className="text-foreground" />
               </button>
             </div>
 
             {/* Right side controls */}
             <div className="flex items-center gap-2" role="group" aria-label="Ferramentas e estatísticas">
-              <div className="text-primary-foreground"><ListTemplates /></div>
-              <div className="text-primary-foreground"><ProductivityInsights /></div>
-              <div className="text-primary-foreground"><AchievementsModal /></div>
+              <ListTemplates />
+              <ProductivityInsights />
+              <AchievementsModal />
               {user && (
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => signOut()}
-                  className="text-primary-foreground hover:text-primary-foreground/80 flex items-center gap-2"
+                  className="text-foreground hover:text-foreground/80 flex items-center gap-2"
                 >
                   <User className="w-4 h-4" />
                   <LogOut className="w-4 h-4" />
@@ -163,6 +163,9 @@ export const ListsOverview: React.FC = () => {
 
       <InstallPrompt />
       
+      {/* Spacer for fixed header */}
+      <div className="h-16"></div>
+      
       <main className="container max-w-5xl mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
@@ -171,10 +174,10 @@ export const ListsOverview: React.FC = () => {
             className="flex items-center justify-center gap-4 mb-6 sm:hidden hover:opacity-80 transition-opacity"
             aria-label="Recarregar aplicativo QuickList"
           >
-            <QuickListLogo size="xl" showText={true} />
+            <QuickListLogo size="xl" showText={true} className="text-foreground" />
           </button>
           <div className="hidden sm:block mb-6 flex justify-center">
-            <QuickListLogo size="xl" showText={true} />
+            <QuickListLogo size="xl" showText={true} className="text-foreground" />
           </div>
           <p className="text-lg max-w-2xl mx-auto leading-relaxed text-muted-foreground">
             {t('organizeDesc')}
