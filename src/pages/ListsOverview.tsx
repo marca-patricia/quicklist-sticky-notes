@@ -19,7 +19,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
-import { Archive, ArchiveRestore, Filter, LogOut, User } from 'lucide-react';
+import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote } from 'lucide-react';
 import { FloatingAddButton } from '@/components/FloatingAddButton';
 import { SearchInput } from '@/components/SearchInput';
 import { GridViewToggle } from '@/components/GridViewToggle';
@@ -143,6 +143,15 @@ export const ListsOverview: React.FC = () => {
 
             {/* Right side controls */}
             <div className="flex items-center gap-2" role="group" aria-label="Ferramentas e estatísticas">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('/sticky-notes')}
+                className="text-foreground hover:text-foreground/80 flex items-center gap-2"
+                title="Sticky Notes"
+              >
+                <StickyNote className="w-4 h-4" />
+              </Button>
               <ListTemplates />
               <ProductivityInsights />
               <AchievementsModal />

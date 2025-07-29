@@ -278,6 +278,31 @@ All colors MUST be HSL.
     background: hsl(var(--note-yellow));
     color: hsl(var(--note-text));
   }
+
+  /* Note color utilities */
+  .bg-note-yellow {
+    background-color: hsl(var(--note-yellow));
+  }
+  
+  .bg-note-blue {
+    background-color: hsl(var(--note-blue));
+  }
+  
+  .bg-note-green {
+    background-color: hsl(var(--note-green));
+  }
+  
+  .bg-note-pink {
+    background-color: hsl(var(--note-pink));
+  }
+  
+  .bg-note-orange {
+    background-color: hsl(var(--note-orange));
+  }
+  
+  .bg-note-purple {
+    background-color: hsl(var(--note-purple));
+  }
   
   .quicklist-search {
     background: hsl(var(--search-background));
