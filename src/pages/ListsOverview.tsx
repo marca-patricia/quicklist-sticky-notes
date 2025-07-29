@@ -118,8 +118,9 @@ export const ListsOverview: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Enhanced Header - Fixed on mobile */}
-      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header">
+      {/* Enhanced Header - Fixed on all devices */}
+      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header"
+              style={{ position: 'fixed' }}>
         <div className="container max-w-6xl mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
@@ -164,7 +165,7 @@ export const ListsOverview: React.FC = () => {
       <InstallPrompt />
       
       {/* Spacer for fixed header */}
-      <div className="h-16"></div>
+      <div className="h-20"></div>
       
       <main className="container max-w-5xl mx-auto px-4 py-8">
         {/* Hero Section */}

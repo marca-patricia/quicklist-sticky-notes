@@ -24,14 +24,14 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={`pl-9 pr-8 ${className}`}
+        className={`pl-9 pr-8 bg-white/80 backdrop-blur-sm border-2 border-border/20 hover:border-primary/30 focus:border-primary/50 rounded-lg shadow-soft transition-all ${className}`}
       />
       {value && (
         <Button
           variant="ghost"
           size="sm"
           onClick={() => onChange('')}
-          className="absolute right-1 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+          className="absolute right-1 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-muted/50"
         >
           <X className="h-3 w-3" />
         </Button>
