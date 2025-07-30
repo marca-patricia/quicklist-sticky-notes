@@ -96,10 +96,10 @@ export const StickyNotesPage: React.FC = () => {
     <div className="h-screen flex flex-col bg-background">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header">
-        <div className="container max-w-6xl mx-auto px-4 py-3">
+        <div className="container max-w-6xl mx-auto px-2 py-2 min-h-[56px]">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <Button
                 variant="ghost"
                 size="sm"

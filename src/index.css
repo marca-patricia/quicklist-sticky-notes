@@ -10,7 +10,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* QuickList - Paleta elegante baseada na logo amarela - Modo Claro */
-    --background: 48 20% 98%; /* #FEFCF7 - Fundo amarelo muito claro */
+    --background: 48 15% 95%; /* #F8F5ED - Fundo um pouco mais escuro */
     --foreground: 0 0% 13%; /* #222222 - Texto preto escuro */
 
     --card: 0 0% 100%; /* #FFFFFF - Cards brancos puros */
@@ -19,8 +19,8 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 13%;
 
-    /* Cores principais - Amarelo pastel da barra */
-    --primary: 48 100% 93%; /* #FFF9D6 - Amarelo pastel elegante */
+    /* Cores principais - Amarelo pastel da barra um pouco mais escuro */
+    --primary: 48 95% 88%; /* #FFF9D6 - Amarelo pastel elegante mais escuro */
     --primary-foreground: 0 0% 13%; /* Texto preto nos botões */
     
     --secondary: 48 25% 92%; /* #F7F4E8 - Amarelo bem claro */
@@ -37,23 +37,23 @@ All colors MUST be HSL.
 
     --border: 48 20% 88%; /* #EDE8D8 - Bordas suaves */
     --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
-    --ring: 48 100% 93%;
+    --ring: 48 95% 88%;
 
-    /* Post-it Colors - Paleta harmoniosa */
-    --note-yellow: 48 75% 80%; /* #F9E79F - Amarelo bem claro */
-    --note-blue: 213 70% 85%; /* #AED6F1 - Azul bem claro */
-    --note-green: 142 50% 80%; /* #A3E4D7 - Verde bem claro */
-    --note-pink: 327 55% 85%; /* #F5B7CB - Rosa bem claro */
-    --note-orange: 25 70% 85%; /* #F8C471 - Laranja bem claro */
-    --note-purple: 260 45% 88%; /* #D5DBDB - Lilás bem claro */
+    /* Post-it Colors - Tons quadrados mais vivos */
+    --note-yellow: 50 85% 85%; /* #F9E79F - Amarelo claro */
+    --note-blue: 210 70% 88%; /* #B3D9FF - Azul claro */
+    --note-green: 150 65% 85%; /* #A8E6CF - Verde claro */
+    --note-pink: 330 70% 88%; /* #FFB3D1 - Rosa claro */
+    --note-orange: 30 80% 85%; /* #FFD1A9 - Laranja claro */
+    --note-purple: 270 55% 88%; /* #D1C4E9 - Lilás claro */
     --note-text: 0 0% 13%; /* #222222 - Texto preto */
     
-    --floating-button: 48 100% 93%; /* Amarelo pastel */
+    --floating-button: 48 95% 88%; /* Amarelo pastel mais destacado */
     --floating-button-text: 0 0% 13%; /* Texto preto */
     
     /* Gradientes elegantes */
-    --gradient-bg: linear-gradient(135deg, hsl(48, 20%, 98%) 0%, hsl(48, 25%, 96%) 100%);
-    --gradient-header: hsl(48, 100%, 93%); /* #FFF9D6 - Amarelo pastel sólido */
+    --gradient-bg: linear-gradient(135deg, hsl(48, 15%, 95%) 0%, hsl(48, 20%, 93%) 100%);
+    --gradient-header: hsl(48, 95%, 88%); /* #FFF9D6 - Amarelo pastel sólido mais escuro */
 
     --radius: 0.75rem;
   }

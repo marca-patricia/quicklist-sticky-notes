@@ -125,7 +125,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   if (editMode) {
     return (
       <Card 
-        className="w-64 h-auto p-4 shadow-notepad border-2 border-primary/20 animate-scale-in"
+        className="w-64 h-64 p-4 shadow-notepad border-2 border-primary/20 animate-scale-in aspect-square"
         style={{ backgroundColor: selectedColor }}
       >
         {/* Type Selector */}
@@ -290,7 +290,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       draggable={!!note.id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={`w-64 h-auto p-4 shadow-notepad cursor-grab active:cursor-grabbing hover:shadow-lg transition-all group ${
+      className={`w-64 h-64 p-4 shadow-notepad cursor-grab active:cursor-grabbing hover:shadow-lg transition-all group aspect-square ${
         isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
       }`}
       style={{ 

@@ -435,12 +435,12 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(() => {
+  const [language, setLanguage] = React.useState<Language>(() => {
     const saved = localStorage.getItem('quicklist-language');
     return (saved as Language) || 'pt';
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     localStorage.setItem('quicklist-language', language);
   }, [language]);
 
@@ -456,7 +456,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 };
 
 export const useLanguage = () => {
-  const context = useContext(LanguageContext);
+  const context = React.useContext(LanguageContext);
   if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }

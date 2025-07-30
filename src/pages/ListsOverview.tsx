@@ -119,9 +119,9 @@ export const ListsOverview: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Enhanced Header - Fixed on all devices */}
-      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-primary"
+      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header"
               style={{ position: 'fixed' }}>
-        <div className="container max-w-6xl mx-auto px-3 py-3">
+        <div className="container max-w-6xl mx-auto px-2 py-2 min-h-[56px]">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
             <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Configurações do aplicativo">
@@ -142,7 +142,7 @@ export const ListsOverview: React.FC = () => {
             </div>
 
             {/* Right side controls */}
-            <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Ferramentas e estatísticas">
+            <div className="flex items-center gap-1 overflow-x-auto" role="group" aria-label="Ferramentas e estatísticas">
               <Button
                 variant="ghost"
                 size="sm"
@@ -164,8 +164,8 @@ export const ListsOverview: React.FC = () => {
                   className="text-foreground hover:text-foreground/80 flex items-center gap-1 shrink-0"
                   title="Sair"
                 >
-                  <User className="w-4 h-4" />
                   <LogOut className="w-4 h-4" />
+                  <span className="hidden sm:inline text-xs">Sair</span>
                 </Button>
               )}
             </div>
