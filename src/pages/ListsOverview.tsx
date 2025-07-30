@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
 import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote } from 'lucide-react';
-import { FloatingAddButton } from '@/components/FloatingAddButton';
+import { FloatingCreateButton } from '@/components/FloatingCreateButton';
 import { SearchInput } from '@/components/SearchInput';
 import { GridViewToggle } from '@/components/GridViewToggle';
 
@@ -119,12 +119,12 @@ export const ListsOverview: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Enhanced Header - Fixed on all devices */}
-      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header"
+      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-primary"
               style={{ position: 'fixed' }}>
-        <div className="container max-w-6xl mx-auto px-4 py-3">
+        <div className="container max-w-6xl mx-auto px-3 py-3">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
-            <div className="flex items-center gap-2" role="group" aria-label="Configurações do aplicativo">
+            <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Configurações do aplicativo">
               <LanguageSwitch />
               <ThemeToggle />
               <OfflineStatus />
@@ -142,15 +142,16 @@ export const ListsOverview: React.FC = () => {
             </div>
 
             {/* Right side controls */}
-            <div className="flex items-center gap-2" role="group" aria-label="Ferramentas e estatísticas">
+            <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Ferramentas e estatísticas">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/sticky-notes')}
-                className="text-foreground hover:text-foreground/80 flex items-center gap-2"
-                title="Sticky Notes"
+                className="text-foreground hover:text-foreground/80 flex items-center gap-1 shrink-0"
+                title="Buscar Notas"
               >
                 <StickyNote className="w-4 h-4" />
+                <span className="hidden sm:inline text-xs">Notas</span>
               </Button>
               <ListTemplates />
               <ProductivityInsights />
@@ -160,7 +161,8 @@ export const ListsOverview: React.FC = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => signOut()}
-                  className="text-foreground hover:text-foreground/80 flex items-center gap-2"
+                  className="text-foreground hover:text-foreground/80 flex items-center gap-1 shrink-0"
+                  title="Sair"
                 >
                   <User className="w-4 h-4" />
                   <LogOut className="w-4 h-4" />
@@ -341,7 +343,7 @@ export const ListsOverview: React.FC = () => {
       </main>
       
       {/* Floating Add Button */}
-      <FloatingAddButton onClick={() => setShowAddForm(!showAddForm)} />
+      <FloatingCreateButton onClick={() => setShowAddForm(!showAddForm)} />
       
       {/* Spacer for mobile */}
       <div className="h-20"></div>
