@@ -70,7 +70,7 @@ export const ListWidget: React.FC<ListWidgetProps> = ({ listId }) => {
           {/* Pending Items */}
           {pendingItems.length > 0 && (
             <div className="mb-3">
-              <h3 className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">
+              <h3 className="text-xs font-medium text-foreground mb-2 uppercase tracking-wide">
                 {t('pending')} ({pendingItems.length})
               </h3>
               <div className="space-y-1">

@@ -118,8 +118,8 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
         
         <div className={`${isGridView ? 'flex-1 flex flex-col justify-end' : ''}`}>
           <div className={isGridView ? 'mb-2' : 'mb-3'} id={`list-progress-${list.id}`}>
-            <div className={`flex justify-between text-sm text-foreground ${isGridView ? 'mb-1' : 'mb-1'}`}>
-              <span>{completedItems.length}/{list.items.length} {t('completed')}</span>
+            <div className={`flex justify-between text-sm ${isGridView ? 'mb-1' : 'mb-1'}`}>
+              <span className="text-foreground font-medium">{completedItems.length}/{list.items.length} {t('completed')}</span>
               <span>{Math.round(progress)}%</span>
             </div>
             <div 

@@ -27,7 +27,7 @@ const defaultCategories: Omit<Category, 'id'>[] = [
   { name: 'Trabalho', color: 'bg-blue-500', icon: 'Briefcase' },
   { name: 'Pessoal', color: 'bg-green-500', icon: 'Home' },
   { name: 'Urgente', color: 'bg-red-500', icon: 'Zap' },
-  { name: 'Importante', color: 'bg-purple-500', icon: 'Heart' },
+  { name: 'Importante', color: 'bg-foreground', icon: 'Heart' },
 ];
 
 const iconMap = {
@@ -47,7 +47,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
 
   const handleCreateCategory = () => {
     if (newCategoryName.trim()) {
-      const colors = ['bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-orange-500', 'bg-pink-500'];
+      const colors = ['bg-blue-500', 'bg-green-500', 'bg-foreground', 'bg-orange-500', 'bg-pink-500'];
       const randomColor = colors[Math.floor(Math.random() * colors.length)];
       
       onCategoryCreate({

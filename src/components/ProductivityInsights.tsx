@@ -94,7 +94,7 @@ export const ProductivityInsights: React.FC = () => {
       icon: TrendingUp,
       label: t('completionRate'),
       value: `${completionRate}%`,
-      color: 'text-purple-600'
+      color: 'text-foreground'
     },
     {
       icon: Calendar,
@@ -122,8 +122,7 @@ export const ProductivityInsights: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm"
-          className="bg-transparent hover:bg-white/20 border-none"
-          style={{ color: '#B674ED' }}
+          className="bg-transparent hover:bg-white/20 border-none text-foreground"
         >
           <BarChart3 className="w-4 h-4 mr-2" />
           <span className="hidden sm:inline">{t('insights')}</span>

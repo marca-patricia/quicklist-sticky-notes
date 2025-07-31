@@ -82,8 +82,7 @@ export const ListTemplates: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm"
-          className="bg-transparent hover:bg-white/20 border-none"
-          style={{ color: '#B674ED' }}
+          className="bg-transparent hover:bg-white/20 border-none text-foreground"
         >
           <FileText className="w-4 h-4 mr-2" />
           <span className="hidden sm:inline">{t('templates')}</span>

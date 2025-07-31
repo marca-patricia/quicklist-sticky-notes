@@ -89,14 +89,14 @@ All colors MUST be HSL.
     --input: 0 0% 16%; /* #292929 - Inputs escuros */
     --ring: 48 100% 93%;
 
-    /* Post-it Colors - Modo Escuro com cores vibrantes */
-    --note-yellow: 48 96% 60%; /* #F7DC6F - Amarelo vibrante */
-    --note-blue: 213 94% 70%; /* #74B9FF - Azul vibrante */
-    --note-green: 142 71% 55%; /* #00D68F - Verde vibrante */
-    --note-pink: 327 73% 65%; /* #FF7675 - Rosa vibrante */
-    --note-orange: 25 85% 65%; /* #FDCB6E - Laranja vibrante */
-    --note-purple: 260 60% 70%; /* #A29BFE - Roxo vibrante */
-    --note-text: 0 0% 13%; /* Texto preto nos post-its vibrantes */
+    /* Post-it Colors - Modo Escuro com cores vibrantes e texto legível */
+    --note-yellow: 48 70% 45%; /* Amarelo mais escuro */
+    --note-blue: 213 60% 50%; /* Azul mais escuro */
+    --note-green: 142 55% 40%; /* Verde mais escuro */
+    --note-pink: 327 60% 50%; /* Rosa mais escuro */
+    --note-orange: 25 70% 50%; /* Laranja mais escuro */
+    --note-purple: 260 50% 55%; /* Roxo mais escuro */
+    --note-text: 0 0% 95%; /* Texto quase branco para modo escuro */
     
     --floating-button: 48 100% 93%; /* Amarelo pastel */
     --floating-button-text: 0 0% 13%; /* Texto preto */

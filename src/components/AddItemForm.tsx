@@ -116,7 +116,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={t('placeholder')}
-            className="flex-1 bg-white/70 border-gray-300 focus:border-gray-500 transition-all duration-200 placeholder-gray-500"
+            className="flex-1 bg-white/70 border-gray-300 focus:border-gray-500 transition-all duration-200 placeholder-gray-500 text-foreground"
           />
           <Button 
             type="button"
