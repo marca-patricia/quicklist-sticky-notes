@@ -126,7 +126,7 @@ export const ListsOverview: React.FC = () => {
             {/* Left side controls */}
             <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Configurações do aplicativo">
               <LanguageSwitch />
-              <ThemeToggle />
+            <ThemeToggle />
               <OfflineStatus />
             </div>
             

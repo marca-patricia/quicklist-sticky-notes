@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { CategoryManager, Category } from '@/components/CategoryManager';
+import { PostItFeedback } from '@/components/PostItFeedback';
 import { Plus, X, Edit3, Check, Trash2, Tag, List, FileText, StickyNote as StickyNoteIcon } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -76,6 +77,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<Category | undefined>(note?.category);
   const [selectedColor, setSelectedColor] = useState(note?.color || noteColors[0]);
   const [isDragging, setIsDragging] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const TypeIcon = noteTypeIcons[currentType];
 
@@ -94,6 +96,10 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
 
     onSave?.(noteData);
     setEditMode(false);
+    
+    // Show feedback
+    setShowFeedback(true);
+    setTimeout(() => setShowFeedback(false), 2000);
   };
 
   const handleAddListItem = () => {
@@ -125,8 +131,11 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   if (editMode) {
     return (
       <Card 
-        className="w-64 h-64 p-4 shadow-notepad border-2 border-primary/20 animate-scale-in aspect-square"
-        style={{ backgroundColor: selectedColor }}
+        className="w-48 h-48 p-4 border-2 border-primary/20 animate-scale-in aspect-square shadow-postit hover:shadow-postit-hover transition-all duration-300"
+        style={{ 
+          backgroundColor: selectedColor,
+          boxShadow: 'var(--shadow-postit)'
+        }}
       >
         {/* Type Selector */}
         <div className="flex gap-1 mb-3">
@@ -290,12 +299,14 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       draggable={!!note.id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={`w-64 h-64 p-4 shadow-notepad cursor-grab active:cursor-grabbing hover:shadow-lg transition-all group aspect-square ${
+      className={`w-48 h-48 p-4 cursor-grab active:cursor-grabbing hover:shadow-postit-hover transition-all duration-300 group aspect-square ${
         isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
       }`}
       style={{ 
         backgroundColor: note.color,
-        transform: isDragging ? 'rotate(5deg)' : undefined 
+        transform: isDragging ? 'rotate(5deg)' : undefined,
+        boxShadow: 'var(--shadow-postit)',
+        borderRadius: '6px'
       }}
     >
       {/* Header with type icon and actions */}
@@ -359,6 +370,11 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         )}
       </div>
 
+      <PostItFeedback 
+        show={showFeedback} 
+        message="Post-it salvo com sucesso!" 
+      />
+      
       {/* Timestamp */}
       <div className="text-xs text-note-text/60 mt-2 border-t border-note-text/10 pt-2">
         {new Date(note.createdAt).toLocaleDateString()}

@@ -225,9 +225,9 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
       {/* Notes Board */}
       <div 
         ref={boardRef}
-        className={`flex-1 overflow-auto p-6 ${
+        className={`flex-1 overflow-auto p-4 ${
           isGridView 
-            ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center' 
+            ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 justify-items-center' 
             : 'space-y-4'
         }`}
         onDrop={handleBoardDrop}

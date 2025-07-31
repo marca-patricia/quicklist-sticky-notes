@@ -51,9 +51,13 @@ All colors MUST be HSL.
     --floating-button: 48 95% 88%; /* Amarelo pastel mais destacado */
     --floating-button-text: 0 0% 13%; /* Texto preto */
     
-    /* Gradientes elegantes */
+    /* Gradientes elegantes - cores mais suaves */
     --gradient-bg: linear-gradient(135deg, hsl(48, 15%, 95%) 0%, hsl(48, 20%, 93%) 100%);
-    --gradient-header: hsl(48, 95%, 88%); /* #FFF9D6 - Amarelo pastel sólido mais escuro */
+    --gradient-header: linear-gradient(135deg, #FFF9D6 0%, #FAF3B7 100%); /* Amarelo pastel suave */
+    
+    /* Sombras para post-its */
+    --shadow-postit: 0px 3px 8px rgba(0,0,0,0.12);
+    --shadow-postit-hover: 0px 6px 16px rgba(0,0,0,0.15);
 
     --radius: 0.75rem;
   }
@@ -101,9 +105,13 @@ All colors MUST be HSL.
     --floating-button: 48 100% 93%; /* Amarelo pastel */
     --floating-button-text: 0 0% 13%; /* Texto preto */
     
-    /* Gradientes escuros elegantes */
-    --gradient-bg: linear-gradient(135deg, hsl(0, 0%, 12%) 0%, hsl(0, 0%, 15%) 100%);
-    --gradient-header: hsl(48, 100%, 93%); /* #FFF9D6 - Amarelo pastel sólido */
+    /* Gradientes escuros elegantes - mais sofisticado */
+    --gradient-bg: linear-gradient(135deg, #1A1F25 0%, #2A2038 100%);
+    --gradient-header: linear-gradient(135deg, #FFF9D6 0%, #FAF3B7 100%); /* Mantém amarelo pastel */
+    
+    /* Sombras para post-its no modo escuro */
+    --shadow-postit: 0px 3px 8px rgba(0,0,0,0.25);
+    --shadow-postit-hover: 0px 6px 16px rgba(0,0,0,0.35);
 
     --radius: 0.75rem;
   }
@@ -141,6 +149,14 @@ All colors MUST be HSL.
     button {
       min-height: 44px;
       min-width: 44px;
+    }
+    
+    /* Sticky notes responsivo */
+    .sticky-note-mobile {
+      min-width: 140px !important;
+      min-height: 140px !important;
+      font-size: 14px !important;
+      padding: 12px !important;
     }
     
     /* Add safe area padding for mobile devices */
@@ -259,6 +275,14 @@ All colors MUST be HSL.
   
   .shadow-notepad {
     box-shadow: var(--shadow-notepad);
+  }
+  
+  .shadow-postit {
+    box-shadow: var(--shadow-postit);
+  }
+  
+  .shadow-postit-hover {
+    box-shadow: var(--shadow-postit-hover);
   }
   
   .bg-gradient-notepad {
