@@ -189,7 +189,6 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
   }, [isDragging, swipeOffset]);
 
   return (
-    <TooltipProvider>
       <div className="relative overflow-hidden">
         {/* Delete background */}
         <div 
@@ -406,6 +405,5 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
           variant="destructive"
         />
       </div>
-    </TooltipProvider>
   );
 };
