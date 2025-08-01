@@ -39,13 +39,13 @@ All colors MUST be HSL.
     --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
     --ring: 48 95% 88%;
 
-    /* Post-it Colors - Tons quadrados mais vivos */
-    --note-yellow: 50 85% 85%; /* #F9E79F - Amarelo claro */
-    --note-blue: 210 70% 88%; /* #B3D9FF - Azul claro */
-    --note-green: 150 65% 85%; /* #A8E6CF - Verde claro */
-    --note-pink: 330 70% 88%; /* #FFB3D1 - Rosa claro */
-    --note-orange: 30 80% 85%; /* #FFD1A9 - Laranja claro */
-    --note-purple: 270 55% 88%; /* #D1C4E9 - Lilás claro */
+    /* Post-it Colors - Cores pastel mais fortes e vibrantes */
+    --note-yellow: 48 95% 75%; /* #F4E03E - Amarelo post-it forte */
+    --note-blue: 210 80% 78%; /* #87CEEB - Azul post-it forte */
+    --note-green: 150 75% 75%; /* #90EE90 - Verde post-it forte */
+    --note-pink: 330 80% 78%; /* #FFB6C1 - Rosa post-it forte */
+    --note-orange: 30 90% 75%; /* #FFA500 - Laranja post-it forte */
+    --note-purple: 270 65% 78%; /* #DDA0DD - Roxo post-it forte */
     --note-text: 0 0% 13%; /* #222222 - Texto preto */
     
     --floating-button: 48 95% 88%; /* Amarelo pastel mais destacado */
