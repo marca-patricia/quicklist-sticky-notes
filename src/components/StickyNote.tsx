@@ -131,11 +131,11 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   if (editMode) {
     return (
       <Card 
-        className="w-48 h-48 p-4 border-2 border-primary/20 animate-scale-in aspect-square shadow-postit hover:shadow-postit-hover transition-all duration-300"
+        className="w-40 h-40 p-3 border-2 border-primary/20 animate-scale-in aspect-square shadow-postit hover:shadow-postit-hover transition-all duration-300"
         style={{ 
           backgroundColor: selectedColor,
           boxShadow: 'var(--shadow-postit)',
-          borderRadius: '2px' /* Cantos bem afiados como post-its reais */
+          borderRadius: '2px' /* Cantos afiados como post-its reais conforme análise */
         }}
       >
         {/* Type Selector */}
@@ -300,14 +300,14 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       draggable={!!note.id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={`w-48 h-48 p-4 cursor-grab active:cursor-grabbing hover:shadow-postit-hover transition-all duration-300 group aspect-square ${
+      className={`w-40 h-40 p-3 cursor-grab active:cursor-grabbing hover:shadow-postit-hover transition-all duration-300 group aspect-square ${
         isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
       }`}
       style={{ 
         backgroundColor: note.color,
         transform: isDragging ? 'rotate(5deg)' : undefined,
         boxShadow: 'var(--shadow-postit)',
-        borderRadius: '2px' /* Cantos afiados como post-its reais */
+        borderRadius: '2px' /* Cantos afiados como post-its reais conforme análise */
       }}
     >
       {/* Header with type icon and actions */}

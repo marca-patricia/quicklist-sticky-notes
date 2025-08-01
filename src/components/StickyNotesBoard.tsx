@@ -222,14 +222,18 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
         </div>
       </div>
 
-      {/* Notes Board */}
+      {/* Notes Board - Grid responsivo conforme análise das IAs */}
       <div 
         ref={boardRef}
         className={`flex-1 overflow-auto p-4 ${
           isGridView 
-            ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 justify-items-center' 
+            ? 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-3 auto-rows-max justify-items-center' 
             : 'space-y-4'
         }`}
+        style={{
+          /* Grid responsivo melhorado para post-its quadrados */
+          gridTemplateColumns: isGridView ? 'repeat(auto-fit, minmax(160px, 1fr))' : undefined
+        }}
         onDrop={handleBoardDrop}
         onDragOver={handleBoardDragOver}
       >

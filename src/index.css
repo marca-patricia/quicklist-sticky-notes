@@ -39,42 +39,43 @@ All colors MUST be HSL.
     --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
     --ring: 48 95% 88%;
 
-    /* Post-it Colors - Cores pastel mais fortes e vibrantes */
+    /* Post-it Colors - Cores pastel mais fortes e vibrantes como análise das IAs */
     --note-yellow: 48 95% 75%; /* #F4E03E - Amarelo post-it forte */
     --note-blue: 210 80% 78%; /* #87CEEB - Azul post-it forte */
     --note-green: 150 75% 75%; /* #90EE90 - Verde post-it forte */
     --note-pink: 330 80% 78%; /* #FFB6C1 - Rosa post-it forte */
     --note-orange: 30 90% 75%; /* #FFA500 - Laranja post-it forte */
     --note-purple: 270 65% 78%; /* #DDA0DD - Roxo post-it forte */
-    --note-text: 0 0% 13%; /* #222222 - Texto preto */
+    --note-text: 0 0% 13%; /* #222222 - Texto preto para contraste */
     
-    --floating-button: 48 95% 88%; /* Amarelo pastel mais destacado */
-    --floating-button-text: 0 0% 13%; /* Texto preto */
+    --floating-button: 279 100% 60%; /* #8B5CF6 - Roxo vibrante para destaque */
+    --floating-button-text: 0 0% 100%; /* Texto branco */
     
-    /* Gradientes elegantes - cores mais suaves */
+    /* Gradientes elegantes - barra superior pastel suave conforme análise */
     --gradient-bg: linear-gradient(135deg, hsl(48, 15%, 95%) 0%, hsl(48, 20%, 93%) 100%);
     --gradient-header: linear-gradient(135deg, #FFF9D6 0%, #FAF3B7 100%); /* Amarelo pastel suave */
     
-    /* Sombras para post-its */
+    /* Sombras realistas para post-its conforme especificado */
     --shadow-postit: 0px 3px 8px rgba(0,0,0,0.12);
     --shadow-postit-hover: 0px 6px 16px rgba(0,0,0,0.15);
+    --shadow-floating: 0px 4px 12px rgba(139, 92, 246, 0.4);
 
     --radius: 0.75rem;
   }
 
   .dark {
-    /* QuickList - Modo Escuro elegante */
-    --background: 0 0% 12%; /* #1E1E1E - Fundo escuro elegante */
-    --foreground: 0 0% 100%; /* #FFFFFF - Texto branco puro */
+    /* QuickList - Modo Escuro sofisticado conforme análise das IAs */
+    --background: 0 0% 11%; /* #1A1F25 - Fundo escuro sofisticado */
+    --foreground: 0 0% 95%; /* #F2F2F2 - Texto claro mas não branco puro */
 
     --card: 0 0% 15%; /* #262626 - Cards escuros */
-    --card-foreground: 0 0% 100%; /* Texto branco nos cards */
+    --card-foreground: 0 0% 95%; /* Texto claro nos cards */
 
     --popover: 0 0% 15%;
-    --popover-foreground: 0 0% 100%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Cores principais - Amarelo pastel mantido */
-    --primary: 48 100% 93%; /* #FFF9D6 - Amarelo pastel elegante */
+    /* Cores principais - mantendo identidade mas melhorando contraste */
+    --primary: 48 90% 85%; /* #F5E6A3 - Amarelo mais visível no escuro */
     --primary-foreground: 0 0% 13%; /* Texto preto nos botões */
 
     --secondary: 0 0% 18%; /* #2E2E2E - Cinza escuro */
@@ -414,4 +415,70 @@ All colors MUST be HSL.
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* === CORREÇÕES CONFORME ANÁLISE DAS IAs === */
+
+/* Responsividade Mobile - Scroll horizontal conforme análise das IAs */
+@media (max-width: 768px) {
+  .overflow-x-auto {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    padding-bottom: 2px; /* Espaço para scrollbar */
+  }
+  
+  /* Post-its responsivos para mobile */
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+    gap: 12px !important;
+    padding: 16px !important;
+  }
+  
+  /* Menu superior com touch targets adequados */
+  .container {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  
+  /* Botões com tamanho mínimo de toque (44px) */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Header responsivo */
+  .fixed.top-0 {
+    position: fixed !important;
+    z-index: 50;
+  }
+}
+
+/* Grid de post-its melhorado conforme análise */
+.post-it-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .post-it-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    padding: 16px;
+  }
+}
+
+/* Animação de feedback visual conforme especificado */
+@keyframes pulse-save {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animate-pulse-save {
+  animation: pulse-save 0.6s ease-in-out;
 }
