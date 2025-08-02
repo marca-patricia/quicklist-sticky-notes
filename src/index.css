@@ -39,13 +39,13 @@ All colors MUST be HSL.
     --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
     --ring: 48 95% 88%;
 
-    /* Post-it Colors - Cores pastel mais fortes e vibrantes como análise das IAs */
-    --note-yellow: 48 95% 75%; /* #F4E03E - Amarelo post-it forte */
-    --note-blue: 210 80% 78%; /* #87CEEB - Azul post-it forte */
-    --note-green: 150 75% 75%; /* #90EE90 - Verde post-it forte */
-    --note-pink: 330 80% 78%; /* #FFB6C1 - Rosa post-it forte */
-    --note-orange: 30 90% 75%; /* #FFA500 - Laranja post-it forte */
-    --note-purple: 270 65% 78%; /* #DDA0DD - Roxo post-it forte */
+    /* Post-it Colors - Cores pastel suaves conforme análise das IAs */
+    --note-yellow: 48 40% 88%; /* #FFF8C5 - Amarelo pastel suave */
+    --note-blue: 210 40% 85%; /* Azul pastel suave */
+    --note-green: 150 35% 85%; /* #DFF5DC - Verde menta suave */
+    --note-pink: 330 40% 85%; /* Rosa pastel suave */
+    --note-orange: 30 45% 85%; /* #FFE3C0 - Laranja claro suave */
+    --note-purple: 270 30% 90%; /* #EDE5FB - Lilás claro suave */
     --note-text: 0 0% 13%; /* #222222 - Texto preto para contraste */
     
     --floating-button: 279 100% 60%; /* #8B5CF6 - Roxo vibrante para destaque */
@@ -64,44 +64,44 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* QuickList - Modo Escuro sofisticado conforme análise das IAs */
-    --background: 0 0% 11%; /* #1A1F25 - Fundo escuro sofisticado */
-    --foreground: 0 0% 95%; /* #F2F2F2 - Texto claro mas não branco puro */
+    /* QuickList - Modo Escuro com LETRAS PRETAS conforme solicitado */
+    --background: 15 20% 8%; /* #2A1D1D - Fundo marrom-chocolate escuro */
+    --foreground: 0 0% 13%; /* #222222 - TEXTO PRETO no modo escuro */
 
-    --card: 0 0% 15%; /* #262626 - Cards escuros */
-    --card-foreground: 0 0% 95%; /* Texto claro nos cards */
+    --card: 15 15% 12%; /* #262220 - Cards marrom escuro */
+    --card-foreground: 0 0% 13%; /* TEXTO PRETO nos cards */
 
-    --popover: 0 0% 15%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 15 15% 12%;
+    --popover-foreground: 0 0% 13%; /* TEXTO PRETO */
 
-    /* Cores principais - mantendo identidade mas melhorando contraste */
+    /* Cores principais - mantendo identidade mas com texto preto */
     --primary: 48 90% 85%; /* #F5E6A3 - Amarelo mais visível no escuro */
     --primary-foreground: 0 0% 13%; /* Texto preto nos botões */
 
-    --secondary: 0 0% 18%; /* #2E2E2E - Cinza escuro */
-    --secondary-foreground: 0 0% 100%; /* Texto branco */
+    --secondary: 15 10% 20%; /* #3B2F2F - Marrom escuro conforme análise */
+    --secondary-foreground: 0 0% 13%; /* TEXTO PRETO */
 
-    --muted: 0 0% 16%; /* #292929 - Fundo muted escuro */
-    --muted-foreground: 0 0% 70%; /* Texto muted claro */
+    --muted: 15 8% 16%; /* #2E2825 - Fundo muted marrom */
+    --muted-foreground: 0 0% 13%; /* TEXTO PRETO muted */
 
-    --accent: 0 0% 18%; /* #2E2E2E - Accent escuro */
-    --accent-foreground: 0 0% 100%; /* Texto branco */
+    --accent: 15 10% 20%; /* #3B2F2F - Accent marrom escuro */
+    --accent-foreground: 0 0% 13%; /* TEXTO PRETO */
 
     --destructive: 0 84% 60%; /* #EF4444 - Vermelho */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 20%; /* #333333 - Bordas escuras */
-    --input: 0 0% 16%; /* #292929 - Inputs escuros */
+    --border: 15 8% 25%; /* #423A35 - Bordas marrom */
+    --input: 0 0% 95%; /* #F2F2F2 - Inputs claros com texto preto */
     --ring: 48 100% 93%;
 
-    /* Post-it Colors - Modo Escuro com cores vibrantes e texto legível */
+    /* Post-it Colors - Modo Escuro adaptado com TEXTO PRETO */
     --note-yellow: 48 70% 45%; /* Amarelo mais escuro */
     --note-blue: 213 60% 50%; /* Azul mais escuro */
     --note-green: 142 55% 40%; /* Verde mais escuro */
     --note-pink: 327 60% 50%; /* Rosa mais escuro */
     --note-orange: 25 70% 50%; /* Laranja mais escuro */
     --note-purple: 260 50% 55%; /* Roxo mais escuro */
-    --note-text: 0 0% 95%; /* Texto quase branco para modo escuro */
+    --note-text: 0 0% 13%; /* TEXTO PRETO para todos os post-its */
     
     --floating-button: 48 100% 93%; /* Amarelo pastel */
     --floating-button-text: 0 0% 13%; /* Texto preto */

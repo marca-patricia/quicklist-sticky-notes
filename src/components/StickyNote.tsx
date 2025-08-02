@@ -134,8 +134,8 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         className="w-40 h-40 p-3 border-2 border-primary/20 animate-scale-in aspect-square shadow-postit hover:shadow-postit-hover transition-all duration-300"
         style={{ 
           backgroundColor: selectedColor,
-          boxShadow: 'var(--shadow-postit)',
-          borderRadius: '2px' /* Cantos afiados como post-its reais conforme análise */
+          boxShadow: '0px 4px 8px rgba(0,0,0,0.2)', /* Sombra realista conforme análise */
+          borderRadius: '0px' /* Cantos quadrados/afiados como post-its reais */
         }}
       >
         {/* Type Selector */}
@@ -306,8 +306,8 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       style={{ 
         backgroundColor: note.color,
         transform: isDragging ? 'rotate(5deg)' : undefined,
-        boxShadow: 'var(--shadow-postit)',
-        borderRadius: '2px' /* Cantos afiados como post-its reais conforme análise */
+        boxShadow: '0px 4px 8px rgba(0,0,0,0.2)', /* Sombra realista conforme análise */
+        borderRadius: '0px' /* Cantos quadrados/afiados como post-its reais */
       }}
     >
       {/* Header with type icon and actions */}
