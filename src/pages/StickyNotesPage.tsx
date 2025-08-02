@@ -4,7 +4,7 @@ import { StickyNoteData, NoteType } from '@/components/StickyNote';
 import { FloatingStickyButton } from '@/components/FloatingStickyButton';
 import { Category } from '@/components/CategoryManager';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
-import { ThemeToggle } from '@/components/ThemeToggle';
+
 import { QuickListLogo } from '@/components/QuickListLogo';
 import { OfflineStatus } from '@/components/OfflineStatus';
 import { Button } from '@/components/ui/button';
@@ -110,7 +110,6 @@ export const StickyNotesPage: React.FC = () => {
                 Voltar
               </Button>
               <LanguageSwitch />
-              <ThemeToggle />
               <OfflineStatus />
             </div>
             

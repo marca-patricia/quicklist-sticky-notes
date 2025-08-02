@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AddListForm } from '@/components/AddListForm';
 import { ListCard } from '@/components/ListCard';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
-import { ThemeToggle } from '@/components/ThemeToggle';
+
 import { EmptyState } from '@/components/EmptyState';
 import { InstallPrompt } from '@/components/InstallPrompt';
 import { AchievementsModal } from '@/components/AchievementsModal';
@@ -126,7 +126,6 @@ export const ListsOverview: React.FC = () => {
             {/* Left side controls */}
             <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Configurações do aplicativo">
               <LanguageSwitch />
-            <ThemeToggle />
               <OfflineStatus />
             </div>
             

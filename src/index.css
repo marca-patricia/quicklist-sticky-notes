@@ -63,59 +63,6 @@ All colors MUST be HSL.
     --radius: 0.75rem;
   }
 
-  .dark {
-    /* QuickList - Modo Escuro com LETRAS PRETAS conforme solicitado */
-    --background: 15 20% 8%; /* #2A1D1D - Fundo marrom-chocolate escuro */
-    --foreground: 0 0% 13%; /* #222222 - TEXTO PRETO no modo escuro */
-
-    --card: 15 15% 12%; /* #262220 - Cards marrom escuro */
-    --card-foreground: 0 0% 13%; /* TEXTO PRETO nos cards */
-
-    --popover: 15 15% 12%;
-    --popover-foreground: 0 0% 13%; /* TEXTO PRETO */
-
-    /* Cores principais - mantendo identidade mas com texto preto */
-    --primary: 48 90% 85%; /* #F5E6A3 - Amarelo mais visível no escuro */
-    --primary-foreground: 0 0% 13%; /* Texto preto nos botões */
-
-    --secondary: 15 10% 20%; /* #3B2F2F - Marrom escuro conforme análise */
-    --secondary-foreground: 0 0% 13%; /* TEXTO PRETO */
-
-    --muted: 15 8% 16%; /* #2E2825 - Fundo muted marrom */
-    --muted-foreground: 0 0% 13%; /* TEXTO PRETO muted */
-
-    --accent: 15 10% 20%; /* #3B2F2F - Accent marrom escuro */
-    --accent-foreground: 0 0% 13%; /* TEXTO PRETO */
-
-    --destructive: 0 84% 60%; /* #EF4444 - Vermelho */
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 15 8% 25%; /* #423A35 - Bordas marrom */
-    --input: 0 0% 95%; /* #F2F2F2 - Inputs claros com texto preto */
-    --ring: 48 100% 93%;
-
-    /* Post-it Colors - Modo Escuro adaptado com TEXTO PRETO */
-    --note-yellow: 48 70% 45%; /* Amarelo mais escuro */
-    --note-blue: 213 60% 50%; /* Azul mais escuro */
-    --note-green: 142 55% 40%; /* Verde mais escuro */
-    --note-pink: 327 60% 50%; /* Rosa mais escuro */
-    --note-orange: 25 70% 50%; /* Laranja mais escuro */
-    --note-purple: 260 50% 55%; /* Roxo mais escuro */
-    --note-text: 0 0% 13%; /* TEXTO PRETO para todos os post-its */
-    
-    --floating-button: 48 100% 93%; /* Amarelo pastel */
-    --floating-button-text: 0 0% 13%; /* Texto preto */
-    
-    /* Gradientes escuros elegantes - mais sofisticado */
-    --gradient-bg: linear-gradient(135deg, #1A1F25 0%, #2A2038 100%);
-    --gradient-header: linear-gradient(135deg, #FFF9D6 0%, #FAF3B7 100%); /* Mantém amarelo pastel */
-    
-    /* Sombras para post-its no modo escuro */
-    --shadow-postit: 0px 3px 8px rgba(0,0,0,0.25);
-    --shadow-postit-hover: 0px 6px 16px rgba(0,0,0,0.35);
-
-    --radius: 0.75rem;
-  }
 }
 
 @layer base {
@@ -124,26 +71,18 @@ All colors MUST be HSL.
   }
 
   body {
-    background: linear-gradient(135deg, 
-      hsl(var(--note-yellow) / 0.1) 0%, 
-      hsl(var(--note-orange) / 0.05) 25%,
-      hsl(var(--note-pink) / 0.03) 50%,
-      hsl(var(--note-blue) / 0.05) 75%,
-      hsl(var(--note-green) / 0.1) 100%) !important;
+    background: #B8956A url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
+    background-size: cover;
+    background-attachment: fixed;
     color: hsl(var(--foreground));
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 16px; /* Professional base font size */
-    line-height: 1.6; /* Better readability */
+    font-size: 16px;
+    line-height: 1.6;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-attachment: fixed;
   }
 
-  .dark body {
-    background: var(--gradient-bg) !important;
-    color: hsl(var(--foreground));
-  }
 
   /* Better mobile touch targets and safe area */
   @media (max-width: 768px) {

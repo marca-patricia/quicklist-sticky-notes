@@ -48,12 +48,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
+        <div className="light">
           <TooltipProvider>
             <LanguageProvider>
               <AuthProvider>
@@ -73,7 +68,7 @@ const App = () => {
               </AuthProvider>
             </LanguageProvider>
           </TooltipProvider>
-        </ThemeProvider>
+        </div>
       </BrowserRouter>
     </QueryClientProvider>
   );
