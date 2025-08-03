@@ -66,8 +66,8 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
           className={`
             relative transform rotate-1 hover:rotate-0 transition-all duration-300 
             cursor-pointer hover:scale-105 animate-fade-in-up
-            shadow-xl hover:shadow-2xl
-            ${isGridView ? 'min-h-[220px] p-4' : 'min-h-[180px] p-5'}
+            shadow-xl hover:shadow-2xl rounded-lg
+            ${isGridView ? 'min-h-[240px] p-6 m-4' : 'min-h-[200px] p-6 m-3'}
           `}
           style={getPostItStyle(list.color)}
           role="article"
@@ -75,7 +75,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
         >
           {/* Post-it corner fold */}
           <div 
-            className="absolute bottom-0 right-0 w-8 h-8 opacity-20"
+            className="absolute bottom-0 right-0 w-8 h-8 opacity-20 rounded-bl-lg"
             style={{
               background: `linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%)`,
               clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)'
@@ -84,18 +84,19 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
 
           {/* Content */}
           <div className="relative z-10 h-full flex flex-col">
-            <div className={`flex justify-between items-start ${isGridView ? 'mb-2' : 'mb-3'}`}>
+            <div className={`flex justify-between items-start ${isGridView ? 'mb-3' : 'mb-4'}`}>
               <h3 
-                className={`font-bold text-gray-800 flex-1 leading-tight ${isGridView ? 'text-lg' : 'text-xl'}`}
+                className={`font-bold text-gray-900 flex-1 leading-tight ${isGridView ? 'text-lg' : 'text-xl'}`}
                 style={{ 
-                  fontFamily: 'cursive',
-                  textShadow: '0 1px 2px rgba(0,0,0,0.1)'
+                  fontFamily: 'Inter, sans-serif',
+                  textShadow: '0 1px 2px rgba(255,255,255,0.8)',
+                  color: '#1f2937'
                 }}
                 title={list.title}
               >
                 {list.title}
               </h3>
-              <div className={`flex items-center ${isGridView ? 'gap-1' : 'gap-2'}`} onClick={(e) => e.preventDefault()}>
+              <div className={`flex items-center ${isGridView ? 'gap-1' : 'gap-2'} opacity-0 group-hover:opacity-100 transition-opacity duration-200`} onClick={(e) => e.preventDefault()}>
                 {!isGridView && (
                   <ColorPicker 
                     selectedColor={list.color}
@@ -105,12 +106,12 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                 )}
                 <Button
                   variant="ghost"
-                  size={isGridView ? "sm" : "sm"}
+                  size="sm"
                   onClick={(e) => {
                     e.preventDefault();
                     handleArchiveToggle();
                   }}
-                  className="text-gray-600 hover:text-gray-800 bg-white/20 hover:bg-white/40 rounded-full"
+                  className="text-gray-700 hover:text-gray-900 bg-white/60 hover:bg-white/80 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
                   aria-label={list.archived ? t('unarchive') : t('archiveList')}
                   title={list.archived ? t('unarchive') : t('archiveList')}
                 >
@@ -118,12 +119,12 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                 </Button>
                 <Button
                   variant="ghost"
-                  size={isGridView ? "sm" : "sm"}
+                  size="sm"
                   onClick={(e) => {
                     e.preventDefault();
                     setShowDeleteConfirm(true);
                   }}
-                  className="text-red-600 hover:text-red-800 bg-white/20 hover:bg-white/40 rounded-full"
+                  className="text-red-700 hover:text-red-900 bg-white/60 hover:bg-red-50 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
                   aria-label={t('confirmDeleteList')}
                   title={t('deleteList')}
                 >
@@ -135,25 +136,34 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
             {/* Description for grid view */}
             {isGridView && list.description && (
               <p 
-                className="text-sm text-gray-700 mb-3 line-clamp-2 leading-relaxed"
-                style={{ fontFamily: 'cursive' }}
+                className="text-sm text-gray-800 mb-4 line-clamp-2 leading-relaxed"
+                style={{ 
+                  fontFamily: 'Inter, sans-serif',
+                  color: '#374151'
+                }}
               >
                 {list.description}
               </p>
             )}
             
             <div className={`${isGridView ? 'flex-1 flex flex-col justify-end' : ''}`}>
-              <div className={isGridView ? 'mb-2' : 'mb-3'} id={`list-progress-${list.id}`}>
-                <div className={`flex justify-between text-sm ${isGridView ? 'mb-2' : 'mb-2'}`}>
+              <div className={isGridView ? 'mb-3' : 'mb-4'} id={`list-progress-${list.id}`}>
+                <div className={`flex justify-between text-sm font-medium ${isGridView ? 'mb-2' : 'mb-2'}`}>
                   <span 
-                    className="text-gray-700 font-semibold"
-                    style={{ fontFamily: 'cursive' }}
+                    className="text-gray-800"
+                    style={{ 
+                      fontFamily: 'Inter, sans-serif',
+                      color: '#374151'
+                    }}
                   >
                     {completedItems.length}/{list.items.length} {t('completed')}
                   </span>
                   <span 
-                    className="text-gray-700 font-semibold"
-                    style={{ fontFamily: 'cursive' }}
+                    className="text-gray-800"
+                    style={{ 
+                      fontFamily: 'Inter, sans-serif',
+                      color: '#374151'
+                    }}
                   >
                     {Math.round(progress)}%
                   </span>
