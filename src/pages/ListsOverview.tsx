@@ -179,22 +179,6 @@ export const ListsOverview: React.FC = () => {
       <div className="h-20"></div>
       
       <main className="container max-w-5xl mx-auto px-4 py-8">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <button 
-            onClick={() => window.location.reload()}
-            className="flex items-center justify-center gap-4 mb-6 sm:hidden hover:opacity-80 transition-opacity"
-            aria-label="Recarregar aplicativo QuickList"
-          >
-            <QuickListLogo size="xl" showText={true} className="text-foreground" />
-          </button>
-          <div className="hidden sm:block mb-6 flex justify-center">
-            <QuickListLogo size="xl" showText={true} className="text-foreground" />
-          </div>
-          <p className="text-lg max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-            {t('organizeDesc')}
-          </p>
-        </div>
 
         {/* Add List Form - Now conditional */}
         {showAddForm && (
