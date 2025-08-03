@@ -2,7 +2,7 @@
 <browserconfig>
     <msapplication>
         <tile>
-            <square150x150logo src="/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png"/>
+            <square150x150logo src="/src/assets/quicklist-icon.png"/>
             <TileColor>#B674ED</TileColor>
         </tile>
     </msapplication>

@@ -4,6 +4,7 @@ import { StickyNoteData, NoteType } from '@/components/StickyNote';
 import { FloatingStickyButton } from '@/components/FloatingStickyButton';
 import { Category } from '@/components/CategoryManager';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { QuickListLogo } from '@/components/QuickListLogo';
 import { OfflineStatus } from '@/components/OfflineStatus';
 import { Button } from '@/components/ui/button';
@@ -57,15 +58,15 @@ export const StickyNotesPage: React.FC = () => {
   const handleNoteSave = (noteData: Omit<StickyNoteData, 'id' | 'createdAt'>) => {
     const newNote: StickyNoteData = {
       ...noteData,
-      id: crypto.randomUUID(),
+      id: Date.now().toString(),
       createdAt: new Date()
     };
     setNotes(prev => [...prev, newNote]);
   };
 
-  const handleNoteUpdate = (id: string, updatedNote: Partial<StickyNoteData>) => {
+  const handleNoteUpdate = (id: string, updates: Partial<StickyNoteData>) => {
     setNotes(prev => prev.map(note => 
-      note.id === id ? { ...note, ...updatedNote } : note
+      note.id === id ? { ...note, ...updates } : note
     ));
   };
 
@@ -76,7 +77,7 @@ export const StickyNotesPage: React.FC = () => {
   const handleCategoryCreate = (categoryData: Omit<Category, 'id'>) => {
     const newCategory: Category = {
       ...categoryData,
-      id: crypto.randomUUID()
+      id: Date.now().toString()
     };
     setCategories(prev => [...prev, newCategory]);
   };
@@ -85,38 +86,56 @@ export const StickyNotesPage: React.FC = () => {
     setCategories(prev => prev.filter(cat => cat.id !== categoryId));
     // Remove category from notes
     setNotes(prev => prev.map(note => 
-      note.category?.id === categoryId ? { ...note, category: undefined } : note
+      note.category?.id === categoryId 
+        ? { ...note, category: undefined }
+        : note
     ));
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header profissional estilo post-it */}
-      <header className="toolbar-postit p-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <QuickListLogo size="sm" />
-            <h1 className="text-xl font-bold text-amber-900">Notas</h1>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate('/lists')}
-              className="button-enhanced flex items-center gap-2 text-amber-900 hover:bg-amber-100/50"
-            >
-              📋 Listas
-            </Button>
-            <span className="text-amber-800 text-sm font-medium">{notes.length} notas</span>
-            <LanguageSwitch />
-            <OfflineStatus />
+    <div className="h-screen flex flex-col bg-background">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header">
+        <div className="container max-w-6xl mx-auto px-2 py-2 min-h-[56px]">
+          <div className="flex justify-between items-center">
+            {/* Left side controls */}
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('/')}
+                className="flex items-center gap-2 text-foreground hover:text-foreground/80"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Voltar
+              </Button>
+              <LanguageSwitch />
+              <ThemeToggle />
+              <OfflineStatus />
+            </div>
+            
+            {/* Center - App Brand */}
+            <div className="hidden sm:flex items-center gap-3">
+              <QuickListLogo size="md" showText={true} className="text-foreground" />
+              <span className="text-sm text-muted-foreground">Sticky Notes</span>
+            </div>
+
+            {/* Right side - Info */}
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>{notes.length} notas</span>
+              {categories.length > 0 && (
+                <span>• {categories.length} categorias</span>
+              )}
+            </div>
           </div>
         </div>
       </header>
 
+      {/* Spacer for fixed header */}
+      <div className="h-20"></div>
+
       {/* Main Content */}
-      <main className="flex-1">
+      <div className="flex-1 overflow-hidden">
         <StickyNotesBoard
           notes={notes}
           onNoteSave={handleNoteSave}
@@ -126,11 +145,15 @@ export const StickyNotesPage: React.FC = () => {
           onCategoryCreate={handleCategoryCreate}
           onCategoryDelete={handleCategoryDelete}
         />
-      </main>
+      </div>
 
-      {/* Floating Button */}
-      <FloatingStickyButton 
-        onCreateNote={setPendingNoteType}
+      {/* Floating Action Button */}
+      <FloatingStickyButton
+        onCreateNote={(type) => {
+          // Trigger creation in the board component
+          setPendingNoteType(type);
+        }}
+        disabled={false}
       />
     </div>
   );

@@ -27,15 +27,12 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <div className={`${sizeClasses[size]} relative`}>
-        <img 
-          src={`/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png?v=${Date.now()}`}
-          alt="QuickList Logo" 
-          className="w-full h-full object-contain"
-          style={{ display: 'block' }}
-        />
-      </div>
-      
+      <img 
+        src="/new-logo.png"
+        alt="QuickList Logo" 
+        className={`${sizeClasses[size]} object-contain drop-shadow-sm`}
+        style={{ backgroundColor: 'transparent', background: 'none' }}
+      />
       {showText && (
         <span className={`font-bold text-foreground ${textSizeClasses[size]} tracking-tight`}>
           QuickList

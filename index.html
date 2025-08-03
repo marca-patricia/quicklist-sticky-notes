@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
     <title>QuickList - Lista de Tarefas Simples e Offline</title>
     
-    <!-- Google Fonts - Inter for modern typography + Kalam for handwriting -->
+    <!-- Google Fonts - Inter for modern typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <meta name="description" content="QuickList - Sua lista de tarefas simples, bilíngue e offline. Organize suas tarefas de forma rápida e eficiente. PWA com sincronização e achievements." />
     <meta name="author" content="QuickList App" />
     <meta name="keywords" content="lista, tarefas, notas, produtividade, offline, bilíngue, pwa, app, achievements, sincronização" />
@@ -29,20 +29,20 @@
     <meta name="msapplication-config" content="/browserconfig.xml" />
 
     <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png" />
+    <link rel="apple-touch-icon" href="/new-logo.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/new-logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/new-logo.png" />
 
     <!-- Favicon -->
-    <link rel="icon" href="/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png" type="image/png" />
-    <link rel="shortcut icon" href="/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png" type="image/png" />
+    <link rel="icon" href="/new-logo.png" type="image/png" />
+    <link rel="shortcut icon" href="/new-logo.png" type="image/png" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="QuickList - Lista de Tarefas Simples e Offline" />
     <meta property="og:description" content="Organize suas tarefas com o QuickList - App PWA bilíngue, offline, com achievements e sincronização automática." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com" />
-    <meta property="og:image" content="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png" />
+    <meta property="og:image" content="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com/src/assets/quicklist-icon.png" />
     <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
     <meta property="og:locale" content="pt_BR" />
@@ -52,7 +52,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="QuickList - Lista de Tarefas Simples" />
     <meta name="twitter:description" content="App PWA bilíngue e offline para organizar suas tarefas com achievements e sincronização automática." />
-    <meta name="twitter:image" content="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png" />
+    <meta name="twitter:image" content="https://58c97e5f-f70c-4a3b-a334-6edbe11d9aa3.lovableproject.com/src/assets/quicklist-icon.png" />
 
     <script>
       // Registrar Service Worker - silently in production
@@ -68,90 +68,10 @@
         });
       }
     </script>
-    
-    <style>
-      /* FORÇA APLICAÇÃO IMEDIATA - Anti-cache */
-      body {
-        background-color: #B8956A !important;
-        background-image: url('/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png') !important;
-        background-size: cover !important;
-        background-attachment: fixed !important;
-        background-repeat: no-repeat !important;
-        background-position: center !important;
-        margin: 0 !important;
-        padding: 0 !important;
-      }
-      
-      html, body, #root {
-        background-color: #B8956A !important;
-        background-image: url('/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png') !important;
-        background-size: cover !important;
-        background-attachment: fixed !important;
-        background-repeat: no-repeat !important;
-        background-position: center !important;
-        min-height: 100vh !important;
-      }
-      
-      @media (max-width: 768px) {
-        body, html, #root {
-          background-attachment: scroll !important;
-        }
-      }
-    </style>
   </head>
 
   <body>
     <div id="root"></div>
-    <script>
-      // FORÇA ESTILOS IMEDIATAMENTE - Anti-cache
-      const timestamp = Date.now();
-      
-      // Aplica background via JavaScript para garantir
-      const applyBackground = () => {
-        document.body.style.setProperty('background-color', '#B8956A', 'important');
-        document.body.style.setProperty('background-image', 'url("/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png")', 'important');
-        document.body.style.setProperty('background-size', 'cover', 'important');
-        document.body.style.setProperty('background-attachment', window.innerWidth <= 768 ? 'scroll' : 'fixed', 'important');
-        document.body.style.setProperty('background-repeat', 'no-repeat', 'important');
-        document.body.style.setProperty('background-position', 'center', 'important');
-        
-        document.documentElement.style.setProperty('background-color', '#B8956A', 'important');
-        document.documentElement.style.setProperty('background-image', 'url("/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png")', 'important');
-        document.documentElement.style.setProperty('background-size', 'cover', 'important');
-        document.documentElement.style.setProperty('background-attachment', window.innerWidth <= 768 ? 'scroll' : 'fixed', 'important');
-        document.documentElement.style.setProperty('background-repeat', 'no-repeat', 'important');
-        document.documentElement.style.setProperty('background-position', 'center', 'important');
-        
-        const root = document.getElementById('root');
-        if (root) {
-          root.style.setProperty('background', 'transparent', 'important');
-          root.style.setProperty('min-height', '100vh', 'important');
-        }
-      };
-      
-      applyBackground();
-      
-      // Força refresh de CSS
-      window.addEventListener('load', () => {
-        const links = document.querySelectorAll('link[rel="stylesheet"]');
-        links.forEach(link => {
-          const href = link.href.split('?')[0];
-          link.href = href + '?cache_break=' + Date.now();
-        });
-        applyBackground();
-      });
-      
-      // Força novamente após um delay
-      setTimeout(() => {
-        applyBackground();
-      }, 500);
-      
-      // Observa mudanças e força background
-      const observer = new MutationObserver(() => {
-        applyBackground();
-      });
-      observer.observe(document.body, { attributes: true, attributeFilter: ['style', 'class'] });
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
