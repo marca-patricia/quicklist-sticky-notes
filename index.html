@@ -82,8 +82,18 @@
         padding: 0 !important;
       }
       
+      html, body, #root {
+        background-color: #B8956A !important;
+        background-image: url('/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png') !important;
+        background-size: cover !important;
+        background-attachment: fixed !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        min-height: 100vh !important;
+      }
+      
       @media (max-width: 768px) {
-        body {
+        body, html, #root {
           background-attachment: scroll !important;
         }
       }
@@ -97,31 +107,50 @@
       const timestamp = Date.now();
       
       // Aplica background via JavaScript para garantir
-      document.body.style.setProperty('background-color', '#B8956A', 'important');
-      document.body.style.setProperty('background-image', 'url("/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png")', 'important');
-      document.body.style.setProperty('background-size', 'cover', 'important');
-      document.body.style.setProperty('background-attachment', window.innerWidth <= 768 ? 'scroll' : 'fixed', 'important');
-      document.body.style.setProperty('background-repeat', 'no-repeat', 'important');
-      document.body.style.setProperty('background-position', 'center', 'important');
-      
-      // Força refresh de CSS
-      window.addEventListener('load', () => {
-        const links = document.querySelectorAll('link[rel="stylesheet"]');
-        links.forEach(link => {
-          const href = link.href.split('?')[0];
-          link.href = href + '?cache_break=' + timestamp;
-        });
-      });
-      
-      // Força novamente após um delay
-      setTimeout(() => {
+      const applyBackground = () => {
         document.body.style.setProperty('background-color', '#B8956A', 'important');
         document.body.style.setProperty('background-image', 'url("/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png")', 'important');
         document.body.style.setProperty('background-size', 'cover', 'important');
         document.body.style.setProperty('background-attachment', window.innerWidth <= 768 ? 'scroll' : 'fixed', 'important');
         document.body.style.setProperty('background-repeat', 'no-repeat', 'important');
         document.body.style.setProperty('background-position', 'center', 'important');
-      }, 1000);
+        
+        document.documentElement.style.setProperty('background-color', '#B8956A', 'important');
+        document.documentElement.style.setProperty('background-image', 'url("/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png")', 'important');
+        document.documentElement.style.setProperty('background-size', 'cover', 'important');
+        document.documentElement.style.setProperty('background-attachment', window.innerWidth <= 768 ? 'scroll' : 'fixed', 'important');
+        document.documentElement.style.setProperty('background-repeat', 'no-repeat', 'important');
+        document.documentElement.style.setProperty('background-position', 'center', 'important');
+        
+        const root = document.getElementById('root');
+        if (root) {
+          root.style.setProperty('background', 'transparent', 'important');
+          root.style.setProperty('min-height', '100vh', 'important');
+        }
+      };
+      
+      applyBackground();
+      
+      // Força refresh de CSS
+      window.addEventListener('load', () => {
+        const links = document.querySelectorAll('link[rel="stylesheet"]');
+        links.forEach(link => {
+          const href = link.href.split('?')[0];
+          link.href = href + '?cache_break=' + Date.now();
+        });
+        applyBackground();
+      });
+      
+      // Força novamente após um delay
+      setTimeout(() => {
+        applyBackground();
+      }, 500);
+      
+      // Observa mudanças e força background
+      const observer = new MutationObserver(() => {
+        applyBackground();
+      });
+      observer.observe(document.body, { attributes: true, attributeFilter: ['style', 'class'] });
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
