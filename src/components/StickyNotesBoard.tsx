@@ -258,9 +258,9 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             variant={isGridView ? "default" : "outline"}
             size="sm"
             onClick={() => setIsGridView(!isGridView)}
-            className="flex items-center gap-2 text-white border-white/20 hover:text-white"
+            className="flex items-center gap-2 text-black bg-white border-white/20 hover:text-black hover:bg-white/90"
           >
-            <Grid className="w-4 h-4" />
+            <Grid className="w-4 h-4 text-black" />
             {isGridView ? 'Grade' : 'Lista'}
           </Button>
         </div>
