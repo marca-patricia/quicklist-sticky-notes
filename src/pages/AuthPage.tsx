@@ -87,7 +87,7 @@ export default function AuthPage() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full" 
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90" 
                   disabled={loading}
                 >
                   {loading ? 'Entrando...' : 'Entrar'}
@@ -118,7 +118,7 @@ export default function AuthPage() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full" 
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90" 
                   disabled={loading}
                 >
                   {loading ? 'Criando...' : 'Criar Conta'}
