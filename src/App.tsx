@@ -15,7 +15,6 @@ import { ListDetail } from "./pages/ListDetail";
 import { StickyNotesPage } from "./pages/StickyNotesPage";
 import AuthPage from "./pages/AuthPage";
 import { LoadingSpinner } from "./components/LoadingSpinner";
-import { forceStyleRefresh } from "./utils/forceStyleRefresh";
 import { StyleEnforcer } from "./components/StyleEnforcer";
 
 const queryClient = new QueryClient();
@@ -31,20 +30,17 @@ const App = () => {
         .catch(() => console.log('SW registration failed'));
     }
 
-    // Force style refresh
-    forceStyleRefresh();
-
-    // Simulate initial loading
-    const timer = setTimeout(() => setIsLoading(false), 800);
+    // Carregamento mais rápido e suave
+    const timer = setTimeout(() => setIsLoading(false), 300);
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center animate-fade-in-up">
+      <div className="min-h-screen flex items-center justify-center" style={{backgroundColor: '#B8956A'}}>
+        <div className="text-center">
           <LoadingSpinner size="lg" className="mx-auto mb-4" />
-          <p className="text-muted-foreground">Carregando QuickList...</p>
+          <p className="text-white">Carregando QuickList...</p>
         </div>
       </div>
     );

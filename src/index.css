@@ -107,18 +107,18 @@
     }
   }
 
-  /* Animações suaves */
+  /* Animações suaves e otimizadas */
   .animate-scale-in {
-    animation: scaleIn 0.2s ease-out;
+    animation: scaleIn 0.15s ease-out;
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.2s ease-out;
   }
 
   @keyframes scaleIn {
     from {
-      transform: scale(0.95);
+      transform: scale(0.98);
       opacity: 0;
     }
     to {
@@ -130,19 +130,19 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
     }
   }
 
-  /* Reduzir motion para acessibilidade */
+  /* Reduzir motion para melhor performance */
   @media (prefers-reduced-motion: reduce) {
     .animate-scale-in,
-    .animate-fade-in {
-      animation: none;
+    .animate-fade-in,
+    * {
+      animation: none !important;
+      transition: none !important;
     }
   }
 }
@@ -160,16 +160,17 @@
 
   .sticky-note:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15);
-    transform: scale(1.02);
+    transform: scale(1.01);
   }
 
-  /* Grid dos sticky notes */
+  /* Grid dos sticky notes - estável */
   .notes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, 160px);
     gap: 16px;
     padding: 20px;
     justify-content: start;
+    min-height: 200px; /* Evita saltos no layout */
   }
 
   /* Cores dos post-its */
@@ -179,6 +180,11 @@
   .bg-note-pink { background-color: hsl(var(--note-pink)); }
   .bg-note-orange { background-color: hsl(var(--note-orange)); }
   .bg-note-purple { background-color: hsl(var(--note-purple)); }
+
+  /* Hover suave para sticky notes */
+  .hover\:scale-101:hover {
+    transform: scale(1.01);
+  }
 
   /* Botões com melhor acessibilidade */
   .btn-touch {
@@ -229,17 +235,22 @@
     background: rgba(255, 255, 255, 0.3) !important;
   }
 
-  /* Listas em formato post-it */
+  /* Listas em formato post-it - estável */
   .list-card-postit {
-    width: 200px !important;
-    height: 200px !important;
+    width: 200px;
+    height: 200px;
     aspect-ratio: 1;
-    background: #FFF8C5 !important;
-    border-radius: 2px !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    border: 1px solid #F5E06B !important;
+    background: #FFF8C5;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #F5E06B;
     position: relative;
-    padding: 16px !important;
+    padding: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .list-card-postit:hover {
+    transform: scale(1.02);
   }
 
   .list-card-postit::before {

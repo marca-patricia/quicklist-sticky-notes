@@ -137,18 +137,18 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     onDragEnd?.();
   };
 
-  // Classes responsivas
+  // Classes responsivas sem animações exageradas
   const noteClasses = `
     sticky-note
     ${isMobile ? 'sticky-note-mobile' : ''}
-    ${isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'}
-    cursor-grab active:cursor-grabbing transition-all duration-300 group
+    ${isDragging ? 'opacity-50' : 'hover:scale-101'}
+    cursor-grab active:cursor-grabbing transition-all duration-200 group
   `;
 
   if (editMode) {
     return (
       <Card 
-        className={`p-3 border-2 border-primary/20 animate-scale-in ${isMobile ? 'sticky-note-mobile' : 'sticky-note'}`}
+        className={`p-3 border-2 border-primary/20 ${isMobile ? 'sticky-note-mobile' : 'sticky-note'}`}
         style={{ 
           backgroundColor: selectedColor
         }}
