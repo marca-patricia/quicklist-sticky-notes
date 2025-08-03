@@ -138,16 +138,16 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      {/* TOOLBAR AMARELO CLARO SIMPLES */}
-      <div className="top-bar-yellow px-4 py-3">
-        {/* Busca e controles básicos */}
-        <div className="flex items-center gap-4 mb-2">
+      {/* TOOLBAR ESTILO POST-IT PROFISSIONAL */}
+      <div className="toolbar-postit px-6 py-4">
+        {/* Busca aprimorada */}
+        <div className="flex items-center gap-4 mb-4">
           <div className="flex-1 max-w-md">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
               placeholder="Buscar notas..."
-              className="bg-white/80 border-yellow-300"
+              className="search-input w-full"
             />
           </div>
           
@@ -155,15 +155,15 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             variant={isGridView ? "default" : "outline"}
             size="sm"
             onClick={() => setIsGridView(!isGridView)}
-            className="flex items-center gap-2"
+            className="button-enhanced flex items-center gap-2 bg-white/90 hover:bg-white border-amber-300"
           >
             <Grid className="w-4 h-4" />
             Grade
           </Button>
         </div>
 
-        {/* Botões de criar nota */}
-        <div className="flex gap-2 flex-wrap">
+        {/* Botões de criar nota - estilo post-it */}
+        <div className="flex gap-3 flex-wrap">
           {Object.entries(noteTypeLabels).map(([type, label]) => {
             const Icon = noteTypeIcons[type as NoteType];
             return (
@@ -172,10 +172,10 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={() => handleCreateNote(type as NoteType)}
-                className="flex items-center gap-1"
+                className="button-enhanced flex items-center gap-2 bg-white/90 hover:bg-white border-amber-400 hover:border-amber-500 transition-all duration-200"
                 disabled={creatingNote !== null}
               >
-                <Icon className="w-3 h-3" />
+                <Icon className="w-4 h-4" />
                 {label}
               </Button>
             );
