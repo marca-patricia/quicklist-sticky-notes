@@ -46,11 +46,58 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
     showSuccess(newArchivedState ? t('listArchived') : t('listUnarchived'));
   };
 
-  // Post-it colors based on list color
+  // Post-it colors - cores realistas de post-it
   const getPostItStyle = (color: string) => {
+    const postItColors = {
+      '#fef3c7': { // Amarelo clássico
+        bg: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 30%, #f59e0b 100%)',
+        shadow: '0 8px 25px -8px rgba(245, 158, 11, 0.4), 0 4px 12px -4px rgba(245, 158, 11, 0.3)',
+        texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
+      },
+      '#dcfce7': { // Verde menta
+        bg: 'linear-gradient(135deg, #dcfce7 0%, #bbf7d0 30%, #16a34a 100%)',
+        shadow: '0 8px 25px -8px rgba(22, 163, 74, 0.4), 0 4px 12px -4px rgba(22, 163, 74, 0.3)',
+        texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
+      },
+      '#fce7f3': { // Rosa suave
+        bg: 'linear-gradient(135deg, #fce7f3 0%, #fbcfe8 30%, #ec4899 100%)',
+        shadow: '0 8px 25px -8px rgba(236, 72, 153, 0.4), 0 4px 12px -4px rgba(236, 72, 153, 0.3)',
+        texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
+      },
+      '#e0e7ff': { // Azul claro
+        bg: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 30%, #6366f1 100%)',
+        shadow: '0 8px 25px -8px rgba(99, 102, 241, 0.4), 0 4px 12px -4px rgba(99, 102, 241, 0.3)',
+        texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
+      },
+      '#fed7d7': { // Laranja pêssego
+        bg: 'linear-gradient(135deg, #fed7d7 0%, #fecaca 30%, #f97316 100%)',
+        shadow: '0 8px 25px -8px rgba(249, 115, 22, 0.4), 0 4px 12px -4px rgba(249, 115, 22, 0.3)',
+        texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
+      },
+      '#f3e8ff': { // Roxo lavanda
+        bg: 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 30%, #a855f7 100%)',
+        shadow: '0 8px 25px -8px rgba(168, 85, 247, 0.4), 0 4px 12px -4px rgba(168, 85, 247, 0.3)',
+        texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
+      },
+      '#f1f5f9': { // Cinza pérola
+        bg: 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 30%, #64748b 100%)',
+        shadow: '0 8px 25px -8px rgba(100, 116, 139, 0.4), 0 4px 12px -4px rgba(100, 116, 139, 0.3)',
+        texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
+      },
+      '#ecfdf5': { // Verde água
+        bg: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 30%, #059669 100%)',
+        shadow: '0 8px 25px -8px rgba(5, 150, 105, 0.4), 0 4px 12px -4px rgba(5, 150, 105, 0.3)',
+        texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
+      }
+    };
+
+    const selectedColor = postItColors[color] || postItColors['#fef3c7'];
+    
     return {
-      backgroundColor: color,
-      background: `linear-gradient(135deg, ${color} 0%, ${color}f0 100%)`,
+      background: selectedColor.bg,
+      boxShadow: selectedColor.shadow,
+      backgroundImage: selectedColor.texture,
+      backdropFilter: 'blur(1px)',
     };
   };
 
@@ -64,21 +111,35 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
       >
         <div 
           className={`
-            relative transform rotate-1 hover:rotate-0 transition-all duration-300 
-            cursor-pointer hover:scale-105 animate-fade-in-up
-            shadow-xl hover:shadow-2xl rounded-lg
-            ${isGridView ? 'min-h-[240px] p-6 m-4' : 'min-h-[200px] p-6 m-3'}
+            relative transform transition-all duration-300 ease-out
+            hover:scale-105 hover:-rotate-0 animate-fade-in-up
+            cursor-pointer group
+            ${isGridView ? 'min-h-[240px] p-6 m-4 rotate-1 hover:rotate-0' : 'min-h-[200px] p-6 m-3 rotate-2 hover:rotate-1'}
           `}
-          style={getPostItStyle(list.color)}
+          style={{
+            ...getPostItStyle(list.color),
+            filter: 'drop-shadow(2px 4px 8px rgba(0,0,0,0.15)) drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
+            border: '1px solid rgba(0,0,0,0.08)',
+            borderRadius: '8px',
+          }}
           role="article"
           aria-describedby={`list-progress-${list.id}`}
         >
-          {/* Post-it corner fold */}
+          {/* Sombra interna realista */}
           <div 
-            className="absolute bottom-0 right-0 w-8 h-8 opacity-20 rounded-bl-lg"
+            className="absolute inset-0 rounded-lg pointer-events-none"
             style={{
-              background: `linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%)`,
-              clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)'
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.05)'
+            }}
+          ></div>
+
+          {/* Post-it corner fold mais realista */}
+          <div 
+            className="absolute bottom-0 right-0 w-10 h-10 opacity-30 rounded-bl-lg pointer-events-none"
+            style={{
+              background: `linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.08) 55%, transparent 60%)`,
+              clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)',
+              filter: 'blur(0.5px)'
             }}
           ></div>
 

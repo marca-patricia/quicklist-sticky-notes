@@ -18,13 +18,30 @@ export const ListCardSkeleton: React.FC = () => {
   return (
     <div className="relative group">
       
-      <div className="transform rotate-1 shadow-xl min-h-[180px] p-4 bg-yellow-200 relative">
+      <div 
+        className="transform rotate-1 min-h-[200px] p-6 m-3 relative rounded-lg"
+        style={{
+          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 30%, #f59e0b 100%)',
+          boxShadow: '0 8px 25px -8px rgba(245, 158, 11, 0.4), 0 4px 12px -4px rgba(245, 158, 11, 0.3)',
+          filter: 'drop-shadow(2px 4px 8px rgba(0,0,0,0.15))',
+          border: '1px solid rgba(0,0,0,0.08)',
+        }}
+      >
+        {/* Sombra interna realista */}
+        <div 
+          className="absolute inset-0 rounded-lg pointer-events-none"
+          style={{
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.05)'
+          }}
+        ></div>
+
         {/* Post-it corner fold */}
         <div 
-          className="absolute bottom-0 right-0 w-8 h-8 opacity-20"
+          className="absolute bottom-0 right-0 w-10 h-10 opacity-30 rounded-bl-lg pointer-events-none"
           style={{
-            background: `linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%)`,
-            clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)'
+            background: `linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.08) 55%, transparent 60%)`,
+            clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)',
+            filter: 'blur(0.5px)'
           }}
         ></div>
         

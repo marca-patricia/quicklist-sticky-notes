@@ -41,15 +41,16 @@ interface ListsContextType {
 
 const ListsContext = createContext<ListsContextType | undefined>(undefined);
 
+// Cores realistas de post-it
 export const pastelColors = [
-  { name: 'Rosa', value: 'hsl(340, 100%, 95%)', class: 'bg-[hsl(340,100%,95%)]' },
-  { name: 'Azul', value: 'hsl(200, 100%, 95%)', class: 'bg-[hsl(200,100%,95%)]' },
-  { name: 'Verde', value: 'hsl(120, 60%, 95%)', class: 'bg-[hsl(120,60%,95%)]' },
-  { name: 'Amarelo', value: 'hsl(50, 100%, 95%)', class: 'bg-[hsl(50,100%,95%)]' },
-  { name: 'Roxo', value: 'hsl(280, 60%, 95%)', class: 'bg-[hsl(280,60%,95%)]' },
-  { name: 'Laranja', value: 'hsl(30, 100%, 95%)', class: 'bg-[hsl(30,100%,95%)]' },
-  { name: 'Menta', value: 'hsl(160, 60%, 95%)', class: 'bg-[hsl(160,60%,95%)]' },
-  { name: 'Pêssego', value: 'hsl(15, 100%, 95%)', class: 'bg-[hsl(15,100%,95%)]' }
+  { name: 'Amarelo Clássico', value: '#fef3c7' },
+  { name: 'Verde Menta', value: '#dcfce7' },
+  { name: 'Rosa Suave', value: '#fce7f3' },
+  { name: 'Azul Claro', value: '#e0e7ff' },
+  { name: 'Laranja Pêssego', value: '#fed7d7' },
+  { name: 'Roxo Lavanda', value: '#f3e8ff' },
+  { name: 'Cinza Pérola', value: '#f1f5f9' },
+  { name: 'Verde Água', value: '#ecfdf5' },
 ];
 
 export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -83,7 +84,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           const migratedList: TodoList = {
             id: Date.now().toString(),
             title: 'Minha Lista',
-            color: pastelColors[0].value,
+      color: pastelColors[0].value,
             items: parsed.map((item: any) => ({
               ...item,
               createdAt: new Date(item.createdAt)
