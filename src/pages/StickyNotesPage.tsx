@@ -92,7 +92,7 @@ export const StickyNotesPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header profissional estilo post-it */}
-      <header className="toolbar-postit p-4">
+      <header className="toolbar-postit p-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <QuickListLogo size="sm" />

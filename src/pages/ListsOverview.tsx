@@ -47,7 +47,7 @@ export const ListsOverview: React.FC = () => {
       }}
     >
       {/* Header estilo post-it com fundo de cortiça */}
-      <header className="toolbar-postit p-4">
+      <header className="toolbar-postit p-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button
