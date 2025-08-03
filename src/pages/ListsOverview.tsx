@@ -38,43 +38,36 @@ export const ListsOverview: React.FC = () => {
     <div 
       className="min-h-screen"
       style={{
-        backgroundColor: '#F8F9FA',
-        backgroundImage: `
-          repeating-linear-gradient(
-            transparent,
-            transparent 23px,
-            #E9ECEF 23px,
-            #E9ECEF 24px
-          )
-        `,
-        fontFamily: 'Kalam, cursive'
+        backgroundColor: '#B8956A',
+        backgroundImage: 'url("/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png")',
+        backgroundSize: 'cover',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center'
       }}
     >
-      {/* Header estilo caderno */}
-      <header className="bg-white border-b-2 border-red-400 p-4 relative">
-        {/* Margem vermelha do caderno */}
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-400"></div>
-        
-        <div className="flex items-center justify-between ml-8">
+      {/* Header estilo post-it com fundo de cortiça */}
+      <header className="toolbar-postit p-4">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => navigate('/')}
-              className="button-enhanced flex items-center gap-2 text-gray-700 hover:bg-gray-100/50"
+              className="button-enhanced flex items-center gap-2 text-amber-900 hover:bg-amber-100/50"
             >
               <ArrowLeft className="w-4 h-4" />
               Voltar
             </Button>
             
             <QuickListLogo size="sm" />
-            <h1 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'Kalam, cursive' }}>
-              Listas de Tarefas
+            <h1 className="text-xl font-bold text-amber-900" style={{ fontFamily: 'Kalam, cursive' }}>
+              Minhas Listas
             </h1>
           </div>
           
           <div className="flex items-center gap-4">
-            <span className="text-gray-600 text-sm font-medium">{lists.length} listas</span>
+            <span className="text-amber-800 text-sm font-medium">{lists.length} listas</span>
             <LanguageSwitch />
             <OfflineStatus />
           </div>
@@ -82,23 +75,23 @@ export const ListsOverview: React.FC = () => {
       </header>
 
       {/* Toolbar de busca e criação */}
-      <div className="p-6 ml-8">
-        <div className="flex gap-4 items-center mb-6">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+      <div className="p-6">
+        <div className="flex gap-4 items-center justify-center mb-6">
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-amber-700 w-4 h-4" />
             <Input
               type="text"
               placeholder="Buscar listas..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-white border-2 border-gray-300 rounded-lg text-gray-700"
+              className="search-input pl-10"
               style={{ fontFamily: 'Kalam, cursive' }}
             />
           </div>
           
           <Button
             onClick={handleCreateList}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2 button-enhanced"
+            className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg flex items-center gap-2 button-enhanced"
             style={{ fontFamily: 'Kalam, cursive' }}
           >
             <Plus className="w-4 h-4" />
@@ -107,30 +100,32 @@ export const ListsOverview: React.FC = () => {
         </div>
       </div>
 
-      {/* Grid de listas */}
-      <main className="px-6 pb-8 ml-8">
+      {/* Grid de mini folhas de caderno */}
+      <main className="px-6 pb-8">
         {filteredLists.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <FileText className="w-16 h-16 text-gray-400 mb-4" />
-            <h3 className="text-xl font-semibold text-gray-600 mb-2" style={{ fontFamily: 'Kalam, cursive' }}>
-              {searchTerm ? 'Nenhuma lista encontrada' : 'Suas listas aparecerão aqui'}
-            </h3>
-            <p className="text-gray-500 mb-6" style={{ fontFamily: 'Kalam, cursive' }}>
-              {searchTerm ? 'Tente buscar com outros termos' : 'Crie sua primeira lista para começar'}
-            </p>
-            {!searchTerm && (
-              <Button
-                onClick={handleCreateList}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 button-enhanced"
-                style={{ fontFamily: 'Kalam, cursive' }}
-              >
-                <Plus className="w-5 h-5" />
-                Criar Primeira Lista
-              </Button>
-            )}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md">
+              <FileText className="w-16 h-16 text-amber-800 mb-4 mx-auto" />
+              <h3 className="text-xl font-semibold text-amber-900 mb-2" style={{ fontFamily: 'Kalam, cursive' }}>
+                {searchTerm ? 'Nenhuma lista encontrada' : 'Suas listas aparecerão aqui'}
+              </h3>
+              <p className="text-amber-800 mb-6" style={{ fontFamily: 'Kalam, cursive' }}>
+                {searchTerm ? 'Tente buscar com outros termos' : 'Crie sua primeira lista para começar'}
+              </p>
+              {!searchTerm && (
+                <Button
+                  onClick={handleCreateList}
+                  className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 button-enhanced"
+                  style={{ fontFamily: 'Kalam, cursive' }}
+                >
+                  <Plus className="w-5 h-5" />
+                  Criar Primeira Lista
+                </Button>
+              )}
+            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="notes-grid">
             {filteredLists.map((list) => (
               <ListCard key={list.id} list={list} />
             ))}

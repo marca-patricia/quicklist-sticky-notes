@@ -222,6 +222,69 @@ body {
   }
 }
 
+/* MINI FOLHAS DE CADERNO PARA LISTAS */
+.mini-notebook-page {
+  background: 
+    /* Linhas horizontais do caderno */
+    repeating-linear-gradient(
+      transparent,
+      transparent 18px,
+      #E5E7EB 18px,
+      #E5E7EB 19px
+    ),
+    /* Background base do papel */
+    linear-gradient(135deg, #FEFEFE 0%, #F9FAFB 100%);
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  width: 200px;
+  height: 240px;
+  margin: 8px;
+  font-family: 'Kalam', cursive;
+  overflow: hidden;
+  transform: rotate(-0.5deg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Margem esquerda vermelha da mini folha */
+.mini-notebook-page::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #EF4444;
+  z-index: 1;
+}
+
+/* Furos da folha no topo */
+.mini-notebook-page::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 12px;
+  width: 4px;
+  height: calc(100% - 24px);
+  background: 
+    radial-gradient(circle at center, #9CA3AF 1.5px, transparent 1.5px);
+  background-size: 4px 10px;
+  background-repeat: repeat-y;
+  z-index: 2;
+}
+
+.mini-notebook-page:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.2),
+    0 4px 10px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
 /* LISTA EM POST-IT MELHORADA - COM LINHAS */
 .list-card-postit {
   width: 200px;

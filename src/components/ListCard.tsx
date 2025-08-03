@@ -55,31 +55,17 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = true }) =
         aria-label={`Abrir lista ${list.title} com ${completedItems.length} de ${list.items.length} tarefas concluídas`}
       >
         <div 
-          className="sticky-note hover:scale-105 transition-all duration-300 cursor-pointer animate-fade-in relative p-4"
-          style={{ backgroundColor: list.color || '#FDF2B2' }}
+          className="mini-notebook-page hover:scale-105 transition-all duration-300 cursor-pointer animate-fade-in relative"
           role="article"
         >
-          {/* Linhas do post-it */}
-          <div className="absolute inset-4 pointer-events-none">
-            <div className="h-full flex flex-col justify-start">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div 
-                  key={i} 
-                  className="border-b border-amber-300/30 h-4 mb-1"
-                  style={{ marginTop: i === 0 ? '20px' : '0' }}
-                />
-              ))}
-            </div>
-          </div>
-          
-          {/* Conteúdo do post-it */}
-          <div className="relative z-10">
+          {/* Conteúdo da mini folha */}
+          <div className="relative z-10 p-4">
             {/* Header com título e botões */}
             <div className="flex justify-between items-start mb-3">
               <h3 
-                className="font-semibold text-lg text-amber-900 truncate flex-1 leading-5" 
+                className="font-bold text-base text-gray-800 truncate flex-1 leading-5" 
                 title={list.title}
-                style={{ fontFamily: 'cursive' }}
+                style={{ fontFamily: 'Kalam, cursive' }}
               >
                 {list.title}
               </h3>
@@ -91,7 +77,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = true }) =
                     e.preventDefault();
                     handleArchiveToggle();
                   }}
-                  className="text-amber-700 hover:text-amber-900 p-1 h-6 w-6"
+                  className="text-gray-600 hover:text-gray-800 p-1 h-6 w-6"
                   title={list.archived ? 'Desarquivar' : 'Arquivar'}
                 >
                   {list.archived ? <ArchiveRestore className="w-3 h-3" /> : <Archive className="w-3 h-3" />}
@@ -111,13 +97,13 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = true }) =
               </div>
             </div>
             
-            {/* Lista de tarefas com linhas */}
-            <div className="space-y-1 mb-3">
+            {/* Lista de tarefas com checkboxes */}
+            <div className="space-y-2 mb-3">
               {/* Tarefas pendentes */}
-              {pendingItems.slice(0, 3).map((item, index) => (
-                <div key={item.id} className="flex items-center text-sm text-amber-800 leading-4">
-                  <span className="w-3 h-3 border border-amber-600 rounded-sm mr-2 flex-shrink-0" />
-                  <span className="truncate" style={{ fontFamily: 'cursive' }}>
+              {pendingItems.slice(0, 4).map((item, index) => (
+                <div key={item.id} className="flex items-center text-sm text-gray-700 leading-4">
+                  <span className="w-3 h-3 border-2 border-gray-500 mr-3 flex-shrink-0" />
+                  <span className="truncate" style={{ fontFamily: 'Kalam, cursive' }}>
                     {item.text}
                   </span>
                 </div>
@@ -125,11 +111,11 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = true }) =
               
               {/* Tarefas concluídas - riscadas */}
               {completedItems.slice(0, 2).map((item, index) => (
-                <div key={item.id} className="flex items-center text-sm text-amber-700/70 leading-4">
-                  <CheckCircle className="w-3 h-3 text-green-600 mr-2 flex-shrink-0" />
+                <div key={item.id} className="flex items-center text-sm text-gray-500 leading-4">
+                  <CheckCircle className="w-3 h-3 text-green-600 mr-3 flex-shrink-0" />
                   <span 
-                    className="truncate line-through decoration-2 decoration-amber-700" 
-                    style={{ fontFamily: 'cursive' }}
+                    className="truncate line-through decoration-2 decoration-gray-500" 
+                    style={{ fontFamily: 'Kalam, cursive' }}
                   >
                     {item.text}
                   </span>
@@ -137,29 +123,29 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = true }) =
               ))}
               
               {/* Mostrar "mais tarefas" se necessário */}
-              {list.items.length > 5 && (
-                <div className="text-xs text-amber-600 italic">
-                  +{list.items.length - 5} tarefas...
+              {list.items.length > 6 && (
+                <div className="text-xs text-gray-500 italic">
+                  +{list.items.length - 6} tarefas...
                 </div>
               )}
               
               {/* Se não tem tarefas */}
               {list.items.length === 0 && (
-                <div className="text-sm text-amber-600 italic leading-4" style={{ fontFamily: 'cursive' }}>
-                  Lista vazia
+                <div className="text-sm text-gray-500 italic leading-4" style={{ fontFamily: 'Kalam, cursive' }}>
+                  Lista vazia - clique para adicionar tarefas
                 </div>
               )}
             </div>
 
             {/* Progresso na parte inferior */}
-            <div className="mt-auto pt-2">
-              <div className="flex justify-between text-xs text-amber-700 mb-1">
+            <div className="mt-auto pt-2 border-t border-gray-200">
+              <div className="flex justify-between text-xs text-gray-600 mb-1" style={{ fontFamily: 'Kalam, cursive' }}>
                 <span>{completedItems.length}/{list.items.length} concluídas</span>
                 <span>{Math.round(progress)}%</span>
               </div>
-              <div className="w-full bg-amber-200 rounded-full h-1">
+              <div className="w-full bg-gray-200 rounded-full h-1.5">
                 <div 
-                  className="bg-amber-600 rounded-full h-1 transition-all" 
+                  className="bg-blue-500 rounded-full h-1.5 transition-all" 
                   style={{ width: `${progress}%` }}
                 />
               </div>
