@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -78,8 +78,17 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   const [selectedColor, setSelectedColor] = useState(note?.color || noteColors[0]);
   const [isDragging, setIsDragging] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const TypeIcon = noteTypeIcons[currentType];
+
+  // Detectar mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleSave = () => {
     if (!title.trim() && !content.trim() && items.every(item => !item.trim())) return;
@@ -128,17 +137,20 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     onDragEnd?.();
   };
 
+  // Classes responsivas
+  const noteClasses = `
+    sticky-note
+    ${isMobile ? 'sticky-note-mobile' : ''}
+    ${isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'}
+    cursor-grab active:cursor-grabbing transition-all duration-300 group
+  `;
+
   if (editMode) {
     return (
       <Card 
-        className="w-40 h-40 p-3 border-2 border-primary/20 animate-scale-in"
+        className={`p-3 border-2 border-primary/20 animate-scale-in ${isMobile ? 'sticky-note-mobile' : 'sticky-note'}`}
         style={{ 
-          backgroundColor: selectedColor,
-          width: '160px',
-          height: '160px',
-          aspectRatio: '1',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)',
-          borderRadius: '2px'
+          backgroundColor: selectedColor
         }}
       >
         {/* Type Selector */}
@@ -149,7 +161,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
               variant={currentType === type ? "default" : "ghost"}
               size="sm"
               onClick={() => setCurrentType(type as NoteType)}
-              className="p-1 h-auto"
+              className="p-1 h-auto btn-touch"
             >
               <Icon className="w-3 h-3" />
             </Button>
@@ -161,7 +173,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           {noteColors.map((color) => (
             <button
               key={color}
-              className={`w-4 h-4 rounded-full border-2 transition-all ${
+              className={`w-4 h-4 rounded-full border-2 transition-all btn-touch ${
                 selectedColor === color ? 'border-foreground scale-110' : 'border-border'
               }`}
               style={{ backgroundColor: color }}
@@ -221,7 +233,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                       variant="ghost"
                       size="sm"
                       onClick={() => handleRemoveListItem(index)}
-                      className="p-1 h-auto"
+                      className="p-1 h-auto btn-touch"
                     >
                       <X className="w-3 h-3" />
                     </Button>
@@ -233,7 +245,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
               variant="ghost"
               size="sm"
               onClick={handleAddListItem}
-              className="w-full text-xs"
+              className="w-full text-xs btn-touch"
             >
               <Plus className="w-3 h-3 mr-1" />
               Adicionar item
@@ -274,7 +286,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             variant="default"
             size="sm"
             onClick={handleSave}
-            className="flex-1"
+            className="flex-1 btn-touch"
           >
             <Check className="w-3 h-3 mr-1" />
             Salvar
@@ -288,6 +300,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 onDelete('temp');
               }
             }}
+            className="btn-touch"
           >
             <X className="w-3 h-3" />
           </Button>
@@ -303,17 +316,10 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       draggable={!!note.id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={`p-3 cursor-grab active:cursor-grabbing transition-all duration-300 group ${
-        isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
-      }`}
+      className={noteClasses}
       style={{ 
         backgroundColor: note.color,
-        transform: isDragging ? 'rotate(5deg)' : undefined,
-        width: '160px',
-        height: '160px',
-        aspectRatio: '1',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)',
-        borderRadius: '2px'
+        transform: isDragging ? 'rotate(5deg)' : undefined
       }}
     >
       {/* Header with type icon and actions */}
@@ -334,7 +340,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             variant="ghost"
             size="sm"
             onClick={() => onEdit?.(note.id)}
-            className="p-1 h-auto hover:bg-white/20"
+            className="p-1 h-auto hover:bg-white/20 btn-touch"
           >
             <Edit3 className="w-3 h-3" />
           </Button>
@@ -342,7 +348,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             variant="ghost"
             size="sm"
             onClick={() => onDelete?.(note.id)}
-            className="p-1 h-auto hover:bg-white/20 text-destructive"
+            className="p-1 h-auto hover:bg-white/20 text-destructive btn-touch"
           >
             <Trash2 className="w-3 h-3" />
           </Button>

@@ -15,7 +15,7 @@ import { ListDetail } from "./pages/ListDetail";
 import { StickyNotesPage } from "./pages/StickyNotesPage";
 import AuthPage from "./pages/AuthPage";
 import { LoadingSpinner } from "./components/LoadingSpinner";
-import { MobileViewFix } from "./components/MobileViewFix";
+import { forceStyleRefresh } from "./utils/forceStyleRefresh";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +29,9 @@ const App = () => {
         .then(() => console.log('SW registered'))
         .catch(() => console.log('SW registration failed'));
     }
+
+    // Force style refresh
+    forceStyleRefresh();
 
     // Simulate initial loading
     const timer = setTimeout(() => setIsLoading(false), 800);
@@ -62,7 +65,6 @@ const App = () => {
                       <Route path="/auth" element={<AuthPage />} />
                        <Route path="*" element={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Página não encontrada</p></div>} />
                      </Routes>
-                     <MobileViewFix />
                      <Toaster />
                      <Sonner />
                   </AchievementsProvider>

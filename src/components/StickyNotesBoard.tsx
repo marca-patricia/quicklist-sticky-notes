@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { StickyNote, StickyNoteData, NoteType } from '@/components/StickyNote';
 import { Button } from '@/components/ui/button';
 import { SearchInput } from '@/components/SearchInput';
@@ -48,7 +48,16 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   const [creatingNote, setCreatingNote] = useState<NoteType | null>(null);
   const [editingNote, setEditingNote] = useState<string | null>(null);
   const [draggedNote, setDraggedNote] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const boardRef = useRef<HTMLDivElement>(null);
+
+  // Detectar mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Filter notes based on search and filters
   const filteredNotes = notes.filter(note => {
@@ -117,10 +126,19 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
     e.preventDefault();
   }, []);
 
+  // Classes responsivas para o grid
+  const gridClasses = `
+    flex-1 overflow-auto p-4
+    ${isGridView 
+      ? `notes-grid ${isMobile ? 'notes-grid-mobile' : ''}` 
+      : 'space-y-4'
+    }
+  `;
+
   return (
     <div className="h-full flex flex-col">
       {/* Toolbar */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-border p-4 space-y-4">
+      <div className="glass-toolbar border-b border-border p-4 space-y-4">
         {/* Search and View Toggle */}
         <div className="flex gap-4 items-center">
           <div className="flex-1 max-w-md">
@@ -136,7 +154,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             variant={isGridView ? "default" : "outline"}
             size="sm"
             onClick={() => setIsGridView(!isGridView)}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 btn-touch"
           >
             <Grid className="w-4 h-4" />
             {isGridView ? 'Grade' : 'Lista'}
@@ -151,6 +169,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
               variant={filterType === 'all' ? "default" : "outline"}
               size="sm"
               onClick={() => setFilterType('all')}
+              className="btn-touch"
             >
               Todos
             </Button>
@@ -162,7 +181,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                   variant={filterType === type ? "default" : "outline"}
                   size="sm"
                   onClick={() => setFilterType(type as NoteType)}
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 btn-touch"
                 >
                   <Icon className="w-3 h-3" />
                   {label}
@@ -179,6 +198,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 variant={filterCategory === 'all' ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterCategory('all')}
+                className="btn-touch"
               >
                 Todas
               </Button>
@@ -186,7 +206,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Badge
                   key={category.id}
                   variant={filterCategory === category.id ? "default" : "outline"}
-                  className={`cursor-pointer ${
+                  className={`cursor-pointer btn-touch ${
                     filterCategory === category.id ? category.color + ' text-white' : ''
                   }`}
                   onClick={() => setFilterCategory(
@@ -211,7 +231,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={() => handleCreateNote(type as NoteType)}
-                className="flex items-center gap-1"
+                className="flex items-center gap-1 btn-touch"
                 disabled={creatingNote !== null}
               >
                 <Icon className="w-3 h-3" />
@@ -222,18 +242,10 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
         </div>
       </div>
 
-      {/* Notes Board - Grid organizado conforme análise */}
+      {/* Notes Board - Grid organizado */}
       <div 
         ref={boardRef}
-        className={`flex-1 overflow-auto p-4 ${
-          isGridView 
-            ? 'grid gap-4 justify-items-start items-start' 
-            : 'space-y-4'
-        }`}
-        style={{
-          gridTemplateColumns: isGridView ? 'repeat(auto-fill, minmax(160px, 1fr))' : undefined,
-          gridAutoRows: isGridView ? '160px' : undefined
-        }}
+        className={gridClasses}
         onDrop={handleBoardDrop}
         onDragOver={handleBoardDragOver}
       >
@@ -298,7 +310,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                       key={type}
                       variant="outline"
                       onClick={() => handleCreateNote(type as NoteType)}
-                      className="flex items-center gap-1"
+                      className="flex items-center gap-1 btn-touch"
                     >
                       <Icon className="w-4 h-4" />
                       {label}
@@ -313,7 +325,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
       {/* Results Counter */}
       {filteredNotes.length > 0 && (
-        <div className="bg-white/80 backdrop-blur-sm border-t border-border p-2 text-center">
+        <div className="glass-toolbar border-t border-border p-2 text-center">
           <span className="text-sm text-muted-foreground">
             {filteredNotes.length} {filteredNotes.length === 1 ? 'nota' : 'notas'}
             {searchTerm && ` para "${searchTerm}"`}
