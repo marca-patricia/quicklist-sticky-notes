@@ -148,7 +148,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
               onClick={() => setCurrentType(type as NoteType)}
               className="p-1 h-auto"
             >
-              <Icon className="w-3 h-3" />
+              <Icon className="w-3 h-3 text-black" />
             </Button>
           ))}
         </div>
@@ -220,7 +220,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                       onClick={() => handleRemoveListItem(index)}
                       className="p-1 h-auto"
                     >
-                      <X className="w-3 h-3" />
+                      <X className="w-3 h-3 text-black" />
                     </Button>
                   )}
                 </div>
@@ -230,9 +230,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
               variant="ghost"
               size="sm"
               onClick={handleAddListItem}
-              className="w-full text-xs"
+              className="w-full text-xs text-black"
             >
-              <Plus className="w-3 h-3 mr-1" />
+              <Plus className="w-3 h-3 mr-1 text-black" />
               Adicionar item
             </Button>
           </>
@@ -271,9 +271,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             variant="default"
             size="sm"
             onClick={handleSave}
-            className="flex-1"
+            className="flex-1 text-black"
           >
-            <Check className="w-3 h-3 mr-1" />
+            <Check className="w-3 h-3 mr-1 text-black" />
             Salvar
           </Button>
           <Button
@@ -285,8 +285,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 onDelete('temp');
               }
             }}
+            className="text-black"
           >
-            <X className="w-3 h-3" />
+            <X className="w-3 h-3 text-black" />
           </Button>
         </div>
       </Card>
