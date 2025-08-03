@@ -17,9 +17,9 @@ export const ConnectionStatus: React.FC = () => {
   return (
     <div className="flex items-center gap-2 text-sm px-3 py-1.5 rounded-lg bg-background/80 backdrop-blur-sm border border-border/50 dark:bg-muted/80 dark:border-border">
       {lastSync && (
-        <div className="flex items-center gap-1.5 text-muted-foreground">
-          <Clock className="w-3.5 h-3.5" />
-          <span className="text-xs font-medium">
+        <div className="flex items-center gap-1.5 text-muted-foreground dark:text-black">
+          <Clock className="w-3.5 h-3.5 dark:text-black" />
+          <span className="text-xs font-medium dark:text-black">
             {formatDistanceToNow(lastSync, { addSuffix: true, locale: ptBR })}
           </span>
         </div>
