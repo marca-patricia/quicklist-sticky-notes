@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { CategoryManager, Category } from '@/components/CategoryManager';
 import { PostItFeedback } from '@/components/PostItFeedback';
 import { NoteEditModal } from '@/components/NoteEditModal';
+import { ListOverlay } from '@/components/ListOverlay';
 import { Plus, X, Edit3, Check, Trash2, Tag, List, FileText, StickyNote as StickyNoteIcon } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -80,6 +81,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showListOverlay, setShowListOverlay] = useState(false);
 
   const TypeIcon = noteTypeIcons[currentType];
 
@@ -304,7 +306,11 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   if (!note) return null;
 
   const handleEditClick = () => {
-    setShowEditModal(true);
+    if (note.type === 'list') {
+      setShowListOverlay(true);
+    } else {
+      setShowEditModal(true);
+    }
   };
 
   const handleModalSave = (noteData: Partial<StickyNoteData>) => {
@@ -323,9 +329,10 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       draggable={!!note.id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={`w-56 h-64 p-3 cursor-grab active:cursor-grabbing hover:shadow-postit-hover transition-all duration-300 group ${
+      onClick={note.type === 'list' ? handleEditClick : undefined}
+      className={`w-56 h-64 p-3 hover:shadow-postit-hover transition-all duration-300 group ${
         isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
-      }`}
+      } ${note.type === 'list' ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'}`}
       style={{ 
         backgroundColor: note.color,
         transform: isDragging ? 'rotate(5deg)' : undefined,
@@ -350,7 +357,10 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={handleEditClick}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditClick();
+            }}
             className="p-1 h-auto hover:bg-white/20"
           >
             <Edit3 className="w-3 h-3 text-black dark:text-black" />
@@ -358,7 +368,10 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onDelete?.(note.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete?.(note.id);
+            }}
             className="p-1 h-auto hover:bg-white/20 text-destructive"
           >
             <Trash2 className="w-3 h-3 text-black dark:text-black" />
@@ -414,6 +427,17 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         categories={categories}
         onCategoryCreate={onCategoryCreate}
         onCategoryDelete={onCategoryDelete}
+      />
+
+      {/* List Overlay */}
+      <ListOverlay
+        isOpen={showListOverlay}
+        onClose={() => setShowListOverlay(false)}
+        note={note}
+        onEdit={() => {
+          setShowListOverlay(false);
+          setShowEditModal(true);
+        }}
       />
     </Card>
   );

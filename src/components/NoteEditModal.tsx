@@ -151,19 +151,19 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
             />
           </div>
 
-          {/* Content - SEMPRE mostrar área de conteúdo para notas */}
-          {(note.type === 'content' || note.type === 'title') && (
-            <div className="space-y-3">
-              <label className="text-sm font-medium">Conteúdo:</label>
-              <Textarea
-                placeholder="Escreva sua nota..."
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                className="min-h-32 resize-none"
-                rows={6}
-              />
-            </div>
-          )}
+          {/* Content/Description - SEMPRE mostrar para TODOS os tipos */}
+          <div className="space-y-3">
+            <label className="text-sm font-medium">
+              {note.type === 'list' ? 'Descrição da Lista:' : 'Conteúdo:'}
+            </label>
+            <Textarea
+              placeholder={note.type === 'list' ? 'Descrição opcional da lista...' : 'Escreva sua nota...'}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="min-h-32 resize-none"
+              rows={4}
+            />
+          </div>
 
           {/* List items */}
           {note.type === 'list' && (
