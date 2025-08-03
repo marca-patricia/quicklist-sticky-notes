@@ -190,7 +190,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
               placeholder="Escreva sua nota..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="mb-3 bg-white/80 border-none resize-none min-h-[80px]"
+              className="mb-3 bg-white/80 border-none resize-none min-h-[60px] max-h-[80px] overflow-hidden"
               autoFocus={!title}
             />
           </>
