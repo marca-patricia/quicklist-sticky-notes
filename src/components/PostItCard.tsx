@@ -76,10 +76,11 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
   const lighterColor = lightenColor(postItColor, 0.05);
 
   const getPostItStyle = (color: string) => {
+    const intensifiedColor = darkenColor(color, -0.15); // Tornar a cor mais forte
     return {
-      backgroundColor: color,
-      color: '#1a1a1a',
-      border: `2px solid ${darkenColor(color, 0.1)}`,
+      backgroundColor: intensifiedColor,
+      color: '#000000',
+      border: `2px solid ${darkenColor(color, 0.2)}`,
       boxShadow: `0 4px 12px ${darkenColor(color, 0.3)}40`
     };
   };
@@ -127,8 +128,9 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
               className={`font-bold flex-1 leading-tight ${isGridView ? 'text-sm' : 'text-sm'} mr-2`}
               style={{ 
                 fontFamily: 'Inter, sans-serif',
-                color: '#1a1a1a',
-                textShadow: `0 1px 2px ${lighterColor}`
+                color: '#000000',
+                textShadow: 'none',
+                fontWeight: '800'
               }}
               title={list.title}
             >
@@ -155,17 +157,17 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                 }}
                 className="w-5 h-5 p-0 rounded-full transition-all duration-200 hover:scale-110"
                 style={{ 
-                  backgroundColor: lighterColor,
-                  color: '#1a1a1a',
-                  border: `1px solid ${darkerColor}`
+                  backgroundColor: darkenColor(list.color, 0.2),
+                  color: '#000000',
+                  border: `1px solid ${darkenColor(list.color, 0.3)}`
                 }}
                 aria-label={list.archived ? t('unarchive') : t('archiveList')}
                 title={list.archived ? t('unarchive') : t('archiveList')}
               >
                 {list.archived ? (
-                  <ArchiveRestore className="w-3 h-3" strokeWidth={2.5} />
+                  <ArchiveRestore className="w-3 h-3" strokeWidth={3} />
                 ) : (
-                  <Archive className="w-3 h-3" strokeWidth={2.5} />
+                  <Archive className="w-3 h-3" strokeWidth={3} />
                 )}
               </Button>
               <Button
@@ -177,25 +179,26 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                 }}
                 className="w-5 h-5 p-0 rounded-full transition-all duration-200 hover:scale-110"
                 style={{ 
-                  backgroundColor: lighterColor,
+                  backgroundColor: darkenColor(list.color, 0.2),
                   color: '#dc2626',
-                  border: `1px solid ${darkerColor}`
+                  border: `1px solid ${darkenColor(list.color, 0.3)}`
                 }}
                 aria-label={t('confirmDeleteList')}
                 title={t('deleteList')}
               >
-                <Trash2 className="w-3 h-3" strokeWidth={2.5} />
+                <Trash2 className="w-3 h-3" strokeWidth={3} />
               </Button>
             </div>
           </div>
           
           {/* Description for grid view */}
           {isGridView && list.description && (
-            <p 
+              <p 
               className="text-xs mb-2 line-clamp-2 leading-relaxed opacity-80"
               style={{ 
                 fontFamily: 'Inter, sans-serif',
-                color: '#1a1a1a'
+                color: '#000000',
+                fontWeight: '600'
               }}
             >
               {list.description}
@@ -209,7 +212,8 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                   className="font-semibold"
                   style={{ 
                     fontFamily: 'Inter, sans-serif',
-                    color: '#1a1a1a'
+                    color: '#000000',
+                    fontWeight: '700'
                   }}
                 >
                   {completedItems.length}/{list.items.length} {t('completed')}
@@ -218,7 +222,8 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                   className="font-semibold"
                   style={{ 
                     fontFamily: 'Inter, sans-serif',
-                    color: '#1a1a1a'
+                    color: '#000000',
+                    fontWeight: '700'
                   }}
                 >
                   {Math.round(progress)}%
