@@ -131,7 +131,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   if (editMode) {
     return (
       <Card 
-        className="w-56 h-64 p-4 border-2 border-primary/20 animate-scale-in shadow-postit hover:shadow-postit-hover transition-all duration-300"
+        className="w-56 h-64 p-3 border-2 border-primary/20 animate-scale-in shadow-postit hover:shadow-postit-hover transition-all duration-300 flex flex-col"
         style={{ 
           backgroundColor: selectedColor,
           boxShadow: 'var(--shadow-postit)',
@@ -139,14 +139,14 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         }}
       >
         {/* Type Selector */}
-        <div className="flex gap-1 mb-3">
+        <div className="flex gap-1 mb-2 flex-shrink-0">
           {Object.entries(noteTypeIcons).map(([type, Icon]) => (
             <Button
               key={type}
               variant={currentType === type ? "default" : "ghost"}
               size="sm"
               onClick={() => setCurrentType(type as NoteType)}
-              className="p-1 h-auto"
+              className="p-1 h-6 w-6"
             >
               <Icon className="w-3 h-3 text-black" />
             </Button>
@@ -154,7 +154,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         </div>
 
         {/* Color Picker */}
-        <div className="flex gap-1 mb-3">
+        <div className="flex gap-1 mb-2 flex-shrink-0">
           {noteColors.map((color) => (
             <button
               key={color}
@@ -167,111 +167,116 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           ))}
         </div>
 
-        {/* Content based on type */}
-        {currentType === 'title' && (
-          <Input
-            placeholder="Digite o título..."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="mb-3 bg-white/80 border-none text-lg font-semibold"
-            autoFocus
-          />
-        )}
-
-        {currentType === 'content' && (
-          <>
+        {/* Content Area */}
+        <div className="flex-1 flex flex-col min-h-0">
+          {/* Content based on type */}
+          {currentType === 'title' && (
             <Input
-              placeholder="Título (opcional)"
+              placeholder="Digite o título..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mb-2 bg-white/80 border-none font-medium"
+              className="bg-white/80 border-none text-sm font-semibold h-8"
+              autoFocus
             />
-            <Textarea
-              placeholder="Escreva sua nota..."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="mb-2 bg-white/80 border-none resize-none min-h-[50px] max-h-[70px] overflow-hidden text-sm"
-              autoFocus={!title}
-            />
-          </>
-        )}
+          )}
 
-        {currentType === 'list' && (
-          <>
-            <Input
-              placeholder="Título da lista"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="mb-2 bg-white/80 border-none font-medium"
-            />
-            <div className="space-y-1 mb-2 max-h-[80px] overflow-y-auto">
-              {items.map((item, index) => (
-                <div key={index} className="flex gap-1">
-                  <Input
-                    placeholder={`Item ${index + 1}`}
-                    value={item}
-                    onChange={(e) => updateListItem(index, e.target.value)}
-                    className="bg-white/80 border-none text-xs"
-                  />
-                  {items.length > 1 && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleRemoveListItem(index)}
-                      className="p-1 h-auto"
-                    >
-                      <X className="w-3 h-3 text-black" />
-                    </Button>
-                  )}
-                </div>
-              ))}
+          {currentType === 'content' && (
+            <div className="flex flex-col flex-1 min-h-0">
+              <Input
+                placeholder="Título (opcional)"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="mb-2 bg-white/80 border-none font-medium text-sm h-8"
+              />
+              <Textarea
+                placeholder="Escreva sua nota..."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="bg-white/80 border-none resize-none text-sm flex-1 min-h-[40px] max-h-[60px]"
+                autoFocus={!title}
+              />
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleAddListItem}
-              className="w-full text-xs text-black mb-2"
-            >
-              <Plus className="w-3 h-3 mr-1 text-black" />
-              Adicionar item
-            </Button>
-          </>
-        )}
+          )}
 
-        {currentType === 'category' && (
-          <div className="space-y-2 mb-2">
-            <Input
-              placeholder="Nome da categoria"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="bg-white/80 border-none font-medium text-sm"
-            />
-            {categories.length > 0 && (
-              <div className="space-y-2 max-h-[60px] overflow-y-auto">
-                <label className="text-xs font-medium">Ou escolha uma existente:</label>
-                <CategoryManager
-                  categories={categories}
-                  selectedCategories={selectedCategory ? [selectedCategory.id] : []}
-                  onCategorySelect={(id) => {
-                    const category = categories.find(c => c.id === id);
-                    setSelectedCategory(category);
-                    if (category) setTitle(category.name);
-                  }}
-                  onCategoryCreate={onCategoryCreate || (() => {})}
-                  onCategoryDelete={onCategoryDelete || (() => {})}
-                />
+          {currentType === 'list' && (
+            <div className="flex flex-col flex-1 min-h-0">
+              <Input
+                placeholder="Título da lista"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="mb-2 bg-white/80 border-none font-medium text-sm h-8"
+              />
+              <div className="flex-1 min-h-0 flex flex-col">
+                <div className="space-y-1 flex-1 overflow-y-auto min-h-0">
+                  {items.map((item, index) => (
+                    <div key={index} className="flex gap-1">
+                      <Input
+                        placeholder={`Item ${index + 1}`}
+                        value={item}
+                        onChange={(e) => updateListItem(index, e.target.value)}
+                        className="bg-white/80 border-none text-xs h-7"
+                      />
+                      {items.length > 1 && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRemoveListItem(index)}
+                          className="p-1 h-7 w-7 flex-shrink-0"
+                        >
+                          <X className="w-3 h-3 text-black" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleAddListItem}
+                  className="w-full text-xs text-black h-7 mt-1 flex-shrink-0"
+                >
+                  <Plus className="w-3 h-3 mr-1 text-black" />
+                  Adicionar item
+                </Button>
               </div>
-            )}
-          </div>
-        )}
+            </div>
+          )}
+
+          {currentType === 'category' && (
+            <div className="flex flex-col flex-1 min-h-0">
+              <Input
+                placeholder="Nome da categoria"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="bg-white/80 border-none font-medium text-sm h-8 mb-2"
+              />
+              {categories.length > 0 && (
+                <div className="flex-1 min-h-0 overflow-y-auto">
+                  <label className="text-xs font-medium block mb-1">Ou escolha uma existente:</label>
+                  <CategoryManager
+                    categories={categories}
+                    selectedCategories={selectedCategory ? [selectedCategory.id] : []}
+                    onCategorySelect={(id) => {
+                      const category = categories.find(c => c.id === id);
+                      setSelectedCategory(category);
+                      if (category) setTitle(category.name);
+                    }}
+                    onCategoryCreate={onCategoryCreate || (() => {})}
+                    onCategoryDelete={onCategoryDelete || (() => {})}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 mt-auto pt-2">
+        <div className="flex gap-2 mt-2 flex-shrink-0">
           <Button
             variant="default"
             size="sm"
             onClick={handleSave}
-            className="flex-1 text-black text-xs h-8"
+            className="flex-1 text-black text-xs h-7"
           >
             <Check className="w-3 h-3 mr-1 text-black" />
             Salvar
@@ -285,7 +290,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 onDelete('temp');
               }
             }}
-            className="text-black h-8 px-2"
+            className="text-black h-7 w-7 p-0 flex-shrink-0"
           >
             <X className="w-3 h-3 text-black" />
           </Button>
@@ -301,7 +306,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       draggable={!!note.id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={`w-56 h-64 p-4 cursor-grab active:cursor-grabbing hover:shadow-postit-hover transition-all duration-300 group ${
+      className={`w-56 h-64 p-3 cursor-grab active:cursor-grabbing hover:shadow-postit-hover transition-all duration-300 group ${
         isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
       }`}
       style={{ 
