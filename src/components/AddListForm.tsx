@@ -14,6 +14,23 @@ export const AddListForm: React.FC = () => {
   const { addList } = useLists();
   const { t } = useLanguage();
   const { toast } = useToast();
+  const [isDark, setIsDark] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkTheme();
+    
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,11 +51,14 @@ export const AddListForm: React.FC = () => {
         placeholder={t('listPlaceholder')}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="flex-1 bg-gradient-primary border-none text-foreground dark:text-black placeholder:text-muted-foreground dark:placeholder:text-gray-600"
+        className="flex-1 bg-gradient-primary border-none"
+        style={{
+          color: isDark ? '#000000' : undefined,
+        }}
         aria-label="Nome da nova lista"
         aria-describedby="list-input-help"
       />
-      <div id="list-input-help" className="sr-only dark:text-black">
+      <div id="list-input-help" className="sr-only">
         Digite o nome da sua nova lista e clique em adicionar
       </div>
       <ColorPicker 
@@ -50,11 +70,20 @@ export const AddListForm: React.FC = () => {
       <Button 
         type="submit" 
         disabled={!title.trim()}
-        className="bg-gradient-primary text-foreground dark:text-black hover:opacity-90 border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-gradient-primary hover:opacity-90 border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{
+          color: isDark ? '#000000' : undefined,
+        }}
         aria-label={title.trim() ? `Criar lista "${title.trim()}"` : "Digite um nome para criar a lista"}
       >
-        <Plus className="w-4 h-4 mr-2 dark:text-black" aria-hidden="true" />
-        <span className="dark:text-black">{t('addList')}</span>
+        <Plus 
+          className="w-4 h-4 mr-2" 
+          aria-hidden="true" 
+          style={{ color: isDark ? '#000000' : undefined }}
+        />
+        <span style={{ color: isDark ? '#000000' : undefined }}>
+          {t('addList')}
+        </span>
       </Button>
     </form>
   );
