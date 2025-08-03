@@ -108,9 +108,9 @@ const App = () => {
               <ListsProvider>
                 <AchievementsProvider>
                   <Routes>
-                    <Route path="/" element={<ListsOverview />} />
+                    <Route path="/" element={<StickyNotesPage />} />
+                    <Route path="/lists" element={<ListsOverview />} />
                     <Route path="/list/:listId" element={<ListDetail />} />
-                    <Route path="/sticky-notes" element={<StickyNotesPage />} />
                     <Route path="/auth" element={<AuthPage />} />
                     <Route path="*" element={
                       <div className="min-h-screen flex items-center justify-center">

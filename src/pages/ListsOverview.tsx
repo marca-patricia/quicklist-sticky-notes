@@ -1,270 +1,142 @@
 import React, { useState } from 'react';
-import { AddListForm } from '@/components/AddListForm';
-import { ListCard } from '@/components/ListCard';
-import { LanguageSwitch } from '@/components/LanguageSwitch';
-import { EmptyState } from '@/components/EmptyState';
-import { InstallPrompt } from '@/components/InstallPrompt';
-import { AchievementsModal } from '@/components/AchievementsModal';
-import { ProductivityInsights } from '@/components/ProductivityInsights';
-import { ListTemplates } from '@/components/ListTemplates';
-import { OfflineStatus } from '@/components/OfflineStatus';
-import { QuickListIcon } from '@/components/QuickListIcon';
-import { QuickListLogo } from '@/components/QuickListLogo';
-import { Button } from '@/components/ui/button';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useLists } from '@/contexts/ListsContext';
-import { useAchievements } from '@/contexts/AchievementsContext';
-import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useNotifications } from '@/hooks/useNotifications';
-import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
-import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote, Plus } from 'lucide-react';
-import { SearchInput } from '@/components/SearchInput';
+import { useLists } from '@/contexts/ListsContext';
+import { OfflineStatus } from '@/components/OfflineStatus';
+import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Plus, Search, FileText, ArrowLeft } from 'lucide-react';
+import { ListCard } from '@/components/ListCard';
+import { QuickListLogo } from '@/components/QuickListLogo';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
-  const { lists } = useLists();
-  const { checkAchievements } = useAchievements();
-  const { user, signOut, loading } = useAuth();
   const navigate = useNavigate();
-  const { requestPermission, hasPermission } = useNotifications();
-  const [showArchived, setShowArchived] = useState(false);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const { lists, addList } = useLists();
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Redirect to auth if not logged in
-  React.useEffect(() => {
-    if (!loading && !user) {
-      navigate('/auth');
-    }
-  }, [user, loading, navigate]);
-  
-  // Activate achievement notifications
-  useAchievementNotifications();
-
-  // Calculate user stats for achievements
-  React.useEffect(() => {
-    const allItems = lists.flatMap(list => list.items);
-    const completedItems = allItems.filter(item => item.completed);
-    const categoriesUsed = new Set(lists.flatMap(list => 
-      (list.categories || []).map(cat => cat.id)
-    )).size;
-    
-    const today = new Date().toDateString();
-    const tasksCompletedToday = completedItems.filter(item => 
-      item.createdAt.toDateString() === today
-    ).length;
-
-    let currentStreak = 0;
-    const today_date = new Date();
-    
-    const todayString = today_date.toDateString();
-    const hasTasksToday = completedItems.some(item => 
-      new Date(item.createdAt).toDateString() === todayString
-    );
-    
-    if (hasTasksToday) {
-      currentStreak = 1;
-      
-      for (let i = 1; i < 30; i++) {
-        const checkDate = new Date(today_date);
-        checkDate.setDate(today_date.getDate() - i);
-        
-        const hasCompletedTask = completedItems.some(item => {
-          const itemDate = new Date(item.createdAt);
-          return itemDate.toDateString() === checkDate.toDateString();
-        });
-        
-        if (hasCompletedTask) {
-          currentStreak++;
-        } else {
-          break;
+  const handleCreateList = () => {
+    const title = prompt('Nome da lista:');
+    if (title?.trim()) {
+      addList(title.trim());
+      // Navigate to the newly created list - get the newest one
+      setTimeout(() => {
+        if (lists.length > 0) {
+          const newestList = lists[0]; // Lists are added at the beginning
+          navigate(`/list/${newestList.id}`);
         }
-      }
+      }, 100);
     }
+  };
 
-    checkAchievements({
-      totalTasks: allItems.length,
-      completedTasks: completedItems.length,
-      currentStreak,
-      categoriesUsed,
-      tasksCompletedToday,
-      listsCreated: lists.length
-    });
-  }, [lists, checkAchievements]);
-
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 300);
-    return () => clearTimeout(timer);
-  }, []);
+  const filteredLists = lists.filter(list =>
+    list.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="min-h-screen" style={{
-      backgroundColor: '#B8956A',
-      backgroundImage: 'url("/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png")',
-      backgroundSize: 'cover',
-      backgroundAttachment: 'fixed',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center'
-    }}>
-      {/* HEADER ESTILO POST-IT */}
-      <header className="toolbar-postit p-4 shadow-lg">
-        <div className="container mx-auto flex justify-between items-center">
-          {/* Logo e título */}
+    <div 
+      className="min-h-screen"
+      style={{
+        backgroundColor: '#F8F9FA',
+        backgroundImage: `
+          repeating-linear-gradient(
+            transparent,
+            transparent 23px,
+            #E9ECEF 23px,
+            #E9ECEF 24px
+          )
+        `,
+        fontFamily: 'Kalam, cursive'
+      }}
+    >
+      {/* Header estilo caderno */}
+      <header className="bg-white border-b-2 border-red-400 p-4 relative">
+        {/* Margem vermelha do caderno */}
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-400"></div>
+        
+        <div className="flex items-center justify-between ml-8">
           <div className="flex items-center gap-4">
-            <QuickListLogo size="sm" />
-            <h1 className="text-xl font-bold text-amber-900">Minhas Listas</h1>
-          </div>
-          
-          {/* Controles do header */}
-          <div className="flex items-center gap-3">
-            {/* Botão criar lista */}
             <Button
-              onClick={() => setShowAddForm(!showAddForm)}
-              variant="outline"
-              size="sm"
-              className="button-enhanced flex items-center gap-2 bg-white/90 hover:bg-white border-amber-400"
-            >
-              <Plus className="w-4 h-4" />
-              Nova Lista
-            </Button>
-            
-            <Button
-              onClick={() => navigate('/sticky-notes')}
               variant="ghost"
               size="sm"
-              className="text-amber-900 hover:bg-amber-100/50 flex items-center gap-2"
+              onClick={() => navigate('/')}
+              className="button-enhanced flex items-center gap-2 text-gray-700 hover:bg-gray-100/50"
             >
-              <StickyNote className="w-4 h-4" />
-              Notas
+              <ArrowLeft className="w-4 h-4" />
+              Voltar
             </Button>
             
+            <QuickListLogo size="sm" />
+            <h1 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'Kalam, cursive' }}>
+              Listas de Tarefas
+            </h1>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <span className="text-gray-600 text-sm font-medium">{lists.length} listas</span>
             <LanguageSwitch />
             <OfflineStatus />
-            
-            {user && (
-              <Button
-                onClick={() => signOut()}
-                variant="ghost"
-                size="sm"
-                className="text-amber-900 hover:bg-amber-100/50"
-              >
-                <LogOut className="w-4 h-4" />
-              </Button>
-            )}
           </div>
         </div>
       </header>
 
-      <InstallPrompt />
-      
-      <main className="container mx-auto px-6 py-8">
-        {/* Formulário de adicionar lista */}
-        {showAddForm && (
-          <div className="max-w-md mx-auto mb-8">
-            <div className="bg-yellow-50/95 backdrop-blur-sm border border-amber-300 rounded-lg p-6 shadow-lg">
-              <AddListForm />
-            </div>
-          </div>
-        )}
-
-        {/* Busca */}
-        {lists.length > 0 && (
-          <div className="max-w-md mx-auto mb-8">
-            <SearchInput
-              value={searchTerm}
-              onChange={setSearchTerm}
+      {/* Toolbar de busca e criação */}
+      <div className="p-6 ml-8">
+        <div className="flex gap-4 items-center mb-6">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Input
+              type="text"
               placeholder="Buscar listas..."
-              className="search-input w-full"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 bg-white border-2 border-gray-300 rounded-lg text-gray-700"
+              style={{ fontFamily: 'Kalam, cursive' }}
             />
           </div>
-        )}
+          
+          <Button
+            onClick={handleCreateList}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center gap-2 button-enhanced"
+            style={{ fontFamily: 'Kalam, cursive' }}
+          >
+            <Plus className="w-4 h-4" />
+            Nova Lista
+          </Button>
+        </div>
+      </div>
 
-        {/* Filtros */}
-        {lists.length > 0 && (
-          <div className="flex justify-center mb-8">
-            <Button
-              variant={showArchived ? "default" : "outline"}
-              size="sm"
-              onClick={() => setShowArchived(!showArchived)}
-              className="button-enhanced bg-white/90 hover:bg-white border-amber-400"
-            >
-              {showArchived ? <ArchiveRestore className="w-4 h-4 mr-2" /> : <Archive className="w-4 h-4 mr-2" />}
-              {showArchived ? 'Ocultar Arquivadas' : 'Ver Arquivadas'}
-            </Button>
+      {/* Grid de listas */}
+      <main className="px-6 pb-8 ml-8">
+        {filteredLists.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <FileText className="w-16 h-16 text-gray-400 mb-4" />
+            <h3 className="text-xl font-semibold text-gray-600 mb-2" style={{ fontFamily: 'Kalam, cursive' }}>
+              {searchTerm ? 'Nenhuma lista encontrada' : 'Suas listas aparecerão aqui'}
+            </h3>
+            <p className="text-gray-500 mb-6" style={{ fontFamily: 'Kalam, cursive' }}>
+              {searchTerm ? 'Tente buscar com outros termos' : 'Crie sua primeira lista para começar'}
+            </p>
+            {!searchTerm && (
+              <Button
+                onClick={handleCreateList}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 button-enhanced"
+                style={{ fontFamily: 'Kalam, cursive' }}
+              >
+                <Plus className="w-5 h-5" />
+                Criar Primeira Lista
+              </Button>
+            )}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredLists.map((list) => (
+              <ListCard key={list.id} list={list} />
+            ))}
           </div>
         )}
-
-        {/* GRID DE POST-ITS DE LISTAS */}
-        <div className="notes-grid">
-          {isLoading ? (
-            // Loading skeleton
-            Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="sticky-note animate-pulse">
-                <div className="h-4 bg-amber-200 rounded mb-2"></div>
-                <div className="h-3 bg-amber-200 rounded mb-1 w-3/4"></div>
-                <div className="h-3 bg-amber-200 rounded mb-1 w-1/2"></div>
-              </div>
-            ))
-          ) : lists.length === 0 ? (
-            <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md">
-                <StickyNote className="w-16 h-16 text-amber-800 mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold text-amber-900 mb-2">
-                  Nenhuma lista ainda
-                </h3>
-                <p className="text-amber-800 mb-6">
-                  Crie sua primeira lista para começar a organizar suas tarefas
-                </p>
-                <Button
-                  onClick={() => setShowAddForm(true)}
-                  className="bg-amber-600 hover:bg-amber-700 text-white"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Criar Lista
-                </Button>
-              </div>
-            </div>
-          ) : (
-            (() => {
-              const filteredLists = lists
-                .filter(list => showArchived ? list.archived : !list.archived)
-                .filter(list => 
-                  searchTerm === '' || 
-                  list.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                  list.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                  list.items.some(item => item.text.toLowerCase().includes(searchTerm.toLowerCase()))
-                );
-
-              if (filteredLists.length === 0) {
-                return (
-                  <div className="col-span-full text-center py-12">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md mx-auto">
-                      <Archive className="w-16 h-16 text-amber-800 mb-4 mx-auto" />
-                      <p className="text-amber-900 text-lg">
-                        {searchTerm ? `Nenhuma lista encontrada para "${searchTerm}"` : 'Nenhuma lista arquivada'}
-                      </p>
-                    </div>
-                  </div>
-                );
-              }
-
-              return filteredLists.map((list) => (
-                <ListCard 
-                  key={list.id} 
-                  list={list} 
-                  isGridView={true}
-                />
-              ));
-            })()
-          )}
-        </div>
       </main>
-      
-      {/* Spacer for mobile */}
-      <div className="h-20"></div>
     </div>
   );
 };

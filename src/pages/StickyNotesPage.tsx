@@ -95,21 +95,19 @@ export const StickyNotesPage: React.FC = () => {
       <header className="toolbar-postit p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate('/')}
-              className="button-enhanced flex items-center gap-2 text-amber-900 hover:bg-amber-100/50"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Voltar
-            </Button>
-            
             <QuickListLogo size="sm" />
-            <h1 className="text-xl font-bold text-amber-900">Sticky Notes</h1>
+            <h1 className="text-xl font-bold text-amber-900">Notas</h1>
           </div>
           
           <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/lists')}
+              className="button-enhanced flex items-center gap-2 text-amber-900 hover:bg-amber-100/50"
+            >
+              📋 Listas
+            </Button>
             <span className="text-amber-800 text-sm font-medium">{notes.length} notas</span>
             <LanguageSwitch />
             <OfflineStatus />
