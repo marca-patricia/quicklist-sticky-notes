@@ -16,21 +16,38 @@ export const Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => {
 
 export const ListCardSkeleton: React.FC = () => {
   return (
-    <div className="rounded-lg p-4 shadow-soft border border-gray-200 bg-white">
-      <div className="flex justify-between items-start mb-3">
-        <Skeleton className="h-6 w-32" />
-        <div className="flex items-center gap-2">
-          <Skeleton className="h-8 w-8 rounded-full" />
-          <Skeleton className="h-8 w-8 rounded-full" />
-        </div>
+    <div className="relative group">
+      {/* Pin skeleton */}
+      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="w-5 h-5 bg-gray-300 rounded-full animate-pulse"></div>
+        <div className="w-1 h-3 bg-gray-300 mx-auto animate-pulse"></div>
       </div>
       
-      <div className="mb-3">
-        <div className="flex justify-between text-sm mb-1">
-          <Skeleton className="h-4 w-20" />
-          <Skeleton className="h-4 w-12" />
+      <div className="transform rotate-1 shadow-xl min-h-[180px] p-4 bg-yellow-200 relative">
+        {/* Post-it corner fold */}
+        <div 
+          className="absolute bottom-0 right-0 w-8 h-8 opacity-20"
+          style={{
+            background: `linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%)`,
+            clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)'
+          }}
+        ></div>
+        
+        <div className="flex justify-between items-start mb-3">
+          <Skeleton className="h-6 w-32" />
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-8 w-8 rounded-full" />
+            <Skeleton className="h-8 w-8 rounded-full" />
+          </div>
         </div>
-        <Skeleton className="h-2 w-full rounded-full" />
+        
+        <div className="mb-3">
+          <div className="flex justify-between text-sm mb-1">
+            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-4 w-12" />
+          </div>
+          <Skeleton className="h-2 w-full rounded-full" />
+        </div>
       </div>
     </div>
   );

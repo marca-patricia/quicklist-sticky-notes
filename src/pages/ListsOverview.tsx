@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AddListForm } from '@/components/AddListForm';
-import { ListCard } from '@/components/ListCard';
+import { PostItCard } from '@/components/PostItCard';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { EmptyState } from '@/components/EmptyState';
@@ -305,13 +305,13 @@ export const ListsOverview: React.FC = () => {
                       </h2>
                     </div>
 
-                    <div className={`grid gap-6 ${
+                    <div className={`grid gap-8 mt-6 ${
                       isGridView 
                         ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' 
                         : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
                     }`}>
                       {filteredLists.map((list) => (
-                        <ListCard 
+                        <PostItCard 
                           key={list.id} 
                           list={list} 
                           isGridView={isGridView}
