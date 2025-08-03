@@ -91,26 +91,26 @@ export const StickyNotesPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header com cor verde musgo */}
-      <header className="glass-toolbar border-b border-border p-4">
+      {/* Header simples - Amarelo claro */}
+      <header className="bg-yellow-100/90 backdrop-blur-sm border-b border-yellow-200 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => navigate('/')}
-              className="flex items-center gap-2 text-white hover:bg-white/20"
+              className="flex items-center gap-2 text-gray-700 hover:bg-yellow-200/50"
             >
               <ArrowLeft className="w-4 h-4" />
               Voltar
             </Button>
             
             <QuickListLogo size="sm" />
-            <h1 className="text-xl font-bold text-white">Sticky Notes</h1>
+            <h1 className="text-xl font-bold text-gray-800">Sticky Notes</h1>
           </div>
           
           <div className="flex items-center gap-4">
-            <span className="text-white text-sm">{notes.length} notas</span>
+            <span className="text-gray-700 text-sm">{notes.length} notas</span>
             <LanguageSwitch />
             <OfflineStatus />
           </div>
