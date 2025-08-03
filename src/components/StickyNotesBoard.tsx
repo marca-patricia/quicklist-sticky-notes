@@ -137,7 +137,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      {/* Toolbar */}
+      {/* Toolbar com fundo verde musgo */}
       <div className="glass-toolbar border-b border-border p-4 space-y-4">
         {/* Search and View Toggle */}
         <div className="flex gap-4 items-center">

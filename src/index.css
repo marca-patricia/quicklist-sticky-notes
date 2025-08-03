@@ -189,7 +189,7 @@
 
   /* Glass effect para toolbars - Verde musgo que combina com cortiça */
   .glass-toolbar {
-    background: hsl(85, 25%, 35%, 0.95) !important; /* Verde musgo semi-transparente */
+    background: hsl(85, 25%, 35%) !important; /* Verde musgo sólido */
     backdrop-filter: blur(10px);
     border: 1px solid hsl(85, 20%, 45%, 0.3);
     color: white !important;
@@ -201,6 +201,32 @@
 
   .glass-toolbar .text-muted-foreground {
     color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .glass-toolbar input {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+  }
+
+  .glass-toolbar input::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  /* Botões do toolbar */
+  .glass-toolbar button {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+  }
+
+  .glass-toolbar button:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .glass-toolbar button[data-state="active"],
+  .glass-toolbar button.bg-primary {
+    background: rgba(255, 255, 255, 0.3) !important;
   }
 
   /* Listas em formato post-it */
@@ -230,8 +256,20 @@
   }
 }
 
-/* Força aplicação no mobile */
+/* Força aplicação no mobile - Melhorado */
 @media (max-width: 768px) {
+  .sticky-note {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .notes-grid {
+    grid-template-columns: repeat(auto-fill, 140px) !important;
+    gap: 12px !important;
+    justify-content: center !important;
+  }
+
+  /* Força estilos inline também */
   [style*="width: 160px"] {
     width: 140px !important;
     height: 140px !important;
