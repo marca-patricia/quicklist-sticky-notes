@@ -8,8 +8,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ListsProvider } from "@/contexts/ListsContext";
-import { AchievementsProvider } from "@/contexts/AchievementsContext";
+import { OfflineProvider } from "@/contexts/OfflineContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AchievementsProvider } from "@/contexts/AchievementsContext";
 import { ListsOverview } from "./pages/ListsOverview";
 import { ListDetail } from "./pages/ListDetail";
 import { StickyNotesPage } from "./pages/StickyNotesPage";
@@ -55,23 +56,34 @@ const App = () => {
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <LanguageProvider>
-              <AuthProvider>
-                <ListsProvider>
-                  <AchievementsProvider>
-                    <Routes>
-                      <Route path="/" element={<ListsOverview />} />
-                      <Route path="/list/:listId" element={<ListDetail />} />
-                      <Route path="/sticky-notes" element={<StickyNotesPage />} />
-                      <Route path="/auth" element={<AuthPage />} />
-                      <Route path="*" element={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Página não encontrada</p></div>} />
-                    </Routes>
-                    <Toaster />
-                    <Sonner />
-                  </AchievementsProvider>
-                </ListsProvider>
-              </AuthProvider>
-            </LanguageProvider>
+            <OfflineProvider>
+              <LanguageProvider>
+                <AuthProvider>
+                  <ListsProvider>
+                    <AchievementsProvider>
+                      <div role="application" aria-label="QuickList - Gerenciador de Tarefas">
+                        <Routes>
+                          <Route path="/" element={<ListsOverview />} />
+                          <Route path="/list/:listId" element={<ListDetail />} />
+                          <Route path="/sticky-notes" element={<StickyNotesPage />} />
+                          <Route path="/auth" element={<AuthPage />} />
+                          <Route path="*" element={
+                            <div className="min-h-screen bg-background flex items-center justify-center">
+                              <div className="text-center" role="alert" aria-live="assertive">
+                                <h1 className="text-2xl font-bold mb-2">Página não encontrada</h1>
+                                <p className="text-muted-foreground">A página que você procura não existe.</p>
+                              </div>
+                            </div>
+                          } />
+                        </Routes>
+                      </div>
+                      <Toaster />
+                      <Sonner />
+                    </AchievementsProvider>
+                  </ListsProvider>
+                </AuthProvider>
+              </LanguageProvider>
+            </OfflineProvider>
           </TooltipProvider>
         </ThemeProvider>
       </BrowserRouter>

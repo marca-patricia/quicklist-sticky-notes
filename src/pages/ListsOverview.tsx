@@ -9,7 +9,7 @@ import { AchievementsModal } from '@/components/AchievementsModal';
 import { ProductivityInsights } from '@/components/ProductivityInsights';
 import { ListTemplates } from '@/components/ListTemplates';
 import { OfflineStatus } from '@/components/OfflineStatus';
-import { QuickListIcon } from '@/components/QuickListIcon';
+import { ConnectionStatus } from '@/components/ConnectionStatus';
 import { QuickListLogo } from '@/components/QuickListLogo';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -126,7 +126,8 @@ export const ListsOverview: React.FC = () => {
             {/* Left side controls */}
             <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Configurações do aplicativo">
               <LanguageSwitch />
-            <ThemeToggle />
+             <ThemeToggle />
+              <ConnectionStatus />
               <OfflineStatus />
             </div>
             
@@ -178,7 +179,9 @@ export const ListsOverview: React.FC = () => {
       {/* Spacer for fixed header */}
       <div className="h-20"></div>
       
-      <main className="container max-w-5xl mx-auto px-4 py-8">
+      <main id="main-content" tabIndex={-1} className="container max-w-5xl mx-auto px-4 py-8"
+            aria-label="Lista de tarefas principal"
+            role="main">
 
         {/* Add List Form - Now conditional */}
         {showAddForm && (
