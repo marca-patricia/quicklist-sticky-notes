@@ -11,6 +11,25 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
   size = 'md',
   showText = true 
 }) => {
+  const [isDark, setIsDark] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkTheme();
+    
+    // Observer para mudanças de tema
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
   const sizeClasses = {
     sm: 'w-8 h-8',
     md: 'w-10 h-10',
@@ -34,7 +53,12 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
         style={{ backgroundColor: 'transparent', background: 'none' }}
       />
       {showText && (
-        <span className={`font-bold text-foreground dark:text-black ${textSizeClasses[size]} tracking-tight`}>
+        <span 
+          className={`font-bold ${textSizeClasses[size]} tracking-tight`}
+          style={{
+            color: isDark ? '#000000' : 'hsl(var(--foreground))'
+          }}
+        >
           QuickList
         </span>
       )}
