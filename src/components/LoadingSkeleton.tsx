@@ -17,11 +17,6 @@ export const Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => {
 export const ListCardSkeleton: React.FC = () => {
   return (
     <div className="relative group">
-      {/* Pin skeleton */}
-      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="w-5 h-5 bg-gray-300 rounded-full animate-pulse"></div>
-        <div className="w-1 h-3 bg-gray-300 mx-auto animate-pulse"></div>
-      </div>
       
       <div className="transform rotate-1 shadow-xl min-h-[180px] p-4 bg-yellow-200 relative">
         {/* Post-it corner fold */}

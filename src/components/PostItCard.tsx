@@ -56,13 +56,6 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
 
   return (
     <div className="relative group">
-      {/* Pin */}
-      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="w-5 h-5 bg-red-500 rounded-full shadow-lg flex items-center justify-center">
-          <div className="w-2 h-2 bg-red-600 rounded-full"></div>
-        </div>
-        <div className="w-1 h-3 bg-gray-400 mx-auto shadow-sm"></div>
-      </div>
 
       <Link 
         to={`/list/${list.id}`} 
