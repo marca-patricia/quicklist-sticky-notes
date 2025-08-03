@@ -29,9 +29,10 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
     <div className={`flex items-center gap-3 ${className}`}>
       <div className={`${sizeClasses[size]} relative`}>
         <img 
-          src="/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png" 
+          src={`/lovable-uploads/756be5ff-1ca0-402f-9c01-d78bb215559d.png?v=${Date.now()}`}
           alt="QuickList Logo" 
           className="w-full h-full object-contain"
+          style={{ display: 'block' }}
         />
       </div>
       
