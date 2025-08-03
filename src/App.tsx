@@ -16,6 +16,7 @@ import { StickyNotesPage } from "./pages/StickyNotesPage";
 import AuthPage from "./pages/AuthPage";
 import { LoadingSpinner } from "./components/LoadingSpinner";
 import { forceStyleRefresh } from "./utils/forceStyleRefresh";
+import { StyleEnforcer } from "./components/StyleEnforcer";
 
 const queryClient = new QueryClient();
 
@@ -65,6 +66,7 @@ const App = () => {
                       <Route path="/auth" element={<AuthPage />} />
                        <Route path="*" element={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Página não encontrada</p></div>} />
                      </Routes>
+                     <StyleEnforcer />
                      <Toaster />
                      <Sonner />
                   </AchievementsProvider>
