@@ -15,6 +15,7 @@ import { ListDetail } from "./pages/ListDetail";
 import { StickyNotesPage } from "./pages/StickyNotesPage";
 import AuthPage from "./pages/AuthPage";
 import { LoadingSpinner } from "./components/LoadingSpinner";
+import { MobileViewFix } from "./components/MobileViewFix";
 
 const queryClient = new QueryClient();
 
@@ -59,10 +60,11 @@ const App = () => {
                       <Route path="/list/:listId" element={<ListDetail />} />
                       <Route path="/sticky-notes" element={<StickyNotesPage />} />
                       <Route path="/auth" element={<AuthPage />} />
-                      <Route path="*" element={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Página não encontrada</p></div>} />
-                    </Routes>
-                    <Toaster />
-                    <Sonner />
+                       <Route path="*" element={<div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Página não encontrada</p></div>} />
+                     </Routes>
+                     <MobileViewFix />
+                     <Toaster />
+                     <Sonner />
                   </AchievementsProvider>
                 </ListsProvider>
               </AuthProvider>

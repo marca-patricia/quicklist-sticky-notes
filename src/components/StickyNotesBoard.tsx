@@ -231,7 +231,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             : 'space-y-4'
         }`}
         style={{
-          gridTemplateColumns: isGridView ? 'repeat(auto-fill, 160px)' : undefined,
+          gridTemplateColumns: isGridView ? 'repeat(auto-fill, minmax(160px, 1fr))' : undefined,
           gridAutoRows: isGridView ? '160px' : undefined
         }}
         onDrop={handleBoardDrop}
