@@ -46,12 +46,12 @@ const noteTypeIcons = {
 };
 
 const noteColors = [
-  'hsl(var(--note-yellow))',
-  'hsl(var(--note-blue))',
-  'hsl(var(--note-green))',
-  'hsl(var(--note-pink))',
-  'hsl(var(--note-orange))',
-  'hsl(var(--note-purple))'
+  '#FDF2B2', // Amarelo clássico
+  '#DBEAFE', // Azul claro  
+  '#D1FAE5', // Verde suave
+  '#FCE7F3', // Rosa claro
+  '#FED7AA', // Laranja suave
+  '#E9D5FF'  // Roxo claro
 ];
 
 export const StickyNote: React.FC<StickyNoteProps> = ({

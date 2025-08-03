@@ -26,11 +26,13 @@
   --ring: 85 25% 35%;
   --radius: 0.5rem;
   
-  /* CORES DOS POST-ITS */
-  --postit-yellow: 45 100% 88%; /* #FDF2B2 */
-  --postit-border: 45 80% 75%;
-  --pin-red: 0 84% 60%;
-  --cork-bg: 25 35% 65%;
+  /* CORES DOS POST-ITS - VARIADAS */
+  --note-yellow: 45 100% 88%; /* Amarelo clássico */
+  --note-blue: 200 100% 90%; /* Azul claro */
+  --note-green: 120 60% 88%; /* Verde suave */
+  --note-pink: 340 82% 92%; /* Rosa claro */
+  --note-orange: 25 95% 88%; /* Laranja suave */
+  --note-purple: 270 50% 90%; /* Roxo claro */
 }
 
 /* RESET E BASE */
@@ -71,59 +73,40 @@ body {
   }
 }
 
-/* MINI CADERNOS REALISTAS */
+/* POST-ITS COLORIDOS REALISTAS */
 .sticky-note {
-  background: 
-    /* Linhas horizontais do caderno */
-    repeating-linear-gradient(
-      transparent,
-      transparent 16px,
-      #E5E7EB 16px,
-      #E5E7EB 17px
-    ),
-    /* Background base do papel */
-    linear-gradient(135deg, #FEFEFE 0%, #F9FAFB 100%);
-  border: 1px solid #D1D5DB;
-  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
   box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.15),
     0 2px 6px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
   position: relative;
   aspect-ratio: 1;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 180px;
   height: 200px;
-  padding: 20px 12px 12px 32px;
+  padding: 20px 12px 12px 12px;
   margin: 8px;
   font-family: 'Kalam', cursive;
   overflow: hidden;
+  transform: rotate(-1deg);
 }
 
-/* Margem esquerda vermelha do caderno */
+/* Alfinete no topo do post-it */
 .sticky-note::before {
   content: '';
   position: absolute;
-  left: 20px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background-color: #EF4444;
-  z-index: 1;
-}
-
-/* Espiral do caderno no topo */
-.sticky-note::after {
-  content: '';
-  position: absolute;
-  left: 8px;
-  top: 15px;
-  width: 6px;
-  height: calc(100% - 30px);
-  background: 
-    radial-gradient(circle at center, #9CA3AF 2px, transparent 2px);
-  background-size: 6px 12px;
-  background-repeat: repeat-y;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle at 30% 30%, #EF4444, #DC2626);
+  border-radius: 50%;
+  box-shadow: 
+    0 2px 6px rgba(220, 38, 38, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
   z-index: 2;
 }
 
@@ -132,17 +115,17 @@ body {
   box-shadow: 
     0 8px 25px rgba(0, 0, 0, 0.2),
     0 4px 10px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Conteúdo da nota com espaçamento para margem */
+/* Conteúdo da nota com espaçamento para alfinete */
 .sticky-note h3,
 .sticky-note p,
 .sticky-note li,
 .sticky-note input,
 .sticky-note textarea {
   font-family: 'Kalam', cursive !important;
-  color: #1F2937;
+  color: #374151;
   position: relative;
   z-index: 3;
 }
@@ -151,6 +134,7 @@ body {
   font-weight: 600;
   margin-bottom: 8px;
   line-height: 1.4;
+  margin-top: 8px; /* Espaço para o alfinete */
 }
 
 .sticky-note p {
