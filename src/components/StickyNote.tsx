@@ -313,7 +313,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       {/* Header with type icon and actions */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-1">
-          <TypeIcon className="w-4 h-4 text-note-text" />
+          <TypeIcon className="w-4 h-4 text-black dark:text-black" />
           {note.category && (
             <Badge 
               variant="secondary" 
@@ -330,7 +330,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             onClick={() => onEdit?.(note.id)}
             className="p-1 h-auto hover:bg-white/20"
           >
-            <Edit3 className="w-3 h-3" />
+            <Edit3 className="w-3 h-3 text-black dark:text-black" />
           </Button>
           <Button
             variant="ghost"
@@ -338,15 +338,15 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             onClick={() => onDelete?.(note.id)}
             className="p-1 h-auto hover:bg-white/20 text-destructive"
           >
-            <Trash2 className="w-3 h-3" />
+            <Trash2 className="w-3 h-3 text-black dark:text-black" />
           </Button>
         </div>
       </div>
 
       {/* Content */}
-      <div className="text-note-text">
+      <div className="text-black dark:text-black">
         {note.title && (
-          <h3 className={`font-semibold mb-2 ${
+          <h3 className={`font-semibold mb-2 text-black dark:text-black ${
             note.type === 'title' ? 'text-lg' : 'text-sm'
           }`}>
             {note.title}
@@ -354,7 +354,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         )}
 
         {note.content && (
-          <p className="text-sm leading-relaxed whitespace-pre-wrap">
+          <p className="text-sm leading-relaxed whitespace-pre-wrap text-black dark:text-black">
             {note.content}
           </p>
         )}
@@ -362,9 +362,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         {note.items && note.items.length > 0 && (
           <ul className="space-y-1">
             {note.items.map((item, index) => (
-              <li key={index} className="text-sm flex items-start gap-2">
-                <span className="text-xs mt-1">•</span>
-                <span>{item}</span>
+              <li key={index} className="text-sm flex items-start gap-2 text-black dark:text-black">
+                <span className="text-xs mt-1 text-black dark:text-black">•</span>
+                <span className="text-black dark:text-black">{item}</span>
               </li>
             ))}
           </ul>
@@ -377,7 +377,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       />
       
       {/* Timestamp */}
-      <div className="text-xs text-note-text/60 mt-2 border-t border-note-text/10 pt-2">
+      <div className="text-xs text-black/60 dark:text-black/60 mt-2 border-t border-black/10 dark:border-black/10 pt-2">
         {new Date(note.createdAt).toLocaleDateString()}
       </div>
     </Card>
