@@ -122,10 +122,10 @@ export const ProductivityInsights: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm"
-          className="bg-transparent hover:bg-white/20 border-none text-foreground"
+          className="bg-transparent hover:bg-white/20 border-none text-foreground dark:text-black dark:hover:text-black"
         >
-          <BarChart3 className="w-4 h-4 mr-2" />
-          <span className="hidden sm:inline">{t('insights')}</span>
+          <BarChart3 className="w-4 h-4 mr-2 dark:text-black" />
+          <span className="hidden sm:inline dark:text-black">{t('insights')}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-lg animate-fade-in">

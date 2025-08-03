@@ -151,8 +151,8 @@ export const ListsOverview: React.FC = () => {
                 className="text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
                 title="Buscar Notas"
               >
-                <StickyNote className="w-4 h-4" />
-                <span className="hidden sm:inline text-xs">Notas</span>
+                <StickyNote className="w-4 h-4 dark:text-black" />
+                <span className="hidden sm:inline text-xs dark:text-black">Notas</span>
               </Button>
               <ListTemplates />
               <ProductivityInsights />
@@ -165,8 +165,8 @@ export const ListsOverview: React.FC = () => {
                   className="text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
                   title="Sair"
                 >
-                  <LogOut className="w-4 h-4" />
-                  <span className="hidden sm:inline text-xs">Sair</span>
+                  <LogOut className="w-4 h-4 dark:text-black" />
+                  <span className="hidden sm:inline text-xs dark:text-black">Sair</span>
                 </Button>
               )}
             </div>

@@ -55,11 +55,11 @@ export const AchievementsModal: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm" 
-          className="relative bg-transparent hover:bg-foreground/10 border-none text-foreground"
+          className="relative bg-transparent hover:bg-foreground/10 border-none text-foreground dark:text-black dark:hover:text-black"
           aria-label={`Conquistas: ${unlockedCount} de ${achievements.length} desbloqueadas`}
         >
-          <Trophy className="w-4 h-4 mr-2" aria-hidden="true" />
-          <span className="hidden sm:inline">{t('achievements')}</span>
+          <Trophy className="w-4 h-4 mr-2 dark:text-black" aria-hidden="true" />
+          <span className="hidden sm:inline dark:text-black">{t('achievements')}</span>
           {unlockedCount > 0 && (
             <span 
               className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center"
