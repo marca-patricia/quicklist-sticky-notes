@@ -91,8 +91,8 @@ export const StickyNotesPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header simples - Amarelo claro */}
-      <header className="bg-yellow-100/90 backdrop-blur-sm border-b border-yellow-200 p-4">
+      {/* Header amarelo claro */}
+      <header className="top-bar-yellow p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button

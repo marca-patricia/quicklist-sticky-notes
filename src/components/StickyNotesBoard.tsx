@@ -138,8 +138,8 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      {/* TOOLBAR SIMPLES - Amarelo claro */}
-      <div className="bg-yellow-100/90 backdrop-blur-sm border-b border-yellow-200 px-4 py-3">
+      {/* TOOLBAR AMARELO CLARO SIMPLES */}
+      <div className="top-bar-yellow px-4 py-3">
         {/* Busca e controles básicos */}
         <div className="flex items-center gap-4 mb-2">
           <div className="flex-1 max-w-md">
