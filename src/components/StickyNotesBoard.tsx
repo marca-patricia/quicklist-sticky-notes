@@ -132,7 +132,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
               value={searchTerm}
               onChange={setSearchTerm}
               placeholder="Buscar notas..."
-              className="flex-1 dark:bg-black dark:border-white/20 dark:text-white dark:placeholder:text-white/60"
+              className="flex-1 dark:bg-black dark:border-white/20 dark:text-white dark:placeholder:text-white/60 rounded-r-none border-r-0"
             />
             
             {/* Search Filter Popover */}
@@ -141,7 +141,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-l-none border-l-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20"
+                  className="text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-none border-l-0 border-r-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20"
                 >
                   <Search className="w-4 h-4" />
                 </Button>
@@ -213,45 +213,45 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 </div>
               </PopoverContent>
             </Popover>
-          </div>
 
-          {/* Create Menu Popover */}
-          <Popover open={showCreateMenu} onOpenChange={setShowCreateMenu}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-l-none border-l-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20"
-                disabled={creatingNote !== null}
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-60 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
-              <div className="space-y-2">
-                <h4 className="font-medium text-foreground dark:text-white mb-3">Criar Nova Nota</h4>
-                {Object.entries(noteTypeLabels).map(([type, label]) => {
-                  const Icon = noteTypeIcons[type as NoteType];
-                  return (
-                    <Button
-                      key={type}
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        handleCreateNote(type as NoteType);
-                        setShowCreateMenu(false);
-                      }}
-                      className="w-full justify-start text-foreground hover:text-foreground hover:bg-accent/10 dark:text-white dark:hover:text-white dark:hover:bg-white/10"
-                      disabled={creatingNote !== null}
-                    >
-                      <Icon className="w-4 h-4 mr-2" />
-                      {label}
-                    </Button>
-                  );
-                })}
-              </div>
-            </PopoverContent>
-          </Popover>
+            {/* Create Menu Popover */}
+            <Popover open={showCreateMenu} onOpenChange={setShowCreateMenu}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-l-none border-l-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20"
+                  disabled={creatingNote !== null}
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-60 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
+                <div className="space-y-2">
+                  <h4 className="font-medium text-foreground dark:text-white mb-3">Criar Nova Nota</h4>
+                  {Object.entries(noteTypeLabels).map(([type, label]) => {
+                    const Icon = noteTypeIcons[type as NoteType];
+                    return (
+                      <Button
+                        key={type}
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          handleCreateNote(type as NoteType);
+                          setShowCreateMenu(false);
+                        }}
+                        className="w-full justify-start text-foreground hover:text-foreground hover:bg-accent/10 dark:text-white dark:hover:text-white dark:hover:bg-white/10"
+                        disabled={creatingNote !== null}
+                      >
+                        <Icon className="w-4 h-4 mr-2" />
+                        {label}
+                      </Button>
+                    );
+                  })}
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
           
           {/* View Toggle */}
           <Button
