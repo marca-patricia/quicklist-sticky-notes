@@ -56,25 +56,23 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
       aria-label={`Abrir lista ${list.title} com ${completedItems.length} de ${list.items.length} tarefas concluídas`}
     >
       <div 
-        className={`rounded-xl shadow-soft hover:shadow-notepad transition-all duration-300 border border-border cursor-pointer hover:scale-[1.02] animate-fade-in-up bg-card ${
-          isGridView ? 'p-4 min-h-[200px] flex flex-col' : 'p-5'
+        className={`list-card-postit hover:scale-105 transition-all duration-300 cursor-pointer animate-fade-in ${
+          isGridView ? 'flex flex-col' : ''
         }`}
         style={{ 
-          backgroundColor: list.color,
-          borderLeft: `4px solid hsl(var(--primary))`,
+          backgroundColor: list.color || '#FFF8C5'
         }}
         role="article"
         aria-describedby={`list-progress-${list.id}`}
       >
-        <div className={`flex justify-between items-start ${isGridView ? 'mb-2' : 'mb-3'}`}>
+        <div className="flex justify-between items-start mb-3">
           <h3 
-            className={`font-semibold truncate flex-1 ${isGridView ? 'text-lg' : 'text-xl'}`} 
-            style={{ color: 'hsl(var(--note-text))' }}
+            className="font-semibold text-lg text-note-text truncate flex-1" 
             title={list.title}
           >
             {list.title}
           </h3>
-          <div className={`flex items-center ${isGridView ? 'gap-1' : 'gap-2'}`} onClick={(e) => e.preventDefault()}>
+          <div className="flex items-center gap-1" onClick={(e) => e.preventDefault()}>
             {!isGridView && (
               <ColorPicker 
                 selectedColor={list.color}

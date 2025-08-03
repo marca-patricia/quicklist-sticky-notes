@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    /* Paleta de cores principais */
-    --background: 45 20% 94%; /* Bege claro para harmonizar com a cortiça */
+    /* Paleta de cores que combina com cortiça */
+    --background: 45 20% 94%; /* Bege claro */
     --foreground: 0 0% 13%; /* Texto preto */
 
     --card: 0 0% 100%; /* Cards brancos */
@@ -16,34 +16,34 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 13%;
 
-    /* Cores do sistema */
-    --primary: 48 95% 88%; /* Amarelo pastel */
-    --primary-foreground: 0 0% 13%;
+    /* Barra superior - Verde musgo que combina com cortiça */
+    --primary: 85 25% 35%; /* #4A5D23 - Verde musgo escuro */
+    --primary-foreground: 0 0% 100%; /* Texto branco */
     
-    --secondary: 48 25% 92%;
+    --secondary: 85 15% 85%; /* Verde claro */
     --secondary-foreground: 0 0% 13%;
 
-    --muted: 48 20% 95%;
+    --muted: 45 15% 92%; /* Bege muito claro */
     --muted-foreground: 0 0% 30%;
 
-    --accent: 48 25% 92%;
+    --accent: 85 20% 75%; /* Verde suave */
     --accent-foreground: 0 0% 13%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 48 20% 88%;
+    --border: 45 20% 85%; /* Bordas bege */
     --input: 0 0% 100%;
-    --ring: 48 95% 88%;
+    --ring: 85 25% 35%;
 
-    /* Cores dos Post-its - Pastel suaves */
+    /* Cores dos Post-its */
     --note-yellow: 48 40% 88%; /* #FFF8C5 */
-    --note-blue: 210 40% 85%; /* Azul pastel */
+    --note-blue: 210 40% 85%;
     --note-green: 150 35% 85%; /* #DFF5DC */
-    --note-pink: 330 40% 85%; /* Rosa pastel */
+    --note-pink: 330 40% 85%;
     --note-orange: 30 45% 85%; /* #FFE3C0 */
     --note-purple: 270 30% 90%; /* #EDE5FB */
-    --note-text: 0 0% 13%; /* Texto preto */
+    --note-text: 0 0% 13%;
     
     --radius: 0.5rem;
   }
@@ -187,11 +187,46 @@
     touch-action: manipulation;
   }
 
-  /* Glass effect para toolbars */
+  /* Glass effect para toolbars - Verde musgo que combina com cortiça */
   .glass-toolbar {
-    background: rgba(255, 255, 255, 0.9);
+    background: hsl(85, 25%, 35%, 0.95) !important; /* Verde musgo semi-transparente */
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid hsl(85, 20%, 45%, 0.3);
+    color: white !important;
+  }
+
+  .glass-toolbar * {
+    color: white !important;
+  }
+
+  .glass-toolbar .text-muted-foreground {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  /* Listas em formato post-it */
+  .list-card-postit {
+    width: 200px !important;
+    height: 200px !important;
+    aspect-ratio: 1;
+    background: #FFF8C5 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid #F5E06B !important;
+    position: relative;
+    padding: 16px !important;
+  }
+
+  .list-card-postit::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: #DC2626;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
 

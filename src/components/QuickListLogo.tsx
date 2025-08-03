@@ -27,16 +27,37 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <img 
-        src="/lovable-uploads/ad855730-be98-4686-8fa3-a8a65a74c7e8.png"
-        alt="QuickList Logo" 
-        className={`${sizeClasses[size]} object-contain drop-shadow-sm`}
-        style={{ 
-          backgroundColor: 'transparent', 
-          background: 'none',
-          mixBlendMode: 'multiply'
-        }}
-      />
+      {/* Logo como SVG sem fundo - Post-it amarelo com pin vermelho */}
+      <div className={`${sizeClasses[size]} relative`}>
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          {/* Post-it amarelo */}
+          <rect 
+            x="10" y="15" width="80" height="80" 
+            fill="#FFF8C5" 
+            stroke="#F5E06B" 
+            strokeWidth="1"
+            rx="2"
+            style={{
+              filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.2))'
+            }}
+          />
+          
+          {/* Pin vermelho */}
+          <circle 
+            cx="50" cy="25" r="4" 
+            fill="#DC2626"
+            style={{
+              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.3))'
+            }}
+          />
+          
+          {/* Linhas do post-it */}
+          <line x1="20" y1="40" x2="80" y2="40" stroke="#E5D555" strokeWidth="0.5" />
+          <line x1="20" y1="50" x2="80" y2="50" stroke="#E5D555" strokeWidth="0.5" />
+          <line x1="20" y1="60" x2="80" y2="60" stroke="#E5D555" strokeWidth="0.5" />
+        </svg>
+      </div>
+      
       {showText && (
         <span className={`font-bold text-foreground ${textSizeClasses[size]} tracking-tight`}>
           QuickList

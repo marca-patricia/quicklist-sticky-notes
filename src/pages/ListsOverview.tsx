@@ -34,7 +34,7 @@ export const ListsOverview: React.FC = () => {
   const [showArchived, setShowArchived] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isGridView, setIsGridView] = useState(false);
+  const [isGridView, setIsGridView] = useState(true); // Sempre grid para post-its
 
   // Redirect to auth if not logged in
   React.useEffect(() => {
@@ -320,11 +320,10 @@ export const ListsOverview: React.FC = () => {
                       </h2>
                     </div>
 
-                    <div className={`grid gap-6 ${
-                      isGridView 
-                        ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' 
-                        : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-                    }`}>
+                    <div className="grid gap-6 justify-items-center" style={{
+                      gridTemplateColumns: 'repeat(auto-fill, 220px)',
+                      justifyContent: 'center'
+                    }}>
                       {filteredLists.map((list) => (
                         <ListCard 
                           key={list.id} 
