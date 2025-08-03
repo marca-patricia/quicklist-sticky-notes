@@ -127,12 +127,12 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
         {/* Search and Actions Row */}
         <div className="flex gap-4 items-center">
           {/* Search with Filter */}
-          <div className="flex-1 max-w-md flex gap-2">
+          <div className="flex-1 max-w-md flex">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
               placeholder="Buscar notas..."
-              className="flex-1 bg-black border-white/20 text-white placeholder:text-white/60"
+              className="flex-1 bg-black border-white/20 text-white placeholder:text-white/60 rounded-r-none"
             />
             
             {/* Search Filter Popover */}
@@ -141,7 +141,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-white hover:text-white hover:bg-white/10 border border-white/20"
+                  className="text-white hover:text-white hover:bg-white/10 border border-white/20 rounded-l-none border-l-0"
                 >
                   <Search className="w-4 h-4" />
                 </Button>
@@ -221,7 +221,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-white hover:text-white hover:bg-white/10 border border-white/20"
+                className="text-white hover:text-white hover:bg-white/10 border border-white/20 rounded-l-none border-l-0"
                 disabled={creatingNote !== null}
               >
                 <Plus className="w-4 h-4" />
