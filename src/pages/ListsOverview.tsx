@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AddListForm } from '@/components/AddListForm';
 import { ListCard } from '@/components/ListCard';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
-
 import { EmptyState } from '@/components/EmptyState';
 import { InstallPrompt } from '@/components/InstallPrompt';
 import { AchievementsModal } from '@/components/AchievementsModal';
@@ -19,10 +18,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
-import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote } from 'lucide-react';
-import { FloatingCreateButton } from '@/components/FloatingCreateButton';
+import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote, Plus } from 'lucide-react';
 import { SearchInput } from '@/components/SearchInput';
-import { GridViewToggle } from '@/components/GridViewToggle';
 
 export const ListsOverview: React.FC = () => {
   const { t } = useLanguage();
@@ -34,7 +31,6 @@ export const ListsOverview: React.FC = () => {
   const [showArchived, setShowArchived] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isGridView, setIsGridView] = useState(true); // Sempre grid para post-its
 
   // Redirect to auth if not logged in
   React.useEffect(() => {
@@ -59,11 +55,9 @@ export const ListsOverview: React.FC = () => {
       item.createdAt.toDateString() === today
     ).length;
 
-    // Calculate current streak (check if tasks were completed on consecutive days)
     let currentStreak = 0;
     const today_date = new Date();
     
-    // Check if user completed tasks today first
     const todayString = today_date.toDateString();
     const hasTasksToday = completedItems.some(item => 
       new Date(item.createdAt).toDateString() === todayString
@@ -72,7 +66,6 @@ export const ListsOverview: React.FC = () => {
     if (hasTasksToday) {
       currentStreak = 1;
       
-      // Check previous days
       for (let i = 1; i < 30; i++) {
         const checkDate = new Date(today_date);
         checkDate.setDate(today_date.getDate() - i);
@@ -100,248 +93,175 @@ export const ListsOverview: React.FC = () => {
     });
   }, [lists, checkAchievements]);
 
-  // Request notification permission on first load
-  React.useEffect(() => {
-    if (!hasPermission) {
-      // Don't auto-request, let user decide
-      // Notifications not enabled - silent in production
-    }
-  }, [hasPermission]);
-
   const [isLoading, setIsLoading] = React.useState(true);
 
-  // Simulate loading for better UX
   React.useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 500);
+    const timer = setTimeout(() => setIsLoading(false), 300);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Enhanced Header - Fixed on all devices */}
-      <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header"
-              style={{ position: 'fixed' }}>
-        <div className="container max-w-6xl mx-auto px-2 py-2 min-h-[56px]">
-          <div className="flex justify-between items-center">
-            {/* Left side controls */}
-            <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Configurações do aplicativo">
-              <LanguageSwitch />
-              <OfflineStatus />
-            </div>
+    <div className="min-h-screen" style={{
+      backgroundColor: '#B8956A',
+      backgroundImage: 'url("/lovable-uploads/b28063b1-b719-4516-9218-fe85c0f556c0.png")',
+      backgroundSize: 'cover',
+      backgroundAttachment: 'fixed',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center'
+    }}>
+      {/* HEADER ESTILO POST-IT */}
+      <header className="toolbar-postit p-4 shadow-lg">
+        <div className="container mx-auto flex justify-between items-center">
+          {/* Logo e título */}
+          <div className="flex items-center gap-4">
+            <QuickListLogo size="sm" />
+            <h1 className="text-xl font-bold text-amber-900">Minhas Listas</h1>
+          </div>
+          
+          {/* Controles do header */}
+          <div className="flex items-center gap-3">
+            {/* Botão criar lista */}
+            <Button
+              onClick={() => setShowAddForm(!showAddForm)}
+              variant="outline"
+              size="sm"
+              className="button-enhanced flex items-center gap-2 bg-white/90 hover:bg-white border-amber-400"
+            >
+              <Plus className="w-4 h-4" />
+              Nova Lista
+            </Button>
             
-            {/* Center - App Brand */}
-            <div className="hidden sm:flex items-center gap-3">
-              <button 
-                onClick={() => window.location.reload()}
-                className="hover:opacity-80 transition-opacity"
-                aria-label="Recarregar aplicativo QuickList"
-              >
-                <QuickListLogo size="md" showText={true} className="text-foreground" />
-              </button>
-            </div>
-
-            {/* Right side controls */}
-            <div className="flex items-center gap-1 overflow-x-auto" role="group" aria-label="Ferramentas e estatísticas">
+            <Button
+              onClick={() => navigate('/sticky-notes')}
+              variant="ghost"
+              size="sm"
+              className="text-amber-900 hover:bg-amber-100/50 flex items-center gap-2"
+            >
+              <StickyNote className="w-4 h-4" />
+              Notas
+            </Button>
+            
+            <LanguageSwitch />
+            <OfflineStatus />
+            
+            {user && (
               <Button
+                onClick={() => signOut()}
                 variant="ghost"
                 size="sm"
-                onClick={() => navigate('/sticky-notes')}
-                className="text-foreground hover:text-foreground/80 flex items-center gap-1 shrink-0"
-                title="Buscar Notas"
+                className="text-amber-900 hover:bg-amber-100/50"
               >
-                <StickyNote className="w-4 h-4" />
-                <span className="hidden sm:inline text-xs">Notas</span>
+                <LogOut className="w-4 h-4" />
               </Button>
-              <ListTemplates />
-              <ProductivityInsights />
-              <AchievementsModal />
-              {user && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => signOut()}
-                  className="text-foreground hover:text-foreground/80 flex items-center gap-1 shrink-0"
-                  title="Sair"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span className="hidden sm:inline text-xs">Sair</span>
-                </Button>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </header>
 
       <InstallPrompt />
       
-      {/* Spacer for fixed header */}
-      <div className="h-20"></div>
-      
-      <main className="container max-w-5xl mx-auto px-4 py-8">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <button 
-            onClick={() => window.location.reload()}
-            className="flex items-center justify-center gap-4 mb-6 sm:hidden hover:opacity-80 transition-opacity"
-            aria-label="Recarregar aplicativo QuickList"
-          >
-            <QuickListLogo size="xl" showText={true} className="text-foreground" />
-          </button>
-          <div className="hidden sm:block mb-6 flex justify-center">
-            <QuickListLogo size="xl" showText={true} className="text-foreground" />
-          </div>
-          <p className="text-lg max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-            {t('organizeDesc')}
-          </p>
-        </div>
-
-        {/* Add List Form - Now conditional */}
+      <main className="container mx-auto px-6 py-8">
+        {/* Formulário de adicionar lista */}
         {showAddForm && (
-          <section className="max-w-2xl mx-auto mb-12" aria-label="Criar nova lista">
-            {isLoading ? (
-              <div className="flex gap-2">
-                <div className="animate-pulse bg-muted rounded h-10 flex-1"></div>
-                <div className="animate-pulse bg-muted rounded-full h-10 w-10"></div>
-                <div className="animate-pulse bg-muted rounded h-10 w-24"></div>
-              </div>
-            ) : (
-              <div className="bg-white rounded-lg shadow-soft p-6 border border-border">
-                <AddListForm />
-              </div>
-            )}
-          </section>
+          <div className="max-w-md mx-auto mb-8">
+            <div className="bg-yellow-50/95 backdrop-blur-sm border border-amber-300 rounded-lg p-6 shadow-lg">
+              <AddListForm />
+            </div>
+          </div>
         )}
 
-        {/* Search and Filter Section */}
+        {/* Busca */}
         {lists.length > 0 && (
-          <section className="max-w-2xl mx-auto mb-8">
-            <div className="flex flex-col sm:flex-row gap-4 items-center">
-              <div className="flex-1 w-full">
-                <SearchInput
-                  value={searchTerm}
-                  onChange={setSearchTerm}
-                  placeholder={t('searchLists')}
-                  className="w-full"
-                />
+          <div className="max-w-md mx-auto mb-8">
+            <SearchInput
+              value={searchTerm}
+              onChange={setSearchTerm}
+              placeholder="Buscar listas..."
+              className="search-input w-full"
+            />
+          </div>
+        )}
+
+        {/* Filtros */}
+        {lists.length > 0 && (
+          <div className="flex justify-center mb-8">
+            <Button
+              variant={showArchived ? "default" : "outline"}
+              size="sm"
+              onClick={() => setShowArchived(!showArchived)}
+              className="button-enhanced bg-white/90 hover:bg-white border-amber-400"
+            >
+              {showArchived ? <ArchiveRestore className="w-4 h-4 mr-2" /> : <Archive className="w-4 h-4 mr-2" />}
+              {showArchived ? 'Ocultar Arquivadas' : 'Ver Arquivadas'}
+            </Button>
+          </div>
+        )}
+
+        {/* GRID DE POST-ITS DE LISTAS */}
+        <div className="notes-grid">
+          {isLoading ? (
+            // Loading skeleton
+            Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="sticky-note animate-pulse">
+                <div className="h-4 bg-amber-200 rounded mb-2"></div>
+                <div className="h-3 bg-amber-200 rounded mb-1 w-3/4"></div>
+                <div className="h-3 bg-amber-200 rounded mb-1 w-1/2"></div>
               </div>
-              
-              <div className="flex items-center gap-2">
-                <GridViewToggle
-                  isGridView={isGridView}
-                  onToggle={setIsGridView}
-                />
-                
+            ))
+          ) : lists.length === 0 ? (
+            <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md">
+                <StickyNote className="w-16 h-16 text-amber-800 mb-4 mx-auto" />
+                <h3 className="text-xl font-semibold text-amber-900 mb-2">
+                  Nenhuma lista ainda
+                </h3>
+                <p className="text-amber-800 mb-6">
+                  Crie sua primeira lista para começar a organizar suas tarefas
+                </p>
                 <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowArchived(!showArchived)}
-                  className="flex items-center gap-2"
+                  onClick={() => setShowAddForm(true)}
+                  className="bg-amber-600 hover:bg-amber-700 text-white"
                 >
-                  {showArchived ? <ArchiveRestore className="w-4 h-4" /> : <Archive className="w-4 h-4" />}
-                  {showArchived ? t('hideArchived') : t('showArchived')}
+                  <Plus className="w-4 h-4 mr-2" />
+                  Criar Lista
                 </Button>
               </div>
             </div>
-          </section>
-        )}
-
-        {/* Lists Section */}
-        <section aria-label={lists.length > 0 ? `${lists.length} listas criadas` : "Nenhuma lista criada"}>
-          {isLoading ? (
-            <div className={`grid gap-6 ${
-              isGridView 
-                ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' 
-                : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-            }`}>
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="rounded-lg p-4 shadow-soft border border-gray-200 bg-white">
-                  <div className="flex justify-between items-start mb-3">
-                    <div className="animate-pulse bg-muted rounded h-6 w-32"></div>
-                    <div className="flex items-center gap-2">
-                      <div className="animate-pulse bg-muted rounded-full h-8 w-8"></div>
-                      <div className="animate-pulse bg-muted rounded-full h-8 w-8"></div>
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <div className="flex justify-between mb-1">
-                      <div className="animate-pulse bg-muted rounded h-4 w-20"></div>
-                      <div className="animate-pulse bg-muted rounded h-4 w-12"></div>
-                    </div>
-                    <div className="animate-pulse bg-muted rounded-full h-2 w-full"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : lists.length === 0 ? (
-            <EmptyState />
           ) : (
-            <>
-              {/* Filter and display lists */}
-              {(() => {
-                const filteredLists = lists
-                  .filter(list => showArchived ? list.archived : !list.archived)
-                  .filter(list => 
-                    searchTerm === '' || 
-                    list.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    list.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    list.items.some(item => item.text.toLowerCase().includes(searchTerm.toLowerCase()))
-                  );
-
-                if (filteredLists.length === 0) {
-                  return (
-                    <div className="text-center py-12">
-                      <div className="text-muted-foreground">
-                        {searchTerm ? (
-                          <div>
-                            <p className="text-lg">{t('noResultsFound')}</p>
-                            <p className="text-sm mt-2">Tente uma busca diferente</p>
-                          </div>
-                        ) : showArchived ? (
-                          <div>
-                            <Archive className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                            <p className="text-lg">{t('noArchivedLists')}</p>
-                          </div>
-                        ) : (
-                          <EmptyState />
-                        )}
-                      </div>
-                    </div>
-                  );
-                }
-
-                return (
-                  <>
-                    <div className="flex items-center justify-between mb-6">
-                      <h2 className="text-2xl font-semibold text-foreground">
-                        {searchTerm ? `${t('searchLists')} "${searchTerm}"` : t('allLists')}
-                        <span className="text-sm font-normal text-muted-foreground ml-2">
-                          ({filteredLists.length})
-                        </span>
-                      </h2>
-                    </div>
-
-                    <div className="grid gap-6 justify-items-center" style={{
-                      gridTemplateColumns: 'repeat(auto-fill, 220px)',
-                      justifyContent: 'center'
-                    }}>
-                      {filteredLists.map((list) => (
-                        <ListCard 
-                          key={list.id} 
-                          list={list} 
-                          isGridView={isGridView}
-                        />
-                      ))}
-                    </div>
-                  </>
+            (() => {
+              const filteredLists = lists
+                .filter(list => showArchived ? list.archived : !list.archived)
+                .filter(list => 
+                  searchTerm === '' || 
+                  list.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  list.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  list.items.some(item => item.text.toLowerCase().includes(searchTerm.toLowerCase()))
                 );
-              })()}
-            </>
+
+              if (filteredLists.length === 0) {
+                return (
+                  <div className="col-span-full text-center py-12">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md mx-auto">
+                      <Archive className="w-16 h-16 text-amber-800 mb-4 mx-auto" />
+                      <p className="text-amber-900 text-lg">
+                        {searchTerm ? `Nenhuma lista encontrada para "${searchTerm}"` : 'Nenhuma lista arquivada'}
+                      </p>
+                    </div>
+                  </div>
+                );
+              }
+
+              return filteredLists.map((list) => (
+                <ListCard 
+                  key={list.id} 
+                  list={list} 
+                  isGridView={true}
+                />
+              ));
+            })()
           )}
-        </section>
+        </div>
       </main>
-      
-      {/* Floating Add Button */}
-      <FloatingCreateButton onClick={() => setShowAddForm(!showAddForm)} />
       
       {/* Spacer for mobile */}
       <div className="h-20"></div>
