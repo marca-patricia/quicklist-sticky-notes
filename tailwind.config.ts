@@ -62,12 +62,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				notepad: {
-					yellow: 'hsl(var(--notepad-yellow))',
-					pink: 'hsl(var(--notepad-pink))',
-					blue: 'hsl(var(--notepad-blue))',
-					green: 'hsl(var(--notepad-green))',
-					purple: 'hsl(var(--notepad-purple))'
+				note: {
+					yellow: 'hsl(var(--note-yellow))',
+					blue: 'hsl(var(--note-blue))',
+					green: 'hsl(var(--note-green))',
+					pink: 'hsl(var(--note-pink))',
+					orange: 'hsl(var(--note-orange))',
+					purple: 'hsl(var(--note-purple))'
 				}
 			},
 			backgroundImage: {
