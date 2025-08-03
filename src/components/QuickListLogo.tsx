@@ -34,7 +34,7 @@ export const QuickListLogo: React.FC<QuickListLogoProps> = ({
         style={{ backgroundColor: 'transparent', background: 'none' }}
       />
       {showText && (
-        <span className={`font-bold text-foreground ${textSizeClasses[size]} tracking-tight`}>
+        <span className={`font-bold text-foreground dark:text-black ${textSizeClasses[size]} tracking-tight`}>
           QuickList
         </span>
       )}
