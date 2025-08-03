@@ -27,7 +27,7 @@ export interface TodoList {
 
 interface ListsContextType {
   lists: TodoList[];
-  addList: (title: string, description?: string) => void;
+  addList: (title: string, description?: string, color?: string) => void;
   deleteList: (listId: string) => void;
   updateList: (listId: string, updates: Partial<TodoList>) => void;
   addItemToList: (listId: string, text: string, categories?: string[], dueDate?: Date, priority?: 'low' | 'medium' | 'high') => void;
@@ -104,12 +104,12 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     localStorage.setItem('quicklist-lists', JSON.stringify(lists));
   }, [lists]);
 
-  const addList = (title: string, description?: string) => {
+  const addList = (title: string, description?: string, color?: string) => {
     const newList: TodoList = {
       id: Date.now().toString(),
       title,
       description,
-      color: pastelColors[Math.floor(Math.random() * pastelColors.length)].value,
+      color: color || pastelColors[Math.floor(Math.random() * pastelColors.length)].value,
       items: [],
       categories: [],
       createdAt: new Date()

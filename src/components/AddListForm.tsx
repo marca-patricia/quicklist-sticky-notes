@@ -35,7 +35,8 @@ export const AddListForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (title.trim()) {
-      addList(title.trim());
+      console.log('Creating list with color:', selectedColor);
+      addList(title.trim(), undefined, selectedColor);
       setTitle('');
       toast({
         description: t('listCreated'),
