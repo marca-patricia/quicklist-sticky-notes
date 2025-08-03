@@ -131,7 +131,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   if (editMode) {
     return (
       <Card 
-        className="w-48 h-48 p-4 border-2 border-primary/20 animate-scale-in aspect-square shadow-postit hover:shadow-postit-hover transition-all duration-300"
+        className="w-56 h-64 p-4 border-2 border-primary/20 animate-scale-in shadow-postit hover:shadow-postit-hover transition-all duration-300"
         style={{ 
           backgroundColor: selectedColor,
           boxShadow: 'var(--shadow-postit)',
@@ -190,7 +190,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
               placeholder="Escreva sua nota..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="mb-3 bg-white/80 border-none resize-none min-h-[60px] max-h-[80px] overflow-hidden"
+              className="mb-2 bg-white/80 border-none resize-none min-h-[50px] max-h-[70px] overflow-hidden text-sm"
               autoFocus={!title}
             />
           </>
@@ -204,14 +204,14 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
               onChange={(e) => setTitle(e.target.value)}
               className="mb-2 bg-white/80 border-none font-medium"
             />
-            <div className="space-y-1 mb-2">
+            <div className="space-y-1 mb-2 max-h-[80px] overflow-y-auto">
               {items.map((item, index) => (
                 <div key={index} className="flex gap-1">
                   <Input
                     placeholder={`Item ${index + 1}`}
                     value={item}
                     onChange={(e) => updateListItem(index, e.target.value)}
-                    className="bg-white/80 border-none text-sm"
+                    className="bg-white/80 border-none text-xs"
                   />
                   {items.length > 1 && (
                     <Button
@@ -230,7 +230,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
               variant="ghost"
               size="sm"
               onClick={handleAddListItem}
-              className="w-full text-xs text-black"
+              className="w-full text-xs text-black mb-2"
             >
               <Plus className="w-3 h-3 mr-1 text-black" />
               Adicionar item
@@ -239,15 +239,15 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         )}
 
         {currentType === 'category' && (
-          <div className="space-y-3">
+          <div className="space-y-2 mb-2">
             <Input
               placeholder="Nome da categoria"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-white/80 border-none font-medium"
+              className="bg-white/80 border-none font-medium text-sm"
             />
             {categories.length > 0 && (
-              <div className="space-y-2">
+              <div className="space-y-2 max-h-[60px] overflow-y-auto">
                 <label className="text-xs font-medium">Ou escolha uma existente:</label>
                 <CategoryManager
                   categories={categories}
@@ -266,12 +266,12 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-2 mt-3">
+        <div className="flex gap-2 mt-auto pt-2">
           <Button
             variant="default"
             size="sm"
             onClick={handleSave}
-            className="flex-1 text-black"
+            className="flex-1 text-black text-xs h-8"
           >
             <Check className="w-3 h-3 mr-1 text-black" />
             Salvar
@@ -285,7 +285,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                 onDelete('temp');
               }
             }}
-            className="text-black"
+            className="text-black h-8 px-2"
           >
             <X className="w-3 h-3 text-black" />
           </Button>
@@ -301,7 +301,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       draggable={!!note.id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={`w-48 h-48 p-4 cursor-grab active:cursor-grabbing hover:shadow-postit-hover transition-all duration-300 group aspect-square ${
+      className={`w-56 h-64 p-4 cursor-grab active:cursor-grabbing hover:shadow-postit-hover transition-all duration-300 group ${
         isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
       }`}
       style={{ 
