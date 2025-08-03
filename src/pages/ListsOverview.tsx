@@ -148,7 +148,7 @@ export const ListsOverview: React.FC = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/sticky-notes')}
-                className="text-foreground hover:text-foreground/80 flex items-center gap-1 shrink-0"
+                className="text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 dark:text-foreground dark:hover:text-foreground dark:hover:bg-muted dark:border-border flex items-center gap-1 shrink-0"
                 title="Buscar Notas"
               >
                 <StickyNote className="w-4 h-4" />
@@ -162,7 +162,7 @@ export const ListsOverview: React.FC = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => signOut()}
-                  className="text-foreground hover:text-foreground/80 flex items-center gap-1 shrink-0"
+                  className="text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 dark:text-foreground dark:hover:text-foreground dark:hover:bg-muted dark:border-border flex items-center gap-1 shrink-0"
                   title="Sair"
                 >
                   <LogOut className="w-4 h-4" />

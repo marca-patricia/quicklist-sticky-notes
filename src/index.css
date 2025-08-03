@@ -63,55 +63,55 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* QuickList - Modo Escuro elegante */
-    --background: 0 0% 12%; /* #1E1E1E - Fundo escuro elegante */
-    --foreground: 0 0% 100%; /* #FFFFFF - Texto branco puro */
+    /* QuickList - Modo Escuro com melhor contraste */
+    --background: 0 0% 8%; /* #141414 - Fundo mais escuro */
+    --foreground: 0 0% 95%; /* #F2F2F2 - Texto branco suave */
 
-    --card: 0 0% 15%; /* #262626 - Cards escuros */
-    --card-foreground: 0 0% 100%; /* Texto branco nos cards */
+    --card: 0 0% 12%; /* #1F1F1F - Cards mais escuros */
+    --card-foreground: 0 0% 95%; /* Texto branco suave nos cards */
 
-    --popover: 0 0% 15%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 10%; /* #1A1A1A - Popover mais escuro */
+    --popover-foreground: 0 0% 95%; /* Texto branco suave */
 
-    /* Cores principais - Amarelo pastel mantido */
-    --primary: 48 100% 93%; /* #FFF9D6 - Amarelo pastel elegante */
-    --primary-foreground: 0 0% 13%; /* Texto preto nos botões */
+    /* Header/Barra - Cores contrastantes */
+    --primary: 48 100% 85%; /* #FFF29A - Amarelo mais vibrante para contraste */
+    --primary-foreground: 0 0% 10%; /* #1A1A1A - Texto escuro no amarelo */
 
-    --secondary: 0 0% 18%; /* #2E2E2E - Cinza escuro */
-    --secondary-foreground: 0 0% 100%; /* Texto branco */
+    --secondary: 0 0% 15%; /* #262626 - Cinza mais escuro */
+    --secondary-foreground: 0 0% 90%; /* #E6E6E6 - Texto bem claro */
 
-    --muted: 0 0% 16%; /* #292929 - Fundo muted escuro */
-    --muted-foreground: 0 0% 70%; /* Texto muted claro */
+    --muted: 0 0% 12%; /* #1F1F1F - Fundo muted */
+    --muted-foreground: 0 0% 75%; /* #BFBFBF - Texto muted mais contrastante */
 
-    --accent: 0 0% 18%; /* #2E2E2E - Accent escuro */
-    --accent-foreground: 0 0% 100%; /* Texto branco */
+    --accent: 48 80% 75%; /* #F5E866 - Accent amarelo contrastante */
+    --accent-foreground: 0 0% 10%; /* Texto escuro no accent */
 
-    --destructive: 0 84% 60%; /* #EF4444 - Vermelho */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 75% 55%; /* #E53E3E - Vermelho mais suave */
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 0 0% 20%; /* #333333 - Bordas escuras */
-    --input: 0 0% 16%; /* #292929 - Inputs escuros */
-    --ring: 48 100% 93%;
+    --border: 0 0% 25%; /* #404040 - Bordas mais visíveis */
+    --input: 0 0% 10%; /* #1A1A1A - Inputs bem escuros */
+    --ring: 48 100% 85%; /* Ring amarelo vibrante */
 
-    /* Post-it Colors - Modo Escuro com cores vibrantes e texto legível */
-    --note-yellow: 48 70% 45%; /* Amarelo mais escuro */
-    --note-blue: 213 60% 50%; /* Azul mais escuro */
-    --note-green: 142 55% 40%; /* Verde mais escuro */
-    --note-pink: 327 60% 50%; /* Rosa mais escuro */
-    --note-orange: 25 70% 50%; /* Laranja mais escuro */
-    --note-purple: 260 50% 55%; /* Roxo mais escuro */
-    --note-text: 0 0% 95%; /* Texto quase branco para modo escuro */
+    /* Post-it Colors - Modo Escuro com texto sempre legível */
+    --note-yellow: 48 85% 55%; /* #E6D645 - Amarelo vibrante */
+    --note-blue: 213 75% 60%; /* #4A9EFF - Azul vibrante */
+    --note-green: 142 70% 50%; /* #2ECC71 - Verde vibrante */
+    --note-pink: 327 75% 65%; /* #FF6B9D - Rosa vibrante */
+    --note-orange: 25 85% 60%; /* #FF8C42 - Laranja vibrante */
+    --note-purple: 260 70% 65%; /* #9B59B6 - Roxo vibrante */
+    --note-text: 0 0% 10%; /* #1A1A1A - Texto sempre escuro nos post-its */
     
-    --floating-button: 48 100% 93%; /* Amarelo pastel */
-    --floating-button-text: 0 0% 13%; /* Texto preto */
+    --floating-button: 48 100% 85%; /* Amarelo vibrante */
+    --floating-button-text: 0 0% 10%; /* Texto escuro */
     
-    /* Gradientes escuros elegantes - mais sofisticado */
-    --gradient-bg: linear-gradient(135deg, #1A1F25 0%, #2A2038 100%);
-    --gradient-header: linear-gradient(135deg, #FFF9D6 0%, #FAF3B7 100%); /* Mantém amarelo pastel */
+    /* Gradientes escuros elegantes */
+    --gradient-bg: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 100%);
+    --gradient-header: linear-gradient(135deg, #FFF29A 0%, #F5E866 100%); /* Header amarelo contrastante */
     
-    /* Sombras para post-its no modo escuro */
-    --shadow-postit: 0px 3px 8px rgba(0,0,0,0.25);
-    --shadow-postit-hover: 0px 6px 16px rgba(0,0,0,0.35);
+    /* Sombras mais fortes para modo escuro */
+    --shadow-postit: 0px 4px 12px rgba(0,0,0,0.4);
+    --shadow-postit-hover: 0px 8px 20px rgba(0,0,0,0.5);
 
     --radius: 0.75rem;
   }

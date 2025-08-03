@@ -46,56 +46,73 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
     showSuccess(newArchivedState ? t('listArchived') : t('listUnarchived'));
   };
 
-  // Post-it colors - cores realistas de post-it
+  // Post-it colors - cores realistas com suporte ao modo escuro
   const getPostItStyle = (color: string) => {
     const postItColors = {
       '#fef3c7': { // Amarelo clássico
         bg: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 30%, #f59e0b 100%)',
+        bgDark: 'linear-gradient(135deg, #E6D645 0%, #D4C53A 30%, #C2B42F 100%)',
         shadow: '0 8px 25px -8px rgba(245, 158, 11, 0.4), 0 4px 12px -4px rgba(245, 158, 11, 0.3)',
+        shadowDark: '0 8px 25px -8px rgba(230, 214, 69, 0.5), 0 4px 12px -4px rgba(230, 214, 69, 0.4)',
         texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
       },
       '#dcfce7': { // Verde menta
         bg: 'linear-gradient(135deg, #dcfce7 0%, #bbf7d0 30%, #16a34a 100%)',
+        bgDark: 'linear-gradient(135deg, #2ECC71 0%, #27AE60 30%, #229954 100%)',
         shadow: '0 8px 25px -8px rgba(22, 163, 74, 0.4), 0 4px 12px -4px rgba(22, 163, 74, 0.3)',
+        shadowDark: '0 8px 25px -8px rgba(46, 204, 113, 0.5), 0 4px 12px -4px rgba(46, 204, 113, 0.4)',
         texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
       },
       '#fce7f3': { // Rosa suave
         bg: 'linear-gradient(135deg, #fce7f3 0%, #fbcfe8 30%, #ec4899 100%)',
+        bgDark: 'linear-gradient(135deg, #FF6B9D 0%, #E91E63 30%, #D81B60 100%)',
         shadow: '0 8px 25px -8px rgba(236, 72, 153, 0.4), 0 4px 12px -4px rgba(236, 72, 153, 0.3)',
+        shadowDark: '0 8px 25px -8px rgba(255, 107, 157, 0.5), 0 4px 12px -4px rgba(255, 107, 157, 0.4)',
         texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
       },
       '#e0e7ff': { // Azul claro
         bg: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 30%, #6366f1 100%)',
+        bgDark: 'linear-gradient(135deg, #4A9EFF 0%, #3498DB 30%, #2980B9 100%)',
         shadow: '0 8px 25px -8px rgba(99, 102, 241, 0.4), 0 4px 12px -4px rgba(99, 102, 241, 0.3)',
+        shadowDark: '0 8px 25px -8px rgba(74, 158, 255, 0.5), 0 4px 12px -4px rgba(74, 158, 255, 0.4)',
         texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
       },
       '#fed7d7': { // Laranja pêssego
         bg: 'linear-gradient(135deg, #fed7d7 0%, #fecaca 30%, #f97316 100%)',
+        bgDark: 'linear-gradient(135deg, #FF8C42 0%, #E67E22 30%, #D35400 100%)',
         shadow: '0 8px 25px -8px rgba(249, 115, 22, 0.4), 0 4px 12px -4px rgba(249, 115, 22, 0.3)',
+        shadowDark: '0 8px 25px -8px rgba(255, 140, 66, 0.5), 0 4px 12px -4px rgba(255, 140, 66, 0.4)',
         texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
       },
       '#f3e8ff': { // Roxo lavanda
         bg: 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 30%, #a855f7 100%)',
+        bgDark: 'linear-gradient(135deg, #9B59B6 0%, #8E44AD 30%, #7D3C98 100%)',
         shadow: '0 8px 25px -8px rgba(168, 85, 247, 0.4), 0 4px 12px -4px rgba(168, 85, 247, 0.3)',
+        shadowDark: '0 8px 25px -8px rgba(155, 89, 182, 0.5), 0 4px 12px -4px rgba(155, 89, 182, 0.4)',
         texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
       },
       '#f1f5f9': { // Cinza pérola
         bg: 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 30%, #64748b 100%)',
+        bgDark: 'linear-gradient(135deg, #95A5A6 0%, #7F8C8D 30%, #6C7B7F 100%)',
         shadow: '0 8px 25px -8px rgba(100, 116, 139, 0.4), 0 4px 12px -4px rgba(100, 116, 139, 0.3)',
+        shadowDark: '0 8px 25px -8px rgba(149, 165, 166, 0.5), 0 4px 12px -4px rgba(149, 165, 166, 0.4)',
         texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
       },
       '#ecfdf5': { // Verde água
         bg: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 30%, #059669 100%)',
+        bgDark: 'linear-gradient(135deg, #1ABC9C 0%, #16A085 30%, #138D75 100%)',
         shadow: '0 8px 25px -8px rgba(5, 150, 105, 0.4), 0 4px 12px -4px rgba(5, 150, 105, 0.3)',
+        shadowDark: '0 8px 25px -8px rgba(26, 188, 156, 0.5), 0 4px 12px -4px rgba(26, 188, 156, 0.4)',
         texture: 'repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(0,0,0,.02) 1px, rgba(0,0,0,.02) 2px)'
       }
     };
 
     const selectedColor = postItColors[color] || postItColors['#fef3c7'];
+    const isDark = document.documentElement.classList.contains('dark');
     
     return {
-      background: selectedColor.bg,
-      boxShadow: selectedColor.shadow,
+      background: isDark ? selectedColor.bgDark : selectedColor.bg,
+      boxShadow: isDark ? selectedColor.shadowDark : selectedColor.shadow,
       backgroundImage: selectedColor.texture,
       backdropFilter: 'blur(1px)',
     };
@@ -147,11 +164,11 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
           <div className="relative z-10 h-full flex flex-col">
             <div className={`flex justify-between items-start ${isGridView ? 'mb-3' : 'mb-4'}`}>
               <h3 
-                className={`font-bold text-gray-900 flex-1 leading-tight ${isGridView ? 'text-lg' : 'text-xl'}`}
+                className={`font-bold flex-1 leading-tight ${isGridView ? 'text-lg' : 'text-xl'}`}
                 style={{ 
                   fontFamily: 'Inter, sans-serif',
                   textShadow: '0 1px 2px rgba(255,255,255,0.8)',
-                  color: '#1f2937'
+                  color: '#1f2937' // Sempre texto escuro nos post-its
                 }}
                 title={list.title}
               >
@@ -197,10 +214,10 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
             {/* Description for grid view */}
             {isGridView && list.description && (
               <p 
-                className="text-sm text-gray-800 mb-4 line-clamp-2 leading-relaxed"
+                className="text-sm mb-4 line-clamp-2 leading-relaxed"
                 style={{ 
                   fontFamily: 'Inter, sans-serif',
-                  color: '#374151'
+                  color: '#374151' // Sempre texto escuro
                 }}
               >
                 {list.description}
@@ -211,19 +228,19 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
               <div className={isGridView ? 'mb-3' : 'mb-4'} id={`list-progress-${list.id}`}>
                 <div className={`flex justify-between text-sm font-medium ${isGridView ? 'mb-2' : 'mb-2'}`}>
                   <span 
-                    className="text-gray-800"
+                    className="font-medium"
                     style={{ 
                       fontFamily: 'Inter, sans-serif',
-                      color: '#374151'
+                      color: '#374151' // Sempre texto escuro
                     }}
                   >
                     {completedItems.length}/{list.items.length} {t('completed')}
                   </span>
                   <span 
-                    className="text-gray-800"
+                    className="font-medium"
                     style={{ 
                       fontFamily: 'Inter, sans-serif',
-                      color: '#374151'
+                      color: '#374151' // Sempre texto escuro
                     }}
                   >
                     {Math.round(progress)}%

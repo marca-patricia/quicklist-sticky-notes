@@ -30,7 +30,7 @@ export const ThemeToggle: React.FC = () => {
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      className="text-foreground hover:bg-white/20 border-none transition-all duration-200 shrink-0"
+      className="h-8 w-8 p-0 text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 dark:text-foreground dark:hover:text-foreground dark:hover:bg-muted dark:border-border transition-all duration-200 shrink-0"
       aria-label="Alternar tema"
     >
       {theme === 'dark' ? (
