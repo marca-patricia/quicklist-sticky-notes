@@ -47,7 +47,6 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   const [filterCategory, setFilterCategory] = useState<string | 'all'>('all');
   const [isGridView, setIsGridView] = useState(true);
   const [creatingNote, setCreatingNote] = useState<NoteType | null>(null);
-  const [editingNote, setEditingNote] = useState<string | null>(null);
   const [draggedNote, setDraggedNote] = useState<string | null>(null);
   const [showSearchFilter, setShowSearchFilter] = useState(false);
   const [showCreateMenu, setShowCreateMenu] = useState(false);
@@ -79,11 +78,10 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   const handleNoteSave = (noteData: Omit<StickyNoteData, 'id' | 'createdAt'>) => {
     onNoteSave(noteData);
     setCreatingNote(null);
-    setEditingNote(null);
   };
 
-  const handleNoteEdit = (id: string) => {
-    setEditingNote(id);
+  const handleNoteUpdate = (id: string, noteData: Partial<StickyNoteData>) => {
+    onNoteUpdate(id, noteData);
   };
 
   const handleNoteDelete = (id: string) => {
@@ -92,7 +90,6 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
       return;
     }
     onNoteDelete(id);
-    setEditingNote(null);
   };
 
   const handleDragStart = useCallback((id: string) => {
@@ -297,13 +294,8 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
           <div key={note.id} className={isGridView ? '' : 'flex justify-center'}>
             <StickyNote
               note={note}
-              isEditing={editingNote === note.id}
-              onSave={(updatedNote) => {
-                onNoteUpdate(note.id, updatedNote);
-                setEditingNote(null);
-              }}
+              onSave={(updatedNote) => handleNoteUpdate(note.id, updatedNote)}
               onDelete={handleNoteDelete}
-              onEdit={handleNoteEdit}
               onDragStart={handleDragStart}
               onDragEnd={handleDragEnd}
               categories={categories}

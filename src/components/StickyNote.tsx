@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { CategoryManager, Category } from '@/components/CategoryManager';
 import { PostItFeedback } from '@/components/PostItFeedback';
+import { NoteEditModal } from '@/components/NoteEditModal';
 import { Plus, X, Edit3, Check, Trash2, Tag, List, FileText, StickyNote as StickyNoteIcon } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -78,6 +79,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   const [selectedColor, setSelectedColor] = useState(note?.color || noteColors[0]);
   const [isDragging, setIsDragging] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const TypeIcon = noteTypeIcons[currentType];
 
@@ -301,6 +303,21 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
 
   if (!note) return null;
 
+  const handleEditClick = () => {
+    setShowEditModal(true);
+  };
+
+  const handleModalSave = (noteData: Partial<StickyNoteData>) => {
+    onSave?.({
+      type: note.type,
+      color: note.color,
+      position: note?.position || { x: 0, y: 0 },
+      ...noteData
+    });
+    setShowFeedback(true);
+    setTimeout(() => setShowFeedback(false), 2000);
+  };
+
   return (
     <Card
       draggable={!!note.id}
@@ -333,7 +350,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onEdit?.(note.id)}
+            onClick={handleEditClick}
             className="p-1 h-auto hover:bg-white/20"
           >
             <Edit3 className="w-3 h-3 text-black dark:text-black" />
@@ -386,6 +403,18 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       <div className="text-xs text-black/60 dark:text-black/60 mt-2 border-t border-black/10 dark:border-black/10 pt-2">
         {new Date(note.createdAt).toLocaleDateString()}
       </div>
+
+      {/* Edit Modal */}
+      <NoteEditModal
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        note={note}
+        onSave={handleModalSave}
+        onDelete={onDelete || (() => {})}
+        categories={categories}
+        onCategoryCreate={onCategoryCreate}
+        onCategoryDelete={onCategoryDelete}
+      />
     </Card>
   );
 };
