@@ -121,9 +121,9 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   }, []);
 
   return (
-    <div className="h-full flex flex-col bg-black">
+    <div className="h-full flex flex-col dark:bg-black">
       {/* Toolbar */}
-      <div className="bg-black border-b border-white/10 p-4">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-border p-4 dark:bg-black dark:border-white/10">
         {/* Search and Actions Row */}
         <div className="flex gap-4 items-center">
           {/* Search with Filter */}
@@ -132,7 +132,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
               value={searchTerm}
               onChange={setSearchTerm}
               placeholder="Buscar notas..."
-              className="flex-1 bg-black border-white/20 text-white placeholder:text-white/60 rounded-r-none"
+              className="flex-1 dark:bg-black dark:border-white/20 dark:text-white dark:placeholder:text-white/60"
             />
             
             {/* Search Filter Popover */}
@@ -141,24 +141,24 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-white hover:text-white hover:bg-white/10 border border-white/20 rounded-l-none border-l-0"
+                  className="text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-l-none border-l-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20"
                 >
                   <Search className="w-4 h-4" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-80 bg-black border-white/20 text-white">
+              <PopoverContent className="w-80 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
                 <div className="space-y-4">
-                  <h4 className="font-medium text-white">Busca Avançada</h4>
+                  <h4 className="font-medium text-foreground dark:text-white">Busca Avançada</h4>
                   
                   {/* Type Filter */}
                   <div className="space-y-2">
-                    <label className="text-sm text-white/80">Tipo:</label>
+                    <label className="text-sm text-muted-foreground dark:text-white/80">Tipo:</label>
                     <div className="flex gap-1 flex-wrap">
                       <Button
                         variant={filterType === 'all' ? "default" : "outline"}
                         size="sm"
                         onClick={() => setFilterType('all')}
-                        className="text-white border-white/20"
+                        className="text-foreground border-border dark:text-white dark:border-white/20"
                       >
                         Todos
                       </Button>
@@ -170,7 +170,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                             variant={filterType === type ? "default" : "outline"}
                             size="sm"
                             onClick={() => setFilterType(type as NoteType)}
-                            className="flex items-center gap-1 text-white border-white/20"
+                            className="flex items-center gap-1 text-foreground border-border dark:text-white dark:border-white/20"
                           >
                             <Icon className="w-3 h-3" />
                             {label}
@@ -183,13 +183,13 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                   {/* Category Filter */}
                   {categories.length > 0 && (
                     <div className="space-y-2">
-                      <label className="text-sm text-white/80">Categoria:</label>
+                      <label className="text-sm text-muted-foreground dark:text-white/80">Categoria:</label>
                       <div className="flex gap-1 flex-wrap">
                         <Button
                           variant={filterCategory === 'all' ? "default" : "outline"}
                           size="sm"
                           onClick={() => setFilterCategory('all')}
-                          className="text-white border-white/20"
+                          className="text-foreground border-border dark:text-white dark:border-white/20"
                         >
                           Todas
                         </Button>
@@ -197,8 +197,8 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                           <Badge
                             key={category.id}
                             variant={filterCategory === category.id ? "default" : "outline"}
-                            className={`cursor-pointer border-white/20 ${
-                              filterCategory === category.id ? category.color + ' text-white' : 'text-white'
+                            className={`cursor-pointer border-border dark:border-white/20 ${
+                              filterCategory === category.id ? category.color + ' text-white' : 'text-foreground dark:text-white'
                             }`}
                             onClick={() => setFilterCategory(
                               filterCategory === category.id ? 'all' : category.id
@@ -221,15 +221,15 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-white hover:text-white hover:bg-white/10 border border-white/20 rounded-l-none border-l-0"
+                className="text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-l-none border-l-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20"
                 disabled={creatingNote !== null}
               >
                 <Plus className="w-4 h-4" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-60 bg-black border-white/20 text-white">
+            <PopoverContent className="w-60 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
               <div className="space-y-2">
-                <h4 className="font-medium text-white mb-3">Criar Nova Nota</h4>
+                <h4 className="font-medium text-foreground dark:text-white mb-3">Criar Nova Nota</h4>
                 {Object.entries(noteTypeLabels).map(([type, label]) => {
                   const Icon = noteTypeIcons[type as NoteType];
                   return (
@@ -241,7 +241,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                         handleCreateNote(type as NoteType);
                         setShowCreateMenu(false);
                       }}
-                      className="w-full justify-start text-white hover:text-white hover:bg-white/10"
+                      className="w-full justify-start text-foreground hover:text-foreground hover:bg-accent/10 dark:text-white dark:hover:text-white dark:hover:bg-white/10"
                       disabled={creatingNote !== null}
                     >
                       <Icon className="w-4 h-4 mr-2" />
@@ -269,7 +269,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
       {/* Notes Board */}
       <div 
         ref={boardRef}
-        className={`flex-1 overflow-auto p-4 bg-black ${
+        className={`flex-1 overflow-auto p-4 dark:bg-black ${
           isGridView 
             ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 justify-items-center' 
             : 'space-y-4'
@@ -316,14 +316,14 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
         {/* Empty State */}
         {filteredNotes.length === 0 && !creatingNote && (
           <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
-            <StickyNoteIcon className="w-16 h-16 text-white/50 mb-4" />
-            <h3 className="text-lg font-medium text-white mb-2">
+            <StickyNoteIcon className="w-16 h-16 text-muted-foreground/50 dark:text-white/50 mb-4" />
+            <h3 className="text-lg font-medium text-muted-foreground dark:text-white mb-2">
               {searchTerm || filterType !== 'all' || filterCategory !== 'all'
                 ? 'Nenhuma nota encontrada'
                 : 'Nenhuma nota ainda'
               }
             </h3>
-            <p className="text-white/80 mb-4">
+            <p className="text-muted-foreground dark:text-white/80 mb-4">
               {searchTerm || filterType !== 'all' || filterCategory !== 'all'
                 ? 'Tente ajustar os filtros de busca'
                 : 'Comece criando sua primeira nota'
@@ -338,7 +338,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                       key={type}
                       variant="outline"
                       onClick={() => handleCreateNote(type as NoteType)}
-                      className="flex items-center gap-1 text-white border-white/20 hover:text-white"
+                      className="flex items-center gap-1 text-foreground border-border hover:text-foreground dark:text-white dark:border-white/20 dark:hover:text-white"
                     >
                       <Icon className="w-4 h-4" />
                       {label}
@@ -353,8 +353,8 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
       {/* Results Counter */}
       {filteredNotes.length > 0 && (
-        <div className="bg-black border-t border-white/10 p-2 text-center">
-          <span className="text-sm text-white/80">
+        <div className="bg-white/80 backdrop-blur-sm border-t border-border p-2 text-center dark:bg-black dark:border-white/10">
+          <span className="text-sm text-muted-foreground dark:text-white/80">
             {filteredNotes.length} {filteredNotes.length === 1 ? 'nota' : 'notas'}
             {searchTerm && ` para "${searchTerm}"`}
           </span>
