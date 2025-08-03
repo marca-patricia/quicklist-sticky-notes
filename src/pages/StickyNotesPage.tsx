@@ -104,10 +104,10 @@ export const StickyNotesPage: React.FC = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/')}
-                className="flex items-center gap-2 text-foreground hover:text-foreground/80"
+                className="flex items-center gap-2 text-foreground hover:text-foreground/80 dark:text-black dark:hover:text-black"
               >
-                <ArrowLeft className="w-4 h-4" />
-                Voltar
+                <ArrowLeft className="w-4 h-4 dark:text-black" />
+                <span className="dark:text-black">Voltar</span>
               </Button>
               <LanguageSwitch />
               <ThemeToggle />
@@ -117,11 +117,11 @@ export const StickyNotesPage: React.FC = () => {
             {/* Center - App Brand */}
             <div className="hidden sm:flex items-center gap-3">
               <QuickListLogo size="md" showText={true} className="text-foreground" />
-              <span className="text-sm text-muted-foreground">Sticky Notes</span>
+              <span className="text-sm text-muted-foreground dark:text-black">Sticky Notes</span>
             </div>
 
             {/* Right side - Info */}
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-black">
               <span>{notes.length} notas</span>
               {categories.length > 0 && (
                 <span>• {categories.length} categorias</span>
