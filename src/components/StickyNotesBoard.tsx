@@ -49,6 +49,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   const [editingNote, setEditingNote] = useState<string | null>(null);
   const [draggedNote, setDraggedNote] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
   const boardRef = useRef<HTMLDivElement>(null);
 
   // Detectar mobile
@@ -128,7 +129,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
   // Classes responsivas para o grid
   const gridClasses = `
-    flex-1 overflow-auto p-4
+    flex-1 overflow-auto p-6
     ${isGridView 
       ? `notes-grid ${isMobile ? 'notes-grid-mobile' : ''}` 
       : 'space-y-4'
@@ -137,101 +138,54 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      {/* Toolbar com fundo verde musgo */}
-      <div className="glass-toolbar border-b border-border p-4 space-y-4">
-        {/* Search and View Toggle */}
-        <div className="flex gap-4 items-center">
+      {/* TOOLBAR ELEGANTE - Compacta e minimalista */}
+      <div className="bg-white/10 backdrop-blur-sm border-b border-white/20 px-6 py-3">
+        {/* Linha principal - Busca e controles */}
+        <div className="flex items-center gap-4 mb-3">
           <div className="flex-1 max-w-md">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
               placeholder="Buscar notas..."
-              className="w-full"
+              className="bg-white/20 border-white/30 text-white placeholder:text-white/70"
             />
           </div>
           
-          <Button
-            variant={isGridView ? "default" : "outline"}
-            size="sm"
-            onClick={() => setIsGridView(!isGridView)}
-            className="flex items-center gap-2 btn-touch"
-          >
-            <Grid className="w-4 h-4" />
-            {isGridView ? 'Grade' : 'Lista'}
-          </Button>
-        </div>
-
-        {/* Filters */}
-        <div className="flex gap-4 items-center flex-wrap">
-          {/* Type Filter */}
-          <div className="flex gap-1">
+          <div className="flex items-center gap-2">
             <Button
-              variant={filterType === 'all' ? "default" : "outline"}
+              variant="ghost"
               size="sm"
-              onClick={() => setFilterType('all')}
-              className="btn-touch"
+              onClick={() => setShowFilters(!showFilters)}
+              className="text-white hover:bg-white/20 flex items-center gap-2"
             >
-              Todos
+              <Filter className="w-4 h-4" />
+              Filtros
             </Button>
-            {Object.entries(noteTypeLabels).map(([type, label]) => {
-              const Icon = noteTypeIcons[type as NoteType];
-              return (
-                <Button
-                  key={type}
-                  variant={filterType === type ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setFilterType(type as NoteType)}
-                  className="flex items-center gap-1 btn-touch"
-                >
-                  <Icon className="w-3 h-3" />
-                  {label}
-                </Button>
-              );
-            })}
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsGridView(!isGridView)}
+              className="text-white hover:bg-white/20 flex items-center gap-2"
+            >
+              <Grid className="w-4 h-4" />
+              {isGridView ? 'Grade' : 'Lista'}
+            </Button>
           </div>
-
-          {/* Category Filter */}
-          {categories.length > 0 && (
-            <div className="flex gap-1 items-center">
-              <span className="text-sm text-muted-foreground">Categoria:</span>
-              <Button
-                variant={filterCategory === 'all' ? "default" : "outline"}
-                size="sm"
-                onClick={() => setFilterCategory('all')}
-                className="btn-touch"
-              >
-                Todas
-              </Button>
-              {categories.map(category => (
-                <Badge
-                  key={category.id}
-                  variant={filterCategory === category.id ? "default" : "outline"}
-                  className={`cursor-pointer btn-touch ${
-                    filterCategory === category.id ? category.color + ' text-white' : ''
-                  }`}
-                  onClick={() => setFilterCategory(
-                    filterCategory === category.id ? 'all' : category.id
-                  )}
-                >
-                  {category.name}
-                </Badge>
-              ))}
-            </div>
-          )}
         </div>
 
-        {/* Create Note Buttons */}
-        <div className="flex gap-2 items-center">
-          <span className="text-sm font-medium text-muted-foreground">Criar:</span>
+        {/* Linha de criação de notas - sempre visível */}
+        <div className="flex items-center gap-2">
+          <span className="text-white/80 text-sm font-medium">Criar:</span>
           {Object.entries(noteTypeLabels).map(([type, label]) => {
             const Icon = noteTypeIcons[type as NoteType];
             return (
               <Button
                 key={type}
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 onClick={() => handleCreateNote(type as NoteType)}
-                className="flex items-center gap-1 btn-touch"
+                className="text-white hover:bg-white/20 flex items-center gap-1"
                 disabled={creatingNote !== null}
               >
                 <Icon className="w-3 h-3" />
@@ -240,6 +194,74 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             );
           })}
         </div>
+
+        {/* Filtros expansíveis */}
+        {showFilters && (
+          <div className="mt-3 pt-3 border-t border-white/20 space-y-3">
+            {/* Filtro por tipo */}
+            <div className="flex items-center gap-2">
+              <span className="text-white/80 text-sm font-medium min-w-[60px]">Tipo:</span>
+              <div className="flex gap-1 flex-wrap">
+                <Button
+                  variant={filterType === 'all' ? "secondary" : "ghost"}
+                  size="sm"
+                  onClick={() => setFilterType('all')}
+                  className="text-white hover:bg-white/20"
+                >
+                  Todos
+                </Button>
+                {Object.entries(noteTypeLabels).map(([type, label]) => {
+                  const Icon = noteTypeIcons[type as NoteType];
+                  return (
+                    <Button
+                      key={type}
+                      variant={filterType === type ? "secondary" : "ghost"}
+                      size="sm"
+                      onClick={() => setFilterType(type as NoteType)}
+                      className="text-white hover:bg-white/20 flex items-center gap-1"
+                    >
+                      <Icon className="w-3 h-3" />
+                      {label}
+                    </Button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Filtro por categoria */}
+            {categories.length > 0 && (
+              <div className="flex items-center gap-2">
+                <span className="text-white/80 text-sm font-medium min-w-[60px]">Categoria:</span>
+                <div className="flex gap-1 flex-wrap">
+                  <Button
+                    variant={filterCategory === 'all' ? "secondary" : "ghost"}
+                    size="sm"
+                    onClick={() => setFilterCategory('all')}
+                    className="text-white hover:bg-white/20"
+                  >
+                    Todas
+                  </Button>
+                  {categories.map(category => (
+                    <Badge
+                      key={category.id}
+                      variant={filterCategory === category.id ? "default" : "outline"}
+                      className={`cursor-pointer hover:opacity-80 ${
+                        filterCategory === category.id 
+                          ? 'bg-white/30 text-white border-white/50' 
+                          : 'border-white/30 text-white/80 hover:bg-white/20'
+                      }`}
+                      onClick={() => setFilterCategory(
+                        filterCategory === category.id ? 'all' : category.id
+                      )}
+                    >
+                      {category.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Notes Board - Grid organizado */}
@@ -287,49 +309,67 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
         {/* Empty State */}
         {filteredNotes.length === 0 && !creatingNote && (
-          <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
-            <StickyNoteIcon className="w-16 h-16 text-muted-foreground/50 mb-4" />
-            <h3 className="text-lg font-medium text-muted-foreground mb-2">
-              {searchTerm || filterType !== 'all' || filterCategory !== 'all'
-                ? 'Nenhuma nota encontrada'
-                : 'Nenhuma nota ainda'
-              }
-            </h3>
-            <p className="text-muted-foreground mb-4">
-              {searchTerm || filterType !== 'all' || filterCategory !== 'all'
-                ? 'Tente ajustar os filtros de busca'
-                : 'Comece criando sua primeira nota'
-              }
-            </p>
-            {!searchTerm && filterType === 'all' && filterCategory === 'all' && (
-              <div className="flex gap-2">
-                {Object.entries(noteTypeLabels).slice(0, 3).map(([type, label]) => {
-                  const Icon = noteTypeIcons[type as NoteType];
-                  return (
-                    <Button
-                      key={type}
-                      variant="outline"
-                      onClick={() => handleCreateNote(type as NoteType)}
-                      className="flex items-center gap-1 btn-touch"
-                    >
-                      <Icon className="w-4 h-4" />
-                      {label}
-                    </Button>
-                  );
-                })}
-              </div>
-            )}
+          <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md">
+              <StickyNoteIcon className="w-16 h-16 text-white/50 mb-4 mx-auto" />
+              <h3 className="text-xl font-semibold text-white mb-2">
+                {searchTerm || filterType !== 'all' || filterCategory !== 'all'
+                  ? 'Nenhuma nota encontrada'
+                  : 'Suas notas aparecerão aqui'
+                }
+              </h3>
+              <p className="text-white/70 mb-6">
+                {searchTerm || filterType !== 'all' || filterCategory !== 'all'
+                  ? 'Tente ajustar os filtros de busca acima'
+                  : 'Comece criando sua primeira nota usando os botões acima'
+                }
+              </p>
+              {!searchTerm && filterType === 'all' && filterCategory === 'all' && (
+                <div className="flex gap-2 justify-center">
+                  {Object.entries(noteTypeLabels).slice(0, 3).map(([type, label]) => {
+                    const Icon = noteTypeIcons[type as NoteType];
+                    return (
+                      <Button
+                        key={type}
+                        variant="secondary"
+                        onClick={() => handleCreateNote(type as NoteType)}
+                        className="flex items-center gap-2"
+                      >
+                        <Icon className="w-4 h-4" />
+                        {label}
+                      </Button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
 
-      {/* Results Counter */}
+      {/* Status Bar minimalista - só quando necessário */}
       {filteredNotes.length > 0 && (
-        <div className="glass-toolbar border-t border-border p-2 text-center">
-          <span className="text-sm text-muted-foreground">
-            {filteredNotes.length} {filteredNotes.length === 1 ? 'nota' : 'notas'}
-            {searchTerm && ` para "${searchTerm}"`}
-          </span>
+        <div className="bg-white/5 backdrop-blur-sm border-t border-white/10 px-6 py-2">
+          <div className="flex items-center justify-between">
+            <span className="text-white/60 text-sm">
+              {filteredNotes.length} {filteredNotes.length === 1 ? 'nota' : 'notas'}
+              {searchTerm && ` para "${searchTerm}"`}
+            </span>
+            {(filterType !== 'all' || filterCategory !== 'all') && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setFilterType('all');
+                  setFilterCategory('all');
+                  setSearchTerm('');
+                }}
+                className="text-white/60 hover:text-white hover:bg-white/10"
+              >
+                Limpar filtros
+              </Button>
+            )}
+          </div>
         </div>
       )}
     </div>
