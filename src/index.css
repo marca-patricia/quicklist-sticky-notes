@@ -1,292 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* QuickList App - Sistema de Design Completo */
-
-@layer base {
-  :root {
-    /* Paleta de cores que combina com cortiça */
-    --background: 45 20% 94%; /* Bege claro */
-    --foreground: 0 0% 13%; /* Texto preto */
-
-    --card: 0 0% 100%; /* Cards brancos */
-    --card-foreground: 0 0% 13%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 13%;
-
-    /* Barra superior - Verde musgo que combina com cortiça */
-    --primary: 85 25% 35%; /* #4A5D23 - Verde musgo escuro */
-    --primary-foreground: 0 0% 100%; /* Texto branco */
-    
-    --secondary: 85 15% 85%; /* Verde claro */
-    --secondary-foreground: 0 0% 13%;
-
-    --muted: 45 15% 92%; /* Bege muito claro */
-    --muted-foreground: 0 0% 30%;
-
-    --accent: 85 20% 75%; /* Verde suave */
-    --accent-foreground: 0 0% 13%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 45 20% 85%; /* Bordas bege */
-    --input: 0 0% 100%;
-    --ring: 85 25% 35%;
-
-    /* Cores dos Post-its */
-    --note-yellow: 48 40% 88%; /* #FFF8C5 */
-    --note-blue: 210 40% 85%;
-    --note-green: 150 35% 85%; /* #DFF5DC */
-    --note-pink: 330 40% 85%;
-    --note-orange: 30 45% 85%; /* #FFE3C0 */
-    --note-purple: 270 30% 90%; /* #EDE5FB */
-    --note-text: 0 0% 13%;
-    
-    --radius: 0.5rem;
-  }
+:root {
+  /* CORES PRIMÁRIAS - SISTEMA OTIMIZADO */
+  --moss-primary: 179 169 106;
+  --moss-secondary: 74 93 35;
+  --moss-accent: 58 69 25;
+  
+  --yellow-primary: 255 248 197;
+  --yellow-secondary: 245 224 107;
+  --yellow-accent: 229 213 85;
+  
+  --red-pin: 220 38 38;
+  --cork-bg: 184 149 106;
+  
+  /* CORES NEUTRAS */
+  --white: 255 255 255;
+  --black: 0 0 0;
+  --gray-50: 249 250 251;
+  --gray-100: 243 244 246;
+  --gray-200: 229 231 235;
+  --gray-300: 209 213 219;
+  --gray-400: 156 163 175;
+  --gray-500: 107 114 128;
+  --gray-600: 75 85 99;
+  --gray-700: 55 65 81;
+  --gray-800: 31 41 55;
+  --gray-900: 17 24 39;
+  
+  /* SISTEMA DE DESIGN */
+  --background: var(--cork-bg);
+  --foreground: var(--gray-900);
+  --card: var(--yellow-primary);
+  --card-foreground: var(--gray-900);
+  --primary: var(--moss-secondary);
+  --primary-foreground: var(--white);
+  --secondary: var(--yellow-secondary);
+  --secondary-foreground: var(--gray-900);
+  --muted: var(--gray-100);
+  --muted-foreground: var(--gray-500);
+  --accent: var(--moss-accent);
+  --accent-foreground: var(--white);
+  --border: var(--gray-200);
+  --input: var(--white);
+  --ring: var(--moss-secondary);
+  
+  /* SOMBRAS REALISTAS */
+  --shadow-sticky: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15);
+  --shadow-pin: 0 2px 4px rgba(220, 38, 38, 0.3);
+  
+  --radius: 0.5rem;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+/* RESET E BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  background-color: hsl(var(--background)) !important;
+  background-image: url('/lovable-uploads/be6033c7-c1b4-427d-8e5b-51bbf648618f.png') !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
   body {
-    /* Fundo de cortiça aplicado */
-    background-color: #B8956A;
-    background-image: url('/lovable-uploads/be6033c7-c1b4-427d-8e5b-51bbf648618f.png');
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center;
-    
-    color: hsl(var(--foreground));
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Responsividade Mobile */
-  @media (max-width: 768px) {
-    body {
-      background-attachment: scroll !important;
-      background-size: cover !important;
-    }
-    
-    button {
-      min-height: 44px !important;
-      min-width: 44px !important;
-    }
-
-    /* Grid dos sticky notes no mobile */
-    .notes-grid-mobile {
-      grid-template-columns: repeat(auto-fill, 140px) !important;
-      gap: 12px !important;
-      padding: 16px !important;
-      justify-content: center !important;
-    }
-
-    /* Sticky notes menores no mobile */
-    .sticky-note-mobile {
-      width: 140px !important;
-      height: 140px !important;
-      min-width: 140px !important;
-      min-height: 140px !important;
-    }
-  }
-
-  /* Animações suaves e otimizadas */
-  .animate-scale-in {
-    animation: scaleIn 0.15s ease-out;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.2s ease-out;
-  }
-
-  @keyframes scaleIn {
-    from {
-      transform: scale(0.98);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  /* Reduzir motion para melhor performance */
-  @media (prefers-reduced-motion: reduce) {
-    .animate-scale-in,
-    .animate-fade-in,
-    * {
-      animation: none !important;
-      transition: none !important;
-    }
+    background-attachment: scroll !important;
   }
 }
 
-@layer components {
-  /* Sticky Notes - Estilo quadrado com sombra realista */
-  .sticky-note {
-    width: 160px;
-    height: 160px;
-    aspect-ratio: 1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-    transition: all 0.2s ease;
-  }
-
-  .sticky-note:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15);
-    transform: scale(1.01);
-  }
-
-  /* Grid dos sticky notes - estável */
-  .notes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 160px);
-    gap: 16px;
-    padding: 20px;
-    justify-content: start;
-    min-height: 200px; /* Evita saltos no layout */
-  }
-
-  /* Cores dos post-its */
-  .bg-note-yellow { background-color: hsl(var(--note-yellow)); }
-  .bg-note-blue { background-color: hsl(var(--note-blue)); }
-  .bg-note-green { background-color: hsl(var(--note-green)); }
-  .bg-note-pink { background-color: hsl(var(--note-pink)); }
-  .bg-note-orange { background-color: hsl(var(--note-orange)); }
-  .bg-note-purple { background-color: hsl(var(--note-purple)); }
-
-  /* Hover suave para sticky notes */
-  .hover\:scale-101:hover {
-    transform: scale(1.01);
-  }
-
-  /* Botões com melhor acessibilidade */
-  .btn-touch {
-    min-height: 44px;
-    min-width: 44px;
-    touch-action: manipulation;
-  }
-
-  /* Glass effect para toolbars - Verde musgo que combina com cortiça */
-  .glass-toolbar {
-    background: hsl(85, 25%, 35%) !important; /* Verde musgo sólido */
-    backdrop-filter: blur(10px);
-    border: 1px solid hsl(85, 20%, 45%, 0.3);
-    color: white !important;
-  }
-
-  .glass-toolbar * {
-    color: white !important;
-  }
-
-  .glass-toolbar .text-muted-foreground {
-    color: rgba(255, 255, 255, 0.8) !important;
-  }
-
-  .glass-toolbar input {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    color: white !important;
-  }
-
-  .glass-toolbar input::placeholder {
-    color: rgba(255, 255, 255, 0.7) !important;
-  }
-
-  /* Botões do toolbar */
-  .glass-toolbar button {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    color: white !important;
-  }
-
-  .glass-toolbar button:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-  }
-
-  .glass-toolbar button[data-state="active"],
-  .glass-toolbar button.bg-primary {
-    background: rgba(255, 255, 255, 0.3) !important;
-  }
-
-  /* Listas em formato post-it - estável */
-  .list-card-postit {
-    width: 200px;
-    height: 200px;
-    aspect-ratio: 1;
-    background: #FFF8C5;
-    border-radius: 2px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid #F5E06B;
-    position: relative;
-    padding: 16px;
-    transition: transform 0.2s ease;
-  }
-
-  .list-card-postit:hover {
-    transform: scale(1.02);
-  }
-
-  .list-card-postit::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 8px;
-    background: #DC2626;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
+/* COMPONENTES OTIMIZADOS */
+.sticky-note {
+  background: linear-gradient(135deg, hsl(var(--yellow-primary)), hsl(var(--yellow-secondary)));
+  border: 1px solid hsl(var(--yellow-accent));
+  border-radius: 6px;
+  box-shadow: var(--shadow-sticky);
+  position: relative;
+  aspect-ratio: 1;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 160px;
+  height: 160px;
 }
 
-/* Força aplicação no mobile - Melhorado */
+.sticky-note:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.sticky-note::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: hsl(var(--red-pin));
+  border-radius: 50%;
+  box-shadow: var(--shadow-pin);
+}
+
+.top-bar {
+  background: hsl(var(--moss-secondary) / 0.95) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid hsl(var(--moss-accent));
+}
+
+.top-bar * {
+  color: hsl(var(--white)) !important;
+}
+
+.toolbar-button {
+  background: hsl(var(--moss-primary) / 0.9);
+  color: hsl(var(--white));
+  border: 1px solid hsl(var(--moss-accent));
+  transition: all 0.2s ease;
+}
+
+.toolbar-button:hover {
+  background: hsl(var(--moss-accent));
+  transform: translateY(-1px);
+}
+
+/* GRID OTIMIZADO */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  min-height: 200px;
+}
+
 @media (max-width: 768px) {
   .sticky-note {
     width: 140px !important;
     height: 140px !important;
   }
-
+  
   .notes-grid {
-    grid-template-columns: repeat(auto-fill, 140px) !important;
-    gap: 12px !important;
-    justify-content: center !important;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    gap: 16px !important;
+    padding: 16px !important;
   }
+}
 
-  /* Força estilos inline também */
-  [style*="width: 160px"] {
-    width: 140px !important;
-    height: 140px !important;
-  }
+/* GLASS EFFECT */
+.glass-toolbar {
+  background: hsl(var(--moss-secondary) / 0.95) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--moss-accent) / 0.3);
+  color: hsl(var(--white)) !important;
+}
 
-  [style*="grid-template-columns"] {
-    grid-template-columns: repeat(auto-fill, 140px) !important;
+.glass-toolbar * {
+  color: hsl(var(--white)) !important;
+}
+
+/* LISTA EM POST-IT */
+.list-card-postit {
+  width: 200px;
+  height: 200px;
+  aspect-ratio: 1;
+  background: hsl(var(--yellow-primary));
+  border-radius: 6px;
+  box-shadow: var(--shadow-sticky);
+  border: 1px solid hsl(var(--yellow-accent));
+  position: relative;
+  padding: 16px;
+  transition: transform 0.2s ease;
+}
+
+.list-card-postit:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-hover);
+}
+
+.list-card-postit::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: hsl(var(--red-pin));
+  border-radius: 50%;
+  box-shadow: var(--shadow-pin);
+}
+
+/* UTILITÁRIOS */
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.performance-boost {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ACESSIBILIDADE */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
