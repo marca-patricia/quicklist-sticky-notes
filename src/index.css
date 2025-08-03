@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -71,62 +71,103 @@ body {
   }
 }
 
-/* POST-ITS REALISTAS - QUADRADOS */
+/* MINI CADERNOS REALISTAS */
 .sticky-note {
-  background: linear-gradient(135deg, #FDF2B2 0%, #FEF3C7 100%);
-  border: 1px solid #F59E0B;
-  border-radius: 4px; /* Pontas quadradas */
+  background: 
+    /* Linhas horizontais do caderno */
+    repeating-linear-gradient(
+      transparent,
+      transparent 16px,
+      #E5E7EB 16px,
+      #E5E7EB 17px
+    ),
+    /* Background base do papel */
+    linear-gradient(135deg, #FEFEFE 0%, #F9FAFB 100%);
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
   box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.15),
     0 2px 6px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
   position: relative;
   aspect-ratio: 1;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 160px;
-  height: 160px;
-  padding: 16px;
+  width: 180px;
+  height: 200px;
+  padding: 20px 12px 12px 32px;
   margin: 8px;
+  font-family: 'Kalam', cursive;
+  overflow: hidden;
 }
 
-.sticky-note:hover {
-  box-shadow: 
-    0 8px 20px rgba(0, 0, 0, 0.2),
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: translateY(-4px) rotate(1deg);
-}
-
-/* ALFINETE VERMELHO REALISTA */
+/* Margem esquerda vermelha do caderno */
 .sticky-note::before {
   content: '';
   position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 14px;
-  background: radial-gradient(circle at 30% 30%, #EF4444, #DC2626);
-  border-radius: 50%;
-  box-shadow: 
-    0 2px 6px rgba(220, 38, 38, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.3);
-  z-index: 2;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #EF4444;
+  z-index: 1;
 }
 
-/* Pino do alfinete */
+/* Espiral do caderno no topo */
 .sticky-note::after {
   content: '';
   position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 6px;
-  background: linear-gradient(to bottom, #9CA3AF, #6B7280);
-  border-radius: 1px;
-  z-index: 1;
+  left: 8px;
+  top: 15px;
+  width: 6px;
+  height: calc(100% - 30px);
+  background: 
+    radial-gradient(circle at center, #9CA3AF 2px, transparent 2px);
+  background-size: 6px 12px;
+  background-repeat: repeat-y;
+  z-index: 2;
 }
+
+.sticky-note:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 4px 10px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Conteúdo da nota com espaçamento para margem */
+.sticky-note h3,
+.sticky-note p,
+.sticky-note li,
+.sticky-note input,
+.sticky-note textarea {
+  font-family: 'Kalam', cursive !important;
+  color: #1F2937;
+  position: relative;
+  z-index: 3;
+}
+
+.sticky-note h3 {
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.sticky-note p {
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.sticky-note li {
+  font-weight: 400;
+}
+
+.sticky-note input,
+.sticky-note textarea {
+  font-family: 'Kalam', cursive !important;
+  font-size: 14px;
+}
+
 
 /* TOOLBAR AMARELO CLARO PROFISSIONAL */
 .toolbar-postit {
@@ -153,9 +194,9 @@ body {
 
 @media (max-width: 768px) {
   .sticky-note {
-    width: 140px !important;
-    height: 140px !important;
-    padding: 12px;
+    width: 160px !important;
+    height: 180px !important;
+    padding: 16px 10px 10px 28px;
     margin: 4px;
   }
   
@@ -168,15 +209,16 @@ body {
 
 @media (max-width: 640px) {
   .notes-grid {
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
     gap: 16px !important;
     padding: 20px 12px !important;
   }
   
   .sticky-note {
-    width: 130px !important;
-    height: 130px !important;
-    font-size: 14px;
+    width: 150px !important;
+    height: 170px !important;
+    font-size: 13px;
+    padding: 14px 8px 8px 26px;
   }
 }
 
