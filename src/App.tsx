@@ -55,9 +55,8 @@ const App = () => {
           enableSystem={false}
           disableTransitionOnChange
         >
-          <TooltipProvider>
-            <OfflineProvider>
-              <LanguageProvider>
+          <OfflineProvider>
+            <LanguageProvider>
                 <AuthProvider>
                   <ListsProvider>
                     <AchievementsProvider>
@@ -84,7 +83,6 @@ const App = () => {
                 </AuthProvider>
               </LanguageProvider>
             </OfflineProvider>
-          </TooltipProvider>
         </ThemeProvider>
       </BrowserRouter>
     </QueryClientProvider>

@@ -11,6 +11,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { StickyNotesStorage } from '@/utils/stickyNotesStorage';
+import { toast } from '@/components/ui/use-toast';
+import { useAutoSave } from '@/hooks/useAutoSave';
 
 export const StickyNotesPage: React.FC = () => {
   const { t } = useLanguage();
@@ -18,41 +21,60 @@ export const StickyNotesPage: React.FC = () => {
   const [notes, setNotes] = useState<StickyNoteData[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [pendingNoteType, setPendingNoteType] = useState<NoteType | null>(null);
+  
+  // Auto-save hook para garantir persistência
+  useAutoSave(notes, categories);
 
-  // Load data from localStorage on mount
+  // Load data from robust storage on mount
   useEffect(() => {
-    const savedNotes = localStorage.getItem('quicklist-sticky-notes');
-    const savedCategories = localStorage.getItem('quicklist-sticky-categories');
-    
-    if (savedNotes) {
-      try {
-        const parsedNotes = JSON.parse(savedNotes).map((note: any) => ({
-          ...note,
-          createdAt: new Date(note.createdAt)
-        }));
-        setNotes(parsedNotes);
-      } catch (error) {
-        console.error('Error loading notes:', error);
+    try {
+      const savedNotes = StickyNotesStorage.loadNotes();
+      const savedCategories = StickyNotesStorage.loadCategories();
+      
+      setNotes(savedNotes);
+      setCategories(savedCategories);
+      
+      if (savedNotes.length > 0 || savedCategories.length > 0) {
+        toast({
+          title: "Dados carregados",
+          description: `${savedNotes.length} notas e ${savedCategories.length} categorias carregadas`,
+        });
       }
-    }
-
-    if (savedCategories) {
-      try {
-        setCategories(JSON.parse(savedCategories));
-      } catch (error) {
-        console.error('Error loading categories:', error);
-      }
+    } catch (error) {
+      console.error('Error loading data:', error);
+      toast({
+        title: "Erro ao carregar dados",
+        description: "Alguns dados podem não ter sido carregados corretamente",
+        variant: "destructive"
+      });
     }
   }, []);
 
-  // Save to localStorage whenever notes change
+  // Save to storage with error handling
   useEffect(() => {
-    localStorage.setItem('quicklist-sticky-notes', JSON.stringify(notes));
+    if (notes.length === 0) return; // Don't save empty state on initial load
+    
+    const success = StickyNotesStorage.saveNotes(notes);
+    if (!success) {
+      toast({
+        title: "Erro ao salvar",
+        description: "Não foi possível salvar as notas",
+        variant: "destructive"
+      });
+    }
   }, [notes]);
 
-  // Save to localStorage whenever categories change
   useEffect(() => {
-    localStorage.setItem('quicklist-sticky-categories', JSON.stringify(categories));
+    if (categories.length === 0) return; // Don't save empty state on initial load
+    
+    const success = StickyNotesStorage.saveCategories(categories);
+    if (!success) {
+      toast({
+        title: "Erro ao salvar",
+        description: "Não foi possível salvar as categorias",
+        variant: "destructive"
+      });
+    }
   }, [categories]);
 
   const handleNoteSave = (noteData: Omit<StickyNoteData, 'id' | 'createdAt'>) => {
@@ -61,17 +83,38 @@ export const StickyNotesPage: React.FC = () => {
       id: Date.now().toString(),
       createdAt: new Date()
     };
-    setNotes(prev => [...prev, newNote]);
+    setNotes(prev => {
+      const updated = [...prev, newNote];
+      toast({
+        title: "Nota salva",
+        description: `${noteData.type === 'list' ? 'Lista' : 'Nota'} criada com sucesso!`,
+      });
+      return updated;
+    });
   };
 
   const handleNoteUpdate = (id: string, updates: Partial<StickyNoteData>) => {
-    setNotes(prev => prev.map(note => 
-      note.id === id ? { ...note, ...updates } : note
-    ));
+    setNotes(prev => {
+      const updated = prev.map(note => 
+        note.id === id ? { ...note, ...updates } : note
+      );
+      toast({
+        title: "Nota atualizada",
+        description: "Alterações salvas com sucesso!",
+      });
+      return updated;
+    });
   };
 
   const handleNoteDelete = (id: string) => {
-    setNotes(prev => prev.filter(note => note.id !== id));
+    setNotes(prev => {
+      const updated = prev.filter(note => note.id !== id);
+      toast({
+        title: "Nota excluída",
+        description: "Nota removida com sucesso!",
+      });
+      return updated;
+    });
   };
 
   const handleCategoryCreate = (categoryData: Omit<Category, 'id'>) => {
