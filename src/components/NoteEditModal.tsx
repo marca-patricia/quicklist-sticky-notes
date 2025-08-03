@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
 import { CategoryManager, Category } from '@/components/CategoryManager';
 import { Plus, X, Check, Trash2, CheckCircle, Circle } from 'lucide-react';
 import { StickyNoteData, NoteType } from '@/components/StickyNote';
-import { cn } from "@/lib/utils";
 
 interface ListItem {
   id: string;
@@ -45,8 +43,6 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
   onCategoryCreate,
   onCategoryDelete
 }) => {
-  console.log('NoteEditModal rendering, isOpen:', isOpen, 'note:', note);
-
   const [title, setTitle] = useState(note.title || '');
   const [content, setContent] = useState(note.content || '');
   const [listItems, setListItems] = useState<ListItem[]>([]);
@@ -71,7 +67,6 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
       color: selectedColor
     };
 
-    // Para listas, salvar apenas os itens não concluídos
     if (note.type === 'list') {
       noteData.items = listItems
         .filter(item => !item.completed && item.text.trim())
@@ -112,43 +107,29 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <DialogPrimitive.Root open={isOpen} onOpenChange={onClose}>
-      <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-        <DialogPrimitive.Content 
-          className={cn(
-            "fixed left-[50%] top-[50%] z-50 grid w-full max-w-2xl translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-            "max-h-[90vh] overflow-hidden flex flex-col dark:bg-gray-900 border-gray-200 dark:border-gray-700 relative"
-          )}
-          style={{
-            backgroundColor: selectedColor ? `${selectedColor}40` : undefined,
-          }}
-        >
-          {/* Botão X customizado e bem posicionado */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-gray-700 hover:text-gray-900 shadow-md transition-all border border-gray-200"
-          >
-            <X className="w-4 h-4" />
-          </button>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent 
+        className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"
+        style={{
+          backgroundColor: selectedColor ? `${selectedColor}40` : undefined,
+        }}
+      >
+        <DialogHeader className="pb-4 pr-8">
+          <DialogTitle className="text-lg font-semibold">
+            {note.type === 'list' ? 'Editar Lista' : 'Editar Nota'}
+          </DialogTitle>
+        </DialogHeader>
 
-          {/* Header */}
-          <div className="flex flex-col space-y-1.5 text-left pb-4">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {note.type === 'list' ? 'Editar Lista' : 'Editar Nota'}
-            </h2>
-          </div>
-
-        <div className="flex-1 overflow-y-auto space-y-6 pr-2">
+        <div className="flex-1 overflow-y-auto space-y-6">
           {/* Color Picker */}
           <div className="space-y-3">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Cor:</label>
+            <label className="text-sm font-medium">Cor:</label>
             <div className="flex gap-3 pl-1">
               {noteColors.map((color) => (
                 <button
                   key={color}
                   className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${
-                    selectedColor === color ? 'border-gray-800 scale-110 ring-2 ring-gray-400' : 'border-gray-300'
+                    selectedColor === color ? 'border-foreground scale-110 ring-2 ring-foreground/30' : 'border-border'
                   }`}
                   style={{ backgroundColor: color }}
                   onClick={() => setSelectedColor(color)}
@@ -159,26 +140,26 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
 
           {/* Title */}
           <div className="space-y-3">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="text-sm font-medium">
               {note.type === 'list' ? 'Título da Lista:' : 'Título:'}
             </label>
             <Input
               placeholder={note.type === 'list' ? 'Digite o título da lista...' : 'Digite o título...'}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white h-12"
+              className="h-12"
             />
           </div>
 
           {/* Content - SEMPRE mostrar área de conteúdo para notas */}
           {(note.type === 'content' || note.type === 'title') && (
             <div className="space-y-3">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Conteúdo:</label>
+              <label className="text-sm font-medium">Conteúdo:</label>
               <Textarea
                 placeholder="Escreva sua nota..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="min-h-32 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white resize-none"
+                className="min-h-32 resize-none"
                 rows={6}
               />
             </div>
@@ -189,7 +170,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
             <div className="space-y-6">
               {/* Pending Items */}
               <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                <label className="text-sm font-medium flex items-center gap-2">
                   <Circle className="w-4 h-4" />
                   Itens Pendentes:
                 </label>
@@ -200,21 +181,21 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                         variant="ghost"
                         size="sm"
                         onClick={() => toggleListItemCompletion(item.id)}
-                        className="p-1 h-auto hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="p-1 h-auto"
                       >
-                        <Circle className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                        <Circle className="w-4 h-4" />
                       </Button>
                       <Input
                         placeholder="Digite o item..."
                         value={item.text}
                         onChange={(e) => updateListItem(item.id, e.target.value)}
-                        className="flex-1 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
+                        className="flex-1"
                       />
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => handleRemoveListItem(item.id)}
-                        className="p-1 h-auto hover:bg-red-100 text-red-600 dark:hover:bg-red-900 dark:text-red-400"
+                        className="p-1 h-auto text-destructive"
                       >
                         <X className="w-4 h-4" />
                       </Button>
@@ -225,7 +206,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                   variant="outline"
                   size="sm"
                   onClick={handleAddListItem}
-                  className="w-full text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="w-full"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Adicionar Item
@@ -235,7 +216,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
               {/* Completed Items */}
               {completedItems.length > 0 && (
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                  <label className="text-sm font-medium flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600" />
                     Itens Concluídos:
                   </label>
@@ -246,12 +227,12 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                           variant="ghost"
                           size="sm"
                           onClick={() => toggleListItemCompletion(item.id)}
-                          className="p-1 h-auto hover:bg-gray-100 dark:hover:bg-gray-700"
+                          className="p-1 h-auto"
                         >
                           <CheckCircle className="w-4 h-4 text-green-600" />
                         </Button>
-                        <div className="flex-1 bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2">
-                          <span className="line-through text-gray-600 dark:text-gray-400">
+                        <div className="flex-1 bg-muted border rounded-md px-3 py-2">
+                          <span className="line-through text-muted-foreground">
                             {item.text}
                           </span>
                         </div>
@@ -259,7 +240,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                           variant="ghost"
                           size="sm"
                           onClick={() => handleRemoveListItem(item.id)}
-                          className="p-1 h-auto hover:bg-red-100 text-red-600 dark:hover:bg-red-900 dark:text-red-400"
+                          className="p-1 h-auto text-destructive"
                         >
                           <X className="w-4 h-4" />
                         </Button>
@@ -274,7 +255,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           {/* Category */}
           {categories && categories.length > 0 && (
             <div className="space-y-3">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Categoria:</label>
+              <label className="text-sm font-medium">Categoria:</label>
               <CategoryManager
                 categories={categories}
                 selectedCategories={selectedCategory ? [selectedCategory.id] : []}
@@ -290,11 +271,11 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
         </div>
 
         {/* Actions */}
-        <div className="flex gap-3 pt-6 mt-4 border-t border-gray-200 dark:border-gray-700 pb-2">
+        <div className="flex gap-3 pt-6 mt-4 border-t">
           <Button
             variant="outline"
             onClick={onClose}
-            className="flex-1 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="flex-1"
           >
             Cancelar
           </Button>
@@ -311,14 +292,13 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           </Button>
           <Button
             onClick={handleSave}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+            className="flex-1"
           >
             <Check className="w-4 h-4 mr-2" />
             Salvar Alterações
           </Button>
         </div>
-      </DialogPrimitive.Content>
-    </DialogPrimitive.Portal>
-  </DialogPrimitive.Root>
+      </DialogContent>
+    </Dialog>
   );
 };
