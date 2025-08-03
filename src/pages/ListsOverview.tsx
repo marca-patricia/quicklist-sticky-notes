@@ -236,26 +236,22 @@ export const ListsOverview: React.FC = () => {
         {/* Lists Section */}
         <section aria-label={lists.length > 0 ? `${lists.length} listas criadas` : "Nenhuma lista criada"}>
           {isLoading ? (
-            <div className={`grid gap-6 ${
-              isGridView 
-                ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' 
-                : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-            }`}>
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="rounded-lg p-4 shadow-soft border border-gray-200 bg-white">
-                  <div className="flex justify-between items-start mb-3">
-                    <div className="animate-pulse bg-muted rounded h-6 w-32"></div>
-                    <div className="flex items-center gap-2">
-                      <div className="animate-pulse bg-muted rounded-full h-8 w-8"></div>
-                      <div className="animate-pulse bg-muted rounded-full h-8 w-8"></div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="rounded-lg p-3 shadow-soft border border-gray-200 bg-white min-h-[180px]">
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="animate-pulse bg-muted rounded h-4 w-20"></div>
+                    <div className="flex items-center gap-1">
+                      <div className="animate-pulse bg-muted rounded-full h-6 w-6"></div>
+                      <div className="animate-pulse bg-muted rounded-full h-6 w-6"></div>
                     </div>
                   </div>
                   <div className="mb-3">
                     <div className="flex justify-between mb-1">
-                      <div className="animate-pulse bg-muted rounded h-4 w-20"></div>
-                      <div className="animate-pulse bg-muted rounded h-4 w-12"></div>
+                      <div className="animate-pulse bg-muted rounded h-3 w-16"></div>
+                      <div className="animate-pulse bg-muted rounded h-3 w-8"></div>
                     </div>
-                    <div className="animate-pulse bg-muted rounded-full h-2 w-full"></div>
+                    <div className="animate-pulse bg-muted rounded-full h-1.5 w-full"></div>
                   </div>
                 </div>
               ))}
@@ -308,11 +304,7 @@ export const ListsOverview: React.FC = () => {
                       </h2>
                     </div>
 
-                    <div className={`grid mt-8 ${
-                      isGridView 
-                        ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-4' 
-                        : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
-                    }`}>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
                       {filteredLists.map((list) => (
                         <PostItCard 
                           key={list.id} 
