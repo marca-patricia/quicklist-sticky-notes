@@ -34,11 +34,11 @@ export const AddListForm: React.FC = () => {
         placeholder={t('listPlaceholder')}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="flex-1 bg-gradient-primary border-none text-foreground placeholder:text-muted-foreground"
+        className="flex-1 bg-gradient-primary border-none text-foreground dark:text-black placeholder:text-muted-foreground dark:placeholder:text-gray-600"
         aria-label="Nome da nova lista"
         aria-describedby="list-input-help"
       />
-      <div id="list-input-help" className="sr-only">
+      <div id="list-input-help" className="sr-only dark:text-black">
         Digite o nome da sua nova lista e clique em adicionar
       </div>
       <ColorPicker 
@@ -50,11 +50,11 @@ export const AddListForm: React.FC = () => {
       <Button 
         type="submit" 
         disabled={!title.trim()}
-        className="bg-gradient-primary text-foreground hover:opacity-90 border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-gradient-primary text-foreground dark:text-black hover:opacity-90 border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label={title.trim() ? `Criar lista "${title.trim()}"` : "Digite um nome para criar a lista"}
       >
-        <Plus className="w-4 h-4 mr-2" aria-hidden="true" />
-        {t('addList')}
+        <Plus className="w-4 h-4 mr-2 dark:text-black" aria-hidden="true" />
+        <span className="dark:text-black">{t('addList')}</span>
       </Button>
     </form>
   );
