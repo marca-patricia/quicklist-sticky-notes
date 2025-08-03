@@ -125,9 +125,9 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
       {/* Toolbar */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-border p-4 dark:bg-black dark:border-white/10">
         {/* Search and Actions Row */}
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 items-center">
           {/* Search with Filter */}
-          <div className="flex-1 max-w-md flex">
+          <div className="flex-1 max-w-md flex items-center">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
@@ -141,7 +141,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-none border-l-0 border-r-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20"
+                  className="h-10 px-3 text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-none border-l-0 border-r-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20 flex items-center justify-center"
                 >
                   <Search className="w-4 h-4" />
                 </Button>
@@ -220,7 +220,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-l-none border-l-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20"
+                  className="h-10 px-3 text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-l-none border-l-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20 flex items-center justify-center"
                   disabled={creatingNote !== null}
                 >
                   <Plus className="w-4 h-4" />
