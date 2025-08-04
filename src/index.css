@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 13%; /* Texto preto */
 
     --muted: 48 20% 95%; /* #F9F7F1 - Fundo muted suave */
-    --muted-foreground: 0 0% 30%; /* Texto muted preto mais claro */
+    --muted-foreground: 0 0% 10%; /* Texto muted preto escuro para números da produtividade */
 
     --accent: 48 25% 92%; /* #F7F4E8 - Accent suave */
     --accent-foreground: 0 0% 13%; /* Texto preto */

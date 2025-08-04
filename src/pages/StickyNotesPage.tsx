@@ -193,8 +193,22 @@ export const StickyNotesPage: React.FC = () => {
       {/* Floating Action Button */}
       <FloatingStickyButton
         onCreateNote={(type) => {
-          // Trigger creation in the board component
-          setPendingNoteType(type);
+          // Create note directly without navigation
+          const newNote: StickyNoteData = {
+            id: Date.now().toString(),
+            type,
+            title: '',
+            content: '',
+            items: type === 'list' ? [''] : undefined,
+            color: '#FFF59D', // Default yellow
+            position: { x: 100, y: 100 },
+            createdAt: new Date()
+          };
+          setNotes(prev => [...prev, newNote]);
+          toast({
+            title: "Nova nota criada",
+            description: `${type === 'list' ? 'Lista' : 'Nota'} adicionada! Clique nela para editar.`,
+          });
         }}
         disabled={false}
       />

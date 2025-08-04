@@ -329,10 +329,10 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       draggable={!!note.id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      onClick={note.type === 'list' ? handleEditClick : undefined}
-      className={`w-56 h-64 p-3 hover:shadow-postit-hover transition-all duration-300 group ${
+      onClick={handleEditClick}
+      className={`w-56 h-64 p-3 hover:shadow-postit-hover transition-all duration-300 group cursor-pointer ${
         isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
-      } ${note.type === 'list' ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'}`}
+      }`}
       style={{ 
         backgroundColor: note.color,
         transform: isDragging ? 'rotate(5deg)' : undefined,
@@ -353,7 +353,8 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             </Badge>
           )}
         </div>
-        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        {/* Actions only visible on desktop hover, hidden on mobile for direct click */}
+        <div className="hidden md:flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <Button
             variant="ghost"
             size="sm"
