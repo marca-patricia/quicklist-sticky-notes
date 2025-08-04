@@ -1,464 +1,92 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'pt' | 'en';
 
 interface LanguageContextType {
   language: Language;
-  setLanguage: (lang: Language) => void;
+  setLanguage: (language: Language) => void;
   t: (key: string) => string;
 }
 
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
 const translations = {
   pt: {
-    appTitle: 'QuickList',
-    addItem: 'Adicionar item',
-    addList: 'Nova Lista',
-    placeholder: 'Digite um novo item...',
-    listPlaceholder: 'Nome da nova lista...',
-    noItems: 'Sua lista está vazia',
-    noItemsDesc: 'Adicione alguns itens para começar',
-    shareList: 'Compartilhar Lista',
-    clearCompleted: 'Limpar Concluídos',
-    itemsLeft: 'itens restantes',
-    oneItemLeft: 'item restante',
-    allCompleted: 'Todos os itens concluídos!',
-    sharedText: 'Minha QuickList:\n\n',
-    completedItem: '✅',
-    pendingItem: '⭕',
-    deleteItem: 'Excluir',
-    markComplete: 'Marcar como concluído',
-    markIncomplete: 'Marcar como pendente',
-    deleteList: 'Excluir Lista',
-    newList: 'Nova Lista',
-    addToHome: 'Adicionar à Tela Inicial',
-    completed: '✅ Concluídos',
-    pending: 'Pendentes',
-    noLists: 'Nenhuma lista ainda',
-    noListsDesc: 'Crie sua primeira lista para começar a organizar suas tarefas',
-    createFirstList: 'Criar primeira lista',
-    allLists: 'Todas as listas',
-    backToLists: 'Voltar às listas',
-    listNotFound: 'Lista não encontrada',
-    addItemHere: 'Adicione alguns itens para começar!',
-    emptyList: 'Lista vazia',
-    addItems: 'Adicionar itens',
-    openFullApp: 'Abrir QuickList completo',
-    installApp: 'Instalar QuickList',
-    installDesc: 'Adicione o QuickList à sua tela inicial para acesso rápido e uso offline!',
-    install: 'Instalar',
-    later: 'Depois',
-    homeScreen: 'Tela inicial',
-    organizeDesc: 'Organize suas listas de forma simples e eficiente',
-    listCreated: 'Nova lista criada!',
-    itemAdded: 'Item adicionado à lista!',
-    itemRemoved: 'Item removido da lista!',
-    completedItemsRemoved: 'itens concluídos removidos!',
-    listCopied: 'Lista copiada para área de transferência!',
-    linkCopied: 'Link copiado! Cole na barra de endereços e adicione à tela inicial',
-    yourListEmpty: 'Sua lista está vazia',
-    // Templates
-    templates: 'Modelos',
-    useTemplate: 'Usar Modelo',
-    personalTemplate: 'Lista Pessoal',
-    personalDesc: 'Lista simples para suas tarefas diárias',
-    workTemplate: 'Lista de Trabalho',
-    workDesc: 'Organize suas tarefas profissionais',
-    shoppingTemplate: 'Lista de Compras',
-    shoppingDesc: 'Lista para suas compras e mantimentos',
-    travelTemplate: 'Lista de Viagem',
-    travelDesc: 'Planeje sua próxima viagem',
-    studyTemplate: 'Lista de Estudos',
-    studyDesc: 'Organize seus materiais e tarefas acadêmicas',
-    eventTemplate: 'Planejamento de Evento',
-    eventDesc: 'Organize um evento ou festa',
-    // Template items
-    personalItems: 'Beber água, Exercitar-se, Ler livro, Meditar, Ligar para família',
-    workItems: 'Verificar emails, Reunião equipe, Relatório mensal, Revisar projeto, Planejar semana',
-    shoppingItems: 'Pão, Leite, Ovos, Frutas, Verduras, Carne, Arroz',
-    travelItems: 'Documentos, Passagem, Hotel, Seguro viagem, Medicamentos, Roupas',
-    studyItems: 'Ler capítulo 1, Fazer exercícios, Revisar anotações, Preparar apresentação',
-    eventItems: 'Local, Convidados, Decoração, Comida, Bebidas, Música, Lembranças',
-    // Insights
-    insights: 'Insights',
-    productivityInsights: 'Insights de Produtividade',
-    totalTasksCreated: 'Total de tarefas criadas',
-    totalTasksCompleted: 'Total de tarefas concluídas',
-    completionRate: 'Taxa de conclusão',
-    currentStreak: 'Sequência atual',
-    bestStreak: 'Melhor sequência',
-    averageTasksPerDay: 'Média de tarefas por dia',
-    mostProductiveDay: 'Dia mais produtivo',
-    tasksCompletedToday: 'Tarefas concluídas hoje',
-    thisWeek: 'Esta semana',
-    thisMonth: 'Este mês',
-    days: 'dias',
-    // Achievements
-    achievements: 'Conquistas',
-    achievementsUnlocked: 'Conquistas Desbloqueadas',
-    firstStep: 'Primeiro Passo',
-    firstStepDesc: 'Complete sua primeira tarefa',
-    earlyBird: 'Madrugador',
-    earlyBirdDesc: 'Complete uma tarefa antes das 8h',
-    nightOwl: 'Coruja Noturna',
-    nightOwlDesc: 'Complete uma tarefa depois das 22h',
-    taskMaster: 'Mestre das Tarefas',
-    taskMasterDesc: 'Complete 50 tarefas',
-    productivityHero: 'Herói da Produtividade',
-    productivityHeroDesc: 'Complete 100 tarefas',
-    legendaryAchiever: 'Lenda da Produtividade',
-    legendaryAchieverDesc: 'Complete 500 tarefas',
-    streakStarter: 'Sequência Iniciada',
-    streakStarterDesc: 'Complete tarefas por 3 dias seguidos',
-    streakMaster: 'Mestre da Consistência',
-    streakMasterDesc: 'Complete tarefas por 7 dias seguidos',
-    streakLegend: 'Lenda da Consistência',
-    streakLegendDesc: 'Complete tarefas por 30 dias seguidos',
-    organizer: 'Organizador',
-    organizerDesc: 'Use 5 categorias diferentes',
-    categoryMaster: 'Mestre das Categorias',
-    categoryMasterDesc: 'Use 10 categorias diferentes',
-    speedDemon: 'Velocista',
-    speedDemonDesc: 'Complete 10 tarefas em um dia',
-    powerUser: 'Super Usuário',
-    powerUserDesc: 'Complete 25 tarefas em um dia',
-    listCreator: 'Criador de Listas',
-    listCreatorDesc: 'Crie 5 listas diferentes',
-    listArchitect: 'Arquiteto de Listas',
-    listArchitectDesc: 'Crie 20 listas diferentes',
-    perfectionist: 'Perfeccionista',
-    perfectionistDesc: 'Complete uma lista inteira',
-    minimalist: 'Minimalista',
-    minimalistDesc: 'Complete uma lista com apenas 1 item',
-    maximalist: 'Maximalista',
-    maximalistDesc: 'Crie uma lista com 50+ itens',
-    weekendWarrior: 'Guerreiro de Fim de Semana',
-    weekendWarriorDesc: 'Complete tarefas no sábado e domingo',
-    unlocked: 'Desbloqueada',
-    unlockedOn: 'Desbloqueada em',
-    // Edit functionality
-    edit: 'Editar',
-    save: 'Salvar',
-    cancel: 'Cancelar',
-    clickToEdit: 'Clique para editar',
-    listUpdated: 'Lista atualizada!',
-    // Confirmations and feedback
-    confirm: 'Confirmar',
-    confirmDeleteList: 'Confirmar exclusão da lista',
-    confirmDeleteListDesc: 'Esta ação não pode ser desfeita. Todos os itens da lista serão perdidos.',
-    confirmDeleteItem: 'Confirmar exclusão do item',
-    confirmDeleteItemDesc: 'Este item será removido permanentemente.',
-    listDeleted: 'Lista excluída',
-    itemDeleted: 'Item excluído',
-    undo: 'Desfazer',
-    undone: 'Desfeito',
-    clickToUndo: 'Clique para desfazer',
-    itemSaved: 'Item salvo',
-    listSaved: 'Lista salva',
-    changesSaved: 'Alterações salvas',
-    // Archive functionality
-    archive: 'Arquivar',
-    archived: 'Arquivadas',
-    unarchive: 'Desarquivar',
-    showArchived: 'Mostrar arquivadas',
-    hideArchived: 'Ocultar arquivadas',
-    archiveList: 'Arquivar lista',
-    listArchived: 'Lista arquivada',
-    listUnarchived: 'Lista desarquivada',
-    // Export functionality
-    export: 'Exportar',
-    exportPdf: 'Exportar PDF',
-    exportTxt: 'Exportar TXT',
-    exportJson: 'Exportar JSON',
-    exported: 'Exportado com sucesso',
-    // Additional missing translations
-    listRestored: 'Lista restaurada',
-    itemRestored: 'Item restaurado',
-    tooltip: 'Dica',
-    dragToReorder: 'Arraste para reordenar',
-    clickToComplete: 'Clique para completar',
-    doubleClickToEdit: 'Clique duas vezes para editar',
-    noArchivedLists: 'Nenhuma lista arquivada',
+    // Auth Page
+    'auth.title': 'QuickList',
+    'auth.login': 'Entrar',
+    'auth.signup': 'Criar Conta',
+    'auth.email': 'Email',
+    'auth.password': 'Senha',
+    'auth.passwordMin': 'Senha (mínimo 6 caracteres)',
+    'auth.loginButton': 'Entrar',
+    'auth.signupButton': 'Criar Conta',
+    'auth.loggingIn': 'Entrando...',
+    'auth.creating': 'Criando...',
+    'auth.welcomeBack': 'Bem-vindo de volta!',
+    'auth.accountCreated': 'Conta criada! Verifique seu email.',
     
-    // Search and filters
-    searchPlaceholder: 'Buscar tarefas...',
-    searchLists: 'Buscar listas...',
-    noResultsFound: 'Nenhum resultado encontrado',
-    clearSearch: 'Limpar busca',
-    
-    // View modes
-    listView: 'Lista',
-    gridView: 'Grade',
-    switchToListView: 'Alternar para visualização em lista',
-    switchToGridView: 'Alternar para visualização em grade',
-    
-    // Notifications and reminders
-    scheduleReminder: 'Agendar Lembrete',
-    reminderScheduled: 'Lembrete agendado',
-    reminderFor: 'Lembrete para',
-    reminderText: 'Texto do lembrete',
-    selectDateAndTime: 'Selecione data e hora',
-    selectFutureDateTime: 'Selecione uma data e hora futura',
-    notificationPermissionDenied: 'Permissão de notificação negada',
-    activeReminders: 'Lembretes ativos',
-    reminderRemoved: 'Lembrete removido',
-    
-    // Categories and colors
-    selectColor: 'Selecionar cor',
-    changeColor: 'Alterar cor',
-    categoryColor: 'Cor da categoria',
-    
-    // Accessibility
-    keyboardNavigation: 'Navegação por teclado disponível',
-    pressEnterToActivate: 'Pressione Enter para ativar',
-    pressEscapeToCancel: 'Pressione Esc para cancelar',
-    
-    // Advanced features
-    itemMoved: 'Item movido',
-    error: 'Erro',
-    exportAs: 'Exportar como',
-    exportMd: 'Markdown (.md)',
-    listExported: 'Lista exportada com sucesso!'
+    // General
+    'general.loading': 'Carregando...',
+    'general.save': 'Salvar',
+    'general.cancel': 'Cancelar',
+    'general.delete': 'Excluir',
+    'general.edit': 'Editar',
   },
   en: {
-    appTitle: 'QuickList',
-    addItem: 'Add item',
-    addList: 'New List',
-    placeholder: 'Type a new item...',
-    listPlaceholder: 'New list name...',
-    noItems: 'Your list is empty',
-    noItemsDesc: 'Add some items to get started',
-    shareList: 'Share List',
-    clearCompleted: 'Clear Completed',
-    itemsLeft: 'items left',
-    oneItemLeft: 'item left',
-    allCompleted: 'All items completed!',
-    sharedText: 'My QuickList:\n\n',
-    completedItem: '✅',
-    pendingItem: '⭕',
-    deleteItem: 'Delete',
-    markComplete: 'Mark as complete',
-    markIncomplete: 'Mark as pending',
-    deleteList: 'Delete List',
-    newList: 'New List',
-    addToHome: 'Add to Home Screen',
-    completed: '✅ Completed',
-    pending: 'Pending',
-    noLists: 'No lists yet',
-    noListsDesc: 'Create your first list to start organizing your tasks',
-    createFirstList: 'Create first list',
-    allLists: 'All lists',
-    backToLists: 'Back to lists',
-    listNotFound: 'List not found',
-    addItemHere: 'Add some items to get started!',
-    emptyList: 'Empty list',
-    addItems: 'Add items',
-    openFullApp: 'Open full QuickList',
-    installApp: 'Install QuickList',
-    installDesc: 'Add QuickList to your home screen for quick access and offline use!',
-    install: 'Install',
-    later: 'Later',
-    homeScreen: 'Home screen',
-    organizeDesc: 'Organize your lists simply and efficiently',
-    listCreated: 'New list created!',
-    itemAdded: 'Item added to list!',
-    itemRemoved: 'Item removed from list!',
-    completedItemsRemoved: 'completed items removed!',
-    listCopied: 'List copied to clipboard!',
-    linkCopied: 'Link copied! Paste in address bar and add to home screen',
-    yourListEmpty: 'Your list is empty',
-    // Templates
-    templates: 'Templates',
-    useTemplate: 'Use Template',
-    personalTemplate: 'Personal List',
-    personalDesc: 'Simple list for your daily tasks',
-    workTemplate: 'Work List',
-    workDesc: 'Organize your professional tasks',
-    shoppingTemplate: 'Shopping List',
-    shoppingDesc: 'List for your purchases and groceries',
-    travelTemplate: 'Travel List',
-    travelDesc: 'Plan your next trip',
-    studyTemplate: 'Study List',
-    studyDesc: 'Organize your materials and academic tasks',
-    eventTemplate: 'Event Planning',
-    eventDesc: 'Organize an event or party',
-    // Template items
-    personalItems: 'Drink water, Exercise, Read book, Meditate, Call family',
-    workItems: 'Check emails, Team meeting, Monthly report, Review project, Plan week',
-    shoppingItems: 'Bread, Milk, Eggs, Fruits, Vegetables, Meat, Rice',
-    travelItems: 'Documents, Flight ticket, Hotel, Travel insurance, Medications, Clothes',
-    studyItems: 'Read chapter 1, Do exercises, Review notes, Prepare presentation',
-    eventItems: 'Venue, Guests, Decoration, Food, Drinks, Music, Souvenirs',
-    // Insights
-    insights: 'Insights',
-    productivityInsights: 'Productivity Insights',
-    totalTasksCreated: 'Total tasks created',
-    totalTasksCompleted: 'Total tasks completed',
-    completionRate: 'Completion rate',
-    currentStreak: 'Current streak',
-    bestStreak: 'Best streak',
-    averageTasksPerDay: 'Average tasks per day',
-    mostProductiveDay: 'Most productive day',
-    tasksCompletedToday: 'Tasks completed today',
-    thisWeek: 'This week',
-    thisMonth: 'This month',
-    days: 'days',
-    // Achievements
-    achievements: 'Achievements',
-    achievementsUnlocked: 'Achievements Unlocked',
-    firstStep: 'First Step',
-    firstStepDesc: 'Complete your first task',
-    earlyBird: 'Early Bird',
-    earlyBirdDesc: 'Complete a task before 8 AM',
-    nightOwl: 'Night Owl',
-    nightOwlDesc: 'Complete a task after 10 PM',
-    taskMaster: 'Task Master',
-    taskMasterDesc: 'Complete 50 tasks',
-    productivityHero: 'Productivity Hero',
-    productivityHeroDesc: 'Complete 100 tasks',
-    legendaryAchiever: 'Legendary Achiever',
-    legendaryAchieverDesc: 'Complete 500 tasks',
-    streakStarter: 'Streak Starter',
-    streakStarterDesc: 'Complete tasks for 3 consecutive days',
-    streakMaster: 'Consistency Master',
-    streakMasterDesc: 'Complete tasks for 7 consecutive days',
-    streakLegend: 'Consistency Legend',
-    streakLegendDesc: 'Complete tasks for 30 consecutive days',
-    organizer: 'Organizer',
-    organizerDesc: 'Use 5 different categories',
-    categoryMaster: 'Category Master',
-    categoryMasterDesc: 'Use 10 different categories',
-    speedDemon: 'Speed Demon',
-    speedDemonDesc: 'Complete 10 tasks in one day',
-    powerUser: 'Power User',
-    powerUserDesc: 'Complete 25 tasks in one day',
-    listCreator: 'List Creator',
-    listCreatorDesc: 'Create 5 different lists',
-    listArchitect: 'List Architect',
-    listArchitectDesc: 'Create 20 different lists',
-    perfectionist: 'Perfectionist',
-    perfectionistDesc: 'Complete an entire list',
-    minimalist: 'Minimalist',
-    minimalistDesc: 'Complete a list with only 1 item',
-    maximalist: 'Maximalist',
-    maximalistDesc: 'Create a list with 50+ items',
-    weekendWarrior: 'Weekend Warrior',
-    weekendWarriorDesc: 'Complete tasks on Saturday and Sunday',
-    unlocked: 'Unlocked',
-    unlockedOn: 'Unlocked on',
-    // Edit functionality
-    edit: 'Edit',
-    save: 'Save',
-    cancel: 'Cancel',
-    clickToEdit: 'Click to edit',
-    listUpdated: 'List updated!',
-    // Confirmations and feedback
-    confirm: 'Confirm',
-    confirmDeleteList: 'Confirm list deletion',
-    confirmDeleteListDesc: 'This action cannot be undone. All items in the list will be lost.',
-    confirmDeleteItem: 'Confirm item deletion',
-    confirmDeleteItemDesc: 'This item will be permanently removed.',
-    listDeleted: 'List deleted',
-    itemDeleted: 'Item deleted',
-    undo: 'Undo',
-    undone: 'Undone',
-    clickToUndo: 'Click to undo',
-    itemSaved: 'Item saved',
-    listSaved: 'List saved',
-    changesSaved: 'Changes saved',
-    // Archive functionality
-    archive: 'Archive',
-    archived: 'Archived',
-    unarchive: 'Unarchive',
-    showArchived: 'Show archived',
-    hideArchived: 'Hide archived',
-    archiveList: 'Archive list',
-    listArchived: 'List archived',
-    listUnarchived: 'List unarchived',
-    // Export functionality
-    export: 'Export',
-    exportPdf: 'Export PDF',
-    exportTxt: 'Export TXT',
-    exportJson: 'Export JSON',
-    exported: 'Exported successfully',
-    // Additional missing translations
-    listRestored: 'List restored',
-    itemRestored: 'Item restored',
-    tooltip: 'Tip',
-    dragToReorder: 'Drag to reorder',
-    clickToComplete: 'Click to complete',
-    doubleClickToEdit: 'Double click to edit',
-    noArchivedLists: 'No archived lists',
+    // Auth Page
+    'auth.title': 'QuickList',
+    'auth.login': 'Login',
+    'auth.signup': 'Sign Up',
+    'auth.email': 'Email',
+    'auth.password': 'Password',
+    'auth.passwordMin': 'Password (minimum 6 characters)',
+    'auth.loginButton': 'Login',
+    'auth.signupButton': 'Sign Up',
+    'auth.loggingIn': 'Logging in...',
+    'auth.creating': 'Creating...',
+    'auth.welcomeBack': 'Welcome back!',
+    'auth.accountCreated': 'Account created! Check your email.',
     
-    // Search and filters
-    searchPlaceholder: 'Search tasks...',
-    searchLists: 'Search lists...',
-    noResultsFound: 'No results found',
-    clearSearch: 'Clear search',
-    
-    // View modes
-    listView: 'List',
-    gridView: 'Grid',
-    switchToListView: 'Switch to list view',
-    switchToGridView: 'Switch to grid view',
-    
-    // Notifications and reminders
-    scheduleReminder: 'Schedule Reminder',
-    reminderScheduled: 'Reminder scheduled',
-    reminderFor: 'Reminder for',
-    reminderText: 'Reminder text',
-    selectDateAndTime: 'Select date and time',
-    selectFutureDateTime: 'Select a future date and time',
-    notificationPermissionDenied: 'Notification permission denied',
-    activeReminders: 'Active reminders',
-    reminderRemoved: 'Reminder removed',
-    
-    // Categories and colors
-    selectColor: 'Select color',
-    changeColor: 'Change color',
-    categoryColor: 'Category color',
-    
-    // Accessibility
-    keyboardNavigation: 'Keyboard navigation available',
-    pressEnterToActivate: 'Press Enter to activate',
-    pressEscapeToCancel: 'Press Esc to cancel',
-    
-    // Advanced features
-    itemMoved: 'Item moved',
-    error: 'Error',
-    exportAs: 'Export as',
-    exportMd: 'Markdown (.md)',
-    listExported: 'List exported successfully!'
+    // General
+    'general.loading': 'Loading...',
+    'general.save': 'Save',
+    'general.cancel': 'Cancel',
+    'general.delete': 'Delete',
+    'general.edit': 'Edit',
   }
 };
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [language, setLanguage] = useState<Language>('pt');
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = React.useState<Language>(() => {
-    const saved = localStorage.getItem('quicklist-language');
-    return (saved as Language) || 'pt';
-  });
+  useEffect(() => {
+    const saved = localStorage.getItem('quicklist-language') as Language;
+    if (saved && (saved === 'pt' || saved === 'en')) {
+      setLanguage(saved);
+    }
+  }, []);
 
-  React.useEffect(() => {
-    localStorage.setItem('quicklist-language', language);
-  }, [language]);
+  const changeLanguage = (newLanguage: Language) => {
+    setLanguage(newLanguage);
+    localStorage.setItem('quicklist-language', newLanguage);
+  };
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations['pt']] || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: changeLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
-};
+}
 
-export const useLanguage = () => {
-  const context = React.useContext(LanguageContext);
+export function useLanguage() {
+  const context = useContext(LanguageContext);
   if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-};
+}
