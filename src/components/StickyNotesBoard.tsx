@@ -138,7 +138,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-10 px-3 text-foreground hover:text-foreground hover:bg-accent/10 border border-border rounded-none border-l-0 border-r-0 dark:text-white dark:hover:text-white dark:hover:bg-white/10 dark:border-white/20 flex items-center justify-center"
+                  className="h-10 px-3 text-foreground hover:text-foreground hover:bg-accent/10 border-0 rounded-none dark:text-white dark:hover:text-white dark:hover:bg-white/10 flex items-center justify-center"
                 >
                   <Search className="w-4 h-4" />
                 </Button>

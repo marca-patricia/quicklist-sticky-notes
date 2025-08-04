@@ -48,6 +48,7 @@ export const ListsOverview: React.FC = () => {
 
   // Calculate user stats for achievements
   React.useEffect(() => {
+    if (!lists.length) return;
     const allItems = lists.flatMap(list => list.items);
     const completedItems = allItems.filter(item => item.completed);
     const categoriesUsed = new Set(lists.flatMap(list => 
@@ -98,7 +99,7 @@ export const ListsOverview: React.FC = () => {
       tasksCompletedToday,
       listsCreated: lists.length
     });
-  }, [lists, checkAchievements]);
+  }, [lists.length, checkAchievements]);
 
   // Request notification permission on first load
   React.useEffect(() => {

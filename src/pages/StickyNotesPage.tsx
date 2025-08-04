@@ -36,8 +36,9 @@ export const StickyNotesPage: React.FC = () => {
       
       if (savedNotes.length > 0 || savedCategories.length > 0) {
         toast({
-          title: "Dados carregados",
+          title: "Bem-vindo de volta!",
           description: `${savedNotes.length} notas e ${savedCategories.length} categorias carregadas`,
+          duration: 2000,
         });
       }
     } catch (error) {
@@ -208,6 +209,7 @@ export const StickyNotesPage: React.FC = () => {
           toast({
             title: "Nova nota criada",
             description: `${type === 'list' ? 'Lista' : 'Nota'} adicionada! Clique nela para editar.`,
+            duration: 2500,
           });
         }}
         disabled={false}
