@@ -306,10 +306,16 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   if (!note) return null;
 
   const handleEditClick = () => {
-    if (note.type === 'list') {
-      setShowListOverlay(true);
-    } else {
+    // Para mobile, sempre abrir modal de edição diretamente
+    if (window.innerWidth <= 768) {
       setShowEditModal(true);
+    } else {
+      // Para desktop, comportamento normal
+      if (note.type === 'list') {
+        setShowListOverlay(true);
+      } else {
+        setShowEditModal(true);
+      }
     }
   };
 
@@ -330,9 +336,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onClick={handleEditClick}
-      className={`w-56 h-64 p-3 hover:shadow-postit-hover transition-all duration-300 group cursor-pointer ${
+      className={`w-56 h-64 md:w-56 md:h-64 p-3 hover:shadow-postit-hover transition-all duration-300 group cursor-pointer mobile-touch-target ${
         isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
-      }`}
+      } sticky-note-mobile`}
       style={{ 
         backgroundColor: note.color,
         transform: isDragging ? 'rotate(5deg)' : undefined,
@@ -391,7 +397,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
         )}
 
         {note.content && (
-          <p className="text-sm leading-relaxed whitespace-pre-wrap text-black dark:text-black">
+          <p className="text-sm leading-relaxed whitespace-pre-wrap text-black dark:text-black sticky-note-content">
             {note.content}
           </p>
         )}

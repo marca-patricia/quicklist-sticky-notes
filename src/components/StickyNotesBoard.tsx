@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { SearchInput } from '@/components/SearchInput';
 import { Badge } from '@/components/ui/badge';
 import { Category } from '@/components/CategoryManager';
+import { ClearAllNotesButton } from '@/components/ClearAllNotesButton';
 import { Plus, Grid, Search, Filter, StickyNote as StickyNoteIcon, FileText, List, Tag } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -13,16 +14,25 @@ interface StickyNotesBoardProps {
   onNoteSave: (note: Omit<StickyNoteData, 'id' | 'createdAt'>) => void;
   onNoteUpdate: (id: string, note: Partial<StickyNoteData>) => void;
   onNoteDelete: (id: string) => void;
+  onClearAll?: () => void;
   categories?: Category[];
   onCategoryCreate?: (category: Omit<Category, 'id'>) => void;
   onCategoryDelete?: (categoryId: string) => void;
 }
 
 const noteTypeLabels = {
-  title: 'Título',
-  content: 'Nota',
-  list: 'Lista',
-  category: 'Categoria'
+  pt: {
+    title: 'Título',
+    content: 'Nota',
+    list: 'Lista',
+    category: 'Categoria'
+  },
+  en: {
+    title: 'Title',
+    content: 'Note',
+    list: 'List',
+    category: 'Category'
+  }
 };
 
 const noteTypeIcons = {
@@ -37,11 +47,12 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   onNoteSave,
   onNoteUpdate,
   onNoteDelete,
+  onClearAll,
   categories = [],
   onCategoryCreate,
   onCategoryDelete
 }) => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<NoteType | 'all'>('all');
   const [filterCategory, setFilterCategory] = useState<string | 'all'>('all');
@@ -128,7 +139,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
-              placeholder="Buscar notas..."
+              placeholder={language === 'pt' ? "Buscar notas..." : "Search notes..."}
               className="flex-1 dark:bg-black dark:border-white/20 dark:text-white dark:placeholder:text-white/60 rounded-r-none border-r-0"
             />
             
@@ -145,11 +156,15 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
               </PopoverTrigger>
               <PopoverContent className="w-80 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
                 <div className="space-y-4">
-                  <h4 className="font-medium text-foreground dark:text-white">Busca Avançada</h4>
+                  <h4 className="font-medium text-foreground dark:text-white">
+                    {language === 'pt' ? 'Busca Avançada' : 'Advanced Search'}
+                  </h4>
                   
                   {/* Type Filter */}
                   <div className="space-y-2">
-                    <label className="text-sm text-muted-foreground dark:text-white/80">Tipo:</label>
+                    <label className="text-sm text-muted-foreground dark:text-white/80">
+                      {language === 'pt' ? 'Tipo:' : 'Type:'}
+                    </label>
                     <div className="flex gap-1 flex-wrap">
                       <Button
                         variant={filterType === 'all' ? "default" : "outline"}
@@ -157,9 +172,9 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                         onClick={() => setFilterType('all')}
                         className="text-foreground border-border dark:text-white dark:border-white/20"
                       >
-                        Todos
+                        {language === 'pt' ? 'Todos' : 'All'}
                       </Button>
-                      {Object.entries(noteTypeLabels).map(([type, label]) => {
+                      {Object.entries(noteTypeLabels[language]).map(([type, label]) => {
                         const Icon = noteTypeIcons[type as NoteType];
                         return (
                           <Button
@@ -180,7 +195,9 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                   {/* Category Filter */}
                   {categories.length > 0 && (
                     <div className="space-y-2">
-                      <label className="text-sm text-muted-foreground dark:text-white/80">Categoria:</label>
+                      <label className="text-sm text-muted-foreground dark:text-white/80">
+                        {language === 'pt' ? 'Categoria:' : 'Category:'}
+                      </label>
                       <div className="flex gap-1 flex-wrap">
                         <Button
                           variant={filterCategory === 'all' ? "default" : "outline"}
@@ -188,7 +205,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                           onClick={() => setFilterCategory('all')}
                           className="text-foreground border-border dark:text-white dark:border-white/20"
                         >
-                          Todas
+                          {language === 'pt' ? 'Todas' : 'All'}
                         </Button>
                         {categories.map(category => (
                           <Badge
@@ -225,8 +242,10 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
               </PopoverTrigger>
               <PopoverContent className="w-60 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
                 <div className="space-y-2">
-                  <h4 className="font-medium text-foreground dark:text-white mb-3">Criar Nova Nota</h4>
-                  {Object.entries(noteTypeLabels).map(([type, label]) => {
+                  <h4 className="font-medium text-foreground dark:text-white mb-3">
+                    {language === 'pt' ? 'Criar Nova Nota' : 'Create New Note'}
+                  </h4>
+                  {Object.entries(noteTypeLabels[language]).map(([type, label]) => {
                     const Icon = noteTypeIcons[type as NoteType];
                     return (
                       <Button
@@ -258,8 +277,19 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             className="flex items-center gap-2 text-black bg-white border-white/20 hover:text-black hover:bg-white/90"
           >
             <Grid className="w-4 h-4 text-black" />
-            {isGridView ? 'Grade' : 'Lista'}
+            {isGridView 
+              ? (language === 'pt' ? 'Grade' : 'Grid')
+              : (language === 'pt' ? 'Lista' : 'List')
+            }
           </Button>
+          
+          {/* Clear All Button */}
+          {notes.length > 0 && onClearAll && (
+            <ClearAllNotesButton
+              onClearAll={onClearAll}
+              notesCount={notes.length}
+            />
+          )}
         </div>
       </div>
 
@@ -311,19 +341,19 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             <StickyNoteIcon className="w-16 h-16 text-muted-foreground/50 dark:text-white/50 mb-4" />
             <h3 className="text-lg font-medium text-muted-foreground dark:text-white mb-2">
               {searchTerm || filterType !== 'all' || filterCategory !== 'all'
-                ? 'Nenhuma nota encontrada'
-                : 'Nenhuma nota ainda'
+                ? (language === 'pt' ? 'Nenhuma nota encontrada' : 'No notes found')
+                : (language === 'pt' ? 'Nenhuma nota ainda' : 'No notes yet')
               }
             </h3>
             <p className="text-muted-foreground dark:text-white/80 mb-4">
               {searchTerm || filterType !== 'all' || filterCategory !== 'all'
-                ? 'Tente ajustar os filtros de busca'
-                : 'Comece criando sua primeira nota'
+                ? (language === 'pt' ? 'Tente ajustar os filtros de busca' : 'Try adjusting search filters')
+                : (language === 'pt' ? 'Comece criando sua primeira nota' : 'Start by creating your first note')
               }
             </p>
             {!searchTerm && filterType === 'all' && filterCategory === 'all' && (
               <div className="flex gap-2">
-                {Object.entries(noteTypeLabels).slice(0, 3).map(([type, label]) => {
+                {Object.entries(noteTypeLabels[language]).slice(0, 3).map(([type, label]) => {
                   const Icon = noteTypeIcons[type as NoteType];
                   return (
                     <Button
@@ -347,8 +377,12 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
       {filteredNotes.length > 0 && (
         <div className="bg-white/80 backdrop-blur-sm border-t border-border p-2 text-center dark:bg-black dark:border-white/10">
           <span className="text-sm text-muted-foreground dark:text-white/80">
-            {filteredNotes.length} {filteredNotes.length === 1 ? 'nota' : 'notas'}
-            {searchTerm && ` para "${searchTerm}"`}
+            {filteredNotes.length} {
+              language === 'pt' 
+                ? (filteredNotes.length === 1 ? 'nota' : 'notas')
+                : (filteredNotes.length === 1 ? 'note' : 'notes')
+            }
+            {searchTerm && (language === 'pt' ? ` para "${searchTerm}"` : ` for "${searchTerm}"`)}
           </span>
         </div>
       )}

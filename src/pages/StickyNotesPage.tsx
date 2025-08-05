@@ -12,12 +12,16 @@ import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { StickyNotesStorage } from '@/utils/stickyNotesStorage';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 import { useAutoSave } from '@/hooks/useAutoSave';
+import { KeyboardShortcuts } from '@/components/KeyboardShortcuts';
+import { HelpModal } from '@/components/HelpModal';
+import { useTheme } from '@/hooks/useTheme';
 
 export const StickyNotesPage: React.FC = () => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
   const navigate = useNavigate();
+  const { toggleTheme } = useTheme();
   const [notes, setNotes] = useState<StickyNoteData[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [pendingNoteType, setPendingNoteType] = useState<NoteType | null>(null);
@@ -113,9 +117,16 @@ export const StickyNotesPage: React.FC = () => {
       toast({
         title: "Nota excluída",
         description: "Nota removida com sucesso!",
+        duration: 3000,
       });
       return updated;
     });
+  };
+
+  const handleClearAll = () => {
+    setNotes([]);
+    setCategories([]);
+    StickyNotesStorage.clearAll();
   };
 
   const handleCategoryCreate = (categoryData: Omit<Category, 'id'>) => {
@@ -136,8 +147,41 @@ export const StickyNotesPage: React.FC = () => {
     ));
   };
 
+  const handleCreateNoteShortcut = (type: NoteType) => {
+    const newNote: StickyNoteData = {
+      id: Date.now().toString(),
+      type,
+      title: '',
+      content: '',
+      items: type === 'list' ? [''] : undefined,
+      color: '#FFF59D',
+      position: { x: 100, y: 100 },
+      createdAt: new Date()
+    };
+    setNotes(prev => [...prev, newNote]);
+    toast({
+      title: language === 'pt' ? "Nova nota criada" : "New note created",
+      description: language === 'pt' 
+        ? `${type === 'list' ? 'Lista' : 'Nota'} criada! Clique nela para editar.`
+        : `${type === 'list' ? 'List' : 'Note'} created! Click it to edit.`,
+      duration: 2500,
+    });
+  };
+
   return (
     <div className="h-screen flex flex-col bg-background">
+      {/* Keyboard Shortcuts */}
+      <KeyboardShortcuts
+        onCreateNote={handleCreateNoteShortcut}
+        onToggleTheme={toggleTheme}
+        onSearch={() => {
+          // Focus search input if available
+          const searchInput = document.querySelector('input[placeholder*="earch"]') as HTMLInputElement;
+          if (searchInput) {
+            searchInput.focus();
+          }
+        }}
+      />
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 shadow-lg border-b border-border backdrop-blur-md bg-gradient-header">
         <div className="container max-w-6xl mx-auto px-2 py-2 min-h-[56px]">
@@ -155,6 +199,7 @@ export const StickyNotesPage: React.FC = () => {
               </Button>
               <LanguageSwitch />
               <ThemeToggle />
+              <HelpModal />
               <OfflineStatus />
             </div>
             
@@ -166,9 +211,13 @@ export const StickyNotesPage: React.FC = () => {
 
             {/* Right side - Info */}
             <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-black">
-              <span>{notes.length} notas</span>
+              <span>
+                {notes.length} {language === 'pt' ? 'notas' : 'notes'}
+              </span>
               {categories.length > 0 && (
-                <span>• {categories.length} categorias</span>
+                <span>
+                  • {categories.length} {language === 'pt' ? 'categorias' : 'categories'}
+                </span>
               )}
             </div>
           </div>
@@ -185,6 +234,7 @@ export const StickyNotesPage: React.FC = () => {
           onNoteSave={handleNoteSave}
           onNoteUpdate={handleNoteUpdate}
           onNoteDelete={handleNoteDelete}
+          onClearAll={handleClearAll}
           categories={categories}
           onCategoryCreate={handleCategoryCreate}
           onCategoryDelete={handleCategoryDelete}

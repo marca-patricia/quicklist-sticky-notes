@@ -6,7 +6,7 @@ import { Sun, Moon } from 'lucide-react';
 export const ThemeToggle: React.FC = () => {
   const [theme, setTheme] = React.useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') || 
+      return localStorage.getItem('quicklist-theme') || 
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     }
     return 'light';
@@ -19,7 +19,7 @@ export const ThemeToggle: React.FC = () => {
     } else {
       root.classList.remove('dark');
     }
-    localStorage.setItem('theme', theme);
+    localStorage.setItem('quicklist-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
