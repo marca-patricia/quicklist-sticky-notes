@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { TodoList } from '@/contexts/ListsContext';
 import { useLists } from '@/contexts/ListsContext';
@@ -21,6 +21,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
   const { t } = useLanguage();
   const { addUndoAction } = useUndo();
   const { showSuccess } = useFeedbackToast();
+  const navigate = useNavigate();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const completedItems = list.items.filter(item => item.completed);
@@ -89,7 +90,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
   return (
     <div className="relative group transform">
       <div 
-        onClick={() => window.location.href = `/list/${list.id}`}
+        onClick={() => navigate(`/list/${list.id}`)}
         className={`
           relative transform transition-all duration-300 ease-out
           hover:scale-105 hover:-rotate-0 animate-fade-in-up

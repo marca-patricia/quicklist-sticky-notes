@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useLists } from '@/contexts/ListsContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 import { CheckCircle, Circle, ExternalLink, Plus, ChevronDown, ChevronRight } from 'lucide-react';
 import { QuickListIcon } from '@/components/QuickListIcon';
 
@@ -15,6 +16,7 @@ interface ListWidgetProps {
 export const ListWidget: React.FC<ListWidgetProps> = ({ listId }) => {
   const { getListById } = useLists();
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [showCompleted, setShowCompleted] = useState(false);
   const list = getListById(listId);
 
@@ -27,7 +29,7 @@ export const ListWidget: React.FC<ListWidgetProps> = ({ listId }) => {
           <p className="text-sm text-muted-foreground mb-4">
             {t('language') === 'pt' ? 'Esta lista pode ter sido removida ou o link está incorreto.' : 'This list may have been removed or the link is incorrect.'}
           </p>
-          <Button onClick={() => window.location.href = '/'} className="w-full">
+          <Button onClick={() => navigate('/')} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
             {t('language') === 'pt' ? 'Criar Nova Lista' : 'Create New List'}
           </Button>
@@ -40,7 +42,7 @@ export const ListWidget: React.FC<ListWidgetProps> = ({ listId }) => {
   const completedItems = list.items.filter(item => item.completed);
 
   const openFullApp = () => {
-    window.location.href = `/list/${listId}`;
+    navigate(`/list/${listId}`);
   };
 
   return (

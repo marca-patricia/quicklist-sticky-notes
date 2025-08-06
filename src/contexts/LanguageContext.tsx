@@ -33,6 +33,19 @@ const translations = {
     'general.delete': 'Excluir',
     'general.edit': 'Editar',
     
+    // Lists
+    'addList': 'Adicionar',
+    'listCreated': 'Lista criada com sucesso!',
+    'listPlaceholder': 'Nome da nova lista...',
+    'searchLists': 'Buscar listas',
+    'allLists': 'Todas as Listas',
+    'noResultsFound': 'Nenhum resultado encontrado',
+    'showArchived': 'Mostrar Arquivadas',
+    'hideArchived': 'Ocultar Arquivadas',
+    'noArchivedLists': 'Nenhuma lista arquivada',
+    'listArchived': 'Lista arquivada',
+    'listUnarchived': 'Lista desarquivada',
+    
     // Sticky Notes
     'Digite o título...': 'Digite o título...',
     'Título (opcional)': 'Título (opcional)',
@@ -66,6 +79,19 @@ const translations = {
     'general.cancel': 'Cancel',
     'general.delete': 'Delete',
     'general.edit': 'Edit',
+    
+    // Lists
+    'addList': 'Add',
+    'listCreated': 'List created successfully!',
+    'listPlaceholder': 'New list name...',
+    'searchLists': 'Search lists',
+    'allLists': 'All Lists',
+    'noResultsFound': 'No results found',
+    'showArchived': 'Show Archived',
+    'hideArchived': 'Hide Archived',
+    'noArchivedLists': 'No archived lists',
+    'listArchived': 'List archived',
+    'listUnarchived': 'List unarchived',
     
     // Sticky Notes
     'Digite o título...': 'Enter title...',
