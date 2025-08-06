@@ -32,6 +32,18 @@ const translations = {
     'general.cancel': 'Cancelar',
     'general.delete': 'Excluir',
     'general.edit': 'Editar',
+    
+    // Sticky Notes
+    'Digite o título...': 'Digite o título...',
+    'Título (opcional)': 'Título (opcional)',
+    'Escreva sua nota...': 'Escreva sua nota...',
+    'Título da lista': 'Título da lista',
+    'Item': 'Item',
+    'Adicionar item': 'Adicionar item',
+    'Nome da categoria': 'Nome da categoria',
+    'Ou escolha uma existente:': 'Ou escolha uma existente:',
+    'Salvar': 'Salvar',
+    'Post-it salvo com sucesso!': 'Post-it salvo com sucesso!',
   },
   en: {
     // Auth Page
@@ -54,6 +66,18 @@ const translations = {
     'general.cancel': 'Cancel',
     'general.delete': 'Delete',
     'general.edit': 'Edit',
+    
+    // Sticky Notes
+    'Digite o título...': 'Enter title...',
+    'Título (opcional)': 'Title (optional)',
+    'Escreva sua nota...': 'Write your note...',
+    'Título da lista': 'List title',
+    'Item': 'Item',
+    'Adicionar item': 'Add item',
+    'Nome da categoria': 'Category name',
+    'Ou escolha uma existente:': 'Or choose an existing one:',
+    'Salvar': 'Save',
+    'Post-it salvo com sucesso!': 'Post-it saved successfully!',
   }
 };
 

@@ -38,18 +38,22 @@ export const StickyNotesPage: React.FC = () => {
       setNotes(savedNotes);
       setCategories(savedCategories);
       
-      if (savedNotes.length > 0 || savedCategories.length > 0) {
-        toast({
-          title: "Bem-vindo de volta!",
-          description: `${savedNotes.length} notas e ${savedCategories.length} categorias carregadas`,
-          duration: 2000,
-        });
-      }
+          if (savedNotes.length > 0 || savedCategories.length > 0) {
+            toast({
+              title: language === 'pt' ? "Bem-vindo de volta!" : "Welcome back!",
+              description: language === 'pt' 
+                ? `${savedNotes.length} notas e ${savedCategories.length} categorias carregadas`
+                : `${savedNotes.length} notes and ${savedCategories.length} categories loaded`,
+              duration: 2000,
+            });
+          }
     } catch (error) {
       console.error('Error loading data:', error);
       toast({
-        title: "Erro ao carregar dados",
-        description: "Alguns dados podem não ter sido carregados corretamente",
+        title: language === 'pt' ? "Erro ao carregar dados" : "Error loading data",
+        description: language === 'pt' 
+          ? "Alguns dados podem não ter sido carregados corretamente"
+          : "Some data may not have been loaded correctly",
         variant: "destructive"
       });
     }
@@ -62,8 +66,10 @@ export const StickyNotesPage: React.FC = () => {
     const success = StickyNotesStorage.saveNotes(notes);
     if (!success) {
       toast({
-        title: "Erro ao salvar",
-        description: "Não foi possível salvar as notas",
+        title: language === 'pt' ? "Erro ao salvar" : "Save error",
+        description: language === 'pt' 
+          ? "Não foi possível salvar as notas"
+          : "Could not save notes",
         variant: "destructive"
       });
     }
@@ -75,8 +81,10 @@ export const StickyNotesPage: React.FC = () => {
     const success = StickyNotesStorage.saveCategories(categories);
     if (!success) {
       toast({
-        title: "Erro ao salvar",
-        description: "Não foi possível salvar as categorias",
+        title: language === 'pt' ? "Erro ao salvar" : "Save error",
+        description: language === 'pt' 
+          ? "Não foi possível salvar as categorias"
+          : "Could not save categories",
         variant: "destructive"
       });
     }
@@ -91,8 +99,10 @@ export const StickyNotesPage: React.FC = () => {
     setNotes(prev => {
       const updated = [...prev, newNote];
       toast({
-        title: "Nota salva",
-        description: `${noteData.type === 'list' ? 'Lista' : 'Nota'} criada com sucesso!`,
+        title: language === 'pt' ? "Nota salva" : "Note saved",
+        description: language === 'pt' 
+          ? `${noteData.type === 'list' ? 'Lista' : 'Nota'} criada com sucesso!`
+          : `${noteData.type === 'list' ? 'List' : 'Note'} created successfully!`,
       });
       return updated;
     });
@@ -104,8 +114,10 @@ export const StickyNotesPage: React.FC = () => {
         note.id === id ? { ...note, ...updates } : note
       );
       toast({
-        title: "Nota atualizada",
-        description: "Alterações salvas com sucesso!",
+        title: language === 'pt' ? "Nota atualizada" : "Note updated",
+        description: language === 'pt' 
+          ? "Alterações salvas com sucesso!"
+          : "Changes saved successfully!",
       });
       return updated;
     });
@@ -115,8 +127,10 @@ export const StickyNotesPage: React.FC = () => {
     setNotes(prev => {
       const updated = prev.filter(note => note.id !== id);
       toast({
-        title: "Nota excluída",
-        description: "Nota removida com sucesso!",
+        title: language === 'pt' ? "Nota excluída" : "Note deleted",
+        description: language === 'pt' 
+          ? "Nota removida com sucesso!"
+          : "Note removed successfully!",
         duration: 3000,
       });
       return updated;
@@ -159,13 +173,13 @@ export const StickyNotesPage: React.FC = () => {
       createdAt: new Date()
     };
     setNotes(prev => [...prev, newNote]);
-    toast({
-      title: language === 'pt' ? "Nova nota criada" : "New note created",
-      description: language === 'pt' 
-        ? `${type === 'list' ? 'Lista' : 'Nota'} criada! Clique nela para editar.`
-        : `${type === 'list' ? 'List' : 'Note'} created! Click it to edit.`,
-      duration: 2500,
-    });
+          toast({
+            title: language === 'pt' ? "Nova nota criada" : "New note created",
+            description: language === 'pt' 
+              ? `${type === 'list' ? 'Lista' : 'Nota'} criada! Clique nela para editar.`
+              : `${type === 'list' ? 'List' : 'Note'} created! Click it to edit.`,
+            duration: 2500,
+          });
   };
 
   return (
@@ -195,7 +209,7 @@ export const StickyNotesPage: React.FC = () => {
                 className="flex items-center gap-2 text-foreground hover:text-foreground/80 dark:text-black dark:hover:text-black"
               >
                 <ArrowLeft className="w-4 h-4 dark:text-black" />
-                <span className="dark:text-black">Voltar</span>
+                <span className="dark:text-black">{language === 'pt' ? 'Voltar' : 'Back'}</span>
               </Button>
               <LanguageSwitch />
               <ThemeToggle />
@@ -206,7 +220,9 @@ export const StickyNotesPage: React.FC = () => {
             {/* Center - App Brand */}
             <div className="hidden sm:flex items-center gap-3">
               <QuickListLogo size="md" showText={true} className="text-foreground" />
-              <span className="text-sm text-muted-foreground dark:text-black">Sticky Notes</span>
+              <span className="text-sm text-muted-foreground dark:text-black">
+                {language === 'pt' ? 'Notas Adesivas' : 'Sticky Notes'}
+              </span>
             </div>
 
             {/* Right side - Info */}
@@ -257,8 +273,10 @@ export const StickyNotesPage: React.FC = () => {
           };
           setNotes(prev => [...prev, newNote]);
           toast({
-            title: "Nova nota criada",
-            description: `${type === 'list' ? 'Lista' : 'Nota'} adicionada! Clique nela para editar.`,
+            title: language === 'pt' ? "Nova nota criada" : "New note created",
+            description: language === 'pt' 
+              ? `${type === 'list' ? 'Lista' : 'Nota'} adicionada! Clique nela para editar.`
+              : `${type === 'list' ? 'List' : 'Note'} added! Click it to edit.`,
             duration: 2500,
           });
         }}

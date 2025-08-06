@@ -164,8 +164,13 @@ All colors MUST be HSL.
       word-wrap: break-word;
       overflow-wrap: break-word;
       white-space: pre-wrap;
-      max-height: 120px;
-      overflow-y: auto;
+      max-height: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
     }
     
     /* Melhor touch target para mobile */

@@ -176,7 +176,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           {/* Content based on type */}
           {currentType === 'title' && (
             <Input
-              placeholder="Digite o título..."
+              placeholder={t('Digite o título...')}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="bg-white/80 border-none text-sm font-semibold h-8"
@@ -187,13 +187,13 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           {currentType === 'content' && (
             <div className="flex flex-col flex-1 min-h-0">
               <Input
-                placeholder="Título (opcional)"
+                placeholder={t('Título (opcional)')}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="mb-2 bg-white/80 border-none font-medium text-sm h-8"
               />
               <Textarea
-                placeholder="Escreva sua nota..."
+                placeholder={t('Escreva sua nota...')}
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 className="bg-white/80 border-none resize-none text-sm flex-1 min-h-[40px] max-h-[60px]"
@@ -205,7 +205,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           {currentType === 'list' && (
             <div className="flex flex-col flex-1 min-h-0">
               <Input
-                placeholder="Título da lista"
+                placeholder={t('Título da lista')}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="mb-2 bg-white/80 border-none font-medium text-sm h-8"
@@ -215,7 +215,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                   {items.map((item, index) => (
                     <div key={index} className="flex gap-1">
                       <Input
-                        placeholder={`Item ${index + 1}`}
+                        placeholder={`${t('Item')} ${index + 1}`}
                         value={item}
                         onChange={(e) => updateListItem(index, e.target.value)}
                         className="bg-white/80 border-none text-xs h-7"
@@ -240,7 +240,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                   className="w-full text-xs text-black h-7 mt-1 flex-shrink-0"
                 >
                   <Plus className="w-3 h-3 mr-1 text-black" />
-                  Adicionar item
+                  {t('Adicionar item')}
                 </Button>
               </div>
             </div>
@@ -249,14 +249,14 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
           {currentType === 'category' && (
             <div className="flex flex-col flex-1 min-h-0">
               <Input
-                placeholder="Nome da categoria"
+                placeholder={t('Nome da categoria')}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="bg-white/80 border-none font-medium text-sm h-8 mb-2"
               />
               {categories.length > 0 && (
                 <div className="flex-1 min-h-0 overflow-y-auto">
-                  <label className="text-xs font-medium block mb-1">Ou escolha uma existente:</label>
+                  <label className="text-xs font-medium block mb-1">{t('Ou escolha uma existente:')}</label>
                   <CategoryManager
                     categories={categories}
                     selectedCategories={selectedCategory ? [selectedCategory.id] : []}
@@ -283,7 +283,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             className="flex-1 text-black text-xs h-7"
           >
             <Check className="w-3 h-3 mr-1 text-black" />
-            Salvar
+            {t('Salvar')}
           </Button>
           <Button
             variant="ghost"
@@ -416,7 +416,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
 
       <PostItFeedback 
         show={showFeedback} 
-        message="Post-it salvo com sucesso!" 
+        message={t('Post-it salvo com sucesso!')} 
       />
       
       {/* Timestamp */}
