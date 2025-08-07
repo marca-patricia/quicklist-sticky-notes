@@ -124,16 +124,37 @@ export const StickyNotesPage: React.FC = () => {
   };
 
   const handleNoteDelete = (id: string) => {
+    const noteToDelete = notes.find(note => note.id === id);
+    if (!noteToDelete) return;
+
     setNotes(prev => {
       const updated = prev.filter(note => note.id !== id);
-      toast({
-        title: language === 'pt' ? "Nota excluída" : "Note deleted",
-        description: language === 'pt' 
-          ? "Nota removida com sucesso!"
-          : "Note removed successfully!",
-        duration: 3000,
-      });
+      console.log('Nota excluída:', { id, remaining: updated.length }); // Debug log
       return updated;
+    });
+    
+    // Success toast with undo option
+    toast({
+      title: language === 'pt' ? "Nota excluída" : "Note deleted",
+      description: language === 'pt' 
+        ? "Clique para desfazer" 
+        : "Click to undo",
+      className: 'border-orange-200 bg-orange-50 text-orange-800 dark:border-orange-800 dark:bg-orange-900 dark:text-orange-100',
+      action: (
+        <button 
+          className="bg-orange-600 text-white px-3 py-1 rounded text-sm font-medium hover:bg-orange-700 dark:bg-orange-700 dark:hover:bg-orange-600"
+          onClick={() => {
+            setNotes(prevNotes => [...prevNotes, noteToDelete]);
+            toast({
+              title: language === 'pt' ? "Nota restaurada" : "Note restored",
+              className: 'border-green-200 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-900 dark:text-green-100',
+            });
+          }}
+        >
+          {language === 'pt' ? 'Desfazer' : 'Undo'}
+        </button>
+      ),
+      duration: 6000, // Give more time for undo
     });
   };
 

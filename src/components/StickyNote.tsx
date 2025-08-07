@@ -101,9 +101,9 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     onSave?.(noteData);
     setEditMode(false);
     
-    // Show feedback
+    // Show improved feedback
     setShowFeedback(true);
-    setTimeout(() => setShowFeedback(false), 2000);
+    setTimeout(() => setShowFeedback(false), 3000); // Increased duration
   };
 
   const handleAddListItem = () => {
@@ -327,7 +327,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       ...noteData
     });
     setShowFeedback(true);
-    setTimeout(() => setShowFeedback(false), 2000);
+    setTimeout(() => setShowFeedback(false), 3000); // Increased duration
   };
 
   return (

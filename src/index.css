@@ -435,3 +435,72 @@ All colors MUST be HSL.
     transform: translateY(0);
   }
 }
+
+/* Mobile improvements */
+.mobile-touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Sticky notes responsiveness and content handling */
+@media (max-width: 768px) {
+  .sticky-note-mobile {
+    width: 100% !important;
+    max-width: 300px;
+    height: auto !important;
+    min-height: 200px;
+    margin-bottom: 1rem;
+  }
+  
+  .sticky-note-content {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+}
+
+/* Better text contrast and visibility */
+.text-black {
+  color: #1a1a1a !important;
+}
+
+.dark .text-black {
+  color: #1a1a1a !important;
+}
+
+/* Improved button contrast */
+.bg-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.hover\:bg-primary\/90:hover {
+  background: hsl(var(--primary) / 0.9);
+}
+
+/* Modal responsiveness */
+@media (max-width: 640px) {
+  .max-w-2xl {
+    max-width: calc(100vw - 2rem) !important;
+    margin: 1rem;
+  }
+  
+  .max-h-\[80vh\] {
+    max-height: calc(100vh - 4rem) !important;
+  }
+}
+
+/* Toast improvements */
+.toast {
+  min-width: 300px;
+  box-shadow: 0 10px 40px -10px hsl(var(--shadow) / 0.4);
+}
+
+@media (max-width: 640px) {
+  .toast {
+    min-width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+  }
+}
