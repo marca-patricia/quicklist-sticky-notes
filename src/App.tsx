@@ -14,6 +14,9 @@ import { AchievementsProvider } from "@/contexts/AchievementsContext";
 import { ListsOverview } from "./pages/ListsOverview";
 import { ListDetail } from "./pages/ListDetail";
 import { StickyNotesPage } from "./pages/StickyNotesPage";
+import { TemplatesPage } from "./pages/TemplatesPage";
+import { StatisticsPage } from "./pages/StatisticsPage";
+import { AchievementsPage } from "./pages/AchievementsPage";
 import AuthPage from "./pages/AuthPage";
 import { LoadingSpinner } from "./components/LoadingSpinner";
 
@@ -66,6 +69,9 @@ const App = () => {
                             <Route path="/" element={<ListsOverview />} />
                             <Route path="/list/:listId" element={<ListDetail />} />
                             <Route path="/sticky-notes" element={<StickyNotesPage />} />
+                            <Route path="/templates" element={<TemplatesPage />} />
+                            <Route path="/statistics" element={<StatisticsPage />} />
+                            <Route path="/achievements" element={<AchievementsPage />} />
                             <Route path="/auth" element={<AuthPage />} />
                             <Route path="*" element={
                               <div className="min-h-screen bg-background flex items-center justify-center">

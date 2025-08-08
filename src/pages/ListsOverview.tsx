@@ -19,13 +19,13 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
-import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote } from 'lucide-react';
+import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote, FileText, TrendingUp, Trophy } from 'lucide-react';
 import { FloatingCreateButton } from '@/components/FloatingCreateButton';
 import { SearchInput } from '@/components/SearchInput';
 import { GridViewToggle } from '@/components/GridViewToggle';
 
 export const ListsOverview: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { lists } = useLists();
   const { checkAchievements } = useAchievements();
   const { user, signOut, loading } = useAuth();
@@ -155,9 +155,36 @@ export const ListsOverview: React.FC = () => {
                 <StickyNote className="w-4 h-4 dark:text-black" />
                 <span className="hidden sm:inline text-xs dark:text-black">Notas</span>
               </Button>
-              <ListTemplates />
-              <ProductivityInsights />
-              <AchievementsModal />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('/templates')}
+                className="text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
+                title="Ver Templates"
+              >
+                <FileText className="w-4 h-4 dark:text-black" />
+                <span className="hidden sm:inline text-xs dark:text-black">{t('templates')}</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('/statistics')}
+                className="text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
+                title="Ver Estatísticas"
+              >
+                <TrendingUp className="w-4 h-4 dark:text-black" />
+                <span className="hidden sm:inline text-xs dark:text-black">{language === 'pt' ? 'Estatísticas' : 'Statistics'}</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('/achievements')}
+                className="text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
+                title="Ver Conquistas"
+              >
+                <Trophy className="w-4 h-4 dark:text-black" />
+                <span className="hidden sm:inline text-xs dark:text-black">{t('achievements')}</span>
+              </Button>
               {user && (
                 <Button
                   variant="ghost"
