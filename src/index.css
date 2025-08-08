@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 13%; /* Texto preto */
 
     --muted: 48 20% 95%; /* #F9F7F1 - Fundo muted suave */
-    --muted-foreground: 0 0% 0%; /* Texto muted preto puro para máximo contraste */
+    --muted-foreground: 0 0% 20%; /* Texto muted mais escuro para melhor contraste */
 
     --accent: 48 25% 92%; /* #F7F4E8 - Accent suave */
     --accent-foreground: 0 0% 13%; /* Texto preto */
@@ -34,7 +34,7 @@ All colors MUST be HSL.
     --destructive: 0 84% 60%; /* #EF4444 - Vermelho */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 48 20% 88%; /* #EDE8D8 - Bordas suaves */
+    --border: 48 20% 80%; /* #E6D8B8 - Bordas mais visíveis */
     --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
     --ring: 48 95% 88%;
 

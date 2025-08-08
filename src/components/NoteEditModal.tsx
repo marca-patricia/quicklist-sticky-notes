@@ -114,17 +114,17 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           backgroundColor: selectedColor ? `${selectedColor}40` : undefined,
         }}
       >
-        <DialogHeader className="pb-4 pr-8 relative">
-          <DialogTitle className="text-lg font-semibold">
+        <DialogHeader className="pb-4 relative">
+          <DialogTitle className="text-lg font-semibold pr-8">
             {note.type === 'list' ? 'Editar Lista' : 'Editar Nota'}
           </DialogTitle>
           <Button
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="absolute top-0 right-0 h-8 w-8 p-0 hover:bg-destructive/10"
+            className="absolute top-0 right-0 h-8 w-8 p-0 hover:bg-destructive/20 bg-background/80 border border-border z-10"
           >
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4 text-foreground" />
           </Button>
         </DialogHeader>
 
