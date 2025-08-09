@@ -182,7 +182,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                   color: '#dc2626',
                   border: `1px solid ${darkerColor}`
                 }}
-                aria-label={t('confirmDeleteList')}
+                aria-label={t('deleteList')}
                 title={t('deleteList')}
               >
                 <Trash2 className="w-3 h-3" strokeWidth={2.5} />

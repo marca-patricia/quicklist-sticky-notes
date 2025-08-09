@@ -103,7 +103,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
                 setShowDeleteConfirm(true);
               }}
               className="text-destructive hover:text-destructive/90"
-              aria-label={t('confirmDeleteList')}
+              aria-label={t('deleteList')}
               title={t('deleteList')}
             >
               <Trash2 className="w-3 h-3" />

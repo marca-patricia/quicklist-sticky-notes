@@ -140,6 +140,7 @@ export const ListsOverview: React.FC = () => {
                 aria-label="Recarregar aplicativo QuickList"
               >
                 <QuickListLogo size="md" showText={true} className="text-black dark:text-black" />
+                <span className="ml-2 font-semibold text-black dark:text-black">{t('homescreen')}</span>
               </button>
             </div>
 
@@ -150,17 +151,17 @@ export const ListsOverview: React.FC = () => {
                 size="sm"
                 onClick={() => navigate('/sticky-notes')}
                 className="text-black hover:text-black hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
-                title="Buscar Notas"
+                title={t('templates')}
               >
                 <StickyNote className="w-4 h-4 text-black dark:text-black" />
-                <span className="hidden sm:inline text-xs text-black dark:text-black">Notas</span>
+                <span className="hidden sm:inline text-xs text-black dark:text-black">{t('templates')}</span>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/templates')}
                 className="text-black hover:text-black hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
-                title="Ver Templates"
+                title={t('templates')}
               >
                 <FileText className="w-4 h-4 text-black dark:text-black" />
                 <span className="hidden sm:inline text-xs text-black dark:text-black">{t('templates')}</span>
@@ -170,17 +171,17 @@ export const ListsOverview: React.FC = () => {
                 size="sm"
                 onClick={() => navigate('/statistics')}
                 className="text-black hover:text-black hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
-                title="Ver Estatísticas"
+                title={t('insights')}
               >
                 <TrendingUp className="w-4 h-4 text-black dark:text-black" />
-                <span className="hidden sm:inline text-xs text-black dark:text-black">{language === 'pt' ? 'Estatísticas' : 'Statistics'}</span>
+                <span className="hidden sm:inline text-xs text-black dark:text-black">{t('insights')}</span>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/achievements')}
                 className="text-black hover:text-black hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
-                title="Ver Conquistas"
+                title={t('achievements')}
               >
                 <Trophy className="w-4 h-4 text-black dark:text-black" />
                 <span className="hidden sm:inline text-xs text-black dark:text-black">{t('achievements')}</span>
@@ -191,10 +192,10 @@ export const ListsOverview: React.FC = () => {
                   size="sm"
                   onClick={() => signOut()}
                   className="text-black hover:text-black hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
-                  title="Sair"
+                  title={language === 'pt' ? 'Sair' : 'Sign Out'}
                 >
                   <LogOut className="w-4 h-4 text-black dark:text-black" />
-                  <span className="hidden sm:inline text-xs text-black dark:text-black">Sair</span>
+                  <span className="hidden sm:inline text-xs text-black dark:text-black">{language === 'pt' ? 'Sair' : 'Exit'}</span>
                 </Button>
               )}
             </div>
@@ -326,7 +327,7 @@ export const ListsOverview: React.FC = () => {
                     <div className="flex items-center justify-between mb-6">
                       <h2 className="text-2xl font-semibold text-black dark:text-black">
                         {searchTerm ? `${t('searchLists')} "${searchTerm}"` : t('allLists')}
-                        <span className="text-sm font-normal text-black/70 dark:text-black/70 ml-2">
+                        <span className="text-sm font-normal text-black dark:text-black ml-2">
                           ({filteredLists.length})
                         </span>
                       </h2>

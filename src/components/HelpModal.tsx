@@ -42,11 +42,11 @@ export const HelpModal: React.FC = () => {
         <Button
           variant="ghost"
           size="sm"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-black hover:text-black dark:text-black dark:hover:text-black"
           aria-label={language === 'pt' ? 'Ajuda e atalhos' : 'Help and shortcuts'}
         >
-          <HelpCircle className="w-4 h-4" />
-          {language === 'pt' ? 'Ajuda' : 'Help'}
+          <HelpCircle className="w-4 h-4 text-black dark:text-black" />
+          <span className="text-black dark:text-black">{language === 'pt' ? 'Ajuda' : 'Help'}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md bg-background border text-foreground">
