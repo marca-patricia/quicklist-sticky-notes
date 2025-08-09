@@ -16,9 +16,9 @@ export const LanguageSwitch: React.FC = () => {
           aria-label={`Mudar idioma para ${language === 'pt' ? 'English' : 'Português'}`}
         >
           <span className="flex items-center gap-1.5">
-            <span className="font-bold text-foreground">{language.toUpperCase()}</span>
-            <span className="text-border">|</span>
-            <span className="text-foreground/70 hover:text-foreground transition-colors">
+            <span className="font-bold text-black dark:text-black">{language.toUpperCase()}</span>
+            <span className="text-black dark:text-black">|</span>
+            <span className="text-black/70 hover:text-black dark:text-black dark:hover:text-black transition-colors">
               {language === 'pt' ? '🇺🇸' : '🇧🇷'}
             </span>
           </span>

@@ -122,9 +122,9 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="absolute top-0 right-0 h-8 w-8 p-0 hover:bg-destructive/20 bg-background/80 border border-border z-10"
+            className="absolute top-0 right-0 h-8 w-8 p-0 hover:bg-destructive/20 bg-background border-2 border-black z-10"
           >
-            <X className="h-4 w-4 text-foreground" />
+            <X className="h-4 w-4 text-black" />
           </Button>
         </DialogHeader>
 
