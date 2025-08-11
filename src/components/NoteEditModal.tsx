@@ -107,25 +107,17 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent 
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent
         className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"
         style={{
           backgroundColor: selectedColor ? `${selectedColor}40` : undefined,
         }}
-      >
-        <DialogHeader className="pb-4 relative">
-          <DialogTitle className="text-lg font-semibold pr-8">
+        >
+        <DialogHeader className="pb-4">
+          <DialogTitle className="text-lg font-semibold">
             {note.type === 'list' ? 'Editar Lista' : 'Editar Nota'}
           </DialogTitle>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className="absolute top-0 right-0 h-8 w-8 p-0 hover:bg-destructive/20 bg-background border-2 border-black z-10"
-          >
-            <X className="h-4 w-4 text-black" />
-          </Button>
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto space-y-6">

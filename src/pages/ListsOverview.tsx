@@ -151,10 +151,10 @@ export const ListsOverview: React.FC = () => {
                 size="sm"
                 onClick={() => navigate('/sticky-notes')}
                 className="text-black hover:text-black hover:bg-primary/20 border border-primary/30 dark:text-black dark:hover:text-black dark:hover:bg-yellow-200 dark:border-yellow-300 flex items-center gap-1 shrink-0"
-                title={t('templates')}
+                title={language === 'pt' ? 'Notas Adesivas' : 'Sticky Notes'}
               >
                 <StickyNote className="w-4 h-4 text-black dark:text-black" />
-                <span className="hidden sm:inline text-xs text-black dark:text-black">{t('templates')}</span>
+                <span className="hidden sm:inline text-xs text-black dark:text-black">{language === 'pt' ? 'Notas' : 'Notes'}</span>
               </Button>
               <Button
                 variant="ghost"
