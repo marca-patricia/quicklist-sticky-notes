@@ -135,7 +135,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   if (editMode) {
     return (
       <Card 
-        className="w-56 h-64 p-3 border-2 border-primary/20 animate-scale-in shadow-postit hover:shadow-postit-hover transition-all duration-300 flex flex-col"
+        className="w-48 h-56 sm:w-52 sm:h-60 md:w-56 md:h-64 p-2 sm:p-3 border-2 border-primary/20 animate-scale-in shadow-postit hover:shadow-postit-hover transition-all duration-300 flex flex-col"
         style={{ 
           backgroundColor: selectedColor,
           boxShadow: 'var(--shadow-postit)',
@@ -336,8 +336,8 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onClick={handleEditClick}
-      className={`w-56 h-64 md:w-56 md:h-64 p-3 hover:shadow-postit-hover transition-all duration-300 group cursor-pointer mobile-touch-target ${
-        isDragging ? 'opacity-50 rotate-2' : 'hover:scale-105'
+      className={`w-48 h-56 sm:w-52 sm:h-60 md:w-56 md:h-64 p-2 sm:p-3 hover:shadow-postit-hover transition-all duration-300 group cursor-pointer mobile-touch-target ${
+        isDragging ? 'opacity-50 rotate-2 scale-105 z-50' : 'hover:scale-105'
       } sticky-note-mobile`}
       style={{ 
         backgroundColor: note.color,

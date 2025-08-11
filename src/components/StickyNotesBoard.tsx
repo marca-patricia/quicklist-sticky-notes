@@ -5,6 +5,9 @@ import { SearchInput } from '@/components/SearchInput';
 import { Badge } from '@/components/ui/badge';
 import { Category } from '@/components/CategoryManager';
 import { ClearAllNotesButton } from '@/components/ClearAllNotesButton';
+import { DragDropIndicator } from '@/components/DragDropIndicator';
+import { DuplicateNameWarning } from '@/components/DuplicateNameWarning';
+import { useDuplicateNameCheck } from '@/hooks/useDuplicateNameCheck';
 import { Plus, Grid, Search, Filter, StickyNote as StickyNoteIcon, FileText, List, Tag } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -61,7 +64,10 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   const [draggedNote, setDraggedNote] = useState<string | null>(null);
   const [showSearchFilter, setShowSearchFilter] = useState(false);
   const [showCreateMenu, setShowCreateMenu] = useState(false);
+  const [duplicateWarning, setDuplicateWarning] = useState<{ show: boolean; suggestedName?: string }>({ show: false });
+  const [dragPosition, setDragPosition] = useState<{ x: number; y: number } | undefined>();
   const boardRef = useRef<HTMLDivElement>(null);
+  const { checkDuplicateName, generateUniqueName } = useDuplicateNameCheck(notes);
 
   // Filter notes based on search and filters
   const filteredNotes = notes.filter(note => {
@@ -87,11 +93,28 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   };
 
   const handleNoteSave = (noteData: Omit<StickyNoteData, 'id' | 'createdAt'>) => {
+    // Check for duplicate note names
+    const titleToCheck = noteData.title?.trim();
+    if (titleToCheck && checkDuplicateName(titleToCheck)) {
+      const suggestedName = generateUniqueName(titleToCheck);
+      setDuplicateWarning({ show: true, suggestedName });
+      return;
+    }
+    
+    setDuplicateWarning({ show: false });
     onNoteSave(noteData);
     setCreatingNote(null);
   };
 
   const handleNoteUpdate = (id: string, noteData: Partial<StickyNoteData>) => {
+    // Check for duplicate note names when updating title
+    if (noteData.title && checkDuplicateName(noteData.title.trim(), id)) {
+      const suggestedName = generateUniqueName(noteData.title.trim());
+      setDuplicateWarning({ show: true, suggestedName });
+      return;
+    }
+    
+    setDuplicateWarning({ show: false });
     onNoteUpdate(id, noteData);
   };
 
@@ -126,16 +149,28 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
 
   const handleBoardDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
+    if (!boardRef.current) return;
+
+    const boardRect = boardRef.current.getBoundingClientRect();
+    const x = e.clientX - boardRect.left;
+    const y = e.clientY - boardRect.top;
+    setDragPosition({ x, y });
   }, []);
+
+  const handleAcceptSuggestion = (suggestedName: string) => {
+    setDuplicateWarning({ show: false });
+    // Trigger the note creation/update with the suggested name
+    // This would need to be implemented based on the specific context
+  };
 
   return (
     <div className="h-full flex flex-col dark:bg-black">
       {/* Toolbar */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-border p-4 dark:bg-black dark:border-white/10">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-border p-2 sm:p-4 dark:bg-black dark:border-white/10">
         {/* Search and Actions Row */}
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
           {/* Search with Filter */}
-          <div className="flex-1 max-w-md flex items-center">
+          <div className="flex-1 sm:max-w-md flex items-center">
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
@@ -269,41 +304,57 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             </Popover>
           </div>
           
-          {/* View Toggle */}
-          <Button
-            variant={isGridView ? "default" : "outline"}
-            size="sm"
-            onClick={() => setIsGridView(!isGridView)}
-            className="flex items-center gap-2 text-black bg-white border-white/20 hover:text-black hover:bg-white/90"
-          >
-            <Grid className="w-4 h-4 text-black" />
-            {isGridView 
-              ? (language === 'pt' ? 'Grade' : 'Grid')
-              : (language === 'pt' ? 'Lista' : 'List')
-            }
-          </Button>
-          
-          {/* Clear All Button */}
-          {notes.length > 0 && onClearAll && (
-            <ClearAllNotesButton
-              onClearAll={onClearAll}
-              notesCount={notes.length}
-            />
-          )}
+          {/* Action Buttons Row */}
+          <div className="flex gap-2 items-center">
+            {/* View Toggle */}
+            <Button
+              variant={isGridView ? "default" : "outline"}
+              size="sm"
+              onClick={() => setIsGridView(!isGridView)}
+              className="flex items-center gap-2 text-black bg-white border-white/20 hover:text-black hover:bg-white/90"
+            >
+              <Grid className="w-4 h-4 text-black" />
+              <span className="hidden sm:inline">
+                {isGridView 
+                  ? (language === 'pt' ? 'Grade' : 'Grid')
+                  : (language === 'pt' ? 'Lista' : 'List')
+                }
+              </span>
+            </Button>
+            
+            {/* Clear All Button */}
+            {notes.length > 0 && onClearAll && (
+              <ClearAllNotesButton
+                onClearAll={onClearAll}
+                notesCount={notes.length}
+              />
+            )}
+          </div>
         </div>
       </div>
 
       {/* Notes Board */}
       <div 
         ref={boardRef}
-        className={`flex-1 overflow-auto p-4 dark:bg-black ${
+        className={`flex-1 overflow-auto p-2 sm:p-4 dark:bg-black ${
           isGridView 
-            ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 justify-items-center' 
-            : 'space-y-4'
+            ? 'grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-4 justify-items-center' 
+            : 'space-y-2 sm:space-y-4'
         }`}
         onDrop={handleBoardDrop}
         onDragOver={handleBoardDragOver}
       >
+        {/* Duplicate Name Warning */}
+        {duplicateWarning.show && (
+          <div className="col-span-full">
+            <DuplicateNameWarning
+              show={duplicateWarning.show}
+              suggestedName={duplicateWarning.suggestedName}
+              onAcceptSuggestion={handleAcceptSuggestion}
+            />
+          </div>
+        )}
+
         {/* Creating Note */}
         {creatingNote && (
           <div className={isGridView ? '' : 'flex justify-center'}>
@@ -372,6 +423,12 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
           </div>
         )}
       </div>
+
+      {/* Drag and Drop Indicator */}
+      <DragDropIndicator 
+        isDragActive={!!draggedNote} 
+        position={dragPosition}
+      />
 
       {/* Results Counter */}
       {filteredNotes.length > 0 && (
