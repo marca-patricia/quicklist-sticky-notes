@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { Globe } from 'lucide-react';
+import { LanguageSwitch } from '@/components/LanguageSwitch';
 
 export default function AuthPage() {
   const { signIn, signUp, user } = useAuth();
@@ -57,14 +57,9 @@ export default function AuthPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 via-background to-secondary/20 p-4">
       <Card className="w-full max-w-md backdrop-blur-sm border-border/50 shadow-2xl">
         <CardHeader className="relative">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="absolute top-2 right-2 h-8 w-8 p-0"
-            onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
-          >
-            <Globe className="h-4 w-4" />
-          </Button>
+          <div className="absolute top-2 right-2">
+            <LanguageSwitch />
+          </div>
           <CardTitle className="text-center text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             {t('auth.title')}
           </CardTitle>
@@ -102,7 +97,7 @@ export default function AuthPage() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90" 
+                  className="w-full"
                   disabled={loading}
                 >
                   {loading ? t('auth.loggingIn') : t('auth.loginButton')}
@@ -133,7 +128,7 @@ export default function AuthPage() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90" 
+                  className="w-full"
                   disabled={loading}
                 >
                   {loading ? t('auth.creating') : t('auth.signupButton')}

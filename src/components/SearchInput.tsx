@@ -15,16 +15,16 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   onChange,
   placeholder = "Buscar...",
   className = ""
-}) => {
+  }) => {
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-black dark:text-black border border-border rounded-full p-0.5 bg-background" />
+      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
       <Input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={`pl-9 pr-8 bg-card/90 backdrop-blur-sm border-2 border-border hover:border-primary/30 focus:border-primary/50 rounded-lg shadow-soft transition-all text-foreground ${className}`}
+        className={`pl-9 pr-8 bg-card/90 backdrop-blur-sm border border-input hover:border-accent/40 focus:border-ring rounded-lg shadow-soft transition-all text-foreground ${className}`}
       />
       {value && (
         <Button

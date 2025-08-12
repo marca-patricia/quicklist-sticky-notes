@@ -82,10 +82,10 @@ export const ListTemplates: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm"
-          className="bg-transparent hover:bg-white/20 border-none text-foreground dark:text-black dark:hover:text-black"
+          className="text-foreground"
         >
-          <FileText className="w-4 h-4 mr-2 dark:text-black" />
-          <span className="hidden sm:inline dark:text-black">{t('templates')}</span>
+          <FileText className="w-4 h-4 mr-2" />
+          <span className="hidden sm:inline">{t('templates')}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto animate-fade-in">
