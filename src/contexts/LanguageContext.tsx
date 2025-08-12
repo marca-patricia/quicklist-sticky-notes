@@ -157,9 +157,10 @@ const translations = {
     'cancel': 'Cancelar',
     'confirm': 'Confirmar',
     'listDeleted': 'Lista excluída',
-    'listRestored': 'Lista restaurada',
+'listRestored': 'Lista restaurada',
     'archiveList': 'Arquivar Lista',
     'unarchive': 'Desarquivar',
+    'createNewList': 'Criar nova lista',
   },
   en: {
     // Auth Page
@@ -262,7 +263,7 @@ const translations = {
     'tasksCompletedToday': 'Tasks Completed Today',
     'thisWeek': 'This Week',
     'currentStreak': 'Current Streak',
-    'insights': 'Insights',
+'insights': 'Statistics',
     'productivityInsights': 'Productivity Insights',
     'days': 'days',
 
@@ -307,9 +308,10 @@ const translations = {
     'cancel': 'Cancel',
     'confirm': 'Confirm',
     'listDeleted': 'List deleted',
-    'listRestored': 'List restored',
+'listRestored': 'List restored',
     'archiveList': 'Archive List',
     'unarchive': 'Unarchive',
+    'createNewList': 'Create new list',
   }
 };
 

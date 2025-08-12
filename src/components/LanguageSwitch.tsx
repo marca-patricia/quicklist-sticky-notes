@@ -12,15 +12,13 @@ export const LanguageSwitch: React.FC = () => {
           variant="outline"
           size="sm"
           onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
-          className="h-8 px-3 text-xs font-medium bg-background hover:bg-muted text-black dark:text-black border-2 border-border hover:border-primary/50"
+          className="h-8 px-3 text-xs font-medium bg-background hover:bg-muted text-foreground border border-border hover:border-primary/50"
           aria-label={`Mudar idioma para ${language === 'pt' ? 'English' : 'Português'}`}
         >
           <span className="flex items-center gap-1.5">
-            <span className="font-bold text-black dark:text-black">{language.toUpperCase()}</span>
-            <span className="text-black dark:text-black">|</span>
-            <span className="text-black dark:text-black transition-colors">
-              {language === 'pt' ? '🇺🇸' : '🇧🇷'}
-            </span>
+            <span className="font-bold">{language.toUpperCase()}</span>
+            <span className="opacity-70">|</span>
+            <span className="">{language === 'pt' ? 'EN' : 'PT'}</span>
           </span>
         </Button>
     </div>

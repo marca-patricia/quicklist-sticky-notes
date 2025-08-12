@@ -7,108 +7,104 @@ All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
-    /* QuickList - Paleta elegante baseada na logo amarela - Modo Claro */
-    --background: 48 15% 95%; /* #F8F5ED - Fundo um pouco mais escuro */
-    --foreground: 0 0% 13%; /* #222222 - Texto preto escuro */
+:root {
+    /* QuickList - Design tokens (Light) - Blue/Gray system */
+    --background: 210 20% 98%;
+    --foreground: 222 22% 15%;
 
-    --card: 0 0% 100%; /* #FFFFFF - Cards brancos puros */
-    --card-foreground: 0 0% 13%; /* Texto preto nos cards */
+    --card: 0 0% 100%;
+    --card-foreground: 222 22% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 13%;
+    --popover-foreground: 222 22% 15%;
 
-    /* Cores principais - Amarelo pastel da barra um pouco mais escuro */
-    --primary: 48 95% 88%; /* #FFF9D6 - Amarelo pastel elegante mais escuro */
-    --primary-foreground: 0 0% 13%; /* Texto preto nos botões */
-    
-    --secondary: 48 25% 92%; /* #F7F4E8 - Amarelo bem claro */
-    --secondary-foreground: 0 0% 13%; /* Texto preto */
+    /* Core palette */
+    --primary: 217 91% 60%; /* Blue #3B82F6 */
+    --primary-foreground: 0 0% 100%;
 
-    --muted: 48 20% 95%; /* #F9F7F1 - Fundo muted suave */
-    --muted-foreground: 0 0% 20%; /* Texto muted mais escuro para melhor contraste */
+    --secondary: 220 9% 46%; /* Gray #6B7280 */
+    --secondary-foreground: 0 0% 100%;
 
-    --accent: 48 25% 92%; /* #F7F4E8 - Accent suave */
-    --accent-foreground: 0 0% 13%; /* Texto preto */
+    --muted: 210 16% 93%;
+    --muted-foreground: 215 16% 30%;
 
-    --destructive: 0 84% 60%; /* #EF4444 - Vermelho */
+    --accent: 158 64% 52%; /* Success Green #10B981 */
+    --accent-foreground: 158 100% 8%;
+
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 48 20% 80%; /* #E6D8B8 - Bordas mais visíveis */
-    --input: 0 0% 100%; /* #FFFFFF - Inputs brancos */
-    --ring: 48 95% 88%;
+    --border: 214 15% 85%;
+    --input: 0 0% 100%;
+    --ring: 217 91% 60%;
 
-    /* Post-it Colors - Cores pastel mais fortes e vibrantes */
-    --note-yellow: 48 95% 75%; /* #F4E03E - Amarelo post-it forte */
-    --note-blue: 210 80% 78%; /* #87CEEB - Azul post-it forte */
-    --note-green: 150 75% 75%; /* #90EE90 - Verde post-it forte */
-    --note-pink: 330 80% 78%; /* #FFB6C1 - Rosa post-it forte */
-    --note-orange: 30 90% 75%; /* #FFA500 - Laranja post-it forte */
-    --note-purple: 270 65% 78%; /* #DDA0DD - Roxo post-it forte */
-    --note-text: 0 0% 13%; /* #222222 - Texto preto */
-    
-    --floating-button: 48 95% 88%; /* Amarelo pastel mais destacado */
-    --floating-button-text: 0 0% 13%; /* Texto preto */
-    
-    /* Gradientes elegantes - cores mais suaves */
-    --gradient-bg: linear-gradient(135deg, hsl(48, 15%, 95%) 0%, hsl(48, 20%, 93%) 100%);
-    --gradient-header: linear-gradient(135deg, #FFF9D6 0%, #FAF3B7 100%); /* Amarelo pastel suave */
-    
-    /* Sombras para post-its */
+    /* Sticky note colors kept but slightly softened */
+    --note-yellow: 48 95% 75%;
+    --note-blue: 210 80% 78%;
+    --note-green: 150 75% 75%;
+    --note-pink: 330 80% 78%;
+    --note-orange: 30 90% 75%;
+    --note-purple: 270 65% 78%;
+    --note-text: 222 22% 15%;
+
+    --floating-button: var(--primary);
+    --floating-button-text: var(--primary-foreground);
+
+    /* Gradients and shadows */
+    --gradient-bg: linear-gradient(135deg, hsl(210 20% 98%) 0%, hsl(210 20% 96%) 100%);
+    --gradient-header: linear-gradient(135deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.18) 100%);
+
     --shadow-postit: 0px 3px 8px rgba(0,0,0,0.12);
     --shadow-postit-hover: 0px 6px 16px rgba(0,0,0,0.15);
 
     --radius: 0.75rem;
   }
 
-  .dark {
-    /* QuickList - Modo Escuro com fundo completamente preto */
-    --background: 0 0% 0%; /* #000000 - Fundo completamente preto */
-    --foreground: 0 0% 95%; /* #F2F2F2 - Texto branco suave */
+.dark {
+    /* QuickList - Design tokens (Dark) - Blue/Gray system */
+    --background: 222 22% 10%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 5%; /* #0D0D0D - Cards muito escuros */
-    --card-foreground: 0 0% 95%; /* Texto branco suave nos cards */
+    --card: 222 22% 12%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 3%; /* #080808 - Popover muito escuro */
-    --popover-foreground: 0 0% 95%; /* Texto branco suave */
+    --popover: 222 22% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Header/Barra - Cores muito contrastantes */
-    --primary: 48 100% 90%; /* #FFFACC - Amarelo muito vibrante para máximo contraste */
-    --primary-foreground: 0 0% 5%; /* #0D0D0D - Texto muito escuro no amarelo */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 10%; /* #1A1A1A - Cinza muito escuro */
-    --secondary-foreground: 0 0% 95%; /* #F2F2F2 - Texto bem claro */
+    --secondary: 220 9% 46%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 8%; /* #141414 - Fundo muted muito escuro */
-    --muted-foreground: 0 0% 80%; /* #CCCCCC - Texto muted mais contrastante */
+    --muted: 222 15% 18%;
+    --muted-foreground: 220 10% 75%;
 
-    --accent: 48 90% 80%; /* #FFF066 - Accent amarelo muito contrastante */
-    --accent-foreground: 0 0% 5%; /* Texto muito escuro no accent */
+    --accent: 158 64% 52%;
+    --accent-foreground: 158 100% 8%;
 
-    --destructive: 0 75% 60%; /* #E53E3E - Vermelho mais suave */
-    --destructive-foreground: 0 0% 95%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 15%; /* #262626 - Bordas mais visíveis */
-    --input: 0 0% 5%; /* #0D0D0D - Inputs muito escuros */
-    --ring: 48 100% 90%; /* Ring amarelo muito vibrante */
+    --border: 222 14% 22%;
+    --input: 222 22% 12%;
+    --ring: 217 91% 60%;
 
-    /* Post-it Colors - Mantém as cores originais para contraste */
-    --note-yellow: 48 95% 75%; /* Mantém amarelo vibrante */
-    --note-blue: 210 80% 78%; /* Mantém azul vibrante */
-    --note-green: 150 75% 75%; /* Mantém verde vibrante */
-    --note-pink: 330 80% 78%; /* Mantém rosa vibrante */
-    --note-orange: 30 90% 75%; /* Mantém laranja vibrante */
-    --note-purple: 270 65% 78%; /* Mantém roxo vibrante */
-    --note-text: 0 0% 10%; /* #1A1A1A - Texto sempre escuro nos post-its */
-    
-    --floating-button: 48 100% 90%; /* Amarelo muito vibrante */
-    --floating-button-text: 0 0% 5%; /* Texto muito escuro */
-    
-    /* Gradientes escuros com preto total */
-    --gradient-bg: linear-gradient(135deg, #000000 0%, #0A0A0A 100%);
-    --gradient-header: linear-gradient(135deg, #FFFACC 0%, #FFF066 100%); /* Header amarelo muito contrastante */
-    
-    /* Sombras mais fortes para modo escuro */
+    /* Sticky note colors remain */
+    --note-yellow: 48 95% 75%;
+    --note-blue: 210 80% 78%;
+    --note-green: 150 75% 75%;
+    --note-pink: 330 80% 78%;
+    --note-orange: 30 90% 75%;
+    --note-purple: 270 65% 78%;
+    --note-text: 222 22% 15%;
+
+    --floating-button: var(--primary);
+    --floating-button-text: var(--primary-foreground);
+
+    --gradient-bg: linear-gradient(135deg, hsl(222 22% 12%) 0%, hsl(222 22% 10%) 100%);
+    --gradient-header: linear-gradient(135deg, hsl(var(--primary)/0.18) 0%, hsl(var(--primary)/0.22) 100%);
+
     --shadow-postit: 0px 4px 12px rgba(0,0,0,0.4);
     --shadow-postit-hover: 0px 8px 20px rgba(0,0,0,0.5);
 
@@ -476,14 +472,6 @@ All colors MUST be HSL.
   }
 }
 
-/* Better text contrast and visibility */
-.text-black {
-  color: #1a1a1a !important;
-}
-
-.dark .text-black {
-  color: #1a1a1a !important;
-}
 
 /* Improved button contrast */
 .bg-primary {

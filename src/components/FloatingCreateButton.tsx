@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Plus, X } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface FloatingCreateButtonProps {
   onClick: () => void;
@@ -13,23 +14,7 @@ export const FloatingCreateButton: React.FC<FloatingCreateButtonProps> = ({
   className
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isDark, setIsDark] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    };
-    
-    checkTheme();
-    
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    
-    return () => observer.disconnect();
-  }, []);
+  const { t } = useLanguage();
 
   return (
     <Button
@@ -41,19 +26,13 @@ export const FloatingCreateButton: React.FC<FloatingCreateButtonProps> = ({
         "md:bottom-8 md:right-8",
         className
       )}
-      style={{
-        color: isDark ? '#000000' : undefined,
-      }}
-      title="Criar nova lista"
+      title={t('createNewList')}
     >
       <Plus 
         className={cn(
           "w-8 h-8 transition-transform duration-300 font-bold",
           isHovered && "rotate-90"
         )}
-        style={{
-          color: isDark ? '#000000' : undefined,
-        }}
       />
     </Button>
   );
