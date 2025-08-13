@@ -19,7 +19,7 @@ import { HelpModal } from '@/components/HelpModal';
 import { useTheme } from '@/hooks/useTheme';
 
 export const StickyNotesPage: React.FC = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const navigate = useNavigate();
   const { toggleTheme } = useTheme();
   const [notes, setNotes] = useState<StickyNoteData[]>([]);
@@ -40,7 +40,7 @@ export const StickyNotesPage: React.FC = () => {
       
           if (savedNotes.length > 0 || savedCategories.length > 0) {
             toast({
-              title: language === 'pt' ? "Bem-vindo de volta!" : "Welcome back!",
+              title: t('welcomeBack'),
               description: language === 'pt' 
                 ? `${savedNotes.length} notas e ${savedCategories.length} categorias carregadas`
                 : `${savedNotes.length} notes and ${savedCategories.length} categories loaded`,
@@ -117,7 +117,7 @@ export const StickyNotesPage: React.FC = () => {
         title: language === 'pt' ? "Nota atualizada" : "Note updated",
         description: language === 'pt' 
           ? "Alterações salvas com sucesso!"
-          : "Changes saved successfully!",
+          : t('changesSavedSuccessfully'),
       });
       return updated;
     });

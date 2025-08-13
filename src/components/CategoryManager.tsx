@@ -124,7 +124,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
               {categories.length === 0 && (
                 <div className="text-center">
                   <p className="text-sm text-muted-foreground mb-2">
-                    {t('language') === 'pt' ? 'Comece com categorias padrão:' : 'Start with default categories:'}
+                    {t('startWithDefaultCategories')}
                   </p>
                   <Button variant="outline" size="sm" onClick={createDefaultCategories}>
                     {t('language') === 'pt' ? 'Criar Categorias Padrão' : 'Create Default Categories'}

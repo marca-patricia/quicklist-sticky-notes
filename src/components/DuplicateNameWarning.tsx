@@ -14,7 +14,7 @@ export const DuplicateNameWarning: React.FC<DuplicateNameWarningProps> = ({
   suggestedName,
   onAcceptSuggestion
 }) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   if (!show) return null;
 
@@ -26,13 +26,13 @@ export const DuplicateNameWarning: React.FC<DuplicateNameWarningProps> = ({
           <p className="text-sm">
             {language === 'pt' 
               ? 'Já existe uma nota com este nome.'
-              : 'A note with this name already exists.'
+              : t('noteWithNameExists')
             }
           </p>
           {suggestedName && onAcceptSuggestion && (
             <div className="flex gap-2 items-center">
               <span className="text-xs">
-                {language === 'pt' ? 'Sugestão:' : 'Suggestion:'}
+                {t('suggestion')}
               </span>
               <button
                 onClick={() => onAcceptSuggestion(suggestedName)}

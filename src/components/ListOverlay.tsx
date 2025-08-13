@@ -2,6 +2,7 @@ import React from 'react';
 import { StickyNoteData } from '@/components/StickyNote';
 import { X, CheckCircle, Circle, Edit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ListOverlayProps {
   isOpen: boolean;
@@ -16,6 +17,8 @@ export const ListOverlay: React.FC<ListOverlayProps> = ({
   note,
   onEdit
 }) => {
+  const { t } = useLanguage();
+  
   if (!isOpen || note.type !== 'list') return null;
 
   return (
@@ -81,7 +84,7 @@ export const ListOverlay: React.FC<ListOverlayProps> = ({
           ) : (
             <div className="text-center py-8">
               <Circle className="w-12 h-12 mx-auto text-gray-600 mb-3 opacity-50" />
-              <p className="text-gray-700">Nenhum item na lista ainda</p>
+              <p className="text-gray-700">{t('noItemsYet')}</p>
               <Button
                 variant="ghost"
                 onClick={onEdit}

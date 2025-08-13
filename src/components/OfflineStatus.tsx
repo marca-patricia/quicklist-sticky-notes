@@ -1,8 +1,10 @@
 
 import React from 'react';
 import { Wifi, WifiOff } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const OfflineStatus: React.FC = () => {
+  const { t } = useLanguage();
   const [isOnline, setIsOnline] = React.useState(navigator.onLine);
 
   React.useEffect(() => {
@@ -23,7 +25,7 @@ export const OfflineStatus: React.FC = () => {
   return (
     <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-black">
       <WifiOff className="w-4 h-4 dark:text-black" />
-      <span className="dark:text-black">Offline</span>
+      <span className="dark:text-black">{t('offline')}</span>
     </div>
   );
 };

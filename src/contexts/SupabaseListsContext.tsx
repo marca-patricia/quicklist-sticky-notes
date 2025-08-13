@@ -155,7 +155,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
       };
 
       setLists(prev => [newList, ...prev]);
-      toast.success('Lista criada com sucesso!');
+      // Toast is handled in AddListForm
     } catch (error) {
       console.error('Error adding list:', error);
       toast.error('Erro ao criar lista');
@@ -175,7 +175,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
       if (error) throw error;
 
       setLists(prev => prev.filter(list => list.id !== listId));
-      toast.success('Lista deletada com sucesso!');
+      // Toast will be handled by calling component
     } catch (error) {
       console.error('Error deleting list:', error);
       toast.error('Erro ao deletar lista');
@@ -204,7 +204,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
             : list
         )
       );
-      toast.success('Lista atualizada com sucesso!');
+      // Toast will be handled by calling component
     } catch (error) {
       console.error('Error updating list:', error);
       toast.error('Erro ao atualizar lista');
@@ -251,7 +251,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
             : list
         )
       );
-      toast.success('Item adicionado com sucesso!');
+      // Toast will be handled by calling component
     } catch (error) {
       console.error('Error adding item:', error);
       toast.error('Erro ao adicionar item');
@@ -312,7 +312,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
             : list
         )
       );
-      toast.success('Item removido com sucesso!');
+      // Toast will be handled by calling component
     } catch (error) {
       console.error('Error deleting item:', error);
       toast.error('Erro ao remover item');
@@ -346,7 +346,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
             : list
         )
       );
-      toast.success('Item atualizado com sucesso!');
+      // Toast will be handled by calling component
     } catch (error) {
       console.error('Error updating item:', error);
       toast.error('Erro ao atualizar item');
@@ -382,7 +382,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
             : list
         )
       );
-      toast.success('Categoria adicionada com sucesso!');
+      // Toast will be handled by calling component
     } catch (error) {
       console.error('Error adding category:', error);
       toast.error('Erro ao adicionar categoria');
@@ -410,7 +410,7 @@ export function SupabaseListsProvider({ children }: { children: React.ReactNode 
             : list
         )
       );
-      toast.success('Categoria removida com sucesso!');
+      // Toast will be handled by calling component
     } catch (error) {
       console.error('Error deleting category:', error);
       toast.error('Erro ao remover categoria');

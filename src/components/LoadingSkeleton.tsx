@@ -1,15 +1,18 @@
 import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SkeletonProps {
   className?: string;
 }
 
 export const Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => {
+  const { t } = useLanguage();
+  
   return (
     <div 
       className={`animate-pulse bg-muted rounded-md ${className}`}
       role="status"
-      aria-label="Carregando..."
+      aria-label={t('loadingText')}
     />
   );
 };

@@ -51,7 +51,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
   const handleColorChange = (color: string) => {
     console.log('Changing color to:', color);
     updateList(list.id, { color });
-    showSuccess('Cor alterada com sucesso!');
+    showSuccess(t('colorChangedSuccessfully'));
   };
 
   // Function to darken color for better contrast

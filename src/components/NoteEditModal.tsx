@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { CategoryManager, Category } from '@/components/CategoryManager';
 import { Plus, X, Check, Trash2, CheckCircle, Circle } from 'lucide-react';
 import { StickyNoteData, NoteType } from '@/components/StickyNote';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ListItem {
   id: string;
@@ -43,6 +44,8 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
   onCategoryCreate,
   onCategoryDelete
 }) => {
+  const { t } = useLanguage();
+  
   const [title, setTitle] = useState(note.title || '');
   const [content, setContent] = useState(note.content || '');
   const [listItems, setListItems] = useState<ListItem[]>([]);
@@ -186,7 +189,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                         <Circle className="w-4 h-4" />
                       </Button>
                       <Input
-                        placeholder="Digite o item..."
+                        placeholder={t('typeItem')}
                         value={item.text}
                         onChange={(e) => updateListItem(item.id, e.target.value)}
                         className="flex-1"

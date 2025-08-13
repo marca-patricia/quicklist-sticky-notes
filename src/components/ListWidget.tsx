@@ -27,7 +27,7 @@ export const ListWidget: React.FC<ListWidgetProps> = ({ listId }) => {
           <QuickListIcon className="w-12 h-12 mx-auto mb-4" />
           <h2 className="text-lg font-semibold mb-2">{t('listNotFound')}</h2>
           <p className="text-sm text-muted-foreground mb-4">
-            {t('language') === 'pt' ? 'Esta lista pode ter sido removida ou o link está incorreto.' : 'This list may have been removed or the link is incorrect.'}
+            {t('listMayBeRemovedOrIncorrect')}
           </p>
           <Button onClick={() => navigate('/')} className="w-full">
             <Plus className="w-4 h-4 mr-2" />

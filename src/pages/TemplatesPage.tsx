@@ -112,7 +112,7 @@ export const TemplatesPage: React.FC = () => {
     }, 100);
     
     toast({
-      title: language === 'pt' ? "Template aplicado!" : "Template applied!",
+      title: t('templateApplied'),
       description: language === 'pt' 
         ? `Lista "${title}" criada com sucesso`
         : `List "${title}" created successfully`,
@@ -227,7 +227,7 @@ export const TemplatesPage: React.FC = () => {
           <div className="bg-muted/50 rounded-xl p-8">
             <FileText className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-xl font-semibold mb-2">
-              {language === 'pt' ? 'Não encontrou o que procura?' : 'Didn\'t find what you\'re looking for?'}
+              {t('didntFindLooking')}
             </h3>
             <p className="text-muted-foreground mb-4">
               {language === 'pt' 

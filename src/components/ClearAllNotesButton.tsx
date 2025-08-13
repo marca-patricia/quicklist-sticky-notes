@@ -24,7 +24,7 @@ export const ClearAllNotesButton: React.FC<ClearAllNotesButtonProps> = ({
   onClearAll,
   notesCount
 }) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   const handleClearAll = () => {
     onClearAll();
@@ -53,7 +53,7 @@ export const ClearAllNotesButton: React.FC<ClearAllNotesButtonProps> = ({
       <AlertDialogContent className="bg-background border text-foreground">
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {language === 'pt' ? 'Excluir todas as notas?' : 'Delete all notes?'}
+            {t('deleteAllNotes')}
           </AlertDialogTitle>
           <AlertDialogDescription>
             {language === 'pt' 

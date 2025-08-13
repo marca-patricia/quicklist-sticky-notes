@@ -269,8 +269,8 @@ export const AchievementsPage: React.FC = () => {
                       <div className="pt-2 border-t border-border">
                         <p className="text-xs text-muted-foreground">
                           {language === 'pt' 
-                            ? 'Continue usando o app para desbloquear!' 
-                            : 'Keep using the app to unlock!'
+                            ? t('continueUsingApp')
+                            : t('continueUsingApp')
                           }
                         </p>
                       </div>

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Palette, Check } from 'lucide-react';
 import { pastelColors } from '@/contexts/ListsContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ColorPickerProps {
   selectedColor: string;
@@ -12,6 +13,8 @@ interface ColorPickerProps {
 }
 
 export const ColorPicker: React.FC<ColorPickerProps> = ({ selectedColor, onColorChange, className = "w-10 h-10" }) => {
+  const { t } = useLanguage();
+  
   const handleColorSelect = (color: string) => {
     console.log('ColorPicker: Selecting color', color);
     onColorChange(color);
@@ -29,7 +32,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ selectedColor, onColor
             minWidth: className.includes('w-') ? undefined : '40px',
             minHeight: className.includes('h-') ? undefined : '40px'
           }}
-          aria-label="Escolher cor"
+          aria-label={t('chooseColor')}
         >
           <Palette className="w-3 h-3 text-gray-800 drop-shadow-sm" strokeWidth={2.5} />
         </Button>
@@ -59,7 +62,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({ selectedColor, onColor
           ))}
         </div>
         <p className="text-xs text-muted-foreground mt-4 text-center font-medium">
-          Escolha uma cor para sua lista
+          {t('chooseListColor')}
         </p>
       </PopoverContent>
     </Popover>

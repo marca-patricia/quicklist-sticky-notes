@@ -125,7 +125,7 @@ export const ListsOverview: React.FC = () => {
         <div className="container max-w-6xl mx-auto px-2 py-2 min-h-[56px]">
           <div className="flex justify-between items-center">
             {/* Left side controls */}
-            <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label="Configurações do aplicativo">
+            <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap" role="group" aria-label={t('appSettings')}>
               <LanguageSwitch />
              <ThemeToggle />
               <ConnectionStatus />
@@ -137,7 +137,7 @@ export const ListsOverview: React.FC = () => {
               <button 
                 onClick={() => window.location.reload()}
                 className="hover:opacity-80 transition-opacity"
-                aria-label="Recarregar aplicativo QuickList"
+                aria-label={t('reloadApp')}
               >
                 <QuickListLogo size="md" showText={true} className="text-foreground" />
                 <span className="ml-2 font-semibold text-foreground">{t('homescreen')}</span>
@@ -145,7 +145,7 @@ export const ListsOverview: React.FC = () => {
             </div>
 
             {/* Right side controls */}
-            <div className="flex items-center gap-1 overflow-x-auto" role="group" aria-label="Ferramentas e estatísticas">
+            <div className="flex items-center gap-1 overflow-x-auto" role="group" aria-label={t('toolsAndStats')}>
               <Button
                 variant="ghost"
                 size="sm"
@@ -200,12 +200,12 @@ export const ListsOverview: React.FC = () => {
       <div className="h-20"></div>
       
       <main id="main-content" tabIndex={-1} className="container max-w-5xl mx-auto px-4 py-8"
-            aria-label="Lista de tarefas principal"
+            aria-label={t('mainTaskList')}
             role="main">
 
         {/* Add List Form - Now conditional */}
         {showAddForm && (
-          <section className="max-w-2xl mx-auto mb-12" aria-label="Criar nova lista">
+          <section className="max-w-2xl mx-auto mb-12" aria-label={t('createNewListSection')}>
             {isLoading ? (
               <div className="flex gap-2">
                 <div className="animate-pulse bg-muted rounded h-10 flex-1"></div>
@@ -298,7 +298,7 @@ export const ListsOverview: React.FC = () => {
                         {searchTerm ? (
                           <div>
                             <p className="text-lg">{t('noResultsFound')}</p>
-                            <p className="text-sm mt-2">Tente uma busca diferente</p>
+                            <p className="text-sm mt-2">{t('tryDifferentSearch')}</p>
                           </div>
                         ) : showArchived ? (
                           <div>

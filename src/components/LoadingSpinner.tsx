@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
@@ -10,6 +11,8 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'md', 
   className 
 }) => {
+  const { t } = useLanguage();
+  
   const sizeClasses = {
     sm: 'h-4 w-4',
     md: 'h-6 w-6',
@@ -24,7 +27,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         className
       )}
       role="status"
-      aria-label="Carregando..."
+      aria-label={t('loadingText')}
     >
       <span className="sr-only">Carregando...</span>
     </div>

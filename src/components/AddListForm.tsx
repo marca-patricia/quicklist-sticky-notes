@@ -46,7 +46,7 @@ export const AddListForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2" role="form" aria-label="Criar nova lista">
+    <form onSubmit={handleSubmit} className="flex gap-2" role="form" aria-label={t('createNewListForm')}>
       <Input
         type="text"
         placeholder={t('listPlaceholder')}
@@ -56,7 +56,7 @@ export const AddListForm: React.FC = () => {
         style={{
           color: isDark ? '#000000' : undefined,
         }}
-        aria-label="Nome da nova lista"
+        aria-label={t('newListName')}
         aria-describedby="list-input-help"
       />
       <div id="list-input-help" className="sr-only">
@@ -66,7 +66,7 @@ export const AddListForm: React.FC = () => {
         selectedColor={selectedColor}
         onColorChange={setSelectedColor}
         className="flex-shrink-0"
-        aria-label="Escolher cor da lista"
+        aria-label={t('chooseListColor')}
       />
       <Button 
         type="submit" 

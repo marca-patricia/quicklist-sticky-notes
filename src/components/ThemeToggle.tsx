@@ -2,8 +2,11 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Sun, Moon } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const ThemeToggle: React.FC = () => {
+  const { t } = useLanguage();
+  
   const [theme, setTheme] = React.useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('quicklist-theme') || 
@@ -37,7 +40,7 @@ export const ThemeToggle: React.FC = () => {
         border: theme === 'dark' ? '1px solid #FFF066' : '1px solid rgba(0, 0, 0, 0.1)',
         color: theme === 'dark' ? '#0D0D0D' : '#1a1a1a'
       }}
-      aria-label="Alternar tema"
+      aria-label={t('toggleTheme')}
     >
       {theme === 'dark' ? (
         <Sun className="w-4 h-4" style={{ color: '#0D0D0D' }} />

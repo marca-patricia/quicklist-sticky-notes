@@ -55,7 +55,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   onCategoryCreate,
   onCategoryDelete
 }) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<NoteType | 'all'>('all');
   const [filterCategory, setFilterCategory] = useState<string | 'all'>('all');
@@ -198,7 +198,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                   {/* Type Filter */}
                   <div className="space-y-2">
                     <label className="text-sm text-muted-foreground dark:text-white/80">
-                      {language === 'pt' ? 'Tipo:' : 'Type:'}
+                      {t('type')}
                     </label>
                     <div className="flex gap-1 flex-wrap">
                       <Button
@@ -231,7 +231,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                   {categories.length > 0 && (
                     <div className="space-y-2">
                       <label className="text-sm text-muted-foreground dark:text-white/80">
-                        {language === 'pt' ? 'Categoria:' : 'Category:'}
+                        {t('category')}
                       </label>
                       <div className="flex gap-1 flex-wrap">
                         <Button
