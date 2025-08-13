@@ -424,6 +424,44 @@ const translations = {
     'itemUpdatedSuccessfully': 'Item updated successfully!',
     'categoryAddedSuccessfully': 'Category added successfully!',
     'categoryRemovedSuccessfully': 'Category removed successfully!',
+
+    // Progress and feedback
+    'progress.completed': 'Completed!',
+    'progress.inProgress': 'in progress',
+
+    // Onboarding
+    'onboarding.welcome.title': 'Welcome to QuickList!',
+    'onboarding.welcome.description': 'Organize your tasks simply and efficiently. Let\'s get started!',
+    'onboarding.createLists.title': 'Create your lists',
+    'onboarding.createLists.description': 'Use the + button to create custom lists or choose from our templates.',
+    'onboarding.features.title': 'Available features',
+    'onboarding.features.description': 'Sticky notes, statistics, achievements and much more to boost your productivity.',
+    'onboarding.skip': 'Skip',
+    'onboarding.next': 'Next',
+    'onboarding.getStarted': 'Get Started',
+
+    // Enhanced Empty States
+    'emptyState.lists.title': 'No lists yet',
+    'emptyState.lists.description': 'Create your first list to start organizing your tasks efficiently.',
+    'emptyState.lists.action': 'Create first list',
+    'emptyState.notes.title': 'Empty board',
+    'emptyState.notes.description': 'Add your first sticky note to capture important ideas and reminders.',
+    'emptyState.notes.action': 'Create first note',
+    'emptyState.achievements.title': 'Start your journey',
+    'emptyState.achievements.description': 'Complete tasks and challenges to unlock achievements and track your progress.',
+    'emptyState.achievements.action': 'View tasks',
+    'emptyState.statistics.title': 'Data in preparation',
+    'emptyState.statistics.description': 'Complete some tasks to see detailed statistics about your productivity.',
+    'emptyState.statistics.action': 'Create list',
+
+    // Navigation
+    'nav.home': 'Home',
+    'nav.notes': 'Notes',
+    'nav.templates': 'Templates',
+    'nav.statistics': 'Statistics',
+    'nav.achievements': 'Achievements',
+    'nav.listDetail': 'List Details',
+    'nav.back': 'Back'
   }
 };
 

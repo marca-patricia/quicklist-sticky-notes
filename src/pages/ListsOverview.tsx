@@ -3,7 +3,9 @@ import { AddListForm } from '@/components/AddListForm';
 import { PostItCard } from '@/components/PostItCard';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { EmptyState } from '@/components/EmptyState';
+import { EnhancedEmptyState } from '@/components/EnhancedEmptyState';
+import { OnboardingTour } from '@/components/OnboardingTour';
+import { BreadcrumbNav } from '@/components/BreadcrumbNav';
 import { InstallPrompt } from '@/components/InstallPrompt';
 import { AchievementsModal } from '@/components/AchievementsModal';
 import { ProductivityInsights } from '@/components/ProductivityInsights';
@@ -35,6 +37,16 @@ export const ListsOverview: React.FC = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isGridView, setIsGridView] = useState(false);
+  const [isTemplatesOpen, setIsTemplatesOpen] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Check if user is new (no lists created)
+  React.useEffect(() => {
+    const hasSeenOnboarding = localStorage.getItem('quicklist-onboarding-seen');
+    if (!hasSeenOnboarding && lists.length === 0) {
+      setShowOnboarding(true);
+    }
+  }, [lists.length]);
 
   // Redirect to auth if not logged in
   React.useEffect(() => {
@@ -116,6 +128,16 @@ export const ListsOverview: React.FC = () => {
     const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleOnboardingComplete = () => {
+    setShowOnboarding(false);
+    localStorage.setItem('quicklist-onboarding-seen', 'true');
+  };
+
+  const handleOnboardingSkip = () => {
+    setShowOnboarding(false);
+    localStorage.setItem('quicklist-onboarding-seen', 'true');
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -277,7 +299,10 @@ export const ListsOverview: React.FC = () => {
               ))}
             </div>
           ) : lists.length === 0 ? (
-            <EmptyState />
+        <EnhancedEmptyState 
+          type="lists" 
+          onAction={() => setIsTemplatesOpen(true)}
+        />
           ) : (
             <>
               {/* Filter and display lists */}
@@ -306,7 +331,7 @@ export const ListsOverview: React.FC = () => {
                             <p className="text-lg">{t('noArchivedLists')}</p>
                           </div>
                         ) : (
-                          <EmptyState />
+                          <EnhancedEmptyState type="lists" onAction={() => setIsTemplatesOpen(true)} />
                         )}
                       </div>
                     </div>
@@ -343,6 +368,14 @@ export const ListsOverview: React.FC = () => {
       
       {/* Floating Add Button */}
       <FloatingCreateButton onClick={() => setShowAddForm(!showAddForm)} />
+      
+
+      {showOnboarding && (
+        <OnboardingTour
+          onComplete={handleOnboardingComplete}
+          onSkip={handleOnboardingSkip}
+        />
+      )}
       
       {/* Spacer for mobile */}
       <div className="h-20"></div>

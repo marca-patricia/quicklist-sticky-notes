@@ -4,6 +4,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Circle, List, Target, TrendingUp, Calendar, Clock, Award } from 'lucide-react';
+import { EnhancedEmptyState } from '@/components/EnhancedEmptyState';
+import { BreadcrumbNav } from '@/components/BreadcrumbNav';
 import { format, startOfWeek, endOfWeek, isWithinInterval, subWeeks } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
 
