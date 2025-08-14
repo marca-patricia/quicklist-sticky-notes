@@ -192,6 +192,17 @@ const translations = {
     'nextSlide': 'Próximo slide',
     'more': 'Mais',
     
+    // Phase 5: Performance and Accessibility
+    performance: 'Performance',
+    skipToMain: 'Pular para o conteúdo principal',
+    skipToNav: 'Pular para a navegação',
+    loading: 'Carregando',
+    imageNotAvailable: 'Imagem não disponível',
+    reducedMotion: 'Animações reduzidas ativadas',
+    highContrast: 'Alto contraste ativado',
+    keyboardShortcuts: 'Atalhos do teclado',
+    screenReaderMode: 'Modo leitor de tela',
+    
     // Missing category and filters
     'type': 'Tipo',
     'category': 'Categoria',
@@ -217,6 +228,19 @@ const translations = {
     'itemUpdatedSuccessfully': 'Item atualizado com sucesso!',
     'categoryAddedSuccessfully': 'Categoria adicionada com sucesso!',
     'categoryRemovedSuccessfully': 'Categoria removida com sucesso!',
+    
+    // Keyboard shortcuts
+    'showKeyboardHelp': 'Mostrar atalhos do teclado',
+    'goToHome': 'Ir para início',
+    'goToNotes': 'Ir para post-its',
+    'goToTemplates': 'Ir para modelos',
+    'goToStatistics': 'Ir para estatísticas',
+    'goToAchievements': 'Ir para conquistas',
+    'focusSearch': 'Focar busca',
+    'closeDialog': 'Fechar diálogo',
+    'keyboardShortcutsNote': 'Pressione ? para mostrar esta ajuda a qualquer momento',
+    'searchFocused': 'Busca focada',
+    'searchFocusedDesc': 'Comece a digitar para buscar',
   },
   en: {
     // Auth Page
@@ -399,6 +423,17 @@ const translations = {
     'nextSlide': 'Next slide',
     'more': 'More',
     
+    // Phase 5: Performance and Accessibility
+    performance: 'Performance',
+    skipToMain: 'Skip to main content',
+    skipToNav: 'Skip to navigation',
+    loading: 'Loading',
+    imageNotAvailable: 'Image not available',
+    reducedMotion: 'Reduced motion enabled',
+    highContrast: 'High contrast enabled',
+    keyboardShortcuts: 'Keyboard shortcuts',
+    screenReaderMode: 'Screen reader mode',
+    
     // Missing category and filters
     'type': 'Type',
     'category': 'Category',
@@ -424,6 +459,19 @@ const translations = {
     'itemUpdatedSuccessfully': 'Item updated successfully!',
     'categoryAddedSuccessfully': 'Category added successfully!',
     'categoryRemovedSuccessfully': 'Category removed successfully!',
+    
+    // Keyboard shortcuts
+    'showKeyboardHelp': 'Show keyboard shortcuts',
+    'goToHome': 'Go to home',
+    'goToNotes': 'Go to sticky notes',
+    'goToTemplates': 'Go to templates',
+    'goToStatistics': 'Go to statistics',
+    'goToAchievements': 'Go to achievements',
+    'focusSearch': 'Focus search',
+    'closeDialog': 'Close dialog',
+    'keyboardShortcutsNote': 'Press ? to show this help anytime',
+    'searchFocused': 'Search focused',
+    'searchFocusedDesc': 'Start typing to search',
 
     // Progress and feedback
     'progress.completed': 'Completed!',
