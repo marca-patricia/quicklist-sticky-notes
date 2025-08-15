@@ -62,6 +62,14 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
     }
   }, [note.items, note.type]);
 
+  // Update state when note prop changes
+  useEffect(() => {
+    setTitle(note.title || '');
+    setContent(note.content || '');
+    setSelectedCategory(note.category);
+    setSelectedColor(note.color);
+  }, [note]);
+
   const handleSave = () => {
     const noteData: Partial<StickyNoteData> = {
       title: title.trim() || undefined,
@@ -117,16 +125,16 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           backgroundColor: selectedColor ? `${selectedColor}40` : undefined,
         }}
         >
-        <DialogHeader className="pb-4">
+        <DialogHeader className="pb-4 flex-shrink-0">
           <DialogTitle className="text-lg font-semibold">
-            {note.type === 'list' ? 'Editar Lista' : 'Editar Nota'}
+            {note.type === 'list' ? 'Editar Lista' : t('notes.editNote')}
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto space-y-6">
+        <div className="flex-1 overflow-y-auto space-y-4 sm:space-y-6">
           {/* Color Picker */}
           <div className="space-y-3">
-            <label className="text-sm font-medium">Cor:</label>
+            <label className="text-sm font-medium">{t('notes.colorLabel')}</label>
             <div className="flex gap-2 flex-wrap">
               {noteColors.map((color) => (
                 <button
@@ -136,6 +144,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                   }`}
                   style={{ backgroundColor: color }}
                   onClick={() => setSelectedColor(color)}
+                  aria-label={`Selecionar cor ${color}`}
                 />
               ))}
             </div>
@@ -144,23 +153,24 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           {/* Title */}
           <div className="space-y-3">
             <label className="text-sm font-medium">
-              {note.type === 'list' ? 'Título da Lista:' : 'Título:'}
+              {note.type === 'list' ? 'Título da Lista:' : t('notes.titleLabel')}
             </label>
             <Input
-              placeholder={note.type === 'list' ? 'Digite o título da lista...' : 'Digite o título...'}
+              placeholder={note.type === 'list' ? 'Digite o título da lista...' : t('notes.titlePlaceholder')}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="h-12"
+              autoFocus
             />
           </div>
 
           {/* Content/Description - SEMPRE mostrar para TODOS os tipos */}
           <div className="space-y-3">
             <label className="text-sm font-medium">
-              {note.type === 'list' ? 'Descrição da Lista:' : 'Conteúdo:'}
+              {note.type === 'list' ? 'Descrição da Lista:' : t('notes.contentLabel')}
             </label>
             <Textarea
-              placeholder={note.type === 'list' ? 'Descrição opcional da lista...' : 'Escreva sua nota...'}
+              placeholder={note.type === 'list' ? 'Descrição opcional da lista...' : t('notes.contentPlaceholder')}
               value={content}
               onChange={(e) => setContent(e.target.value)}
               className="min-h-32 resize-none"
@@ -185,6 +195,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                         size="sm"
                         onClick={() => toggleListItemCompletion(item.id)}
                         className="p-1 h-auto"
+                        aria-label="Marcar como concluído"
                       >
                         <Circle className="w-4 h-4" />
                       </Button>
@@ -199,6 +210,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                         size="sm"
                         onClick={() => handleRemoveListItem(item.id)}
                         className="p-1 h-auto text-destructive"
+                        aria-label="Remover item"
                       >
                         <X className="w-4 h-4" />
                       </Button>
@@ -231,6 +243,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                           size="sm"
                           onClick={() => toggleListItemCompletion(item.id)}
                           className="p-1 h-auto"
+                          aria-label="Marcar como pendente"
                         >
                           <CheckCircle className="w-4 h-4 text-green-600" />
                         </Button>
@@ -244,6 +257,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
                           size="sm"
                           onClick={() => handleRemoveListItem(item.id)}
                           className="p-1 h-auto text-destructive"
+                          aria-label="Remover item"
                         >
                           <X className="w-4 h-4" />
                         </Button>
@@ -279,8 +293,9 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
             variant="outline"
             onClick={onClose}
             className="flex-1 order-1 sm:order-1"
+            aria-label={t('notes.cancel')}
           >
-            Cancelar
+            {t('notes.cancel')}
           </Button>
           <Button
             variant="destructive"
@@ -289,16 +304,18 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
               onClose();
             }}
             className="px-6 order-3 sm:order-2"
+            aria-label={t('notes.delete')}
           >
             <Trash2 className="w-4 h-4 mr-2" />
-            Excluir
+            {t('notes.delete')}
           </Button>
           <Button
             onClick={handleSave}
             className="flex-1 order-2 sm:order-3"
+            aria-label={t('notes.saveChanges')}
           >
             <Check className="w-4 h-4 mr-2" />
-            Salvar Alterações
+            {t('notes.saveChanges')}
           </Button>
         </div>
       </DialogContent>
