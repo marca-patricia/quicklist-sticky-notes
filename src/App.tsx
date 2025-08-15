@@ -27,6 +27,37 @@ import { KeyboardShortcuts } from "./components/KeyboardShortcuts";
 const queryClient = new QueryClient();
 
 const App = () => {
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem={false}
+            disableTransitionOnChange
+          >
+            <TooltipProvider>
+              <OfflineProvider>
+                <LanguageProvider>
+                  <AuthProvider>
+                    <ListsProvider>
+                      <AchievementsProvider>
+                        <AppContent />
+                      </AchievementsProvider>
+                    </ListsProvider>
+                  </AuthProvider>
+                </LanguageProvider>
+              </OfflineProvider>
+            </TooltipProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  );
+};
+
+const AppContent = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -54,57 +85,34 @@ const App = () => {
   }
 
   return (
-    <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem={false}
-            disableTransitionOnChange
-          >
-            <TooltipProvider>
-              <OfflineProvider>
-                <LanguageProvider>
-                    <AuthProvider>
-                      <ListsProvider>
-                        <AchievementsProvider>
-                          <AccessibilityAnnouncer />
-                          <KeyboardShortcuts />
-                          <div role="application" aria-label="QuickList - Gerenciador de Tarefas">
-                            <main id="main-content">
-                              <Routes>
-                                <Route path="/" element={<ListsOverview />} />
-                                <Route path="/list/:listId" element={<ListDetail />} />
-                                <Route path="/sticky-notes" element={<StickyNotesPage />} />
-                                <Route path="/templates" element={<TemplatesPage />} />
-                                <Route path="/statistics" element={<StatisticsPage />} />
-                                <Route path="/achievements" element={<AchievementsPage />} />
-                                <Route path="/auth" element={<AuthPage />} />
-                                <Route path="*" element={
-                                  <div className="min-h-screen bg-background flex items-center justify-center">
-                                    <div className="text-center" role="alert" aria-live="assertive">
-                                      <h1 className="text-2xl font-bold mb-2">Página não encontrada</h1>
-                                      <p className="text-muted-foreground">A página que você procura não existe.</p>
-                                    </div>
-                                  </div>
-                                } />
-                              </Routes>
-                            </main>
-                          </div>
-                          <Toaster />
-                          <Sonner />
-                          <PerformanceMonitor />
-                        </AchievementsProvider>
-                      </ListsProvider>
-                    </AuthProvider>
-                  </LanguageProvider>
-                </OfflineProvider>
-              </TooltipProvider>
-          </ThemeProvider>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </ErrorBoundary>
+    <>
+      <AccessibilityAnnouncer />
+      <KeyboardShortcuts />
+      <div role="application" aria-label="QuickList - Gerenciador de Tarefas">
+        <main id="main-content">
+          <Routes>
+            <Route path="/" element={<ListsOverview />} />
+            <Route path="/list/:listId" element={<ListDetail />} />
+            <Route path="/sticky-notes" element={<StickyNotesPage />} />
+            <Route path="/templates" element={<TemplatesPage />} />
+            <Route path="/statistics" element={<StatisticsPage />} />
+            <Route path="/achievements" element={<AchievementsPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="*" element={
+              <div className="min-h-screen bg-background flex items-center justify-center">
+                <div className="text-center" role="alert" aria-live="assertive">
+                  <h1 className="text-2xl font-bold mb-2">Página não encontrada</h1>
+                  <p className="text-muted-foreground">A página que você procura não existe.</p>
+                </div>
+              </div>
+            } />
+          </Routes>
+        </main>
+      </div>
+      <Toaster />
+      <Sonner />
+      <PerformanceMonitor />
+    </>
   );
 };
 
