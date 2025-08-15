@@ -1,17 +1,17 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
   className?: string;
+  label?: string;
 }
 
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
   size = 'md', 
-  className 
+  className,
+  label = 'Carregando...'
 }) => {
-  const { t } = useLanguage();
   
   const sizeClasses = {
     sm: 'h-4 w-4',
@@ -27,9 +27,9 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         className
       )}
       role="status"
-      aria-label={t('loadingText')}
+      aria-label={label}
     >
-      <span className="sr-only">Carregando...</span>
+      <span className="sr-only">{label}</span>
     </div>
   );
 };
