@@ -112,7 +112,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
-        className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"
+        className="max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col p-4 sm:p-6"
         style={{
           backgroundColor: selectedColor ? `${selectedColor}40` : undefined,
         }}
@@ -127,11 +127,11 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           {/* Color Picker */}
           <div className="space-y-3">
             <label className="text-sm font-medium">Cor:</label>
-            <div className="flex gap-3 pl-1">
+            <div className="flex gap-2 flex-wrap">
               {noteColors.map((color) => (
                 <button
                   key={color}
-                  className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${
+                  className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 transition-all hover:scale-110 ${
                     selectedColor === color ? 'border-foreground scale-110 ring-2 ring-foreground/30' : 'border-border'
                   }`}
                   style={{ backgroundColor: color }}
@@ -274,11 +274,11 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
         </div>
 
         {/* Actions */}
-        <div className="flex gap-3 pt-6 mt-4 border-t">
+        <div className="flex flex-col sm:flex-row gap-3 pt-4 mt-4 border-t shrink-0">
           <Button
             variant="outline"
             onClick={onClose}
-            className="flex-1"
+            className="flex-1 order-1 sm:order-1"
           >
             Cancelar
           </Button>
@@ -288,14 +288,14 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
               onDelete(note.id);
               onClose();
             }}
-            className="px-6"
+            className="px-6 order-3 sm:order-2"
           >
             <Trash2 className="w-4 h-4 mr-2" />
             Excluir
           </Button>
           <Button
             onClick={handleSave}
-            className="flex-1"
+            className="flex-1 order-2 sm:order-3"
           >
             <Check className="w-4 h-4 mr-2" />
             Salvar Alterações

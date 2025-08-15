@@ -174,7 +174,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             <SearchInput
               value={searchTerm}
               onChange={setSearchTerm}
-              placeholder={language === 'pt' ? "Buscar notas..." : "Search notes..."}
+              placeholder={t('searchNotes')}
               className="flex-1 dark:bg-black dark:border-white/20 dark:text-white dark:placeholder:text-white/60 rounded-r-none border-r-0"
             />
             
