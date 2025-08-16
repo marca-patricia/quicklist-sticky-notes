@@ -204,6 +204,10 @@ const translations = {
     'createFirstList': 'Criar primeira lista',
     'newListName': 'Nome da nova lista',
     'typeItem': 'Digite um item...',
+    'addList': 'Criar Lista',
+    'createNewList': 'Criar Nova Lista',
+    'createNewListForm': 'Formulário para criar nova lista',
+    'chooseListColor': 'Escolher cor da lista',
     
     // Onboarding Portuguese
     'onboarding.welcome.title': 'Bem-vindo ao QuickList!',
@@ -481,6 +485,10 @@ const translations = {
     'createFirstList': 'Create first list',
     'newListName': 'New list name',
     'typeItem': 'Type item...',
+    'addList': 'Create List',
+    'createNewList': 'Create New List',
+    'createNewListForm': 'Form to create new list',
+    'chooseListColor': 'Choose list color',
     
     // Onboarding
     'onboarding.welcome.title': 'Welcome to QuickList!',
