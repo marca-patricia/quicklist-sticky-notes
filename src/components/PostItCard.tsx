@@ -135,8 +135,9 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
             >
               {list.title}
             </h3>
+            {/* Always visible small action icons as requested */}
             <div 
-              className={`flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0`} 
+              className={`flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity duration-200 flex-shrink-0`} 
               onClick={(e) => e.stopPropagation()}
             >
               {!isGridView && (
