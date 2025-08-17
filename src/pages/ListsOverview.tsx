@@ -366,8 +366,8 @@ export const ListsOverview: React.FC = () => {
         </section>
       </main>
       
-      {/* Floating Add Button */}
-      <FloatingCreateButton onClick={() => setShowAddForm(!showAddForm)} />
+      {/* Floating Add Button - Only show when no lists */}
+      {lists.length === 0 && <FloatingCreateButton onClick={() => setIsTemplatesOpen(true)} />}
       
 
       {showOnboarding && (
