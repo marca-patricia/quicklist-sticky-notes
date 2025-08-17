@@ -276,8 +276,14 @@ const translations = {
     'notes.searchPlaceholder': 'Buscar notas...',
     'notes.noNotesCreate': 'Criar primeira nota',
     'notes.color': 'Cor',
+    'notes.colorLabel': 'Cor da Nota',
+    'notes.titleLabel': 'Título',
+    'notes.contentLabel': 'Conteúdo',
     'notes.titlePlaceholder': 'Digite o título da nota...',
     'notes.contentPlaceholder': 'Escreva sua nota...',
+    'notes.cancel': 'Cancelar',
+    'notes.saveChanges': 'Salvar Alterações',
+    'notes.delete': 'Excluir',
     
     // Statistics
     'stats.title': 'Estatísticas',
@@ -709,8 +715,14 @@ const translations = {
     'notes.searchPlaceholder': 'Search notes...',
     'notes.noNotesCreate': 'Create first note',
     'notes.color': 'Color',
+    'notes.colorLabel': 'Note Color',
+    'notes.titleLabel': 'Title',
+    'notes.contentLabel': 'Content',
     'notes.titlePlaceholder': 'Enter note title...',
     'notes.contentPlaceholder': 'Write your note...',
+    'notes.cancel': 'Cancel',
+    'notes.saveChanges': 'Save Changes',
+    'notes.delete': 'Delete',
     
     // Statistics
     'stats.title': 'Statistics',

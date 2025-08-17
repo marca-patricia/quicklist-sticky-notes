@@ -153,7 +153,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
               e.stopPropagation();
               onClose();
             }}
-            className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-destructive hover:text-destructive-foreground"
+            className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-destructive hover:text-destructive-foreground text-foreground dark:text-white border border-border dark:border-white/20 bg-background/80 dark:bg-background/80"
             aria-label="Fechar modal"
             type="button"
           >
@@ -164,7 +164,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
         <div className="flex-1 overflow-y-auto space-y-4 sm:space-y-6">
           {/* Color Picker */}
           <div className="space-y-3">
-            <label className="text-sm font-medium">{t('notes.colorLabel')}</label>
+            <label className="text-sm font-medium text-foreground dark:text-white">{t('notes.colorLabel')}</label>
             <div className="flex gap-2 flex-wrap">
               {noteColors.map((color) => (
                 <button
@@ -182,7 +182,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
 
           {/* Title */}
           <div className="space-y-3">
-            <label className="text-sm font-medium">
+            <label className="text-sm font-medium text-foreground dark:text-white">
               {note.type === 'list' ? 'Título da Lista:' : t('notes.titleLabel')}
             </label>
             <Input
@@ -196,7 +196,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
 
           {/* Content/Description - SEMPRE mostrar para TODOS os tipos */}
           <div className="space-y-3">
-            <label className="text-sm font-medium">
+            <label className="text-sm font-medium text-foreground dark:text-white">
               {note.type === 'list' ? 'Descrição da Lista:' : t('notes.contentLabel')}
             </label>
             <Textarea
@@ -213,7 +213,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
             <div className="space-y-6">
               {/* Pending Items */}
               <div className="space-y-3">
-                <label className="text-sm font-medium flex items-center gap-2">
+                <label className="text-sm font-medium flex items-center gap-2 text-foreground dark:text-white">
                   <Circle className="w-4 h-4" />
                   Itens Pendentes:
                 </label>
@@ -261,7 +261,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
               {/* Completed Items */}
               {completedItems.length > 0 && (
                 <div className="space-y-3">
-                  <label className="text-sm font-medium flex items-center gap-2">
+                  <label className="text-sm font-medium flex items-center gap-2 text-foreground dark:text-white">
                     <CheckCircle className="w-4 h-4 text-green-600" />
                     Itens Concluídos:
                   </label>
@@ -302,7 +302,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           {/* Category */}
           {categories && categories.length > 0 && (
             <div className="space-y-3">
-              <label className="text-sm font-medium">Categoria:</label>
+              <label className="text-sm font-medium text-foreground dark:text-white">Categoria:</label>
               <CategoryManager
                 categories={categories}
                 selectedCategories={selectedCategory ? [selectedCategory.id] : []}
