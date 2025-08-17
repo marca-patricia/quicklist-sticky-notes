@@ -23,7 +23,7 @@ interface StickyNotesBoardProps {
   onCategoryDelete?: (categoryId: string) => void;
 }
 
-const noteTypeLabels = {
+const noteTypeLabels: Record<'pt' | 'en', Record<string, string>> = {
   pt: {
     title: 'Título',
     content: 'Nota',
@@ -209,7 +209,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                       >
                         {language === 'pt' ? 'Todos' : 'All'}
                       </Button>
-                      {Object.entries(noteTypeLabels[language]).map(([type, label]) => {
+                      {Object.entries(noteTypeLabels[language as 'pt' | 'en'] || noteTypeLabels.pt).map(([type, label]) => {
                         const Icon = noteTypeIcons[type as NoteType];
                         return (
                           <Button
@@ -220,7 +220,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                             className="flex items-center gap-1 text-foreground border-border dark:text-white dark:border-white/20"
                           >
                             <Icon className="w-3 h-3" />
-                            {label}
+                            {label as string}
                           </Button>
                         );
                       })}
@@ -280,7 +280,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                   <h4 className="font-medium text-foreground dark:text-white mb-3">
                     {language === 'pt' ? 'Criar Nova Nota' : 'Create New Note'}
                   </h4>
-                  {Object.entries(noteTypeLabels[language]).map(([type, label]) => {
+                  {Object.entries(noteTypeLabels[language as 'pt' | 'en'] || noteTypeLabels.pt).map(([type, label]) => {
                     const Icon = noteTypeIcons[type as NoteType];
                     return (
                       <Button
@@ -295,7 +295,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                         disabled={creatingNote !== null}
                       >
                         <Icon className="w-4 h-4 mr-2" />
-                        {label}
+                        {label as string}
                       </Button>
                     );
                   })}
@@ -404,7 +404,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
             </p>
             {!searchTerm && filterType === 'all' && filterCategory === 'all' && (
               <div className="flex gap-2">
-                {Object.entries(noteTypeLabels[language]).slice(0, 3).map(([type, label]) => {
+                {Object.entries(noteTypeLabels[language as 'pt' | 'en'] || noteTypeLabels.pt).slice(0, 3).map(([type, label]) => {
                   const Icon = noteTypeIcons[type as NoteType];
                   return (
                     <Button
@@ -414,7 +414,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                       className="flex items-center gap-1 text-foreground border-border hover:text-foreground dark:text-white dark:border-white/20 dark:hover:text-white"
                     >
                       <Icon className="w-4 h-4" />
-                      {label}
+                      {label as string}
                     </Button>
                   );
                 })}
