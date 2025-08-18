@@ -51,10 +51,25 @@ const templates = [
   }
 ];
 
-export const ListTemplates: React.FC = () => {
+interface ListTemplatesProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export const ListTemplates: React.FC<ListTemplatesProps> = ({ isOpen, onClose }) => {
   const { t } = useLanguage();
   const { addList, addItemToList } = useLists();
   const [open, setOpen] = useState(false);
+
+  // Use external control if provided
+  const isDialogOpen = isOpen !== undefined ? isOpen : open;
+  const handleOpenChange = (newOpen: boolean) => {
+    if (isOpen !== undefined && onClose) {
+      if (!newOpen) onClose();
+    } else {
+      setOpen(newOpen);
+    }
+  };
 
   const handleUseTemplate = (template: typeof templates[0]) => {
     // Create the list first
@@ -73,11 +88,11 @@ export const ListTemplates: React.FC = () => {
       });
     }, 200);
     
-    setOpen(false);
+    handleOpenChange(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button 
           variant="ghost" 

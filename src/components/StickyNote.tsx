@@ -4,11 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { CategoryManager, Category } from '@/components/CategoryManager';
 import { PostItFeedback } from '@/components/PostItFeedback';
 import { NoteEditModal } from '@/components/NoteEditModal';
 import { ListOverlay } from '@/components/ListOverlay';
-import { Plus, X, Edit3, Check, Trash2, Tag, List, FileText, StickyNote as StickyNoteIcon } from 'lucide-react';
+import { Plus, X, Edit3, Check, Trash2, Tag, List, FileText, StickyNote as StickyNoteIcon, MoreVertical, Palette, Archive, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export type NoteType = 'title' | 'content' | 'list' | 'category';
@@ -82,6 +83,7 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
   const [showFeedback, setShowFeedback] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showListOverlay, setShowListOverlay] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const TypeIcon = noteTypeIcons[currentType];
 
@@ -359,7 +361,82 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
             </Badge>
           )}
         </div>
-        {/* Actions only visible on desktop hover, hidden on mobile for direct click */}
+        {/* Mobile Menu (three dots) - visible on mobile */}
+        <div className="md:hidden">
+          <Popover open={showMobileMenu} onOpenChange={setShowMobileMenu}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMobileMenu(!showMobileMenu);
+                }}
+                className="p-1 h-auto hover:bg-white/20"
+              >
+                <MoreVertical className="w-4 h-4 text-black dark:text-black" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-48 p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600">
+              <div className="space-y-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMobileMenu(false);
+                    handleEditClick();
+                  }}
+                  className="w-full justify-start text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <Edit3 className="w-4 h-4 mr-2" />
+                  Editar
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMobileMenu(false);
+                    // Color change functionality - could open a color picker
+                  }}
+                  className="w-full justify-start text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <Palette className="w-4 h-4 mr-2" />
+                  Mudar Cor
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMobileMenu(false);
+                    // Archive functionality
+                  }}
+                  className="w-full justify-start text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <Archive className="w-4 h-4 mr-2" />
+                  Arquivar
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMobileMenu(false);
+                    onDelete?.(note.id);
+                  }}
+                  className="w-full justify-start text-destructive hover:bg-red-50 dark:hover:bg-red-900/20"
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Excluir
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+
+        {/* Desktop Actions - visible on desktop hover only */}
         <div className="hidden md:flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <Button
             variant="ghost"

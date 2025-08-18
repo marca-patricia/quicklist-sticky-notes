@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 
 type Language = 'pt' | 'en';
 
@@ -269,14 +268,28 @@ const translations = {
     'notes.cancel': 'Cancelar',
     'notes.saveChanges': 'Salvar Alterações',
     'notes.delete': 'Excluir',
+    'notes.editNote': 'Editar Nota',
     'searchNotes': 'Buscar notas...',
     'type': 'Tipo',
+    'typeItem': 'Digite o item...',
     'clickToEdit': 'Clique para editar',
     'reloadApp': 'Recarregar App',
     'toolsAndStats': 'Ferramentas e Estatísticas',
     'appSettings': 'Configurações do App',
     'mainTaskList': 'Lista Principal de Tarefas',
-    'createNewListSection': 'Seção Criar Nova Lista'
+    'createNewListSection': 'Seção Criar Nova Lista',
+    
+    // Missing translations
+    'Digite o título...': 'Digite o título...',
+    'Título (opcional)': 'Título (opcional)',
+    'Escreva sua nota...': 'Escreva sua nota...',
+    'Título da lista': 'Título da lista',
+    'Item': 'Item',
+    'Adicionar item': 'Adicionar item',
+    'Nome da categoria': 'Nome da categoria',
+    'Ou escolha uma existente:': 'Ou escolha uma existente:',
+    'Salvar': 'Salvar',
+    'Post-it salvo com sucesso!': 'Post-it salvo com sucesso!'
   },
   en: {
     // Basic
@@ -535,14 +548,28 @@ const translations = {
     'notes.cancel': 'Cancel',
     'notes.saveChanges': 'Save Changes',
     'notes.delete': 'Delete',
+    'notes.editNote': 'Edit Note',
     'searchNotes': 'Search notes...',
     'type': 'Type',
+    'typeItem': 'Type item...',
     'clickToEdit': 'Click to edit',
     'reloadApp': 'Reload App',
     'toolsAndStats': 'Tools and Stats',
     'appSettings': 'App Settings',
     'mainTaskList': 'Main Task List',
-    'createNewListSection': 'Create New List Section'
+    'createNewListSection': 'Create New List Section',
+    
+    // Missing translations
+    'Digite o título...': 'Enter title...',
+    'Título (opcional)': 'Title (optional)',
+    'Escreva sua nota...': 'Write your note...',
+    'Título da lista': 'List title',
+    'Item': 'Item',
+    'Adicionar item': 'Add item',
+    'Nome da categoria': 'Category name',
+    'Ou escolha uma existente:': 'Or choose an existing one:',
+    'Salvar': 'Save',
+    'Post-it salvo com sucesso!': 'Post-it saved successfully!'
   }
 };
 
@@ -556,13 +583,13 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, []);
 
-  const handleSetLanguage = (lang: Language) => {
+  const handleSetLanguage = useCallback((lang: Language) => {
     setLanguage(lang);
     localStorage.setItem('quicklist-language', lang);
-  };
+  }, []);
 
-  const t = (key: string): string => {
-    const translation = translations[language][key];
+  const t = useCallback((key: string): string => {
+    const translation = translations[language]?.[key];
     if (translation) {
       return translation;
     }
@@ -572,13 +599,18 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       return translations.pt[key];
     }
     
-    // Return key as fallback (for debugging)
-    console.warn(`Translation missing for key: ${key}`);
+    // Return key as fallback
     return key;
-  };
+  }, [language]);
+
+  const contextValue = useMemo(() => ({
+    language, 
+    setLanguage: handleSetLanguage, 
+    t
+  }), [language, handleSetLanguage, t]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );
