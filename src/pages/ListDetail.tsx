@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { AddItemForm } from '@/components/AddItemForm';
 import { QuickListItem } from '@/components/QuickListItem';
 import { QuickListStats } from '@/components/QuickListStats';
@@ -19,6 +19,7 @@ import { DragDropList } from '@/components/DragDropList';
 
 export const ListDetail: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
+  const navigate = useNavigate();
   const { t } = useLanguage();
   const { getListById, addItemToList, toggleItemInList, deleteItemFromList, addCategoryToList, deleteCategoryFromList, updateList, updateItemInList } = useLists();
   const { toast } = useToast();
@@ -36,13 +37,15 @@ export const ListDetail: React.FC = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">{t('listNotFound')}</h2>
-          <Link to="/">
-            <Button variant="outline">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              {t('backToLists')}
-            </Button>
-          </Link>
+          <h2 className="text-2xl font-bold mb-4 text-foreground dark:text-white">{t('listNotFound')}</h2>
+          <Button 
+            variant="outline" 
+            onClick={() => navigate('/')}
+            className="text-foreground dark:text-white border-border dark:border-white/20"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            {t('backToLists')}
+          </Button>
         </div>
       </div>
     );
@@ -210,14 +213,17 @@ export const ListDetail: React.FC = () => {
       <LanguageSwitch />
       
       <div className="container max-w-2xl mx-auto px-4 py-8">
-        {/* Header */}
+        {/* Header - CORRIGIDO */}
         <div className="mb-6">
-          <Link to="/">
-            <Button variant="ghost" size="sm" className="mb-4">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              {t('allLists')}
-            </Button>
-          </Link>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="mb-4 text-foreground dark:text-white hover:bg-accent/20"
+            onClick={() => navigate('/')}
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            {t('allLists')}
+          </Button>
           
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 flex-1 min-w-0 group">
@@ -231,13 +237,13 @@ export const ListDetail: React.FC = () => {
                     onChange={(e) => setEditTitle(e.target.value)}
                     onKeyDown={handleTitleKeyDown}
                     onBlur={handleSaveTitle}
-                    className="text-2xl font-bold border-primary focus:border-primary flex-1"
+                    className="text-2xl font-bold border-primary focus:border-primary flex-1 text-foreground dark:text-white bg-background dark:bg-background border-border dark:border-white/20"
                   />
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={handleSaveTitle}
-                    className="text-green-600 hover:bg-green-50"
+                    className="text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20"
                   >
                     <Check className="h-4 w-4" />
                   </Button>
@@ -245,7 +251,7 @@ export const ListDetail: React.FC = () => {
                     variant="ghost"
                     size="sm"
                     onClick={handleCancelEditTitle}
-                    className="text-red-600 hover:bg-red-50"
+                    className="text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -253,7 +259,7 @@ export const ListDetail: React.FC = () => {
               ) : (
                 <div className="flex items-center gap-2 flex-1 min-w-0">
                   <h1 
-                    className={`text-2xl font-bold border-l-4 pl-3 truncate cursor-pointer hover:text-primary transition-colors`}
+                    className={`text-2xl font-bold border-l-4 pl-3 truncate cursor-pointer hover:text-primary transition-colors text-foreground dark:text-white`}
                     style={{ borderColor: list.color }}
                     onClick={handleEditTitle}
                     title={t('clickToEdit')}
@@ -264,14 +270,14 @@ export const ListDetail: React.FC = () => {
                     variant="ghost"
                     size="sm"
                     onClick={handleEditTitle}
-                    className="text-blue-600 hover:bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 opacity-0 group-hover:opacity-100 transition-opacity"
                   >
                     <Edit3 className="h-4 w-4" />
                   </Button>
                 </div>
               )}
               
-              <span className="text-lg font-medium text-muted-foreground bg-secondary px-2 py-1 rounded flex-shrink-0">
+              <span className="text-lg font-medium text-muted-foreground dark:text-white/70 bg-secondary dark:bg-white/10 px-2 py-1 rounded flex-shrink-0">
                 {completedItems.length}/{list.items.length}
               </span>
             </div>
@@ -280,7 +286,7 @@ export const ListDetail: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={addToHomeScreen}
-              className="text-primary hover:bg-primary hover:text-primary-foreground flex-shrink-0"
+              className="text-primary hover:bg-primary hover:text-primary-foreground flex-shrink-0 border-border dark:border-white/20 text-foreground dark:text-white"
             >
               <ExternalLink className="h-4 w-4" />
               <span className="hidden sm:inline ml-2">{t('homeScreen')}</span>
@@ -290,7 +296,7 @@ export const ListDetail: React.FC = () => {
 
         {/* Main List Container - Com cor da lista */}
         <div 
-          className="rounded-xl p-6 shadow-soft border border-gray-200"
+          className="rounded-xl p-6 shadow-soft border border-gray-200 dark:border-white/10"
           style={{ backgroundColor: list.color }}
         >
 
@@ -331,7 +337,7 @@ export const ListDetail: React.FC = () => {
         {/* Pending Items */}
         {pendingItems.length > 0 && (
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-foreground flex items-center gap-2">
+            <h3 className="text-lg font-semibold mb-3 text-foreground dark:text-white flex items-center gap-2">
               <Clock className="w-5 h-5" />
               {t('pending')} ({pendingItems.length})
             </h3>
@@ -352,16 +358,16 @@ export const ListDetail: React.FC = () => {
             <CollapsibleTrigger asChild>
               <Button 
                 variant="ghost" 
-                className="w-full justify-between p-0 h-auto text-lg font-semibold mb-3 hover:bg-transparent"
+                className="w-full justify-between p-0 h-auto text-lg font-semibold mb-3 hover:bg-transparent text-foreground dark:text-white"
               >
-                <span className="text-muted-foreground flex items-center gap-2">
+                <span className="text-muted-foreground dark:text-white/70 flex items-center gap-2">
                   <Calendar className="w-5 h-5" />
                   {t('completed')} ({completedItems.length})
                 </span>
                 {showCompleted ? (
-                  <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                  <ChevronDown className="h-5 w-5 text-muted-foreground dark:text-white/70" />
                 ) : (
-                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                  <ChevronRight className="h-5 w-5 text-muted-foreground dark:text-white/70" />
                 )}
               </Button>
             </CollapsibleTrigger>
@@ -380,7 +386,7 @@ export const ListDetail: React.FC = () => {
 
         {/* Empty State */}
         {list.items.length === 0 && (
-          <div className="text-center py-8 text-muted-foreground">
+          <div className="text-center py-8 text-muted-foreground dark:text-white/70">
             <p>{t('noItems')}</p>
             <p>{t('addItemHere')}</p>
           </div>

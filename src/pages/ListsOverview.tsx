@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { AddListForm } from '@/components/AddListForm';
 import { PostItCard } from '@/components/PostItCard';
@@ -21,7 +22,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
-import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote, FileText, TrendingUp, Trophy } from 'lucide-react';
+import { Archive, ArchiveRestore, Filter, LogOut, User, StickyNote, FileText, TrendingUp, Trophy, Plus } from 'lucide-react';
 import { FloatingCreateButton } from '@/components/FloatingCreateButton';
 import { SearchInput } from '@/components/SearchInput';
 import { GridViewToggle } from '@/components/GridViewToggle';
@@ -139,6 +140,10 @@ export const ListsOverview: React.FC = () => {
     localStorage.setItem('quicklist-onboarding-seen', 'true');
   };
 
+  const handleCreateList = () => {
+    setIsTemplatesOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Enhanced Header - Fixed on all devices */}
@@ -235,7 +240,7 @@ export const ListsOverview: React.FC = () => {
                 <div className="animate-pulse bg-muted rounded h-10 w-24"></div>
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow-soft p-6 border border-border">
+              <div className="bg-white dark:bg-black rounded-lg shadow-soft p-6 border border-border dark:border-white/20">
                 <AddListForm />
               </div>
             )}
@@ -265,7 +270,7 @@ export const ListsOverview: React.FC = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => setShowArchived(!showArchived)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 text-foreground dark:text-white border-border dark:border-white/20"
                 >
                   {showArchived ? <ArchiveRestore className="w-4 h-4" /> : <Archive className="w-4 h-4" />}
                   {showArchived ? t('hideArchived') : t('showArchived')}
@@ -280,7 +285,7 @@ export const ListsOverview: React.FC = () => {
           {isLoading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="rounded-lg p-3 shadow-soft border border-gray-200 bg-white min-h-[180px]">
+                <div key={i} className="rounded-lg p-3 shadow-soft border border-gray-200 bg-white dark:bg-black dark:border-white/20 min-h-[180px]">
                   <div className="flex justify-between items-start mb-2">
                     <div className="animate-pulse bg-muted rounded h-4 w-20"></div>
                     <div className="flex items-center gap-1">
@@ -301,7 +306,7 @@ export const ListsOverview: React.FC = () => {
           ) : lists.length === 0 ? (
         <EnhancedEmptyState 
           type="lists" 
-          onAction={() => setIsTemplatesOpen(true)}
+          onAction={handleCreateList}
         />
           ) : (
             <>
@@ -319,7 +324,7 @@ export const ListsOverview: React.FC = () => {
                 if (filteredLists.length === 0) {
                   return (
                     <div className="text-center py-12">
-                      <div className="text-muted-foreground">
+                      <div className="text-muted-foreground dark:text-white/70">
                         {searchTerm ? (
                           <div>
                             <p className="text-lg">{t('noResultsFound')}</p>
@@ -331,7 +336,16 @@ export const ListsOverview: React.FC = () => {
                             <p className="text-lg">{t('noArchivedLists')}</p>
                           </div>
                         ) : (
-                          <EnhancedEmptyState type="lists" onAction={() => setIsTemplatesOpen(true)} />
+                          <div>
+                            <Button 
+                              onClick={handleCreateList}
+                              size="lg"
+                              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                            >
+                              <Plus className="w-5 h-5 mr-2" />
+                              {t('createList')}
+                            </Button>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -341,9 +355,9 @@ export const ListsOverview: React.FC = () => {
                 return (
                   <>
                     <div className="flex items-center justify-between mb-6">
-                      <h2 className="text-2xl font-semibold text-foreground">
+                      <h2 className="text-2xl font-semibold text-foreground dark:text-white">
                         {searchTerm ? `${t('searchLists')} "${searchTerm}"` : t('allLists')}
-                        <span className="text-sm font-normal text-muted-foreground ml-2">
+                        <span className="text-sm font-normal text-muted-foreground dark:text-white/70 ml-2">
                           ({filteredLists.length})
                         </span>
                       </h2>
@@ -366,9 +380,18 @@ export const ListsOverview: React.FC = () => {
         </section>
       </main>
       
-      {/* Floating Add Button - Only show when no lists */}
-      {lists.length === 0 && <FloatingCreateButton onClick={() => setIsTemplatesOpen(true)} />}
+      {/* Floating Add Button - Show when there are lists but make it more accessible */}
+      {lists.length > 0 && (
+        <FloatingCreateButton 
+          onClick={handleCreateList}
+        />
+      )}
       
+      {/* Templates Modal */}
+      <ListTemplates 
+        isOpen={isTemplatesOpen}
+        onClose={() => setIsTemplatesOpen(false)}
+      />
 
       {showOnboarding && (
         <OnboardingTour
