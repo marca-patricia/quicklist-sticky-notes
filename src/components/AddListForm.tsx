@@ -32,15 +32,33 @@ export const AddListForm: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (title.trim()) {
-      console.log('Creating list with color:', selectedColor);
+    e.stopPropagation();
+    
+    if (!title.trim()) {
+      toast({
+        description: t('pleaseEnterListName'),
+        variant: "destructive",
+        duration: 2000,
+      });
+      return;
+    }
+
+    try {
+      console.log('Creating list with title:', title.trim(), 'color:', selectedColor);
       addList(title.trim(), undefined, selectedColor);
       setTitle('');
       toast({
         description: t('listCreated'),
         duration: 2000,
+      });
+    } catch (error) {
+      console.error('Error creating list:', error);
+      toast({
+        description: t('errorCreatingList'),
+        variant: "destructive",
+        duration: 3000,
       });
     }
   };
