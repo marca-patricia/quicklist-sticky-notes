@@ -328,6 +328,22 @@ const translations = {
     'pleaseEnterListName': 'Por favor, digite um nome para a lista',
     'errorCreatingList': 'Erro ao criar lista. Tente novamente.',
     
+    // Auth translations
+    auth: {
+      title: 'QuickList',
+      login: 'Entrar',
+      signup: 'Cadastrar',
+      email: 'Email',
+      password: 'Senha',
+      passwordMin: 'Senha (mínimo 6 caracteres)',
+      loginButton: 'Entrar',
+      signupButton: 'Criar Conta',
+      loggingIn: 'Entrando...',
+      creating: 'Criando conta...',
+      welcomeBack: 'Bem-vindo de volta!',
+      accountCreated: 'Conta criada com sucesso!'
+    },
+    
     // Sync and Native Features
     'syncStatus': 'Status de Sincronização',
     'lastSync': 'Última Sincronização',
@@ -687,6 +703,22 @@ const translations = {
     'pleaseEnterListName': 'Please enter a name for the list',
     'errorCreatingList': 'Error creating list. Please try again.',
     
+    // Auth translations  
+    auth: {
+      title: 'QuickList',
+      login: 'Login',
+      signup: 'Sign Up',
+      email: 'Email',
+      password: 'Password',
+      passwordMin: 'Password (minimum 6 characters)',
+      loginButton: 'Login',
+      signupButton: 'Create Account',
+      loggingIn: 'Logging in...',
+      creating: 'Creating account...',
+      welcomeBack: 'Welcome back!',
+      accountCreated: 'Account created successfully!'
+    },
+    
     // Sync and Native Features
     'syncStatus': 'Sync Status',
     'lastSync': 'Last Sync',
@@ -747,14 +779,30 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, []);
 
   const t = useCallback((key: string): string => {
-    const translation = translations[language]?.[key];
-    if (translation) {
+    // Handle nested keys with dot notation
+    const keys = key.split('.');
+    let translation: any = translations[language];
+    
+    for (const k of keys) {
+      translation = translation?.[k];
+      if (!translation) break;
+    }
+    
+    if (translation && typeof translation === 'string') {
       return translation;
     }
     
     // Fallback to Portuguese if key not found in current language
-    if (language !== 'pt' && translations.pt[key]) {
-      return translations.pt[key];
+    if (language !== 'pt') {
+      let fallbackTranslation: any = translations.pt;
+      for (const k of keys) {
+        fallbackTranslation = fallbackTranslation?.[k];
+        if (!fallbackTranslation) break;
+      }
+      
+      if (fallbackTranslation && typeof fallbackTranslation === 'string') {
+        return fallbackTranslation;
+      }
     }
     
     // Return key as fallback
