@@ -70,6 +70,11 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
     setSelectedColor(note.color);
   }, [note]);
 
+  const handleCloseModal = () => {
+    console.log('Closing modal - handleCloseModal called');
+    onClose();
+  };
+
   const handleSave = () => {
     const noteData: Partial<StickyNoteData> = {
       title: title.trim() || undefined,
@@ -140,9 +145,10 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
             variant="ghost"
             size="sm"
             onClick={(e) => {
+              console.log('X button clicked');
               e.preventDefault();
               e.stopPropagation();
-              onClose();
+              handleCloseModal();
             }}
             className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-destructive hover:text-destructive-foreground rounded-full z-50"
             aria-label="Fechar modal"
@@ -313,7 +319,10 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
         <div className="flex flex-col sm:flex-row gap-3 pt-4 mt-4 border-t shrink-0">
           <Button
             variant="outline"
-            onClick={onClose}
+            onClick={(e) => {
+              console.log('Cancel button clicked');
+              handleCloseModal();
+            }}
             className="flex-1 order-1 sm:order-1"
             aria-label={t('notes.cancel')}
           >
