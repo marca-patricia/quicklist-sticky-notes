@@ -131,6 +131,55 @@ const translations = {
     'selectAll': 'Selecionar tudo',
     'deselectAll': 'Deselecionar tudo',
     
+    // Missing translations - Delete confirmations
+    'confirmDeleteItem': 'Excluir Item?',
+    'confirmDeleteItemDesc': 'Esta ação não pode ser desfeita. O item será removido da lista.',
+    
+    // Missing translations - Undo system
+    'itemDeleted': 'Item excluído',
+    'clickToUndo': 'Clique para desfazer',
+    'itemRestored': 'Item restaurado',
+    'undone': 'Desfeito',
+    
+    // Missing translations - Time
+    'justNow': 'agora há pouco',
+    'minutesAgo': 'há {{count}} minutos',
+    'hoursAgo': 'há {{count}} horas', 
+    'daysAgo': 'há {{count}} dias',
+    'offline': 'Offline',
+    
+    // Missing translations - Categories
+    'startWithDefaultCategories': 'Comece criando algumas categorias padrão para organizar melhor suas tarefas.',
+    
+    // Missing translations - Achievements that are used
+    'legendaryAchiever': 'Conquistador Lendário',
+    'legendaryAchieverDesc': 'Complete 1000 tarefas',
+    'categoryMaster': 'Mestre das Categorias', 
+    'categoryMasterDesc': 'Use 20 categorias diferentes',
+    'powerUser': 'Usuário Avançado',
+    'powerUserDesc': 'Use o app por 30 dias consecutivos',
+    'listArchitect': 'Arquiteto de Listas',
+    'listArchitectDesc': 'Crie 50 listas diferentes',
+    'streakLegend': 'Lenda da Sequência',
+    'streakLegendDesc': 'Complete tarefas por 30 dias consecutivos',
+    
+    // Missing translations - Sync and connectivity
+    'pendingChanges': 'Alterações pendentes',
+    'syncInProgress': 'Sincronização em andamento',
+    'offlineModeDesc': 'Você está offline. As alterações serão sincronizadas quando a conexão for restaurada.',
+    
+    // Missing translations - Accessibility
+    'skipToMain': 'Pular para conteúdo principal',
+    'skipToNav': 'Pular para navegação',
+    'toggleTheme': 'Alternar tema claro/escuro',
+    
+    // Missing translations - Additional items
+    'itemSaved': 'Item salvo',
+    'clickToEdit': 'Clique para editar',
+    'newCategory': 'Nova Categoria',
+    'categoryName': 'Nome da categoria',
+    'createDefaultCategories': 'Criar Categorias Padrão',
+    
     // Statistics and insights
     'insights': 'Insights',
     'statistics': 'Estatísticas',
@@ -395,6 +444,55 @@ const translations = {
     'allCompleted': 'All tasks completed!',
     'selectAll': 'Select all',
     'deselectAll': 'Deselect all',
+    
+    // Missing translations - Delete confirmations
+    'confirmDeleteItem': 'Delete Item?',
+    'confirmDeleteItemDesc': 'This action cannot be undone. The item will be removed from the list.',
+    
+    // Missing translations - Undo system
+    'itemDeleted': 'Item deleted',
+    'clickToUndo': 'Click to undo',
+    'itemRestored': 'Item restored',
+    'undone': 'Undone',
+    
+    // Missing translations - Time
+    'justNow': 'just now',
+    'minutesAgo': '{{count}} minutes ago',
+    'hoursAgo': '{{count}} hours ago',
+    'daysAgo': '{{count}} days ago',
+    'offline': 'Offline',
+    
+    // Missing translations - Categories
+    'startWithDefaultCategories': 'Start by creating some default categories to better organize your tasks.',
+    
+    // Missing translations - Achievements that are used
+    'legendaryAchiever': 'Legendary Achiever',
+    'legendaryAchieverDesc': 'Complete 1000 tasks',
+    'categoryMaster': 'Category Master',
+    'categoryMasterDesc': 'Use 20 different categories',
+    'powerUser': 'Power User',
+    'powerUserDesc': 'Use the app for 30 consecutive days',
+    'listArchitect': 'List Architect', 
+    'listArchitectDesc': 'Create 50 different lists',
+    'streakLegend': 'Streak Legend',
+    'streakLegendDesc': 'Complete tasks for 30 consecutive days',
+    
+    // Missing translations - Sync and connectivity
+    'pendingChanges': 'Pending changes',
+    'syncInProgress': 'Sync in progress',
+    'offlineModeDesc': 'You are offline. Changes will be synced when connection is restored.',
+    
+    // Missing translations - Accessibility
+    'skipToMain': 'Skip to main content',
+    'skipToNav': 'Skip to navigation',
+    'toggleTheme': 'Toggle light/dark theme',
+    
+    // Missing translations - Additional items
+    'itemSaved': 'Item saved',
+    'clickToEdit': 'Click to edit',
+    'newCategory': 'New Category',
+    'categoryName': 'Category name',
+    'createDefaultCategories': 'Create Default Categories',
     
     // Statistics and insights
     'insights': 'Insights',

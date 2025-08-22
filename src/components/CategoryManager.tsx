@@ -102,10 +102,10 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
         
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="outline" size="sm" className="h-6 px-2">
-              <Plus className="w-3 h-3 mr-1" />
-              {t('language') === 'pt' ? 'Nova Categoria' : 'New Category'}
-            </Button>
+              <Button variant="outline" size="sm" className="h-6 px-2">
+                <Plus className="w-3 h-3 mr-1" />
+                {t('language') === 'pt' ? 'Nova Categoria' : 'New Category'}
+              </Button>
           </PopoverTrigger>
           <PopoverContent className="w-80" align="start">
             <div className="space-y-3">
