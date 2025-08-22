@@ -36,15 +36,6 @@ export const QuickListStats: React.FC<QuickListStatsProps> = ({
       </div>
       
       <div className="flex gap-1 items-center">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onShare}
-          className="text-foreground hover:text-foreground/80 hover:bg-muted text-xs px-2 py-1 h-7"
-        >
-          <Share2 className="h-3 w-3" />
-        </Button>
-        
         {completedItems > 0 && (
         <Button
           variant="outline"
@@ -56,6 +47,15 @@ export const QuickListStats: React.FC<QuickListStatsProps> = ({
           <span className="text-xs">Export</span>
         </Button>
         )}
+        
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onShare}
+          className="text-foreground hover:text-foreground/80 hover:bg-muted text-xs px-2 py-1 h-7"
+        >
+          <Share2 className="h-3 w-3" />
+        </Button>
       </div>
     </div>
   );
