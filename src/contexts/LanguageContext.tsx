@@ -218,7 +218,9 @@ const translations = {
       'editNote': 'Editar Nota',
       'colorLabel': 'Cor da Etiqueta',
       'titleLabel': 'Título da Etiqueta',
+      'titlePlaceholder': 'Digite o título da nota...',
       'contentLabel': 'Conteúdo da Etiqueta',
+      'contentPlaceholder': 'Digite o conteúdo da nota...',
       'cancel': 'Cancelar',
       'delete': 'Excluir',
       'saveChanges': 'Salvar Alterações'
@@ -475,7 +477,9 @@ const translations = {
       'editNote': 'Edit Note',
       'colorLabel': 'Color Label',
       'titleLabel': 'Title Label',
+      'titlePlaceholder': 'Enter note title...',
       'contentLabel': 'Content Label',
+      'contentPlaceholder': 'Enter note content...',
       'cancel': 'Cancel',
       'delete': 'Delete',
       'saveChanges': 'Save Changes'
