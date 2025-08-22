@@ -119,7 +119,7 @@ const translations = {
     'dueDate': 'Data de Vencimento',
     'category': 'Categoria',
     'categories': 'Categorias',
-    'notes': 'Notas',
+    'notesLabel': 'Notas',
     'filters': 'Filtros',
     'clearCompleted': 'Limpar Concluídas',
     'oneItemLeft': 'item restante',
@@ -170,7 +170,60 @@ const translations = {
       creating: 'Criando conta...',
       welcomeBack: 'Bem-vindo de volta!',
       accountCreated: 'Conta criada com sucesso!'
-    }
+    },
+
+    // Statistics page
+    'overview': 'Visão Geral',
+    'analytics': 'Análises',
+    'sync': 'Sincronização',
+    'tools': 'Ferramentas',
+    'last7Days': 'Últimos 7 Dias',
+    'last30Days': 'Últimos 30 Dias',
+    'last90Days': 'Últimos 90 Dias',
+    'pageViews': 'Visualizações',
+    'uniqueUsers': 'Usuários Únicos',
+    'avgSessionTime': 'Tempo Médio',
+    'bounceRate': 'Taxa de Rejeição',
+    'topPages': 'Páginas Principais',
+    'deviceTypes': 'Tipos de Dispositivo',
+    'topCountries': 'Principais Países',
+    'gridView': 'Visualização em Grade',
+    
+    // Sync page
+    'syncStatus': 'Status de Sincronização',
+    'lastSync': 'Última Sincronização',
+    'online': 'Online',
+    'neverSynced': 'Nunca Sincronizado',
+    'dataManagement': 'Gerenciamento de Dados',
+    'dataManagementDesc': 'Gerencie seus dados e configurações',
+    'shareApp': 'Compartilhar App',
+    'enableNotifications': 'Ativar Notificações',
+    'exportData': 'Exportar Dados',
+    'importData': 'Importar Dados',
+    
+    // Tools page
+    'appFeatures': 'Recursos do App',
+    'systemInfo': 'Informações do Sistema',
+    'userAgent': 'Agente do Usuário',
+    'platform': 'Plataforma',
+    'language': 'Idioma',
+    'cookiesEnabled': 'Cookies Habilitados',
+    'onlineStatus': 'Status Online',
+    
+    // Notes
+    'notes': {
+      'editNote': 'Editar Nota',
+      'colorLabel': 'Cor da Etiqueta',
+      'titleLabel': 'Título da Etiqueta',
+      'contentLabel': 'Conteúdo da Etiqueta',
+      'cancel': 'Cancelar',
+      'delete': 'Excluir',
+      'saveChanges': 'Salvar Alterações'
+    },
+    
+    // Achievements
+    'continueUsingApp': 'Continue usando o app',
+    'placeholder': 'Digite aqui...'
   },
   en: {
     // Basic
@@ -280,7 +333,7 @@ const translations = {
     'dueDate': 'Due Date',
     'category': 'Category',
     'categories': 'Categories',
-    'notes': 'Notes',
+    'notesLabel': 'Notes',
     'filters': 'Filters',
     'clearCompleted': 'Clear completed',
     'oneItemLeft': 'item left',
@@ -331,7 +384,60 @@ const translations = {
       creating: 'Creating account...',
       welcomeBack: 'Welcome back!',
       accountCreated: 'Account created successfully!'
-    }
+    },
+
+    // Statistics page
+    'overview': 'Overview',
+    'analytics': 'Analytics',
+    'sync': 'Sync',
+    'tools': 'Tools',
+    'last7Days': 'Last 7 Days',
+    'last30Days': 'Last 30 Days',
+    'last90Days': 'Last 90 Days',
+    'pageViews': 'Page Views',
+    'uniqueUsers': 'Unique Users',
+    'avgSessionTime': 'Avg Session Time',
+    'bounceRate': 'Bounce Rate',
+    'topPages': 'Top Pages',
+    'deviceTypes': 'Device Types',
+    'topCountries': 'Top Countries',
+    'gridView': 'Grid View',
+    
+    // Sync page
+    'syncStatus': 'Sync Status',
+    'lastSync': 'Last Sync',
+    'online': 'Online',
+    'neverSynced': 'Never Synced',
+    'dataManagement': 'Data Management',
+    'dataManagementDesc': 'Manage your data and settings',
+    'shareApp': 'Share App',
+    'enableNotifications': 'Enable Notifications',
+    'exportData': 'Export Data',
+    'importData': 'Import Data',
+    
+    // Tools page
+    'appFeatures': 'App Features',
+    'systemInfo': 'System Info',
+    'userAgent': 'User Agent',
+    'platform': 'Platform',
+    'language': 'Language',
+    'cookiesEnabled': 'Cookies Enabled',
+    'onlineStatus': 'Online Status',
+    
+    // Notes
+    'notes': {
+      'editNote': 'Edit Note',
+      'colorLabel': 'Color Label',
+      'titleLabel': 'Title Label',
+      'contentLabel': 'Content Label',
+      'cancel': 'Cancel',
+      'delete': 'Delete',
+      'saveChanges': 'Save Changes'
+    },
+    
+    // Achievements
+    'continueUsingApp': 'Continue using app',
+    'placeholder': 'Type here...'
   }
 };
 
