@@ -174,7 +174,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
               placeholder={note.type === 'list' ? 'Digite o título da lista...' : t('notes.titlePlaceholder')}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="h-12"
+              className="h-12 border-2 border-primary/50 rounded-md focus:border-primary focus:ring-2 focus:ring-primary/20"
               autoFocus
             />
           </div>
