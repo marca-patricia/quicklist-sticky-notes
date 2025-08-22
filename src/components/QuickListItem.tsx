@@ -214,88 +214,95 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
           onTouchEnd={handleTouchEnd}
           onMouseDown={handleMouseDown}
         >
-          <div className="flex items-start gap-3">
-            {/* Drag handle */}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="cursor-grab active:cursor-grabbing p-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <GripVertical className="h-4 w-4 text-muted-foreground" />
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{t('dragToReorder')}</p>
-              </TooltipContent>
-            </Tooltip>
+          {/* Mobile-optimized layout */}
+          <div className="space-y-3">
+            {/* Top row: Drag handle, Checkbox, and Text */}
+            <div className="flex items-start gap-3">
+              {/* Drag handle */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="cursor-grab active:cursor-grabbing p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <GripVertical className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{t('dragToReorder')}</p>
+                </TooltipContent>
+              </Tooltip>
 
-            {/* Checkbox */}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleToggle();
-                  }}
-                  className={`h-8 w-8 p-0 rounded-full transition-all duration-200 flex-shrink-0 ${
-                    completed 
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/80 scale-110' 
-                      : 'bg-muted hover:bg-primary hover:text-primary-foreground'
-                  }`}
-                >
-                  <Check className={`h-4 w-4 transition-transform duration-200 ${completed ? 'scale-110' : ''}`} />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{completed ? t('markIncomplete') : t('markComplete')}</p>
-              </TooltipContent>
-            </Tooltip>
-            
-            <div className="flex-1 min-w-0">
-              {isEditing ? (
-                <Input
-                  ref={inputRef}
-                  value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  onBlur={handleSaveEdit}
-                  className="border-primary focus:border-primary text-sm"
-                />
-              ) : (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span 
-                      className={`block transition-all duration-200 cursor-pointer ${
-                        completed ? 'line-through text-muted-foreground' : 'text-foreground'
-                      }`}
-                      onClick={() => !completed && handleEdit()}
-                    >
-                      {text}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{!completed ? t('clickToEdit') : ''}</p>
-                  </TooltipContent>
-                </Tooltip>
-              )}
+              {/* Checkbox */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleToggle();
+                    }}
+                    className={`h-8 w-8 p-0 rounded-full transition-all duration-200 flex-shrink-0 ${
+                      completed 
+                        ? 'bg-primary text-primary-foreground hover:bg-primary/80 scale-110' 
+                        : 'bg-muted hover:bg-primary hover:text-primary-foreground'
+                    }`}
+                  >
+                    <Check className={`h-4 w-4 transition-transform duration-200 ${completed ? 'scale-110' : ''}`} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{completed ? t('markIncomplete') : t('markComplete')}</p>
+                </TooltipContent>
+              </Tooltip>
               
-              {itemCategories && itemCategories.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {itemCategories.map(category => (
-                    <Badge
-                      key={category?.id}
-                      variant="secondary"
-                      className={`text-xs ${category?.color} text-white`}
-                    >
-                      <Tag className="w-2 h-2 mr-1" />
-                      {category?.name}
-                    </Badge>
-                  ))}
-                </div>
-              )}
+              {/* Text content - takes full available width */}
+              <div className="flex-1 min-w-0">
+                {isEditing ? (
+                  <Input
+                    ref={inputRef}
+                    value={editText}
+                    onChange={(e) => setEditText(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    onBlur={handleSaveEdit}
+                    className="border-primary focus:border-primary text-sm w-full"
+                  />
+                ) : (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span 
+                        className={`block transition-all duration-200 cursor-pointer text-sm sm:text-base leading-tight break-words ${
+                          completed ? 'line-through text-muted-foreground' : 'text-foreground'
+                        }`}
+                        onClick={() => !completed && handleEdit()}
+                      >
+                        {text}
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{!completed ? t('clickToEdit') : ''}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+              </div>
             </div>
+
+            {/* Categories row */}
+            {itemCategories && itemCategories.length > 0 && (
+              <div className="flex flex-wrap gap-1 ml-14">
+                {itemCategories.map(category => (
+                  <Badge
+                    key={category?.id}
+                    variant="secondary"
+                    className={`text-xs ${category?.color} text-white`}
+                  >
+                    <Tag className="w-2 h-2 mr-1" />
+                    {category?.name}
+                  </Badge>
+                ))}
+              </div>
+            )}
             
-            <div className="flex gap-1 flex-shrink-0">
+            {/* Action buttons row - positioned below text on mobile */}
+            <div className="flex justify-end gap-2 ml-14">
               {isEditing ? (
                 <>
                   <Tooltip>
