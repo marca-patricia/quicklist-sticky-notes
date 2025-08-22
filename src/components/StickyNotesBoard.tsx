@@ -166,142 +166,138 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
   return (
     <div className="h-full flex flex-col dark:bg-black">
       {/* Toolbar */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-border p-2 sm:p-4 dark:bg-black dark:border-white/10">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-border p-3 sm:p-4 dark:bg-black dark:border-white/10">
         {/* Search and Actions Row */}
         <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-          {/* Search with Filter */}
-          <div className="flex-1 sm:max-w-md flex items-center border border-input rounded-lg overflow-hidden bg-background dark:border-white/20 dark:bg-black">
-            <SearchInput
-              value={searchTerm}
-              onChange={setSearchTerm}
-              placeholder={t('searchNotes')}
-              className="flex-1 border-0 rounded-none dark:bg-transparent dark:text-white dark:placeholder:text-white/60 focus-visible:ring-0 shadow-none"
-            />
-            
-            {/* Search Filter Popover */}
-            <Popover open={showSearchFilter} onOpenChange={setShowSearchFilter}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-10 px-2 text-muted-foreground hover:text-foreground hover:bg-transparent border-0 rounded-none dark:text-white/70 dark:hover:text-white dark:hover:bg-transparent flex items-center justify-center"
-                >
-                  <Search className="w-4 h-4" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-80 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
-                <div className="space-y-4">
-                  <h4 className="font-medium text-foreground dark:text-white">
-                    {language === 'pt' ? 'Busca Avançada' : 'Advanced Search'}
-                  </h4>
-                  
-                  {/* Type Filter */}
-                  <div className="space-y-2">
-                    <label className="text-sm text-muted-foreground dark:text-white/80">
-                      {t('type')}
-                    </label>
-                    <div className="flex gap-1 flex-wrap">
-                      <Button
-                        variant={filterType === 'all' ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setFilterType('all')}
-                        className="text-foreground border-border dark:text-white dark:border-white/20"
-                      >
-                        {language === 'pt' ? 'Todos' : 'All'}
-                      </Button>
+          {/* Integrated Search Container */}
+          <div className="flex-1 sm:max-w-md">
+            <div className="relative flex items-center bg-background border border-input rounded-lg overflow-hidden dark:border-white/20 dark:bg-black focus-within:ring-2 focus-within:ring-ring focus-within:border-ring transition-all">
+              <SearchInput
+                value={searchTerm}
+                onChange={setSearchTerm}
+                placeholder={t('searchNotes')}
+                className="flex-1 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent dark:text-white dark:placeholder:text-white/60 h-9"
+              />
+              
+              {/* Integrated Actions */}
+              <div className="flex items-center border-l border-input dark:border-white/20">
+                {/* Search Filter */}
+                <Popover open={showSearchFilter} onOpenChange={setShowSearchFilter}>
+                  <PopoverTrigger asChild>
+                    <button className="flex items-center justify-center w-9 h-9 text-muted-foreground hover:text-foreground transition-colors dark:text-white/60 dark:hover:text-white">
+                      <Search className="w-4 h-4" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-foreground dark:text-white">
+                        {language === 'pt' ? 'Busca Avançada' : 'Advanced Search'}
+                      </h4>
+                      
+                      {/* Type Filter */}
+                      <div className="space-y-2">
+                        <label className="text-sm text-muted-foreground dark:text-white/80">
+                          {t('type')}
+                        </label>
+                        <div className="flex gap-1 flex-wrap">
+                          <Button
+                            variant={filterType === 'all' ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setFilterType('all')}
+                            className="text-foreground border-border dark:text-white dark:border-white/20"
+                          >
+                            {language === 'pt' ? 'Todos' : 'All'}
+                          </Button>
+                          {Object.entries(noteTypeLabels[language as 'pt' | 'en'] || noteTypeLabels.pt).map(([type, label]) => {
+                            const Icon = noteTypeIcons[type as NoteType];
+                            return (
+                              <Button
+                                key={type}
+                                variant={filterType === type ? "default" : "outline"}
+                                size="sm"
+                                onClick={() => setFilterType(type as NoteType)}
+                                className="flex items-center gap-1 text-foreground border-border dark:text-white dark:border-white/20"
+                              >
+                                <Icon className="w-3 h-3" />
+                                {label as string}
+                              </Button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Category Filter */}
+                      {categories.length > 0 && (
+                        <div className="space-y-2">
+                          <label className="text-sm text-muted-foreground dark:text-white/80">
+                            {t('category')}
+                          </label>
+                          <div className="flex gap-1 flex-wrap">
+                            <Button
+                              variant={filterCategory === 'all' ? "default" : "outline"}
+                              size="sm"
+                              onClick={() => setFilterCategory('all')}
+                              className="text-foreground border-border dark:text-white dark:border-white/20"
+                            >
+                              {language === 'pt' ? 'Todas' : 'All'}
+                            </Button>
+                            {categories.map(category => (
+                              <Badge
+                                key={category.id}
+                                variant={filterCategory === category.id ? "default" : "outline"}
+                                className={`cursor-pointer border-border dark:border-white/20 ${
+                                  filterCategory === category.id ? category.color + ' text-white' : 'text-foreground dark:text-white'
+                                }`}
+                                onClick={() => setFilterCategory(
+                                  filterCategory === category.id ? 'all' : category.id
+                                )}
+                              >
+                                {category.name}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+
+                {/* Add Note */}
+                <Popover open={showCreateMenu} onOpenChange={setShowCreateMenu}>
+                  <PopoverTrigger asChild>
+                    <button className="flex items-center justify-center w-9 h-9 text-muted-foreground hover:text-foreground transition-colors border-l border-input dark:border-white/20 dark:text-white/60 dark:hover:text-white">
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-60 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-foreground dark:text-white mb-3">
+                        {language === 'pt' ? 'Criar Nova Nota' : 'Create New Note'}
+                      </h4>
                       {Object.entries(noteTypeLabels[language as 'pt' | 'en'] || noteTypeLabels.pt).map(([type, label]) => {
                         const Icon = noteTypeIcons[type as NoteType];
                         return (
                           <Button
                             key={type}
-                            variant={filterType === type ? "default" : "outline"}
+                            variant="ghost"
                             size="sm"
-                            onClick={() => setFilterType(type as NoteType)}
-                            className="flex items-center gap-1 text-foreground border-border dark:text-white dark:border-white/20"
+                            onClick={() => {
+                              handleCreateNote(type as NoteType);
+                              setShowCreateMenu(false);
+                            }}
+                            className="w-full justify-start text-foreground hover:text-foreground hover:bg-accent/10 dark:text-white dark:hover:text-white dark:hover:bg-white/10"
+                            disabled={creatingNote !== null}
                           >
-                            <Icon className="w-3 h-3" />
+                            <Icon className="w-4 h-4 mr-2" />
                             {label as string}
                           </Button>
                         );
                       })}
                     </div>
-                  </div>
-
-                  {/* Category Filter */}
-                  {categories.length > 0 && (
-                    <div className="space-y-2">
-                      <label className="text-sm text-muted-foreground dark:text-white/80">
-                        {t('category')}
-                      </label>
-                      <div className="flex gap-1 flex-wrap">
-                        <Button
-                          variant={filterCategory === 'all' ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setFilterCategory('all')}
-                          className="text-foreground border-border dark:text-white dark:border-white/20"
-                        >
-                          {language === 'pt' ? 'Todas' : 'All'}
-                        </Button>
-                        {categories.map(category => (
-                          <Badge
-                            key={category.id}
-                            variant={filterCategory === category.id ? "default" : "outline"}
-                            className={`cursor-pointer border-border dark:border-white/20 ${
-                              filterCategory === category.id ? category.color + ' text-white' : 'text-foreground dark:text-white'
-                            }`}
-                            onClick={() => setFilterCategory(
-                              filterCategory === category.id ? 'all' : category.id
-                            )}
-                          >
-                            {category.name}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </PopoverContent>
-            </Popover>
-
-            {/* Create Menu Popover */}
-            <Popover open={showCreateMenu} onOpenChange={setShowCreateMenu}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-10 px-2 text-muted-foreground hover:text-foreground hover:bg-transparent border-0 rounded-none dark:text-white/70 dark:hover:text-white dark:hover:bg-transparent flex items-center justify-center border-l border-input dark:border-white/20"
-                  disabled={creatingNote !== null}
-                >
-                  <Plus className="w-4 h-4" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-60 bg-background border text-foreground dark:bg-black dark:border-white/20 dark:text-white">
-                <div className="space-y-2">
-                  <h4 className="font-medium text-foreground dark:text-white mb-3">
-                    {language === 'pt' ? 'Criar Nova Nota' : 'Create New Note'}
-                  </h4>
-                  {Object.entries(noteTypeLabels[language as 'pt' | 'en'] || noteTypeLabels.pt).map(([type, label]) => {
-                    const Icon = noteTypeIcons[type as NoteType];
-                    return (
-                      <Button
-                        key={type}
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          handleCreateNote(type as NoteType);
-                          setShowCreateMenu(false);
-                        }}
-                        className="w-full justify-start text-foreground hover:text-foreground hover:bg-accent/10 dark:text-white dark:hover:text-white dark:hover:bg-white/10"
-                        disabled={creatingNote !== null}
-                      >
-                        <Icon className="w-4 h-4 mr-2" />
-                        {label as string}
-                      </Button>
-                    );
-                  })}
-                </div>
-              </PopoverContent>
-            </Popover>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
           </div>
           
           {/* Action Buttons Row */}
