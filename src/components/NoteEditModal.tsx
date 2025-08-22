@@ -140,25 +140,10 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           onClose();
         }}
         >
-        <DialogHeader className="pb-4 flex-shrink-0 relative">
-          <DialogTitle className="text-lg font-semibold pr-8">
+        <DialogHeader className="pb-4 flex-shrink-0">
+          <DialogTitle className="text-lg font-semibold">
             {note.type === 'list' ? 'Editar Lista' : t('notes.editNote')}
           </DialogTitle>
-          {/* Botão X sempre visível e funcional */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onClose();
-            }}
-            className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-destructive hover:text-destructive-foreground text-foreground dark:text-white border border-border dark:border-white/20 bg-background/80 dark:bg-background/80"
-            aria-label="Fechar modal"
-            type="button"
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto space-y-4 sm:space-y-6">
