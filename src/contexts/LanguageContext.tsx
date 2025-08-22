@@ -223,7 +223,27 @@ const translations = {
     
     // Achievements
     'continueUsingApp': 'Continue usando o app',
-    'placeholder': 'Digite aqui...'
+    'placeholder': 'Digite aqui...',
+    
+    // Achievement titles and descriptions
+    'firstStep': 'Primeiro Passo',
+    'firstStepDesc': 'Complete sua primeira tarefa',
+    'earlyBird': 'Madrugador',
+    'earlyBirdDesc': 'Complete uma tarefa antes das 8h',
+    'nightOwl': 'Coruja Noturna',
+    'nightOwlDesc': 'Complete uma tarefa depois das 22h',
+    'taskMaster': 'Mestre das Tarefas',
+    'taskMasterDesc': 'Complete 50 tarefas',
+    'productivityHero': 'Herói da Produtividade',
+    'productivityHeroDesc': 'Complete 100 tarefas',
+    'productivityLegend': 'Lenda da Produtividade',
+    'productivityLegendDesc': 'Complete 500 tarefas',
+    'overallProgress': 'Progresso Geral',
+    'achievementsUnlocked': 'conquistas desbloqueadas',
+    'all': 'Todas',
+    'unlocked': 'Desbloqueadas',
+    'locked': 'Bloqueadas',
+    'tasks': 'Tarefas'
   },
   en: {
     // Basic
@@ -437,7 +457,27 @@ const translations = {
     
     // Achievements
     'continueUsingApp': 'Continue using app',
-    'placeholder': 'Type here...'
+    'placeholder': 'Type here...',
+    
+    // Achievement titles and descriptions
+    'firstStep': 'First Step',
+    'firstStepDesc': 'Complete your first task',
+    'earlyBird': 'Early Bird',
+    'earlyBirdDesc': 'Complete a task before 8am',
+    'nightOwl': 'Night Owl',
+    'nightOwlDesc': 'Complete a task after 10pm',
+    'taskMaster': 'Task Master',
+    'taskMasterDesc': 'Complete 50 tasks',
+    'productivityHero': 'Productivity Hero',
+    'productivityHeroDesc': 'Complete 100 tasks',
+    'productivityLegend': 'Productivity Legend',
+    'productivityLegendDesc': 'Complete 500 tasks',
+    'overallProgress': 'Overall Progress',
+    'achievementsUnlocked': 'achievements unlocked',
+    'all': 'All',
+    'unlocked': 'Unlocked',
+    'locked': 'Locked',
+    'tasks': 'Tasks'
   }
 };
 

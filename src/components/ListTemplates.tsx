@@ -93,16 +93,6 @@ export const ListTemplates: React.FC<ListTemplatesProps> = ({ isOpen, onClose })
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button 
-          variant="ghost" 
-          size="sm"
-          className="text-foreground"
-        >
-          <FileText className="w-4 h-4 mr-2" />
-          <span className="hidden sm:inline">{t('templates')}</span>
-        </Button>
-      </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto animate-fade-in">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
