@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -10,7 +9,7 @@ import { useLists } from '@/contexts/ListsContext';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { useUndo } from '@/hooks/useUndo';
 import { useFeedbackToast } from '@/components/FeedbackToast';
-import { Check, X, Trash2, Edit3, Tag, GripVertical } from 'lucide-react';
+import { Check, X, Trash2, Edit3, Tag } from 'lucide-react';
 import { NotificationScheduler } from '@/components/NotificationScheduler';
 
 interface QuickListItemProps {
@@ -189,228 +188,217 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
   }, [isDragging, swipeOffset]);
 
   return (
-      <div className="relative overflow-hidden">
-        {/* Delete background */}
-        <div 
-          className={`absolute inset-y-0 right-0 w-20 bg-destructive flex items-center justify-center transition-opacity duration-200 ${
-            swipeOffset < -10 ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <Trash2 className="h-5 w-5 text-destructive-foreground" />
-        </div>
+    <div className="relative overflow-hidden">
+      {/* Delete background */}
+      <div 
+        className={`absolute inset-y-0 right-0 w-20 bg-destructive flex items-center justify-center transition-opacity duration-200 ${
+          swipeOffset < -10 ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <Trash2 className="h-5 w-5 text-destructive-foreground" />
+      </div>
 
-        <Card 
-          ref={itemRef}
-          className={`p-4 transition-smooth hover:shadow-notepad border-l-4 cursor-pointer select-none group animate-slide-in-left ${
-            isDeleting ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
-          } ${completed ? 'opacity-70' : 'opacity-100'}`}
-          style={{
-            borderLeftColor: color,
-            transform: `translateX(${swipeOffset}px)`,
-            transition: isDragging ? 'none' : 'transform 0.2s ease-out'
-          }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-        >
-          {/* Mobile-optimized layout */}
-          <div className="space-y-3">
-            {/* Top row: Drag handle, Checkbox, and Text */}
-            <div className="flex items-start gap-3">
-              {/* Drag handle */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="cursor-grab active:cursor-grabbing p-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <GripVertical className="h-4 w-4 text-muted-foreground" />
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{t('dragToReorder')}</p>
-                </TooltipContent>
-              </Tooltip>
-
-              {/* Checkbox */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleToggle();
-                    }}
-                    className={`h-8 w-8 p-0 rounded-full transition-all duration-200 flex-shrink-0 ${
-                      completed 
-                        ? 'bg-primary text-primary-foreground hover:bg-primary/80 scale-110' 
-                        : 'bg-muted hover:bg-primary hover:text-primary-foreground'
-                    }`}
-                  >
-                    <Check className={`h-4 w-4 transition-transform duration-200 ${completed ? 'scale-110' : ''}`} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{completed ? t('markIncomplete') : t('markComplete')}</p>
-                </TooltipContent>
-              </Tooltip>
-              
-              {/* Text content - takes full available width */}
-              <div className="flex-1 min-w-0">
-                {isEditing ? (
-                  <Input
-                    ref={inputRef}
-                    value={editText}
-                    onChange={(e) => setEditText(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    onBlur={handleSaveEdit}
-                    className="border-primary focus:border-primary text-sm w-full"
-                  />
-                ) : (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span 
-                        className={`block transition-all duration-200 cursor-pointer text-sm sm:text-base leading-tight break-words ${
-                          completed ? 'line-through text-muted-foreground' : 'text-foreground'
-                        }`}
-                        onClick={() => !completed && handleEdit()}
-                      >
-                        {text}
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{!completed ? t('clickToEdit') : ''}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                )}
-              </div>
-            </div>
-
-            {/* Categories row */}
-            {itemCategories && itemCategories.length > 0 && (
-              <div className="flex flex-wrap gap-1 ml-14">
-                {itemCategories.map(category => (
-                  <Badge
-                    key={category?.id}
-                    variant="secondary"
-                    className={`text-xs ${category?.color} text-white`}
-                  >
-                    <Tag className="w-2 h-2 mr-1" />
-                    {category?.name}
-                  </Badge>
-                ))}
-              </div>
-            )}
+      <Card 
+        ref={itemRef}
+        className={`p-3 transition-smooth hover:shadow-notepad border border-border rounded-lg cursor-pointer select-none group animate-slide-in-left ${
+          isDeleting ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
+        } ${completed ? 'opacity-70' : 'opacity-100'}`}
+        style={{
+          borderLeftColor: color,
+          borderLeftWidth: '4px',
+          transform: `translateX(${swipeOffset}px)`,
+          transition: isDragging ? 'none' : 'transform 0.2s ease-out'
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onMouseDown={handleMouseDown}
+      >
+        {/* Compact mobile-optimized layout */}
+        <div className="space-y-2">
+          {/* Main row: Checkbox and Text aligned perfectly */}
+          <div className="flex items-center gap-3">
+            {/* Checkbox */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleToggle();
+                  }}
+                  className={`h-6 w-6 p-0 rounded-full transition-all duration-200 flex-shrink-0 ${
+                    completed 
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/80' 
+                      : 'bg-muted hover:bg-primary hover:text-primary-foreground'
+                  }`}
+                >
+                  <Check className="h-3 w-3" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{completed ? t('markIncomplete') : t('markComplete')}</p>
+              </TooltipContent>
+            </Tooltip>
             
-            {/* Action buttons row - positioned below text on mobile */}
-            <div className="flex justify-end gap-2 ml-14">
+            {/* Text content - perfectly aligned with checkbox */}
+            <div className="flex-1 min-w-0">
               {isEditing ? (
-                <>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleSaveEdit();
-                        }}
-                        className="h-8 w-8 p-0 text-green-600 hover:bg-green-50 hover:text-green-700 rounded-full transition-all duration-200"
-                      >
-                        <Check className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{t('save')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCancelEdit();
-                        }}
-                        className="h-8 w-8 p-0 text-red-600 hover:bg-red-50 hover:text-red-700 rounded-full transition-all duration-200"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{t('cancel')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </>
+                <Input
+                  ref={inputRef}
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  onBlur={handleSaveEdit}
+                  className="border-primary focus:border-primary text-sm h-8 py-1"
+                />
               ) : (
-                <>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleEdit();
-                        }}
-                        className="h-8 w-8 p-0 text-blue-600 hover:bg-blue-50 hover:text-blue-700 rounded-full transition-all duration-200"
-                      >
-                        <Edit3 className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{t('edit')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  
-                  {!completed && (
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div onClick={(e) => e.stopPropagation()}>
-                          <NotificationScheduler
-                            itemId={id}
-                            itemText={text}
-                          />
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{t('scheduleReminder')}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  )}
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete();
-                        }}
-                        className="h-8 w-8 p-0 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-full transition-all duration-200"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{t('deleteItem')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span 
+                      className={`block transition-all duration-200 cursor-pointer text-sm leading-6 break-words ${
+                        completed ? 'line-through text-muted-foreground' : 'text-foreground'
+                      }`}
+                      onClick={() => !completed && handleEdit()}
+                    >
+                      {text}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{!completed ? t('clickToEdit') : ''}</p>
+                  </TooltipContent>
+                </Tooltip>
               )}
             </div>
           </div>
-        </Card>
 
-        <ConfirmDialog
-          open={showDeleteConfirm}
-          onOpenChange={setShowDeleteConfirm}
-          title={t('confirmDeleteItem')}
-          description={t('confirmDeleteItemDesc')}
-          onConfirm={confirmDelete}
-          confirmText={t('deleteItem')}
-          variant="destructive"
-        />
-      </div>
+          {/* Categories row - only if categories exist */}
+          {itemCategories && itemCategories.length > 0 && (
+            <div className="flex flex-wrap gap-1 pl-9">
+              {itemCategories.map(category => (
+                <Badge
+                  key={category?.id}
+                  variant="secondary"
+                  className={`text-xs px-2 py-0.5 ${category?.color} text-white`}
+                >
+                  <Tag className="w-2 h-2 mr-1" />
+                  {category?.name}
+                </Badge>
+              ))}
+            </div>
+          )}
+          
+          {/* Action buttons row - compact and aligned */}
+          <div className="flex justify-end gap-1 pl-9">
+            {isEditing ? (
+              <>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSaveEdit();
+                      }}
+                      className="h-7 w-7 p-0 text-green-600 hover:bg-green-50 hover:text-green-700 rounded-full"
+                    >
+                      <Check className="h-3.5 w-3.5" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{t('save')}</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCancelEdit();
+                      }}
+                      className="h-7 w-7 p-0 text-red-600 hover:bg-red-50 hover:text-red-700 rounded-full"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{t('cancel')}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </>
+            ) : (
+              <>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEdit();
+                      }}
+                      className="h-7 w-7 p-0 text-blue-600 hover:bg-blue-50 hover:text-blue-700 rounded-full"
+                    >
+                      <Edit3 className="h-3.5 w-3.5" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{t('edit')}</p>
+                  </TooltipContent>
+                </Tooltip>
+                
+                {!completed && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <NotificationScheduler
+                          itemId={id}
+                          itemText={text}
+                        />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t('scheduleReminder')}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete();
+                      }}
+                      className="h-7 w-7 p-0 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-full"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{t('deleteItem')}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </>
+            )}
+          </div>
+        </div>
+      </Card>
+
+      <ConfirmDialog
+        open={showDeleteConfirm}
+        onOpenChange={setShowDeleteConfirm}
+        title={t('confirmDeleteItem')}
+        description={t('confirmDeleteItemDesc')}
+        onConfirm={confirmDelete}
+        confirmText={t('deleteItem')}
+        variant="destructive"
+      />
+    </div>
   );
 };
