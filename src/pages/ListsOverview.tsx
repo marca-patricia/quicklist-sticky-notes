@@ -141,7 +141,7 @@ export const ListsOverview: React.FC = () => {
   };
 
   const handleCreateList = () => {
-    setIsTemplatesOpen(true);
+    setShowAddForm(true);
   };
 
   return (
