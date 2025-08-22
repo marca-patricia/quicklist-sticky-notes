@@ -13,14 +13,16 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Calendar, Clock, Edit3, Check, X } from 'lucide-react';
+import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Calendar, Clock, Edit3, Check, X, Sun, Moon } from 'lucide-react';
 import { QuickListIcon } from '@/components/QuickListIcon';
 import { DragDropList } from '@/components/DragDropList';
+import { useTheme } from "next-themes";
 
 export const ListDetail: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { theme, setTheme } = useTheme();
   const { getListById, addItemToList, toggleItemInList, deleteItemFromList, addCategoryToList, deleteCategoryFromList, updateList, updateItemInList } = useLists();
   const { toast } = useToast();
   const [showCompleted, setShowCompleted] = React.useState(false);
@@ -209,8 +211,18 @@ export const ListDetail: React.FC = () => {
   const completedItems = sortedItems.filter(item => item.completed);
 
   return (
-    <div className="min-h-screen" style={{ background: '#F8F8FC' }}>
-      <LanguageSwitch />
+    <div className="min-h-screen bg-background">
+      <div className="flex justify-end p-4 gap-2">
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="text-foreground hover:bg-accent"
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </Button>
+        <LanguageSwitch />
+      </div>
       
       <div className="container max-w-2xl mx-auto px-4 py-8">
         {/* Header - CORRIGIDO */}
