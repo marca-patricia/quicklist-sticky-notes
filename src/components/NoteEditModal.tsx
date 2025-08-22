@@ -132,7 +132,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
       }}
     >
       <DialogContent
-        className="max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col p-4 sm:p-6"
+        className="max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col p-4 sm:p-6 [&>button]:hidden"
         style={{
           backgroundColor: selectedColor ? `${selectedColor}40` : undefined,
         }}
