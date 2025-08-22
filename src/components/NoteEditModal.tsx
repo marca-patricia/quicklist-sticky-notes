@@ -183,8 +183,9 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
               placeholder={note.type === 'list' ? 'Digite o título da lista...' : t('notes.titlePlaceholder')}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="h-12 border border-input bg-background focus:border-ring focus:ring-2 focus:ring-ring/20"
+              className="h-12 border border-input bg-background focus:border-ring focus:ring-2 focus:ring-ring/20 [&::-webkit-search-cancel-button]:hidden [&::-webkit-clear-button]:hidden [&::-ms-clear]:hidden"
               autoFocus
+              type="text"
             />
           </div>
 
