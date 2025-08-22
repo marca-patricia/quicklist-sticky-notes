@@ -168,7 +168,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
       {/* Toolbar */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-border p-2 sm:p-4 dark:bg-black dark:border-white/10">
         {/* Search and Actions Row */}
-        <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
           {/* Search with Filter */}
           <div className="flex-1 sm:max-w-md flex items-center border border-input rounded-lg overflow-hidden bg-background dark:border-white/20 dark:bg-black">
             <SearchInput
@@ -184,7 +184,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-10 px-3 text-foreground hover:text-foreground hover:bg-accent/10 border-0 rounded-none dark:text-white dark:hover:text-white dark:hover:bg-white/10 flex items-center justify-center"
+                  className="h-10 px-2 text-muted-foreground hover:text-foreground hover:bg-transparent border-0 rounded-none dark:text-white/70 dark:hover:text-white dark:hover:bg-transparent flex items-center justify-center"
                 >
                   <Search className="w-4 h-4" />
                 </Button>
@@ -269,7 +269,7 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-10 px-3 text-foreground hover:text-foreground hover:bg-accent/10 border-0 rounded-none dark:text-white dark:hover:text-white dark:hover:bg-white/10 flex items-center justify-center border-l border-input dark:border-white/20"
+                  className="h-10 px-2 text-muted-foreground hover:text-foreground hover:bg-transparent border-0 rounded-none dark:text-white/70 dark:hover:text-white dark:hover:bg-transparent flex items-center justify-center border-l border-input dark:border-white/20"
                   disabled={creatingNote !== null}
                 >
                   <Plus className="w-4 h-4" />
@@ -305,13 +305,13 @@ export const StickyNotesBoard: React.FC<StickyNotesBoardProps> = ({
           </div>
           
           {/* Action Buttons Row */}
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-1 items-center">
             {/* View Toggle */}
             <Button
               variant={isGridView ? "default" : "outline"}
               size="sm"
               onClick={() => setIsGridView(!isGridView)}
-              className="flex items-center gap-2 text-black bg-white border-white/20 hover:text-black hover:bg-white/90"
+              className="flex items-center gap-1.5 text-black bg-white border-white/20 hover:text-black hover:bg-white/90 px-3"
             >
               <Grid className="w-4 h-4 text-black" />
               <span className="hidden sm:inline">
