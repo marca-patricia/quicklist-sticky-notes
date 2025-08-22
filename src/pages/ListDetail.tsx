@@ -269,9 +269,9 @@ export const ListDetail: React.FC = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="flex items-center gap-2 flex-1 min-w-0">
+                <div className="flex items-start gap-2 flex-1 min-w-0">
                   <h1 
-                    className={`text-2xl font-bold border-l-4 pl-3 truncate cursor-pointer hover:text-primary transition-colors text-foreground dark:text-white`}
+                    className={`text-xl sm:text-2xl font-bold border-l-4 pl-3 break-words leading-tight cursor-pointer hover:text-primary transition-colors text-foreground dark:text-white`}
                     style={{ borderColor: list.color }}
                     onClick={handleEditTitle}
                     title={t('clickToEdit')}
