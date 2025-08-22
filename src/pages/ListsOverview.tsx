@@ -183,7 +183,6 @@ export const ListsOverview: React.FC = () => {
                 <StickyNote className="w-4 h-4" />
                 <span className="hidden sm:inline text-xs">{language === 'pt' ? 'Notas' : 'Notes'}</span>
               </Button>
-              <ListTemplates />
               <Button
                 variant="ghost"
                 size="sm"

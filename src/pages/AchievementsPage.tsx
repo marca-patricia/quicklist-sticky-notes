@@ -4,6 +4,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAchievements } from '@/contexts/AchievementsContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Trophy, Lock, Star, Target, Zap, Clock, Users, CheckCircle } from 'lucide-react';
+import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 type FilterType = 'all' | 'unlocked' | 'locked';
 
@@ -114,6 +116,11 @@ export const AchievementsPage: React.FC = () => {
                 <Trophy className="w-7 h-7 text-yellow-600" />
                 {t('achievements')}
               </h1>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <LanguageSwitch />
+              <ThemeToggle />
             </div>
           </div>
         </div>

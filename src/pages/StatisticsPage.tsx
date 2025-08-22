@@ -14,6 +14,8 @@ import { format, startOfWeek, endOfWeek, isWithinInterval, subWeeks } from 'date
 import { ptBR, enUS } from 'date-fns/locale';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export const StatisticsPage: React.FC = () => {
   const { t, language } = useLanguage();
@@ -161,6 +163,11 @@ export const StatisticsPage: React.FC = () => {
               <h1 className="text-2xl font-bold">
                 {t('statistics')}
               </h1>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <LanguageSwitch />
+              <ThemeToggle />
             </div>
           </div>
         </div>

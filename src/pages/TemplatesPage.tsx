@@ -5,6 +5,8 @@ import { useLists } from '@/contexts/ListsContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Copy, FileText, ShoppingCart, Briefcase, GraduationCap, Heart, Utensils, Car, Home } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const templates = [
   {
@@ -139,6 +141,11 @@ export const TemplatesPage: React.FC = () => {
                 {language === 'pt' ? 'Voltar' : 'Back'}
               </Button>
               <h1 className="text-2xl font-bold">{t('templates')}</h1>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <LanguageSwitch />
+              <ThemeToggle />
             </div>
           </div>
         </div>
