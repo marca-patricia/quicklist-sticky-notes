@@ -46,14 +46,14 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
       </div>
 
       {/* Compact Filter and Sort Controls - Single Row */}
-      <div className="flex flex-wrap gap-2 items-center justify-between">
-        <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center justify-between w-full">
+        <div className="flex gap-2 items-center flex-shrink-0">
           {/* Show/Hide Completed Toggle */}
           <Button
             variant={showCompleted ? "default" : "outline"}
             size="sm"
             onClick={() => onShowCompletedChange(!showCompleted)}
-            className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-3 py-1 h-8"
+            className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-8 flex-shrink-0"
           >
             <Filter className="w-3 h-3 mr-1" />
             {showCompleted ? t('hideCompleted') : t('showCompleted')}
@@ -65,10 +65,10 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               <Button 
                 variant="outline" 
                 size="sm"
-                className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-3 py-1 h-8"
+                className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-8 flex-shrink-0"
               >
                 <SortAsc className="w-3 h-3 mr-1" />
-                {t('sortBy')}: {t(sortBy)}
+                <span className="truncate">{t('sortBy')}: {t(sortBy)}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">

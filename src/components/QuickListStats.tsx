@@ -24,7 +24,7 @@ export const QuickListStats: React.FC<QuickListStatsProps> = ({
   if (totalItems === 0) return null;
 
   return (
-    <div className="flex items-center justify-between gap-2 text-sm py-2">
+    <div className="flex items-center justify-between gap-2 text-sm py-1">
       <div className="text-foreground font-medium">
         {pendingItems === 0 ? (
           <span>{t('allCompleted')}</span>
@@ -35,28 +35,27 @@ export const QuickListStats: React.FC<QuickListStatsProps> = ({
         )}
       </div>
       
-      <div className="flex gap-1">
-        {completedItems > 0 && (
+      <div className="flex gap-1 items-center">
         <Button
           variant="ghost"
           size="sm"
-          onClick={onClearCompleted}
+          onClick={onShare}
           className="text-foreground hover:text-foreground/80 hover:bg-muted text-xs px-2 py-1 h-7"
         >
-          <CheckCheck className="h-3 w-3" />
-          <span className="hidden sm:inline ml-1">{t('clearCompleted')}</span>
+          <Share2 className="h-3 w-3" />
         </Button>
-        )}
         
+        {completedItems > 0 && (
         <Button
           variant="outline"
           size="sm"
-          onClick={onShare}
+          onClick={onClearCompleted}
           className="text-foreground border-border hover:bg-muted text-xs px-2 py-1 h-7"
         >
-          <Share2 className="h-3 w-3" />
-          <span className="hidden sm:inline ml-1">{t('shareList')}</span>
+          <CheckCheck className="h-3 w-3" />
+          <span className="text-xs">Export</span>
         </Button>
+        )}
       </div>
     </div>
   );
