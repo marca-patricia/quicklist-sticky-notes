@@ -131,14 +131,6 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
         style={{
           backgroundColor: selectedColor ? `${selectedColor}40` : undefined,
         }}
-        onPointerDownOutside={(e) => {
-          // Permite fechar clicando fora do modal
-          onClose();
-        }}
-        onEscapeKeyDown={(e) => {
-          // Permite fechar com ESC
-          onClose();
-        }}
         >
         <DialogHeader className="pb-4 flex-shrink-0 relative">
           <DialogTitle className="text-lg font-semibold pr-8">
@@ -147,9 +139,14 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={onClose}
-            className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-destructive hover:text-destructive-foreground rounded-full"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClose();
+            }}
+            className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-destructive hover:text-destructive-foreground rounded-full z-50"
             aria-label="Fechar modal"
+            type="button"
           >
             <X className="h-4 w-4" />
           </Button>
