@@ -32,7 +32,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   const { t } = useLanguage();
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Search Input */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground dark:text-white/60 h-4 w-4" />
@@ -45,63 +45,65 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         />
       </div>
 
-      {/* Filter and Sort Controls */}
-      <div className="flex flex-wrap gap-2 items-center">
-        {/* Show Completed Toggle */}
-        <Button
-          variant={showCompleted ? "default" : "outline"}
-          size="sm"
-          onClick={() => onShowCompletedChange(!showCompleted)}
-          className="text-foreground dark:text-white border-border dark:border-white/20"
-        >
-          <Filter className="w-4 h-4 mr-2" />
-          {showCompleted ? t('hideCompleted') : t('showCompleted')}
-        </Button>
+      {/* Compact Filter and Sort Controls - Single Row */}
+      <div className="flex flex-wrap gap-2 items-center justify-between">
+        <div className="flex gap-2 items-center">
+          {/* Show/Hide Completed Toggle */}
+          <Button
+            variant={showCompleted ? "default" : "outline"}
+            size="sm"
+            onClick={() => onShowCompletedChange(!showCompleted)}
+            className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-3 py-1 h-8"
+          >
+            <Filter className="w-3 h-3 mr-1" />
+            {showCompleted ? t('hideCompleted') : t('showCompleted')}
+          </Button>
 
-        {/* Sort Dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="text-foreground dark:text-white border-border dark:border-white/20"
-            >
-              <SortAsc className="w-4 h-4 mr-2" />
-              {t('sortBy')}: {t(sortBy)}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">
-            <DropdownMenuItem 
-              onClick={() => onSortChange('recent')}
-              className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
-            >
-              {t('recent')}
-            </DropdownMenuItem>
-            <DropdownMenuItem 
-              onClick={() => onSortChange('alphabetical')}
-              className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
-            >
-              {t('alphabetical')}
-            </DropdownMenuItem>
-            <DropdownMenuItem 
-              onClick={() => onSortChange('completed')}
-              className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
-            >
-              {t('completedSort')}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          {/* Sort Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-3 py-1 h-8"
+              >
+                <SortAsc className="w-3 h-3 mr-1" />
+                {t('sortBy')}: {t(sortBy)}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">
+              <DropdownMenuItem 
+                onClick={() => onSortChange('recent')}
+                className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
+              >
+                {t('recent')}
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => onSortChange('alphabetical')}
+                className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
+              >
+                {t('alphabetical')}
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => onSortChange('completed')}
+                className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
+              >
+                {t('completedSort')}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
         {/* Active Filters Display */}
         {(searchTerm || !showCompleted) && (
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-1 items-center">
             {searchTerm && (
-              <Badge variant="secondary" className="bg-secondary/50 dark:bg-white/10 text-foreground dark:text-white">
+              <Badge variant="secondary" className="bg-secondary/50 dark:bg-white/10 text-foreground dark:text-white text-xs px-2 py-0.5">
                 {t('search')}: "{searchTerm}"
               </Badge>
             )}
             {!showCompleted && (
-              <Badge variant="secondary" className="bg-secondary/50 dark:bg-white/10 text-foreground dark:text-white">
+              <Badge variant="secondary" className="bg-secondary/50 dark:bg-white/10 text-foreground dark:text-white text-xs px-2 py-0.5">
                 {t('hideCompleted')}
               </Badge>
             )}

@@ -24,42 +24,40 @@ export const QuickListStats: React.FC<QuickListStatsProps> = ({
   if (totalItems === 0) return null;
 
   return (
-    <Card className="p-4 bg-background/50 border-border/50 backdrop-blur-sm">
-      <div className="flex items-center justify-between gap-4">
-        <div className="text-sm">
-          {pendingItems === 0 ? (
-            <span className="text-foreground font-medium">{t('allCompleted')}</span>
-          ) : (
-            <span className="text-foreground">
-              {pendingItems} {pendingItems === 1 ? t('oneItemLeft') : t('itemsLeft')}
-            </span>
-          )}
-        </div>
-        
-        <div className="flex gap-2">
-          {completedItems > 0 && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClearCompleted}
-            className="text-foreground hover:text-foreground/80 hover:bg-muted"
-          >
-            <CheckCheck className="h-4 w-4" />
-            <span className="hidden sm:inline ml-1">{t('clearCompleted')}</span>
-          </Button>
-          )}
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onShare}
-            className="text-foreground border-border hover:bg-muted"
-          >
-            <Share2 className="h-4 w-4" />
-            <span className="hidden sm:inline ml-1">{t('shareList')}</span>
-          </Button>
-        </div>
+    <div className="flex items-center justify-between gap-2 text-sm py-2">
+      <div className="text-foreground font-medium">
+        {pendingItems === 0 ? (
+          <span>{t('allCompleted')}</span>
+        ) : (
+          <span>
+            {pendingItems} {pendingItems === 1 ? t('oneItemLeft') : t('itemsLeft')}
+          </span>
+        )}
       </div>
-    </Card>
+      
+      <div className="flex gap-1">
+        {completedItems > 0 && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onClearCompleted}
+          className="text-foreground hover:text-foreground/80 hover:bg-muted text-xs px-2 py-1 h-7"
+        >
+          <CheckCheck className="h-3 w-3" />
+          <span className="hidden sm:inline ml-1">{t('clearCompleted')}</span>
+        </Button>
+        )}
+        
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onShare}
+          className="text-foreground border-border hover:bg-muted text-xs px-2 py-1 h-7"
+        >
+          <Share2 className="h-3 w-3" />
+          <span className="hidden sm:inline ml-1">{t('shareList')}</span>
+        </Button>
+      </div>
+    </div>
   );
 };

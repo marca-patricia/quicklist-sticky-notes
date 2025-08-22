@@ -324,7 +324,7 @@ export const ListDetail: React.FC = () => {
         </div>
 
         {/* Search and Filter */}
-        <div className="mb-6">
+        <div className="mb-4">
           <SearchAndFilter
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -335,15 +335,17 @@ export const ListDetail: React.FC = () => {
           />
         </div>
 
-        {/* Stats and Export */}
-        <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        {/* Compact Stats Row */}
+        <div className="mb-4">
           <QuickListStats
             totalItems={list.items.length}
             completedItems={list.items.filter(item => item.completed).length}
             onShare={shareList}
             onClearCompleted={clearCompleted}
           />
-          <ExportButton list={list} />
+          <div className="flex justify-end mt-2">
+            <ExportButton list={list} />
+          </div>
         </div>
 
         {/* Pending Items */}
