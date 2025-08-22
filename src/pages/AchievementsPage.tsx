@@ -9,6 +9,29 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 
 type FilterType = 'all' | 'unlocked' | 'locked';
 
+const getAchievementTranslation = (achievement: any, t: (key: string) => string) => {
+  const translationMap: Record<string, { title: string; description: string }> = {
+    'first-task': { title: t('firstStep'), description: t('firstStepDesc') },
+    'early-bird': { title: t('earlyBird'), description: t('earlyBirdDesc') },
+    'night-owl': { title: t('nightOwl'), description: t('nightOwlDesc') },
+    'task-master': { title: t('taskMaster'), description: t('taskMasterDesc') },
+    'productivity-hero': { title: t('productivityHero'), description: t('productivityHeroDesc') },
+    'legendary-achiever': { title: t('productivityLegend'), description: t('productivityLegendDesc') },
+    'streak-starter': { title: t('streakStarter'), description: t('streakStarterDesc') },
+    'streak-master': { title: t('streakMaster'), description: t('streakMasterDesc') },
+    'organizer': { title: t('organizer'), description: t('organizerDesc') },
+    'speed-demon': { title: t('speedDemon'), description: t('speedDemonDesc') },
+    'list-creator': { title: t('listCreator'), description: t('listCreatorDesc') },
+    'perfectionist': { title: t('perfectionist'), description: t('perfectionistDesc') },
+    'multitasker': { title: t('multitasker'), description: t('multitaskerDesc') },
+    'minimalist': { title: t('minimalist'), description: t('minimalistDesc') },
+    'maximalist': { title: t('maximalist'), description: t('maximalistDesc') },
+    'weekend-warrior': { title: t('weekendWarrior'), description: t('weekendWarriorDesc') }
+  };
+  
+  return translationMap[achievement.id] || { title: achievement.title, description: achievement.description };
+};
+
 export const AchievementsPage: React.FC = () => {
   const { t, language } = useLanguage();
   const { achievements, getUnlockedCount } = useAchievements();
@@ -252,15 +275,22 @@ export const AchievementsPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Achievement Content */}
-                  <div className="space-y-3">
-                    <h3 className={`font-semibold text-lg ${isUnlocked ? 'text-foreground' : 'text-muted-foreground'}`}>
-                      {achievement.title}
-                    </h3>
-                    
-                    <p className={`text-sm ${isUnlocked ? 'text-muted-foreground' : 'text-muted-foreground/70'}`}>
-                      {achievement.description}
-                    </p>
+                   {/* Achievement Content */}
+                   <div className="space-y-3">
+                     {(() => {
+                       const translated = getAchievementTranslation(achievement, t);
+                       return (
+                         <>
+                           <h3 className={`font-semibold text-lg ${isUnlocked ? 'text-foreground' : 'text-muted-foreground'}`}>
+                             {translated.title}
+                           </h3>
+                           
+                           <p className={`text-sm ${isUnlocked ? 'text-muted-foreground' : 'text-muted-foreground/70'}`}>
+                             {translated.description}
+                           </p>
+                         </>
+                       );
+                     })()}
 
                     {/* Progress or Unlock Date */}
                     {isUnlocked && achievement.unlockedAt ? (
