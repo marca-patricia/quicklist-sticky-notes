@@ -239,7 +239,7 @@ export const ListsOverview: React.FC = () => {
                 <div className="animate-pulse bg-muted rounded h-10 w-24"></div>
               </div>
             ) : (
-              <div className="bg-white dark:bg-black rounded-lg shadow-soft p-6 border border-border dark:border-white/20">
+              <div className="bg-card dark:bg-card/90 rounded-lg shadow-sm">
                 <AddListForm />
               </div>
             )}

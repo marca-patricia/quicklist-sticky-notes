@@ -62,23 +62,23 @@ All colors MUST be HSL.
 
 .dark {
     /* QuickList - Design tokens (Dark) - Blue/Gray system */
-    --background: 222 22% 10%;
-    --foreground: 0 0% 98%;
+    --background: 222 47% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 222 22% 12%;
-    --card-foreground: 0 0% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222 22% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 0 0% 95%;
 
     --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 9% 46%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 217 10% 95%;
 
-    --muted: 222 15% 18%;
-    --muted-foreground: 220 10% 75%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
 
     --accent: 158 64% 52%;
     --accent-foreground: 158 100% 8%;
@@ -86,8 +86,8 @@ All colors MUST be HSL.
     --destructive: 0 75% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 222 14% 22%;
-    --input: 222 22% 12%;
+    --border: 217 33% 17%;
+    --input: 217 33% 14%;
     --ring: 217 91% 60%;
 
     /* Sticky note colors remain */
@@ -135,7 +135,11 @@ All colors MUST be HSL.
   }
 
   .dark body {
-    background: #000000 !important; /* Fundo completamente preto no modo escuro */
+    background: linear-gradient(hsl(var(--background)) 0%, hsl(var(--background)) 100%),
+                linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px),
+                linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px) !important;
+    background-size: 100% 100%, 50px 50px, 50px 50px !important;
+    background-attachment: fixed !important;
     color: hsl(var(--foreground));
   }
 

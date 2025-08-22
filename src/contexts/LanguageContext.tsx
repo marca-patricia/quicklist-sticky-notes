@@ -229,6 +229,12 @@ const translations = {
     // Achievements
     'continueUsingApp': 'Continue usando o app',
     'placeholder': 'Digite aqui...',
+    'listPlaceholder': 'Nova lista...',
+    'newListName': 'Nome da nova lista',
+    'chooseListColor': 'Escolher cor da lista',
+    'createNewListForm': 'Criar nova lista',
+    'pleaseEnterListName': 'Por favor, digite um nome para a lista',
+    'errorCreatingList': 'Erro ao criar lista',
     
     // Achievement titles and descriptions
     'firstStep': 'Primeiro Passo',
@@ -488,6 +494,12 @@ const translations = {
     // Achievements
     'continueUsingApp': 'Continue using app',
     'placeholder': 'Type here...',
+    'listPlaceholder': 'New list...',
+    'newListName': 'New list name',
+    'chooseListColor': 'Choose list color',
+    'createNewListForm': 'Create new list',
+    'pleaseEnterListName': 'Please enter a list name',
+    'errorCreatingList': 'Error creating list',
     
     // Achievement titles and descriptions
     'firstStep': 'First Step',

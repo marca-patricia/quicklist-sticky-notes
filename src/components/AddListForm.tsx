@@ -14,23 +14,6 @@ export const AddListForm: React.FC = () => {
   const { addList } = useLists();
   const { t } = useLanguage();
   const { toast } = useToast();
-  const [isDark, setIsDark] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    };
-    
-    checkTheme();
-    
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    
-    return () => observer.disconnect();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,21 +47,18 @@ export const AddListForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2" role="form" aria-label={t('createNewListForm')}>
+    <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-card/50 dark:bg-card/80 backdrop-blur-sm rounded-lg shadow-sm border border-border dark:border-border/50" role="form" aria-label={t('createNewListForm')}>
       <Input
         type="text"
         placeholder={t('listPlaceholder')}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="flex-1 bg-gradient-primary border-none"
-        style={{
-          color: isDark ? '#000000' : undefined,
-        }}
+        className="flex-1 bg-background dark:bg-input text-foreground dark:text-foreground border-border dark:border-border/50 placeholder:text-muted-foreground"
         aria-label={t('newListName')}
         aria-describedby="list-input-help"
       />
       <div id="list-input-help" className="sr-only">
-        Digite o nome da sua nova lista e clique em adicionar
+        {t('pleaseEnterListName')}
       </div>
       <ColorPicker 
         selectedColor={selectedColor}
@@ -89,18 +69,14 @@ export const AddListForm: React.FC = () => {
       <Button 
         type="submit" 
         disabled={!title.trim()}
-        className="bg-gradient-primary hover:opacity-90 border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-        style={{
-          color: isDark ? '#000000' : undefined,
-        }}
-        aria-label={title.trim() ? `Criar lista "${title.trim()}"` : "Digite um nome para criar a lista"}
+        className="bg-primary hover:bg-primary/90 text-primary-foreground border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        aria-label={title.trim() ? `${t('createList')} "${title.trim()}"` : t('pleaseEnterListName')}
       >
         <Plus 
           className="w-4 h-4 mr-2" 
-          aria-hidden="true" 
-          style={{ color: isDark ? '#000000' : undefined }}
+          aria-hidden="true"
         />
-        <span style={{ color: isDark ? '#000000' : undefined }}>
+        <span>
           {t('addList')}
         </span>
       </Button>
