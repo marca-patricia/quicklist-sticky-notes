@@ -140,10 +140,19 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
           onClose();
         }}
         >
-        <DialogHeader className="pb-4 flex-shrink-0">
-          <DialogTitle className="text-lg font-semibold">
+        <DialogHeader className="pb-4 flex-shrink-0 relative">
+          <DialogTitle className="text-lg font-semibold pr-8">
             {note.type === 'list' ? 'Editar Lista' : t('notes.editNote')}
           </DialogTitle>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            className="absolute right-0 top-0 h-8 w-8 p-0 hover:bg-destructive hover:text-destructive-foreground rounded-full"
+            aria-label="Fechar modal"
+          >
+            <X className="h-4 w-4" />
+          </Button>
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto space-y-4 sm:space-y-6">
@@ -174,7 +183,7 @@ export const NoteEditModal: React.FC<NoteEditModalProps> = ({
               placeholder={note.type === 'list' ? 'Digite o título da lista...' : t('notes.titlePlaceholder')}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="h-12 border-2 border-primary/50 rounded-md focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="h-12 border border-input bg-background focus:border-ring focus:ring-2 focus:ring-ring/20"
               autoFocus
             />
           </div>
