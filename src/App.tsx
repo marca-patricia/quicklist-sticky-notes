@@ -37,19 +37,17 @@ const App = () => {
             enableSystem={false}
             disableTransitionOnChange
           >
-            <TooltipProvider>
-              <OfflineProvider>
-                <LanguageProvider>
-                  <AuthProvider>
-                    <ListsProvider>
-                      <AchievementsProvider>
-                        <AppContent />
-                      </AchievementsProvider>
-                    </ListsProvider>
-                  </AuthProvider>
-                </LanguageProvider>
-              </OfflineProvider>
-            </TooltipProvider>
+            <OfflineProvider>
+              <LanguageProvider>
+                <AuthProvider>
+                  <ListsProvider>
+                    <AchievementsProvider>
+                      <AppContent />
+                    </AchievementsProvider>
+                  </ListsProvider>
+                </AuthProvider>
+              </LanguageProvider>
+            </OfflineProvider>
           </ThemeProvider>
         </BrowserRouter>
       </QueryClientProvider>
