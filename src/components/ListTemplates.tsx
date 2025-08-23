@@ -98,14 +98,23 @@ export const ListTemplates: React.FC<ListTemplatesProps> = ({ isOpen, onClose })
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto animate-fade-in">
         <DialogHeader className="pb-4">
           <div className="flex items-center justify-between w-full">
-            <DialogTitle className="flex items-center gap-2 text-lg">
+            <div className="flex items-center gap-3">
               <FileText className="w-5 h-5" />
-              {t('templates')}
-            </DialogTitle>
-            <div className="flex items-center gap-2">
-              <LanguageSwitch />
-              <ThemeToggle />
+              <span className="text-lg font-semibold">{t('templates')}</span>
+              <div className="flex items-center gap-1 ml-2">
+                <LanguageSwitch />
+                <ThemeToggle />
+              </div>
             </div>
+            <button
+              onClick={() => handleOpenChange(false)}
+              className="p-1.5 rounded-md hover:bg-accent transition-colors"
+              aria-label="Fechar"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         </DialogHeader>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
