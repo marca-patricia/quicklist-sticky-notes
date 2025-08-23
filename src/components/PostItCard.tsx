@@ -1,277 +1,251 @@
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { TodoList } from '@/contexts/ListsContext';
-import { useLists } from '@/contexts/ListsContext';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Trash2, Edit3, Check, X, Palette } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ColorPicker } from '@/components/ColorPicker';
-import { ConfirmDialog } from '@/components/ConfirmDialog';
-import { useUndo } from '@/hooks/useUndo';
-import { useFeedbackToast } from '@/components/FeedbackToast';
-import { Trash2, Archive, ArchiveRestore } from 'lucide-react';
 
 interface PostItCardProps {
-  list: TodoList;
-  isGridView?: boolean;
+  id: string;
+  title: string;
+  content: string;
+  color: string;
+  textColor: string;
+  font: string;
+  fontSize: string;
+  type: 'list' | 'note';
+  items?: { id: string; text: string; completed: boolean }[];
+  onUpdate: (id: string, updates: any) => void;
+  onDelete: (id: string) => void;
 }
 
-export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false }) => {
-  const { deleteList, updateList } = useLists();
+const postItColors = [
+  '#FFE066', // Yellow
+  '#FFB3E6', // Pink
+  '#B3E5FF', // Light Blue
+  '#B3FFB3', // Light Green
+  '#FFD700', // Gold
+  '#DDA0DD', // Plum
+  '#F0E68C', // Khaki
+  '#FFB6C1'  // Light Pink
+];
+
+export const PostItCard: React.FC<PostItCardProps> = ({
+  id, title, content, color, textColor, font, fontSize, type, items = [], onUpdate, onDelete
+}) => {
   const { t } = useLanguage();
-  const { addUndoAction } = useUndo();
-  const { showSuccess } = useFeedbackToast();
-  const navigate = useNavigate();
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(title);
+  const [editContent, setEditContent] = useState(content);
+  const [editColor, setEditColor] = useState(color);
+  const [editTextColor, setEditTextColor] = useState(textColor);
+  const [showColorPicker, setShowColorPicker] = useState(false);
 
-  const completedItems = list.items.filter(item => item.completed);
-  const progress = list.items.length > 0 ? (completedItems.length / list.items.length) * 100 : 0;
-
-  const handleDeleteList = () => {
-    const listCopy = { ...list };
-    deleteList(list.id);
-    
-    addUndoAction({
-      id: `delete-list-${list.id}`,
-      action: () => {
-        showSuccess(t('listRestored'));
-      },
-      message: t('listDeleted')
+  const handleSave = () => {
+    onUpdate(id, {
+      title: editTitle,
+      content: editContent,
+      color: editColor,
+      textColor: editTextColor
     });
-    
-    setShowDeleteConfirm(false);
+    setIsEditing(false);
   };
 
-  const handleArchiveToggle = () => {
-    const newArchivedState = !list.archived;
-    updateList(list.id, { archived: newArchivedState });
-    showSuccess(newArchivedState ? t('listArchived') : t('listUnarchived'));
+  const toggleItem = (itemId: string) => {
+    const updatedItems = items.map(item =>
+      item.id === itemId ? { ...item, completed: !item.completed } : item
+    );
+    onUpdate(id, { items: updatedItems });
   };
 
-  const handleColorChange = (color: string) => {
-    console.log('Changing color to:', color);
-    updateList(list.id, { color });
-    showSuccess(t('colorChangedSuccessfully'));
+  const getContrastColor = (hexColor: string) => {
+    const r = parseInt(hexColor.slice(1, 3), 16);
+    const g = parseInt(hexColor.slice(3, 5), 16);
+    const b = parseInt(hexColor.slice(5, 7), 16);
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness > 128 ? '#000000' : '#FFFFFF';
   };
 
-  // Function to darken color for better contrast
-  const darkenColor = (hex: string, amount: number = 0.15) => {
-    const num = parseInt(hex.replace("#", ""), 16);
-    const r = Math.max(0, Math.floor((num >> 16) * (1 - amount)));
-    const g = Math.max(0, Math.floor(((num >> 8) & 0x00FF) * (1 - amount)));
-    const b = Math.max(0, Math.floor((num & 0x0000FF) * (1 - amount)));
-    return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
-  };
-
-  // Function to lighten color slightly
-  const lightenColor = (hex: string, amount: number = 0.05) => {
-    const num = parseInt(hex.replace("#", ""), 16);
-    const r = Math.min(255, Math.floor((num >> 16) + (255 - (num >> 16)) * amount));
-    const g = Math.min(255, Math.floor(((num >> 8) & 0x00FF) + (255 - ((num >> 8) & 0x00FF)) * amount));
-    const b = Math.min(255, Math.floor((num & 0x0000FF) + (255 - (num & 0x0000FF)) * amount));
-    return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
-  };
-
-  const postItColor = list.color;
-  const darkerColor = darkenColor(postItColor, 0.2);
-  const lighterColor = lightenColor(postItColor, 0.05);
-
-  const getPostItStyle = (color: string) => {
-    return {
-      backgroundColor: color,
-      color: '#1a1a1a',
-      border: `2px solid ${darkenColor(color, 0.1)}`,
-      boxShadow: `0 4px 12px ${darkenColor(color, 0.3)}40`
-    };
-  };
-
-  const cardStyle = getPostItStyle(postItColor);
+  const pendingItems = items.filter(item => !item.completed);
+  const completedItems = items.filter(item => item.completed);
 
   return (
-    <div className="relative group transform">
-      <div 
-        onClick={() => navigate(`/list/${list.id}`)}
-        className={`
-          relative transform transition-all duration-300 ease-out
-          hover:scale-105 hover:-rotate-0 animate-fade-in-up
-          cursor-pointer group
-          ${isGridView ? 'min-h-[100px] p-3 m-1 rotate-1 hover:rotate-0' : 'min-h-[90px] p-3 m-1 rotate-2 hover:rotate-1'}
-          rounded-xl
-        `}
-        style={cardStyle}
-        role="article"
-        aria-describedby={`list-progress-${list.id}`}
-        aria-label={`Abrir lista ${list.title} com ${completedItems.length} de ${list.items.length} tarefas concluídas`}
-      >
-        {/* Enhanced shadow for better depth */}
-        <div 
-          className="absolute inset-0 rounded-xl pointer-events-none"
-          style={{
-            background: `linear-gradient(145deg, ${lighterColor}, ${darkerColor})`,
-            opacity: 0.3
-          }}
-        />
-
-        {/* Post-it corner fold */}
-        <div 
-          className="absolute bottom-0 right-0 w-4 h-4 opacity-40 rounded-bl-xl pointer-events-none"
-          style={{
-            background: `linear-gradient(135deg, transparent 45%, ${darkerColor} 50%, ${darkenColor(postItColor, 0.3)} 55%, transparent 60%)`,
-            clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)',
-          }}
-        />
-
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col">
-          <div className={`flex justify-between items-start ${isGridView ? 'mb-2' : 'mb-1'}`}>
-            <h3 
-              className={`font-bold flex-1 leading-tight ${isGridView ? 'text-sm' : 'text-sm'} mr-2 dark:text-black dark:font-extrabold`}
-              style={{ 
-                fontFamily: 'Inter, sans-serif',
-                color: '#1a1a1a',
-                textShadow: `0 1px 2px ${lighterColor}`
-              }}
-              title={list.title}
-            >
-              {list.title}
+    <Card 
+      className="w-full max-w-xs h-80 p-4 relative transform rotate-1 hover:rotate-0 transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 m-2"
+      style={{ 
+        backgroundColor: color,
+        color: textColor,
+        fontFamily: font,
+        fontSize: fontSize,
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1)'
+      }}
+    >
+      {/* Post-it shadow effect */}
+      <div className="absolute inset-0 bg-black opacity-5 transform translate-x-1 translate-y-1 rounded-lg -z-10"></div>
+      
+      {/* Header with controls */}
+      <div className="flex justify-between items-start mb-3">
+        <div className="flex-1">
+          {isEditing ? (
+            <Input
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+              className="text-sm font-bold bg-transparent border-none p-0 h-auto focus:ring-0"
+              style={{ color: textColor }}
+            />
+          ) : (
+            <h3 className="text-sm font-bold truncate" style={{ color: textColor }}>
+              {title || t('title')}
             </h3>
-          </div>
-          
-          {/* Description for grid view */}
-          {isGridView && list.description && (
-              <p 
-              className="text-xs mb-2 line-clamp-2 leading-relaxed opacity-80 dark:text-black dark:font-semibold"
-              style={{ 
-                fontFamily: 'Inter, sans-serif',
-                color: '#1a1a1a'
-              }}
-            >
-              {list.description}
-            </p>
           )}
+        </div>
+        
+        <div className="flex gap-1 ml-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setShowColorPicker(!showColorPicker)}
+            className="h-6 w-6 p-0 hover:bg-white/20"
+          >
+            <Palette className="w-3 h-3" style={{ color: textColor }} />
+          </Button>
           
-          <div className={`${isGridView ? 'flex-1 flex flex-col justify-end' : ''}`}>
-            <div className={isGridView ? 'mb-2' : 'mb-1'} id={`list-progress-${list.id}`}>
-              <div className={`flex justify-between text-xs font-medium ${isGridView ? 'mb-1' : 'mb-1'}`}>
-                <span 
-                  className="font-semibold dark:text-black dark:font-bold"
-                  style={{ 
-                    fontFamily: 'Inter, sans-serif',
-                    color: '#1a1a1a'
-                  }}
-                >
-                  {completedItems.length}/{list.items.length} {t('completed')}
-                </span>
-                <span 
-                  className="font-semibold dark:text-black dark:font-bold"
-                  style={{ 
-                    fontFamily: 'Inter, sans-serif',
-                    color: '#1a1a1a'
-                  }}
-                >
-                  {Math.round(progress)}%
-                </span>
-              </div>
-              <div 
-                className="w-full rounded-full h-2 shadow-inner"
-                style={{
-                  backgroundColor: darkerColor,
-                  border: `1px solid ${darkenColor(postItColor, 0.3)}`
-                }}
-                role="progressbar"
-                aria-valuenow={Math.round(progress)}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-label={`Progresso da lista: ${Math.round(progress)}% concluído`}
-              >
-                <div 
-                  className="bg-green-600 rounded-full h-full transition-all shadow-sm" 
-                  style={{ 
-                    width: `${progress}%`,
-                    backgroundColor: '#059669'
-                  }}
-                />
-              </div>
-            </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsEditing(!isEditing)}
+            className="h-6 w-6 p-0 hover:bg-white/20"
+          >
+            <Edit3 className="w-3 h-3" style={{ color: textColor }} />
+          </Button>
+          
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onDelete(id)}
+            className="h-6 w-6 p-0 hover:bg-red-500/20"
+          >
+            <Trash2 className="w-3 h-3" style={{ color: textColor }} />
+          </Button>
+        </div>
+      </div>
 
-            {/* Action icons at bottom - inside the post-it */}
-            <div 
-              className="flex justify-center gap-1 pt-2 mt-2 border-t opacity-70 hover:opacity-100 transition-opacity"
-              style={{ borderTopColor: darkerColor }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <ColorPicker 
-                selectedColor={list.color}
-                onColorChange={handleColorChange}
-                className="w-5 h-5"
-                aria-label={`Alterar cor da lista ${list.title}`}
+      {/* Color picker */}
+      {showColorPicker && (
+        <div className="absolute top-12 right-0 bg-white dark:bg-gray-800 p-2 rounded-lg shadow-lg z-10 border">
+          <div className="grid grid-cols-4 gap-1 mb-2">
+            {postItColors.map((postItColor) => (
+              <button
+                key={postItColor}
+                className="w-6 h-6 rounded border-2 hover:scale-110 transition-transform"
+                style={{ 
+                  backgroundColor: postItColor,
+                  borderColor: editColor === postItColor ? '#333' : '#ccc'
+                }}
+                onClick={() => {
+                  setEditColor(postItColor);
+                  setEditTextColor(getContrastColor(postItColor));
+                }}
               />
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleArchiveToggle();
-                }}
-                className="w-5 h-5 p-0 rounded-full transition-all duration-200 hover:scale-110 dark:text-black"
-                style={{ 
-                  backgroundColor: lighterColor,
-                  color: '#1a1a1a',
-                  border: `1px solid ${darkerColor}`
-                }}
-                aria-label={list.archived ? t('unarchive') : t('archiveList')}
-                title={list.archived ? t('unarchive') : t('archiveList')}
-              >
-                {list.archived ? (
-                  <ArchiveRestore className="w-2.5 h-2.5" strokeWidth={2.5} />
-                ) : (
-                  <Archive className="w-2.5 h-2.5" strokeWidth={2.5} />
-                )}
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowDeleteConfirm(true);
-                }}
-                className="w-5 h-5 p-0 rounded-full transition-all duration-200 hover:scale-110"
-                style={{ 
-                  backgroundColor: lighterColor,
-                  color: '#dc2626',
-                  border: `1px solid ${darkerColor}`
-                }}
-                aria-label={t('deleteList')}
-                title={t('deleteList')}
-              >
-                <Trash2 className="w-2.5 h-2.5" strokeWidth={2.5} />
-              </Button>
+            ))}
+          </div>
+          <Button
+            size="sm"
+            onClick={() => setShowColorPicker(false)}
+            className="w-full text-xs"
+          >
+            {t('save')}
+          </Button>
+        </div>
+      )}
+
+      {/* Content area */}
+      <div className="flex-1 overflow-hidden">
+        {type === 'note' ? (
+          isEditing ? (
+            <Textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              className="w-full h-32 bg-transparent border-none resize-none text-xs p-0 focus:ring-0"
+              style={{ color: textColor }}
+              placeholder={t('description')}
+            />
+          ) : (
+            <p className="text-xs leading-relaxed whitespace-pre-wrap overflow-y-auto h-32" style={{ color: textColor }}>
+              {content || t('description')}
+            </p>
+          )
+        ) : (
+          <div className="space-y-2 h-48 overflow-y-auto">
+            {/* Pending items */}
+            <div>
+              <h4 className="text-xs font-semibold mb-1" style={{ color: textColor }}>
+                {t('pending')} ({pendingItems.length})
+              </h4>
+              {pendingItems.map((item) => (
+                <div key={item.id} className="flex items-center gap-2 mb-1">
+                  <button
+                    onClick={() => toggleItem(item.id)}
+                    className="w-4 h-4 rounded-full border-2 hover:bg-white/20 transition-colors"
+                    style={{ borderColor: textColor }}
+                  />
+                  <span className="text-xs flex-1" style={{ color: textColor }}>
+                    {item.text}
+                  </span>
+                </div>
+              ))}
             </div>
 
-            {/* Grid view color picker */}
-            {isGridView && (
-              <div className="flex justify-center pt-1" onClick={(e) => e.stopPropagation()}>
-                <ColorPicker 
-                  selectedColor={list.color}
-                  onColorChange={handleColorChange}
-                  className="w-6 h-6"
-                  aria-label={`Alterar cor da lista ${list.title}`}
-                />
+            {/* Completed items */}
+            {completedItems.length > 0 && (
+              <div className="border-t pt-2" style={{ borderColor: `${textColor}40` }}>
+                <h4 className="text-xs font-semibold mb-1" style={{ color: textColor }}>
+                  {t('completed')} ({completedItems.length})
+                </h4>
+                {completedItems.map((item) => (
+                  <div key={item.id} className="flex items-center gap-2 mb-1 opacity-60">
+                    <button
+                      onClick={() => toggleItem(item.id)}
+                      className="w-4 h-4 rounded-full border-2 bg-green-500 flex items-center justify-center"
+                      style={{ borderColor: textColor }}
+                    >
+                      <Check className="w-2 h-2 text-white" />
+                    </button>
+                    <span className="text-xs flex-1 line-through" style={{ color: textColor }}>
+                      {item.text}
+                    </span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
-        </div>
+        )}
       </div>
-      
-      <ConfirmDialog
-        open={showDeleteConfirm}
-        onOpenChange={setShowDeleteConfirm}
-        title={t('confirmDeleteList')}
-        description={t('confirmDeleteListDesc')}
-        onConfirm={handleDeleteList}
-        confirmText={t('deleteList')}
-        variant="destructive"
-      />
-    </div>
+
+      {/* Save/Cancel buttons when editing */}
+      {isEditing && (
+        <div className="flex gap-2 mt-2">
+          <Button
+            size="sm"
+            onClick={handleSave}
+            className="flex-1 text-xs bg-green-500 hover:bg-green-600 text-white"
+          >
+            <Check className="w-3 h-3 mr-1" />
+            {t('save')}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsEditing(false)}
+            className="flex-1 text-xs"
+          >
+            <X className="w-3 h-3 mr-1" />
+            {t('cancel')}
+          </Button>
+        </div>
+      )}
+    </Card>
   );
 };

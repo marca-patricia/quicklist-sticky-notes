@@ -1,105 +1,215 @@
 
-import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider } from "next-themes";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
+import React, { useState } from 'react';
+import { LanguageProvider, useLanguage } from '@/contexts/LanguageContext';
+import { PostItCard } from '@/components/PostItCard';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { Button } from '@/components/ui/button';
+import { Plus, Trophy, FileText, List } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
 
-console.log('App.tsx: Starting application initialization');
+interface PostIt {
+  id: string;
+  title: string;
+  content: string;
+  color: string;
+  textColor: string;
+  font: string;
+  fontSize: string;
+  type: 'list' | 'note';
+  items?: { id: string; text: string; completed: boolean }[];
+}
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
+const AppContent: React.FC = () => {
+  const { t } = useLanguage();
+  const { theme } = useTheme();
+  const [postIts, setPostIts] = useState<PostIt[]>([
+    {
+      id: '1',
+      title: 'Lista de Compras',
+      content: '',
+      color: '#FFE066',
+      textColor: '#333333',
+      font: 'Arial',
+      fontSize: '14px',
+      type: 'list',
+      items: [
+        { id: '1', text: 'Leite', completed: false },
+        { id: '2', text: 'Pão', completed: true },
+        { id: '3', text: 'Ovos', completed: false }
+      ]
     },
-  },
-});
+    {
+      id: '2',
+      title: 'Lembrete',
+      content: 'Não esquecer da reunião às 15h',
+      color: '#FFB3E6',
+      textColor: '#000000',
+      font: 'Arial',
+      fontSize: '14px',
+      type: 'note'
+    }
+  ]);
 
-// Simple loading component
-const SimpleLoading = () => (
-  <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #fef3c7 0%, #dcfce7 25%, #fce7f3 50%, #e0e7ff 75%, #fed7d7 100%)' }}>
-    <div className="text-center">
-      <div className="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
-        <p className="text-gray-600">Carregando QuickList...</p>
-      </div>
-    </div>
-  </div>
-);
+  const addNewPostIt = (type: 'list' | 'note') => {
+    const newPostIt: PostIt = {
+      id: Date.now().toString(),
+      title: type === 'list' ? t('newList') : t('newNote'),
+      content: '',
+      color: '#FFE066',
+      textColor: '#333333',
+      font: 'Arial',
+      fontSize: '14px',
+      type,
+      items: type === 'list' ? [{ id: '1', text: '', completed: false }] : undefined
+    };
+    setPostIts([...postIts, newPostIt]);
+  };
 
-// Create a basic home component first
-const BasicHome = () => {
-  console.log('BasicHome: Component rendering');
-  
+  const updatePostIt = (id: string, updates: any) => {
+    setPostIts(postIts.map(postIt => 
+      postIt.id === id ? { ...postIt, ...updates } : postIt
+    ));
+  };
+
+  const deletePostIt = (id: string) => {
+    setPostIts(postIts.filter(postIt => postIt.id !== id));
+  };
+
   return (
-    <div className="min-h-screen p-4" style={{ background: 'linear-gradient(135deg, #fef3c7 0%, #dcfce7 25%, #fce7f3 50%, #e0e7ff 75%, #fed7d7 100%)' }}>
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">QuickList</h1>
-          <p className="text-gray-600">Sua lista de tarefas simples e eficiente</p>
-        </div>
-        
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Bem-vindo!</h2>
-          <p className="text-gray-600 mb-4">
-            A aplicação está carregando. Esta é uma versão básica para verificar se o problema foi resolvido.
-          </p>
-          
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-purple-100 p-4 rounded-lg">
-              <h3 className="font-semibold text-purple-800">Listas</h3>
-              <p className="text-purple-600">Organize suas tarefas</p>
+    <div className={`min-h-screen transition-all duration-300 ${
+      theme === 'dark' 
+        ? 'bg-slate-900 text-white' 
+        : 'bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'
+    }`}>
+      {/* Header */}
+      <header className={`sticky top-0 z-50 border-b backdrop-blur-md ${
+        theme === 'dark'
+          ? 'bg-slate-800/90 border-slate-700'
+          : 'bg-white/90 border-gray-200'
+      }`}>
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className={`text-2xl font-bold ${
+                theme === 'dark' ? 'text-white' : 'text-slate-900'
+              }`}>
+                QuickList
+              </div>
+              <div className={`text-sm ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                {t('listsDesc')}
+              </div>
             </div>
             
-            <div className="bg-green-100 p-4 rounded-lg">
-              <h3 className="font-semibold text-green-800">Notas</h3>
-              <p className="text-green-600">Faça anotações rápidas</p>
-            </div>
-            
-            <div className="bg-blue-100 p-4 rounded-lg">
-              <h3 className="font-semibold text-blue-800">Estatísticas</h3>
-              <p className="text-blue-600">Acompanhe seu progresso</p>
+            {/* Header Controls */}
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`${theme === 'dark' ? 'text-white hover:bg-slate-700' : ''}`}
+              >
+                <Trophy className="w-4 h-4 mr-2" />
+                {t('achievements')}
+              </Button>
+              <LanguageSwitch />
+              <ThemeToggle />
             </div>
           </div>
         </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-6">
+        {/* Welcome Section */}
+        <div className="text-center mb-8">
+          <h1 className={`text-3xl font-bold mb-2 ${
+            theme === 'dark' ? 'text-white' : 'text-slate-900'
+          }`}>
+            {t('welcomeTitle')}
+          </h1>
+          <p className={`text-lg ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}>
+            Sua lista de tarefas simples e eficiente
+          </p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-center gap-4 mb-8">
+          <Button
+            onClick={() => addNewPostIt('list')}
+            className="bg-blue-500 hover:bg-blue-600 text-white"
+          >
+            <List className="w-4 h-4 mr-2" />
+            {t('newList')}
+          </Button>
+          
+          <Button
+            onClick={() => addNewPostIt('note')}
+            variant="outline"
+            className={theme === 'dark' ? 'border-gray-600 text-white hover:bg-slate-800' : ''}
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            {t('newNote')}
+          </Button>
+        </div>
+
+        {/* Post-its Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
+          {postIts.map((postIt) => (
+            <PostItCard
+              key={postIt.id}
+              {...postIt}
+              onUpdate={updatePostIt}
+              onDelete={deletePostIt}
+            />
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {postIts.length === 0 && (
+          <div className="text-center py-12">
+            <div className={`text-6xl mb-4 ${
+              theme === 'dark' ? 'text-gray-600' : 'text-gray-300'
+            }`}>
+              📝
+            </div>
+            <h3 className={`text-xl font-semibold mb-2 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              Nenhum post-it criado ainda
+            </h3>
+            <p className={`${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              Clique nos botões acima para criar sua primeira lista ou nota
+            </p>
+          </div>
+        )}
+      </main>
+
+      {/* Floating Action Button */}
+      <div className="fixed bottom-6 right-6">
+        <Button
+          onClick={() => addNewPostIt('list')}
+          className="w-14 h-14 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        >
+          <Plus className="w-6 h-6" />
+        </Button>
       </div>
     </div>
   );
 };
 
-const App = () => {
-  console.log('App: Component rendering');
-  
+function App() {
   return (
-    <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem={false}
-            disableTransitionOnChange
-          >
-            <Suspense fallback={<SimpleLoading />}>
-              <main>
-                <Routes>
-                  <Route path="/" element={<BasicHome />} />
-                  <Route path="*" element={<BasicHome />} />
-                </Routes>
-              </main>
-            </Suspense>
-            <Toaster />
-            <Sonner />
-          </ThemeProvider>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </ErrorBoundary>
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
-};
-
-console.log('App.tsx: Component defined, exporting');
+}
 
 export default App;
