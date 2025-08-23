@@ -56,9 +56,10 @@ export const QuickListStats: React.FC<QuickListStatsProps> = ({
           variant="ghost"
           size="sm"
           onClick={onShare}
-          className="text-foreground hover:text-foreground/80 hover:bg-muted text-xs px-1.5 py-0.5 h-6"
+          className="flex items-center gap-1 px-2 py-1 h-7 text-foreground dark:text-black hover:bg-secondary/20 dark:hover:bg-white/10 min-w-0 flex-shrink-0"
         >
-          <Share2 className="h-2.5 w-2.5" />
+          <Share2 className="h-2.5 w-2.5 text-foreground dark:text-black" />
+          <span className="text-xs hidden sm:inline">{t('share')}</span>
         </Button>
       </div>
     </div>

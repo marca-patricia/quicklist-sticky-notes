@@ -38,13 +38,13 @@ All colors MUST be HSL.
     --input: 0 0% 100%;
     --ring: 217 91% 60%;
 
-    /* Sticky note colors - Metallic versions */
-    --note-yellow: 48 95% 75%; /* Metallic Gold */
-    --note-blue: 210 85% 78%; /* Metallic Blue */
-    --note-green: 150 78% 72%; /* Metallic Green */
-    --note-pink: 330 82% 78%; /* Metallic Rose */
-    --note-orange: 25 92% 75%; /* Metallic Orange/Copper */
-    --note-purple: 270 70% 78%; /* Metallic Purple */
+    /* Sticky note colors - Metallic versions with shimmer */
+    --note-yellow: 45 100% 70%; /* Rich Metallic Gold */
+    --note-blue: 205 90% 75%; /* Metallic Steel Blue */
+    --note-green: 145 85% 68%; /* Metallic Emerald */
+    --note-pink: 325 85% 75%; /* Metallic Rose Gold */
+    --note-orange: 20 95% 70%; /* Metallic Copper */
+    --note-purple: 275 75% 75%; /* Metallic Amethyst */
     --note-text: 222 22% 15%;
 
     --floating-button: var(--primary);
@@ -91,13 +91,13 @@ All colors MUST be HSL.
     --input: 217 33% 14%;
     --ring: 217 91% 60%;
 
-    /* Sticky note colors - Metallic versions (Dark mode) */
-    --note-yellow: 48 95% 75%; /* Metallic Gold */
-    --note-blue: 210 85% 78%; /* Metallic Blue */
-    --note-green: 150 78% 72%; /* Metallic Green */
-    --note-pink: 330 82% 78%; /* Metallic Rose */
-    --note-orange: 25 92% 75%; /* Metallic Orange/Copper */
-    --note-purple: 270 70% 78%; /* Metallic Purple */
+    /* Sticky note colors - Metallic versions with shimmer (Dark mode) */
+    --note-yellow: 45 100% 70%; /* Rich Metallic Gold */
+    --note-blue: 205 90% 75%; /* Metallic Steel Blue */
+    --note-green: 145 85% 68%; /* Metallic Emerald */
+    --note-pink: 325 85% 75%; /* Metallic Rose Gold */
+    --note-orange: 20 95% 70%; /* Metallic Copper */
+    --note-purple: 275 75% 75%; /* Metallic Amethyst */
     --note-text: 222 22% 15%;
 
     --floating-button: var(--primary);
@@ -324,30 +324,66 @@ All colors MUST be HSL.
     color: hsl(var(--note-text));
   }
 
-  /* Note color utilities */
-  .bg-note-yellow {
-    background-color: hsl(var(--note-yellow));
-  }
-  
-  .bg-note-blue {
-    background-color: hsl(var(--note-blue));
-  }
-  
-  .bg-note-green {
-    background-color: hsl(var(--note-green));
-  }
-  
-  .bg-note-pink {
-    background-color: hsl(var(--note-pink));
-  }
-  
-  .bg-note-orange {
-    background-color: hsl(var(--note-orange));
-  }
-  
-  .bg-note-purple {
-    background-color: hsl(var(--note-purple));
-  }
+/* Enhanced metallic shimmer effect */
+.bg-note-yellow {
+  background: linear-gradient(135deg, hsl(45 100% 70%) 0%, hsl(48 95% 75%) 50%, hsl(45 100% 70%) 100%);
+  background-image: 
+    linear-gradient(135deg, transparent 25%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 255, 255, 0.4) 50%, transparent 50%),
+    linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, transparent 50%);
+  background-size: 20px 20px;
+  background-color: hsl(45 100% 70%);
+  box-shadow: var(--shadow-postit), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.bg-note-blue {
+  background: linear-gradient(135deg, hsl(205 90% 75%) 0%, hsl(210 85% 78%) 50%, hsl(205 90% 75%) 100%);
+  background-image: 
+    linear-gradient(135deg, transparent 25%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 255, 255, 0.4) 50%, transparent 50%),
+    linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, transparent 50%);
+  background-size: 20px 20px;
+  background-color: hsl(205 90% 75%);
+  box-shadow: var(--shadow-postit), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.bg-note-green {
+  background: linear-gradient(135deg, hsl(145 85% 68%) 0%, hsl(150 78% 72%) 50%, hsl(145 85% 68%) 100%);
+  background-image: 
+    linear-gradient(135deg, transparent 25%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 255, 255, 0.4) 50%, transparent 50%),
+    linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, transparent 50%);
+  background-size: 20px 20px;
+  background-color: hsl(145 85% 68%);
+  box-shadow: var(--shadow-postit), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.bg-note-pink {
+  background: linear-gradient(135deg, hsl(325 85% 75%) 0%, hsl(330 82% 78%) 50%, hsl(325 85% 75%) 100%);
+  background-image: 
+    linear-gradient(135deg, transparent 25%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 255, 255, 0.4) 50%, transparent 50%),
+    linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, transparent 50%);
+  background-size: 20px 20px;
+  background-color: hsl(325 85% 75%);
+  box-shadow: var(--shadow-postit), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.bg-note-orange {
+  background: linear-gradient(135deg, hsl(20 95% 70%) 0%, hsl(25 92% 75%) 50%, hsl(20 95% 70%) 100%);
+  background-image: 
+    linear-gradient(135deg, transparent 25%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 255, 255, 0.4) 50%, transparent 50%),
+    linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, transparent 50%);
+  background-size: 20px 20px;
+  background-color: hsl(20 95% 70%);
+  box-shadow: var(--shadow-postit), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.bg-note-purple {
+  background: linear-gradient(135deg, hsl(275 75% 75%) 0%, hsl(270 70% 78%) 50%, hsl(275 75% 75%) 100%);
+  background-image: 
+    linear-gradient(135deg, transparent 25%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 255, 255, 0.4) 50%, transparent 50%),
+    linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 50%, transparent 50%);
+  background-size: 20px 20px;
+  background-color: hsl(275 75% 75%);
+  box-shadow: var(--shadow-postit), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
   
   .quicklist-search {
     background: hsl(var(--search-background));

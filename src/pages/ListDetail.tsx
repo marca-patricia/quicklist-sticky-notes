@@ -249,7 +249,7 @@ export const ListDetail: React.FC = () => {
                     onChange={(e) => setEditTitle(e.target.value)}
                     onKeyDown={handleTitleKeyDown}
                     onBlur={handleSaveTitle}
-                    className="text-2xl font-bold border-primary focus:border-primary flex-1 text-foreground dark:text-white bg-background dark:bg-background border-border dark:border-white/20 min-w-0 w-full max-w-xs"
+                    className="text-2xl font-bold border-primary focus:border-primary flex-1 text-foreground dark:text-white bg-background dark:bg-background border-border dark:border-white/20 min-w-0 w-full min-w-[200px] md:min-w-[300px]"
                   />
                   <Button
                     variant="ghost"

@@ -64,9 +64,9 @@ export const ExportButton: React.FC<ExportButtonProps> = ({ list }) => {
         <Button 
           variant="outline" 
           size="sm"
-          className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-1.5 py-0.5 h-6 flex-shrink-0 min-w-0"
+          className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-7 flex-shrink-0 min-w-fit"
         >
-          <Download className="w-2.5 h-2.5 mr-0.5" />
+          <Download className="w-2.5 h-2.5 mr-1" />
           <span className="truncate text-xs">{t('export')}</span>
         </Button>
       </DropdownMenuTrigger>
