@@ -9,8 +9,6 @@ import { OfflineProvider } from '@/contexts/OfflineContext';
 import Index from '@/pages/Index';
 import AuthPage from '@/pages/AuthPage';
 
-const queryClient = new QueryClient();
-
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   
@@ -30,6 +28,15 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
+  const queryClient = React.useMemo(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: 1,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+      },
+    },
+  }), []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
