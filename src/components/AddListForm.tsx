@@ -47,39 +47,44 @@ export const AddListForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-card/50 dark:bg-card/80 backdrop-blur-sm rounded-lg shadow-sm border border-border dark:border-border/50" role="form" aria-label={t('createNewListForm')}>
-      <Input
-        type="text"
-        placeholder={t('listPlaceholder')}
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="flex-1 bg-background dark:bg-input text-foreground dark:text-foreground border-border dark:border-border/50 placeholder:text-muted-foreground"
-        aria-label={t('newListName')}
-        aria-describedby="list-input-help"
-      />
-      <div id="list-input-help" className="sr-only">
-        {t('pleaseEnterListName')}
-      </div>
-      <ColorPicker 
-        selectedColor={selectedColor}
-        onColorChange={setSelectedColor}
-        className="flex-shrink-0"
-        aria-label={t('chooseListColor')}
-      />
-      <Button 
-        type="submit" 
-        disabled={!title.trim()}
-        className="bg-primary hover:bg-primary/90 text-primary-foreground border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label={title.trim() ? `${t('createList')} "${title.trim()}"` : t('pleaseEnterListName')}
-      >
-        <Plus 
-          className="w-4 h-4 mr-2" 
-          aria-hidden="true"
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-6 bg-card/50 dark:bg-card/80 backdrop-blur-sm rounded-lg shadow-sm border border-border dark:border-border/50" role="form" aria-label={t('createNewListForm')}>
+      <div className="flex flex-col gap-4">
+        <Input
+          type="text"
+          placeholder={t('listPlaceholder')}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="h-14 text-lg bg-background dark:bg-input text-foreground dark:text-foreground border-border dark:border-border/50 placeholder:text-muted-foreground"
+          aria-label={t('newListName')}
+          aria-describedby="list-input-help"
         />
-        <span>
-          {t('addList')}
-        </span>
-      </Button>
+        <div id="list-input-help" className="sr-only">
+          {t('pleaseEnterListName')}
+        </div>
+      </div>
+      
+      <div className="flex gap-2 items-center">
+        <ColorPicker 
+          selectedColor={selectedColor}
+          onColorChange={setSelectedColor}
+          className="flex-shrink-0"
+          aria-label={t('chooseListColor')}
+        />
+        <Button 
+          type="submit" 
+          disabled={!title.trim()}
+          className="flex-1 h-12 bg-primary hover:bg-primary/90 text-primary-foreground border-none font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label={title.trim() ? `${t('createList')} "${title.trim()}"` : t('pleaseEnterListName')}
+        >
+          <Plus 
+            className="w-5 h-5 mr-2" 
+            aria-hidden="true"
+          />
+          <span>
+            {t('addList')}
+          </span>
+        </Button>
+      </div>
     </form>
   );
 };
