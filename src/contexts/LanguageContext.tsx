@@ -265,7 +265,7 @@ const translations = {
     // Statistics page
     'overview': 'Visão Geral',
     'analytics': 'Análises',
-    'sync': 'Sync',
+    'sync': 'Sinc.',
     'tools': 'Ferramentas',
     'last7Days': 'Últimos 7 Dias',
     'last30Days': 'Últimos 30 Dias',
