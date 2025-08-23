@@ -96,9 +96,9 @@ export const ListTemplates: React.FC<ListTemplatesProps> = ({ isOpen, onClose })
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto animate-fade-in">
-        <DialogHeader>
-          <div className="flex items-center justify-between">
-            <DialogTitle className="flex items-center gap-2">
+        <DialogHeader className="pb-4">
+          <div className="flex items-center justify-between w-full">
+            <DialogTitle className="flex items-center gap-2 text-lg">
               <FileText className="w-5 h-5" />
               {t('templates')}
             </DialogTitle>
