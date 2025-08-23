@@ -1,119 +1,61 @@
 
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider } from "next-themes";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import { ListsProvider } from "@/contexts/ListsContext";
-import { OfflineProvider } from "@/contexts/OfflineContext";
-import { AuthProvider } from "@/contexts/AuthContext";
-import { AchievementsProvider } from "@/contexts/AchievementsContext";
-import { ListsOverview } from "./pages/ListsOverview";
-import { ListDetail } from "./pages/ListDetail";
-import { StickyNotesPage } from "./pages/StickyNotesPage";
-import { TemplatesPage } from "./pages/TemplatesPage";
-import { StatisticsPage } from "./pages/StatisticsPage";
-import { AchievementsPage } from "./pages/AchievementsPage";
-import AuthPage from "./pages/AuthPage";
-import { LoadingSpinner } from "./components/LoadingSpinner";
-import { ErrorBoundary } from "./components/ErrorBoundary";
-import { PerformanceMonitor } from "./components/PerformanceMonitor";
-import { AccessibilityAnnouncer } from "./components/AccessibilityAnnouncer";
-import { KeyboardShortcuts } from "./components/KeyboardShortcuts";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from 'sonner';
+import { AuthProvider, useAuth } from '@/contexts/AuthContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
+import { OfflineProvider } from '@/contexts/OfflineContext';
+import Index from '@/pages/Index';
+import AuthPage from '@/pages/AuthPage';
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  return (
-    <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem={false}
-            disableTransitionOnChange
-          >
-            <TooltipProvider>
-              <OfflineProvider>
-                <LanguageProvider>
-                  <AuthProvider>
-                    <ListsProvider>
-                      <AchievementsProvider>
-                        <AppContent />
-                      </AchievementsProvider>
-                    </ListsProvider>
-                  </AuthProvider>
-                </LanguageProvider>
-              </OfflineProvider>
-            </TooltipProvider>
-          </ThemeProvider>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </ErrorBoundary>
-  );
-};
-
-const AppContent = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Register service worker for PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('SW registered'))
-        .catch(() => console.log('SW registration failed'));
-    }
-
-    // Simulate initial loading
-    const timer = setTimeout(() => setIsLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+  
+  if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center animate-fade-in-up">
-          <LoadingSpinner size="lg" className="mx-auto mb-4" />
-          <p className="text-muted-foreground">Carregando QuickList...</p>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
+  
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+  
+  return <>{children}</>;
+}
 
+function App() {
   return (
-    <>
-      <AccessibilityAnnouncer />
-      <KeyboardShortcuts />
-      <div role="application" aria-label="QuickList - Gerenciador de Tarefas">
-        <main id="main-content">
-          <Routes>
-            <Route path="/" element={<ListsOverview />} />
-            <Route path="/list/:listId" element={<ListDetail />} />
-            <Route path="/sticky-notes" element={<StickyNotesPage />} />
-            <Route path="/templates" element={<TemplatesPage />} />
-            <Route path="/statistics" element={<StatisticsPage />} />
-            <Route path="/achievements" element={<AchievementsPage />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="*" element={
-              <div className="min-h-screen bg-background flex items-center justify-center">
-                <div className="text-center" role="alert" aria-live="assertive">
-                  <h1 className="text-2xl font-bold mb-2">Página não encontrada</h1>
-                  <p className="text-muted-foreground">A página que você procura não existe.</p>
-                </div>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <LanguageProvider>
+          <OfflineProvider>
+            <Router>
+              <div className="min-h-screen bg-background">
+                <Routes>
+                  <Route path="/auth" element={<AuthPage />} />
+                  <Route
+                    path="/"
+                    element={
+                      <ProtectedRoute>
+                        <Index />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Routes>
+                <Toaster position="top-center" />
               </div>
-            } />
-          </Routes>
-        </main>
-      </div>
-      <Toaster />
-      <Sonner />
-      <PerformanceMonitor />
-    </>
+            </Router>
+          </OfflineProvider>
+        </LanguageProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
-};
+}
 
 export default App;
