@@ -54,10 +54,10 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             variant={showCompleted ? "default" : "outline"}
             size="sm"
             onClick={() => onShowCompletedChange(!showCompleted)}
-            className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-7 flex-shrink-0 whitespace-nowrap"
+            className="text-foreground dark:text-white border-border dark:border-white/20 text-[10px] px-2 py-1 h-6 flex-shrink-0 whitespace-nowrap"
           >
-            <Filter className="w-3 h-3 mr-1" />
-            <span className="text-xs">{showCompleted ? 'Ocultar' : 'Mostrar'}</span>
+            <Filter className="w-2 h-2 mr-1" />
+            <span className="text-[10px]">{showCompleted ? 'Ocultar' : 'Mostrar'}</span>
           </Button>
 
           {/* Sort Dropdown */}
@@ -66,10 +66,10 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               <Button 
                 variant="outline" 
                 size="sm"
-                className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-7 flex-shrink-0 whitespace-nowrap"
+                className="text-foreground dark:text-white border-border dark:border-white/20 text-[10px] px-2 py-1 h-6 flex-shrink-0 whitespace-nowrap"
               >
-                <SortAsc className="w-3 h-3 mr-1" />
-                <span className="text-xs">{t(sortBy)}</span>
+                <SortAsc className="w-2 h-2 mr-1" />
+                <span className="text-[10px]">{t(sortBy)}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">

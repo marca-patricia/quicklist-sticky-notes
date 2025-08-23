@@ -64,10 +64,10 @@ export const ExportButton: React.FC<ExportButtonProps> = ({ list }) => {
         <Button 
           variant="outline" 
           size="sm"
-          className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-3 py-1 h-7 flex-shrink-0 min-w-[80px] whitespace-nowrap"
+          className="text-foreground dark:text-white border-border dark:border-white/20 text-[10px] px-2 py-1 h-6 flex-shrink-0 whitespace-nowrap"
         >
-          <Download className="w-2.5 h-2.5 mr-1 flex-shrink-0" />
-          <span className="text-xs font-medium">{t('export')}</span>
+          <Download className="w-2 h-2 mr-1 flex-shrink-0" />
+          <span className="text-[10px] font-medium">{t('export')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">
