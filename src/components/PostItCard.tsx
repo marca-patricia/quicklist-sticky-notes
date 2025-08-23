@@ -6,19 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Trash2, Edit3, Check, X, Palette } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { TodoList } from '@/contexts/ListsContext';
+import { useLists } from '@/contexts/ListsContext';
 
 interface PostItCardProps {
-  id: string;
-  title: string;
-  content: string;
-  color: string;
-  textColor: string;
-  font: string;
-  fontSize: string;
-  type: 'list' | 'note';
-  items?: { id: string; text: string; completed: boolean }[];
-  onUpdate: (id: string, updates: any) => void;
-  onDelete: (id: string) => void;
+  list: TodoList;
+  isGridView?: boolean;
 }
 
 const postItColors = [
@@ -32,32 +25,29 @@ const postItColors = [
   '#FFB6C1'  // Light Pink
 ];
 
-export const PostItCard: React.FC<PostItCardProps> = ({
-  id, title, content, color, textColor, font, fontSize, type, items = [], onUpdate, onDelete
-}) => {
+export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false }) => {
   const { t } = useLanguage();
+  const { updateList, deleteList } = useLists();
   const [isEditing, setIsEditing] = useState(false);
-  const [editTitle, setEditTitle] = useState(title);
-  const [editContent, setEditContent] = useState(content);
-  const [editColor, setEditColor] = useState(color);
-  const [editTextColor, setEditTextColor] = useState(textColor);
+  const [editTitle, setEditTitle] = useState(list.title);
+  const [editDescription, setEditDescription] = useState(list.description || '');
+  const [editColor, setEditColor] = useState(list.color);
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   const handleSave = () => {
-    onUpdate(id, {
+    updateList(list.id, {
       title: editTitle,
-      content: editContent,
-      color: editColor,
-      textColor: editTextColor
+      description: editDescription,
+      color: editColor
     });
     setIsEditing(false);
   };
 
   const toggleItem = (itemId: string) => {
-    const updatedItems = items.map(item =>
+    const updatedItems = list.items.map(item =>
       item.id === itemId ? { ...item, completed: !item.completed } : item
     );
-    onUpdate(id, { items: updatedItems });
+    updateList(list.id, { items: updatedItems });
   };
 
   const getContrastColor = (hexColor: string) => {
@@ -68,17 +58,16 @@ export const PostItCard: React.FC<PostItCardProps> = ({
     return brightness > 128 ? '#000000' : '#FFFFFF';
   };
 
-  const pendingItems = items.filter(item => !item.completed);
-  const completedItems = items.filter(item => item.completed);
+  const textColor = getContrastColor(editColor);
+  const pendingItems = list.items.filter(item => !item.completed);
+  const completedItems = list.items.filter(item => item.completed);
 
   return (
     <Card 
       className="w-full max-w-xs h-80 p-4 relative transform rotate-1 hover:rotate-0 transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 m-2"
       style={{ 
-        backgroundColor: color,
+        backgroundColor: editColor,
         color: textColor,
-        fontFamily: font,
-        fontSize: fontSize,
         boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1)'
       }}
     >
@@ -97,7 +86,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({
             />
           ) : (
             <h3 className="text-sm font-bold truncate" style={{ color: textColor }}>
-              {title || t('title')}
+              {list.title || t('title')}
             </h3>
           )}
         </div>
@@ -124,7 +113,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onDelete(id)}
+            onClick={() => deleteList(list.id)}
             className="h-6 w-6 p-0 hover:bg-red-500/20"
           >
             <Trash2 className="w-3 h-3" style={{ color: textColor }} />
@@ -146,7 +135,6 @@ export const PostItCard: React.FC<PostItCardProps> = ({
                 }}
                 onClick={() => {
                   setEditColor(postItColor);
-                  setEditTextColor(getContrastColor(postItColor));
                 }}
               />
             ))}
@@ -161,23 +149,25 @@ export const PostItCard: React.FC<PostItCardProps> = ({
         </div>
       )}
 
-      {/* Content area */}
+      {/* Content area - Show description if no items, otherwise show todo list */}
       <div className="flex-1 overflow-hidden">
-        {type === 'note' ? (
+        {list.items.length === 0 ? (
+          // Show description for empty lists
           isEditing ? (
             <Textarea
-              value={editContent}
-              onChange={(e) => setEditContent(e.target.value)}
+              value={editDescription}
+              onChange={(e) => setEditDescription(e.target.value)}
               className="w-full h-32 bg-transparent border-none resize-none text-xs p-0 focus:ring-0"
               style={{ color: textColor }}
               placeholder={t('description')}
             />
           ) : (
             <p className="text-xs leading-relaxed whitespace-pre-wrap overflow-y-auto h-32" style={{ color: textColor }}>
-              {content || t('description')}
+              {list.description || t('description')}
             </p>
           )
         ) : (
+          // Show todo list
           <div className="space-y-2 h-48 overflow-y-auto">
             {/* Pending items */}
             <div>
