@@ -5,6 +5,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { FileText, Plus, User, Briefcase, ShoppingCart, Plane, BookOpen, Calendar } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
+import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const templates = [
   {
@@ -95,10 +97,16 @@ export const ListTemplates: React.FC<ListTemplatesProps> = ({ isOpen, onClose })
     <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto animate-fade-in">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <FileText className="w-5 h-5" />
-            {t('templates')}
-          </DialogTitle>
+          <div className="flex items-center justify-between">
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5" />
+              {t('templates')}
+            </DialogTitle>
+            <div className="flex items-center gap-2">
+              <LanguageSwitch />
+              <ThemeToggle />
+            </div>
+          </div>
         </DialogHeader>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
           {templates.map((template) => {
