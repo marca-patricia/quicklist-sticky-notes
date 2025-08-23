@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
