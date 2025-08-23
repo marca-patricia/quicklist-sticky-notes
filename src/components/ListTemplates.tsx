@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { 
@@ -74,48 +75,62 @@ const templates: Template[] = [
 ];
 
 interface ListTemplatesProps {
+  isOpen: boolean;
   onClose: () => void;
 }
 
-export const ListTemplates: React.FC<ListTemplatesProps> = ({ onClose }) => {
+export const ListTemplates: React.FC<ListTemplatesProps> = ({ isOpen, onClose }) => {
   const { t } = useLanguage();
-  const { addList } = useLists();
+  const { addList, addItemToList } = useLists();
 
   const handleUseTemplate = (template: Template) => {
     const title = t(template.titleKey);
     const items = t(template.itemsKey).split(', ');
     
-    addList(title, t(template.descKey), template.color);
+    const newList = addList(title, t(template.descKey), template.color);
+    
+    // Add template items to the new list
+    if (newList) {
+      items.forEach(itemText => {
+        addItemToList(newList.id, itemText.trim());
+      });
+    }
+    
     onClose();
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold">{t('templates')}</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
-        {templates.map((template) => (
-          <Card key={template.id} className="cursor-pointer hover:shadow-md transition-shadow">
-            <CardHeader className="pb-3">
-              <div className="flex items-center gap-2">
-                {template.icon}
-                <CardTitle className="text-base">{t(template.titleKey)}</CardTitle>
-              </div>
-              <CardDescription className="text-sm">
-                {t(template.descKey)}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <Button 
-                onClick={() => handleUseTemplate(template)}
-                className="w-full"
-                size="sm"
-              >
-                {t('useTemplate')}
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>{t('templates')}</DialogTitle>
+        </DialogHeader>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {templates.map((template) => (
+            <Card key={template.id} className="cursor-pointer hover:shadow-md transition-shadow">
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-2">
+                  {template.icon}
+                  <CardTitle className="text-base">{t(template.titleKey)}</CardTitle>
+                </div>
+                <CardDescription className="text-sm">
+                  {t(template.descKey)}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <Button 
+                  onClick={() => handleUseTemplate(template)}
+                  className="w-full"
+                  size="sm"
+                >
+                  {t('useTemplate')}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };

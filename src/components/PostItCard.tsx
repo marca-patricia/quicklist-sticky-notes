@@ -20,23 +20,19 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { TodoList } from '@/contexts/ListsContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useLists } from '@/contexts/ListsContext';
 
 interface PostItCardProps {
   list: TodoList;
-  onClick: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
-  onArchive: () => void;
+  isGridView?: boolean;
 }
 
 export const PostItCard: React.FC<PostItCardProps> = ({
   list,
-  onClick,
-  onEdit,
-  onDelete,
-  onArchive
+  isGridView = false
 }) => {
   const { t } = useLanguage();
+  const { deleteList, updateList } = useLists();
   
   const completedItems = list.items.filter(item => item.completed).length;
   const totalItems = list.items.length;
@@ -47,7 +43,23 @@ export const PostItCard: React.FC<PostItCardProps> = ({
     if ((e.target as HTMLElement).closest('[data-dropdown-trigger]')) {
       return;
     }
-    onClick();
+    // Navigate to list detail view
+    window.location.href = `/list/${list.id}`;
+  };
+
+  const handleEdit = () => {
+    // Navigate to edit view
+    window.location.href = `/list/${list.id}/edit`;
+  };
+
+  const handleDelete = () => {
+    if (window.confirm(t('confirmDelete'))) {
+      deleteList(list.id);
+    }
+  };
+
+  const handleArchive = () => {
+    updateList(list.id, { ...list, archived: !list.archived });
   };
 
   return (
@@ -74,12 +86,12 @@ export const PostItCard: React.FC<PostItCardProps> = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem onClick={(e) => { e.stopPropagation(); onEdit(); }}>
+              <DropdownMenuItem onClick={(e) => { e.stopPropagation(); handleEdit(); }}>
                 <Edit className="mr-2 h-4 w-4" />
                 {t('edit')}
               </DropdownMenuItem>
               <DropdownMenuItem 
-                onClick={(e) => { e.stopPropagation(); onArchive(); }}
+                onClick={(e) => { e.stopPropagation(); handleArchive(); }}
                 className="text-orange-600"
               >
                 {list.archived ? (
@@ -95,7 +107,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({
                 )}
               </DropdownMenuItem>
               <DropdownMenuItem 
-                onClick={(e) => { e.stopPropagation(); onDelete(); }}
+                onClick={(e) => { e.stopPropagation(); handleDelete(); }}
                 className="text-red-600"
               >
                 <Trash2 className="mr-2 h-4 w-4" />
