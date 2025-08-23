@@ -19,6 +19,7 @@ interface SearchAndFilterProps {
   sortBy: 'recent' | 'alphabetical' | 'completed';
   onSortChange: (value: 'recent' | 'alphabetical' | 'completed') => void;
   exportButton?: React.ReactNode;
+  shareButton?: React.ReactNode;
 }
 
 export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
@@ -29,6 +30,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   sortBy,
   onSortChange,
   exportButton,
+  shareButton,
 }) => {
   const { t } = useLanguage();
 
@@ -94,8 +96,9 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             </DropdownMenuContent>
           </DropdownMenu>
           
-          {/* Export Button */}
+          {/* Export and Share Buttons */}
           {exportButton && exportButton}
+          {shareButton && shareButton}
         </div>
 
         {/* Active Filters Display */}

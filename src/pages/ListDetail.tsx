@@ -7,6 +7,7 @@ import { QuickListStats } from '@/components/QuickListStats';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
 import { SearchAndFilter } from '@/components/SearchAndFilter';
 import { ExportButton } from '@/components/ExportButton';
+import { ShareButton } from '@/components/ShareButton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -333,6 +334,7 @@ export const ListDetail: React.FC = () => {
             sortBy={sortBy}
             onSortChange={setSortBy}
             exportButton={<ExportButton list={list} />}
+            shareButton={<ShareButton list={list} />}
           />
         </div>
 
