@@ -9,35 +9,39 @@ interface OfflineContextType {
 const OfflineContext = createContext<OfflineContextType | undefined>(undefined);
 
 export const OfflineProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isOnline, setIsOnline] = useState(() => {
-    return typeof navigator !== 'undefined' ? navigator.onLine : true;
-  });
+  const [isOnline, setIsOnline] = useState(true);
   const [lastSync, setLastSync] = useState<Date | null>(null);
   const [pendingChanges, setPendingChanges] = useState(0);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    // Only run in browser environment
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return;
+    }
+
+    // Set initial online status
+    setIsOnline(navigator.onLine);
+    
+    // Set initial sync time
+    setLastSync(new Date());
 
     const handleOnline = () => {
       setIsOnline(true);
       setLastSync(new Date());
     };
     
-    const handleOffline = () => setIsOnline(false);
+    const handleOffline = () => {
+      setIsOnline(false);
+    };
 
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
-
-    // Initial sync timestamp
-    if (isOnline && !lastSync) {
-      setLastSync(new Date());
-    }
 
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, [isOnline, lastSync]);
+  }, []); // Remove dependencies to prevent loops
 
   return (
     <OfflineContext.Provider value={{ isOnline, lastSync, pendingChanges }}>
