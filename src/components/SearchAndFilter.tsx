@@ -46,30 +46,30 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         />
       </div>
 
-      {/* Compact Filter and Sort Controls - Single Row */}
-      <div className="flex gap-1 items-center justify-between w-full overflow-hidden">
-        <div className="flex gap-1 items-center flex-shrink-0">
-          {/* Show/Hide Completed Toggle - Mais compacto */}
+      {/* Filter and Sort Controls */}
+      <div className="flex gap-2 items-center justify-between w-full">
+        <div className="flex gap-2 items-center overflow-x-auto flex-nowrap pb-1">
+          {/* Show/Hide Completed Toggle */}
           <Button
             variant={showCompleted ? "default" : "outline"}
             size="sm"
             onClick={() => onShowCompletedChange(!showCompleted)}
-            className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-1.5 py-0.5 h-6 flex-shrink-0 min-w-0"
+            className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-7 flex-shrink-0 whitespace-nowrap"
           >
-            <Filter className="w-2.5 h-2.5 mr-0.5" />
-            <span className="truncate text-xs">{showCompleted ? 'Ocultar' : 'Mostrar'}</span>
+            <Filter className="w-3 h-3 mr-1" />
+            <span className="text-xs">{showCompleted ? 'Ocultar' : 'Mostrar'}</span>
           </Button>
 
-          {/* Sort Dropdown - Mais compacto */}
+          {/* Sort Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button 
                 variant="outline" 
                 size="sm"
-                className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-1.5 py-0.5 h-6 flex-shrink-0 min-w-0"
+                className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-7 flex-shrink-0 whitespace-nowrap"
               >
-                <SortAsc className="w-2.5 h-2.5 mr-0.5" />
-                <span className="truncate text-xs">{t(sortBy)}</span>
+                <SortAsc className="w-3 h-3 mr-1" />
+                <span className="text-xs">{t(sortBy)}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">
@@ -94,12 +94,8 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             </DropdownMenuContent>
           </DropdownMenu>
           
-          {/* Export Button - Integrado na linha */}
-          {exportButton && (
-            <div className="ml-1">
-              {exportButton}
-            </div>
-          )}
+          {/* Export Button */}
+          {exportButton && exportButton}
         </div>
 
         {/* Active Filters Display */}
