@@ -47,8 +47,8 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
       </div>
 
       {/* Filter and Sort Controls */}
-      <div className="flex gap-2 items-center justify-between w-full">
-        <div className="flex gap-2 items-center overflow-x-auto flex-nowrap pb-1">
+      <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-wrap gap-2 items-center w-full">
           {/* Show/Hide Completed Toggle */}
           <Button
             variant={showCompleted ? "default" : "outline"}
@@ -72,7 +72,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
                 <span className="text-[10px]">{t(sortBy)}</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">
+            <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20 z-50">
               <DropdownMenuItem 
                 onClick={() => onSortChange('recent')}
                 className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
