@@ -16,6 +16,8 @@ import { LoadingSpinner } from "./components/LoadingSpinner";
 const queryClient = new QueryClient();
 
 const App = () => {
+  console.log('App: Starting render');
+  
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -44,6 +46,8 @@ const AppContent = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log('AppContent: Component mounted');
+    
     // Register service worker for PWA
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
@@ -52,11 +56,15 @@ const AppContent = () => {
     }
 
     // Simulate initial loading
-    const timer = setTimeout(() => setIsLoading(false), 800);
+    const timer = setTimeout(() => {
+      console.log('AppContent: Loading complete');
+      setIsLoading(false);
+    }, 800);
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
+    console.log('AppContent: Showing loading screen');
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center animate-fade-in-up">
@@ -66,6 +74,8 @@ const AppContent = () => {
       </div>
     );
   }
+
+  console.log('AppContent: Rendering main content');
 
   return (
     <>
