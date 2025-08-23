@@ -1,6 +1,5 @@
 
-import * as React from 'react';
-import { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Category } from '@/components/CategoryManager';
 
 export interface ListItem {
@@ -74,7 +73,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           }))
         })));
       } catch (error) {
-        // Error loading saved lists - silent in production
+        console.error('Error loading saved lists:', error);
       }
     } else if (oldItems) {
       // Migrate old single list data
@@ -84,7 +83,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           const migratedList: TodoList = {
             id: Date.now().toString(),
             title: 'Minha Lista',
-      color: pastelColors[0].value,
+            color: pastelColors[0].value,
             items: parsed.map((item: any) => ({
               ...item,
               createdAt: new Date(item.createdAt)
@@ -94,7 +93,7 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           setLists([migratedList]);
         }
       } catch (error) {
-        // Error migrating old data - silent in production
+        console.error('Error migrating old data:', error);
       }
     }
   }, []);
