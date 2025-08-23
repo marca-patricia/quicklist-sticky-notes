@@ -1,134 +1,121 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { FileText, Plus, User, Briefcase, ShoppingCart, Plane, BookOpen, Calendar } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
+import { 
+  User, 
+  Briefcase, 
+  ShoppingCart, 
+  Plane, 
+  BookOpen, 
+  Calendar 
+} from 'lucide-react';
 
-const templates = [
+interface Template {
+  id: string;
+  icon: React.ReactNode;
+  titleKey: string;
+  descKey: string;
+  itemsKey: string;
+  color: string;
+}
+
+const templates: Template[] = [
   {
     id: 'personal',
-    icon: User,
-    key: 'personalTemplate',
-    descKey: 'personalDesc',
-    itemsKey: 'personalItems'
+    icon: <User className="w-5 h-5" />,
+    titleKey: 'personalTemplate',
+    descKey: 'personalDesc', 
+    itemsKey: 'personalItems',
+    color: '#fef3c7'
   },
   {
     id: 'work',
-    icon: Briefcase,
-    key: 'workTemplate',
+    icon: <Briefcase className="w-5 h-5" />,
+    titleKey: 'workTemplate',
     descKey: 'workDesc',
-    itemsKey: 'workItems'
+    itemsKey: 'workItems', 
+    color: '#e0e7ff'
   },
   {
     id: 'shopping',
-    icon: ShoppingCart,
-    key: 'shoppingTemplate',
+    icon: <ShoppingCart className="w-5 h-5" />,
+    titleKey: 'shoppingTemplate',
     descKey: 'shoppingDesc',
-    itemsKey: 'shoppingItems'
+    itemsKey: 'shoppingItems',
+    color: '#dcfce7'
   },
   {
     id: 'travel',
-    icon: Plane,
-    key: 'travelTemplate',
+    icon: <Plane className="w-5 h-5" />,
+    titleKey: 'travelTemplate', 
     descKey: 'travelDesc',
-    itemsKey: 'travelItems'
+    itemsKey: 'travelItems',
+    color: '#fce7f3'
   },
   {
     id: 'study',
-    icon: BookOpen,
-    key: 'studyTemplate',
-    descKey: 'studyDesc',
-    itemsKey: 'studyItems'
+    icon: <BookOpen className="w-5 h-5" />,
+    titleKey: 'studyTemplate',
+    descKey: 'studyDesc', 
+    itemsKey: 'studyItems',
+    color: '#fed7d7'
   },
   {
     id: 'event',
-    icon: Calendar,
-    key: 'eventTemplate',
+    icon: <Calendar className="w-5 h-5" />,
+    titleKey: 'eventTemplate',
     descKey: 'eventDesc',
-    itemsKey: 'eventItems'
+    itemsKey: 'eventItems', 
+    color: '#f3e8ff'
   }
 ];
 
 interface ListTemplatesProps {
-  isOpen?: boolean;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
-export const ListTemplates: React.FC<ListTemplatesProps> = ({ isOpen, onClose }) => {
+export const ListTemplates: React.FC<ListTemplatesProps> = ({ onClose }) => {
   const { t } = useLanguage();
-  const { addList, addItemToList } = useLists();
-  const [open, setOpen] = useState(false);
+  const { addList } = useLists();
 
-  // Use external control if provided
-  const isDialogOpen = isOpen !== undefined ? isOpen : open;
-  const handleOpenChange = (newOpen: boolean) => {
-    if (isOpen !== undefined && onClose) {
-      if (!newOpen) onClose();
-    } else {
-      setOpen(newOpen);
-    }
-  };
-
-  const handleUseTemplate = (template: typeof templates[0]) => {
-    // Create the list first
-    const listId = Date.now().toString();
-    addList(t(template.key));
+  const handleUseTemplate = (template: Template) => {
+    const title = t(template.titleKey);
+    const items = t(template.itemsKey).split(', ');
     
-    // Get translated items and convert to array
-    const translatedItems = t(template.itemsKey).split(', ');
-    
-    // Add items to the list after a short delay to ensure the list is created
-    setTimeout(() => {
-      translatedItems.forEach((item, index) => {
-        setTimeout(() => {
-          addItemToList(listId, item.trim());
-        }, index * 50); // Stagger the item creation
-      });
-    }, 200);
-    
-    handleOpenChange(false);
+    addList(title, t(template.descKey), template.color);
+    onClose();
   };
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto animate-fade-in">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <FileText className="w-5 h-5" />
-            {t('templates')}
-          </DialogTitle>
-        </DialogHeader>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
-          {templates.map((template) => {
-            const Icon = template.icon;
-            return (
-              <div key={template.id} className="border rounded-lg p-4 hover:shadow-md transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <Icon className="w-5 h-5 text-primary" />
-                    <h3 className="font-medium text-sm">{t(template.key)}</h3>
-                  </div>
-                  <Button
-                    size="sm"
-                    onClick={() => handleUseTemplate(template)}
-                    className="h-8 px-3 text-xs"
-                  >
-                    <Plus className="w-3 h-3 mr-1" />
-                    {t('useTemplate')}
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground mb-2 leading-relaxed">{t(template.descKey)}</p>
-                <div className="text-xs text-muted-foreground/70 italic">
-                  {t(template.itemsKey).split(', ').slice(0, 3).join(', ')}
-                  {t(template.itemsKey).split(', ').length > 3 && '...'}
-                </div>
+    <div className="space-y-4">
+      <h3 className="text-lg font-semibold">{t('templates')}</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+        {templates.map((template) => (
+          <Card key={template.id} className="cursor-pointer hover:shadow-md transition-shadow">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                {template.icon}
+                <CardTitle className="text-base">{t(template.titleKey)}</CardTitle>
               </div>
-            );
-          })}
-        </div>
-      </DialogContent>
-    </Dialog>
+              <CardDescription className="text-sm">
+                {t(template.descKey)}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <Button 
+                onClick={() => handleUseTemplate(template)}
+                className="w-full"
+                size="sm"
+              >
+                {t('useTemplate')}
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
   );
 };

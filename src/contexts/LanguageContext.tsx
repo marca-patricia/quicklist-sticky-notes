@@ -72,7 +72,21 @@ const translations = {
     'studyItems': 'Ler capítulo 3, Fazer exercícios, Revisar anotações, Pesquisar sobre tema, Preparar resumo',
     'eventTemplate': 'Lista de Evento',
     'eventDesc': 'Planeje seu evento ou festa sem esquecer detalhes',
-    'eventItems': 'Definir local, Fazer convites, Comprar decoração, Preparar comida, Organizar música'
+    'eventItems': 'Definir local, Fazer convites, Comprar decoração, Preparar comida, Organizar música',
+
+    // Auth
+    'auth.title': 'QuickList',
+    'auth.login': 'Entrar',
+    'auth.signup': 'Cadastrar',
+    'auth.email': 'Email',
+    'auth.password': 'Senha',
+    'auth.passwordMin': 'Senha (mín. 6 caracteres)',
+    'auth.loginButton': 'Entrar',
+    'auth.signupButton': 'Cadastrar',
+    'auth.loggingIn': 'Entrando...',
+    'auth.creating': 'Criando conta...',
+    'auth.welcomeBack': 'Bem-vindo de volta!',
+    'auth.accountCreated': 'Conta criada com sucesso!'
   },
   en: {
     // Basic UI
@@ -136,7 +150,21 @@ const translations = {
     'studyItems': 'Read chapter 3, Do exercises, Review notes, Research topic, Prepare summary',
     'eventTemplate': 'Event List',
     'eventDesc': 'Plan your event or party without forgetting details',
-    'eventItems': 'Define venue, Make invitations, Buy decorations, Prepare food, Organize music'
+    'eventItems': 'Define venue, Make invitations, Buy decorations, Prepare food, Organize music',
+
+    // Auth
+    'auth.title': 'QuickList',
+    'auth.login': 'Login',
+    'auth.signup': 'Sign Up',
+    'auth.email': 'Email',
+    'auth.password': 'Password',
+    'auth.passwordMin': 'Password (min. 6 characters)',
+    'auth.loginButton': 'Login',
+    'auth.signupButton': 'Sign Up',
+    'auth.loggingIn': 'Logging in...',
+    'auth.creating': 'Creating account...',
+    'auth.welcomeBack': 'Welcome back!',
+    'auth.accountCreated': 'Account created successfully!'
   }
 };
 
