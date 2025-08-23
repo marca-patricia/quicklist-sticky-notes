@@ -186,6 +186,16 @@ export const ListsOverview: React.FC = () => {
               <Button
                 variant="ghost"
                 size="sm"
+                onClick={() => setIsTemplatesOpen(true)}
+                className="text-foreground hover:bg-accent/20 border border-border flex items-center gap-1 shrink-0"
+                title={t('templates')}
+              >
+                <FileText className="w-4 h-4" />
+                <span className="hidden sm:inline text-xs">{t('templates')}</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => navigate('/statistics')}
                 className="text-foreground hover:bg-accent/20 border border-border flex items-center gap-1 shrink-0"
                 title={t('insights')}
