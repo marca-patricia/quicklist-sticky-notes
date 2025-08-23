@@ -6,11 +6,25 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Trash2, Edit3, Check, X, Palette } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { TodoList } from '@/contexts/ListsContext';
-import { useLists } from '@/contexts/ListsContext';
+
+interface PostItItem {
+  id: string;
+  text: string;
+  completed: boolean;
+}
 
 interface PostItCardProps {
-  list: TodoList;
+  id: string;
+  title: string;
+  content: string;
+  color: string;
+  textColor: string;
+  font: string;
+  fontSize: string;
+  type: 'list' | 'note';
+  items?: PostItItem[];
+  onUpdate: (id: string, updates: any) => void;
+  onDelete: (id: string) => void;
   isGridView?: boolean;
 }
 
@@ -25,29 +39,31 @@ const postItColors = [
   '#FFB6C1'  // Light Pink
 ];
 
-export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false }) => {
+export const PostItCard: React.FC<PostItCardProps> = ({ 
+  id, title, content, color, textColor, font, fontSize, type, items = [], 
+  onUpdate, onDelete, isGridView = false 
+}) => {
   const { t } = useLanguage();
-  const { updateList, deleteList } = useLists();
   const [isEditing, setIsEditing] = useState(false);
-  const [editTitle, setEditTitle] = useState(list.title);
-  const [editDescription, setEditDescription] = useState(list.description || '');
-  const [editColor, setEditColor] = useState(list.color);
+  const [editTitle, setEditTitle] = useState(title);
+  const [editContent, setEditContent] = useState(content);
+  const [editColor, setEditColor] = useState(color);
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   const handleSave = () => {
-    updateList(list.id, {
+    onUpdate(id, {
       title: editTitle,
-      description: editDescription,
+      content: editContent,
       color: editColor
     });
     setIsEditing(false);
   };
 
   const toggleItem = (itemId: string) => {
-    const updatedItems = list.items.map(item =>
+    const updatedItems = items.map(item =>
       item.id === itemId ? { ...item, completed: !item.completed } : item
     );
-    updateList(list.id, { items: updatedItems });
+    onUpdate(id, { items: updatedItems });
   };
 
   const getContrastColor = (hexColor: string) => {
@@ -58,16 +74,16 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
     return brightness > 128 ? '#000000' : '#FFFFFF';
   };
 
-  const textColor = getContrastColor(editColor);
-  const pendingItems = list.items.filter(item => !item.completed);
-  const completedItems = list.items.filter(item => item.completed);
+  const finalTextColor = getContrastColor(editColor);
+  const pendingItems = items.filter(item => !item.completed);
+  const completedItems = items.filter(item => item.completed);
 
   return (
     <Card 
       className="w-full max-w-xs h-80 p-4 relative transform rotate-1 hover:rotate-0 transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 m-2"
       style={{ 
         backgroundColor: editColor,
-        color: textColor,
+        color: finalTextColor,
         boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1)'
       }}
     >
@@ -82,11 +98,11 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
               className="text-sm font-bold bg-transparent border-none p-0 h-auto focus:ring-0"
-              style={{ color: textColor }}
+              style={{ color: finalTextColor }}
             />
           ) : (
-            <h3 className="text-sm font-bold truncate" style={{ color: textColor }}>
-              {list.title || t('title')}
+            <h3 className="text-sm font-bold truncate" style={{ color: finalTextColor }}>
+              {title || t('title')}
             </h3>
           )}
         </div>
@@ -98,7 +114,7 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
             onClick={() => setShowColorPicker(!showColorPicker)}
             className="h-6 w-6 p-0 hover:bg-white/20"
           >
-            <Palette className="w-3 h-3" style={{ color: textColor }} />
+            <Palette className="w-3 h-3" style={{ color: finalTextColor }} />
           </Button>
           
           <Button
@@ -107,16 +123,16 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
             onClick={() => setIsEditing(!isEditing)}
             className="h-6 w-6 p-0 hover:bg-white/20"
           >
-            <Edit3 className="w-3 h-3" style={{ color: textColor }} />
+            <Edit3 className="w-3 h-3" style={{ color: finalTextColor }} />
           </Button>
           
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => deleteList(list.id)}
+            onClick={() => onDelete(id)}
             className="h-6 w-6 p-0 hover:bg-red-500/20"
           >
-            <Trash2 className="w-3 h-3" style={{ color: textColor }} />
+            <Trash2 className="w-3 h-3" style={{ color: finalTextColor }} />
           </Button>
         </div>
       </div>
@@ -149,29 +165,29 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
         </div>
       )}
 
-      {/* Content area - Show description if no items, otherwise show todo list */}
+      {/* Content area */}
       <div className="flex-1 overflow-hidden">
-        {list.items.length === 0 ? (
-          // Show description for empty lists
+        {type === 'note' ? (
+          // Note content
           isEditing ? (
             <Textarea
-              value={editDescription}
-              onChange={(e) => setEditDescription(e.target.value)}
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
               className="w-full h-32 bg-transparent border-none resize-none text-xs p-0 focus:ring-0"
-              style={{ color: textColor }}
-              placeholder={t('description')}
+              style={{ color: finalTextColor }}
+              placeholder={t('content')}
             />
           ) : (
-            <p className="text-xs leading-relaxed whitespace-pre-wrap overflow-y-auto h-32" style={{ color: textColor }}>
-              {list.description || t('description')}
+            <p className="text-xs leading-relaxed whitespace-pre-wrap overflow-y-auto h-32" style={{ color: finalTextColor }}>
+              {content || t('content')}
             </p>
           )
         ) : (
-          // Show todo list
+          // Todo list
           <div className="space-y-2 h-48 overflow-y-auto">
             {/* Pending items */}
             <div>
-              <h4 className="text-xs font-semibold mb-1" style={{ color: textColor }}>
+              <h4 className="text-xs font-semibold mb-1" style={{ color: finalTextColor }}>
                 {t('pending')} ({pendingItems.length})
               </h4>
               {pendingItems.map((item) => (
@@ -179,9 +195,9 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                   <button
                     onClick={() => toggleItem(item.id)}
                     className="w-4 h-4 rounded-full border-2 hover:bg-white/20 transition-colors"
-                    style={{ borderColor: textColor }}
+                    style={{ borderColor: finalTextColor }}
                   />
-                  <span className="text-xs flex-1" style={{ color: textColor }}>
+                  <span className="text-xs flex-1" style={{ color: finalTextColor }}>
                     {item.text}
                   </span>
                 </div>
@@ -190,8 +206,8 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
 
             {/* Completed items */}
             {completedItems.length > 0 && (
-              <div className="border-t pt-2" style={{ borderColor: `${textColor}40` }}>
-                <h4 className="text-xs font-semibold mb-1" style={{ color: textColor }}>
+              <div className="border-t pt-2" style={{ borderColor: `${finalTextColor}40` }}>
+                <h4 className="text-xs font-semibold mb-1" style={{ color: finalTextColor }}>
                   {t('completed')} ({completedItems.length})
                 </h4>
                 {completedItems.map((item) => (
@@ -199,11 +215,11 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                     <button
                       onClick={() => toggleItem(item.id)}
                       className="w-4 h-4 rounded-full border-2 bg-green-500 flex items-center justify-center"
-                      style={{ borderColor: textColor }}
+                      style={{ borderColor: finalTextColor }}
                     >
                       <Check className="w-2 h-2 text-white" />
                     </button>
-                    <span className="text-xs flex-1 line-through" style={{ color: textColor }}>
+                    <span className="text-xs flex-1 line-through" style={{ color: finalTextColor }}>
                       {item.text}
                     </span>
                   </div>
