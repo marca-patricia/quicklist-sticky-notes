@@ -1,35 +1,33 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
   className?: string;
-  label?: string;
 }
 
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
   size = 'md', 
-  className,
-  label = 'Carregando...'
+  className 
 }) => {
-  
   const sizeClasses = {
-    sm: 'h-4 w-4',
-    md: 'h-6 w-6',
-    lg: 'h-8 w-8'
+    sm: 'w-4 h-4',
+    md: 'w-6 h-6', 
+    lg: 'w-8 h-8'
   };
 
   return (
     <div 
       className={cn(
-        'animate-spin rounded-full border-2 border-muted border-t-primary',
+        'animate-spin rounded-full border-2 border-current border-t-transparent',
         sizeClasses[size],
         className
       )}
       role="status"
-      aria-label={label}
+      aria-label="Carregando"
     >
-      <span className="sr-only">{label}</span>
+      <span className="sr-only">Carregando...</span>
     </div>
   );
 };

@@ -55,29 +55,26 @@ export const pastelColors = [
 export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lists, setLists] = useState<TodoList[]>([]);
 
-  // Migrate old data and load lists
+  // Load lists from localStorage with error handling
   useEffect(() => {
-    const savedLists = localStorage.getItem('quicklist-lists');
-    const oldItems = localStorage.getItem('quicklist-items');
-    
-    if (savedLists) {
-      try {
+    try {
+      const savedLists = localStorage.getItem('quicklist-lists');
+      const oldItems = localStorage.getItem('quicklist-items');
+      
+      if (savedLists) {
         const parsed = JSON.parse(savedLists);
-        setLists(parsed.map((list: any) => ({
+        const processedLists = parsed.map((list: any) => ({
           ...list,
           createdAt: new Date(list.createdAt),
-          items: list.items.map((item: any) => ({
+          items: (list.items || []).map((item: any) => ({
             ...item,
             createdAt: new Date(item.createdAt),
             dueDate: item.dueDate ? new Date(item.dueDate) : undefined
           }))
-        })));
-      } catch (error) {
-        console.error('Error loading saved lists:', error);
-      }
-    } else if (oldItems) {
-      // Migrate old single list data
-      try {
+        }));
+        setLists(processedLists);
+      } else if (oldItems) {
+        // Migrate old single list data
         const parsed = JSON.parse(oldItems);
         if (parsed.length > 0) {
           const migratedList: TodoList = {
@@ -88,19 +85,25 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               ...item,
               createdAt: new Date(item.createdAt)
             })),
-            createdAt: new Date()
+            createdAt: new Date(),
+            categories: []
           };
           setLists([migratedList]);
         }
-      } catch (error) {
-        console.error('Error migrating old data:', error);
       }
+    } catch (error) {
+      console.error('Error loading saved lists:', error);
+      setLists([]);
     }
   }, []);
 
-  // Save lists to localStorage
+  // Save lists to localStorage with error handling
   useEffect(() => {
-    localStorage.setItem('quicklist-lists', JSON.stringify(lists));
+    try {
+      localStorage.setItem('quicklist-lists', JSON.stringify(lists));
+    } catch (error) {
+      console.error('Error saving lists:', error);
+    }
   }, [lists]);
 
   const addList = (title: string, description?: string, color?: string) => {
@@ -210,20 +213,22 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return lists.find(list => list.id === listId);
   };
 
+  const value = {
+    lists,
+    addList,
+    deleteList,
+    updateList,
+    addItemToList,
+    toggleItemInList,
+    deleteItemFromList,
+    updateItemInList,
+    getListById,
+    addCategoryToList,
+    deleteCategoryFromList
+  };
+
   return (
-    <ListsContext.Provider value={{
-      lists,
-      addList,
-      deleteList,
-      updateList,
-      addItemToList,
-      toggleItemInList,
-      deleteItemFromList,
-      updateItemInList,
-      getListById,
-      addCategoryToList,
-      deleteCategoryFromList
-    }}>
+    <ListsContext.Provider value={value}>
       {children}
     </ListsContext.Provider>
   );
