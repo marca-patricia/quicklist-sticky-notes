@@ -200,7 +200,7 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
 
       <Card 
         ref={itemRef}
-        className={`p-2 transition-smooth hover:shadow-notepad border border-border rounded-lg cursor-pointer select-none group animate-slide-in-left ${
+        className={`p-1.5 transition-smooth hover:shadow-notepad border border-border rounded-lg cursor-pointer select-none group animate-slide-in-left ${
           isDeleting ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
         } ${completed ? 'opacity-70' : 'opacity-100'}`}
         style={{

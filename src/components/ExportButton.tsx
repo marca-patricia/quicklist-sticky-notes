@@ -61,21 +61,34 @@ export const ExportButton: React.FC<ExportButtonProps> = ({ list }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm">
-          <Download className="w-4 h-4 mr-2" />
-          {t('export')}
+        <Button 
+          variant="outline" 
+          size="sm"
+          className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-1.5 py-0.5 h-6 flex-shrink-0 min-w-0"
+        >
+          <Download className="w-2.5 h-2.5 mr-0.5" />
+          <span className="truncate text-xs">{t('export')}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem onClick={exportAsTxt}>
+      <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">
+        <DropdownMenuItem 
+          onClick={exportAsTxt}
+          className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
+        >
           <FileText className="w-4 h-4 mr-2" />
           {t('exportTxt')}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={exportAsMarkdown}>
+        <DropdownMenuItem 
+          onClick={exportAsMarkdown}
+          className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
+        >
           <File className="w-4 h-4 mr-2" />
           Export Markdown
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={exportAsJson}>
+        <DropdownMenuItem 
+          onClick={exportAsJson}
+          className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
+        >
           <Code className="w-4 h-4 mr-2" />
           {t('exportJson')}
         </DropdownMenuItem>

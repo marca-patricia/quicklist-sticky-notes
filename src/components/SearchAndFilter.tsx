@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -19,6 +18,7 @@ interface SearchAndFilterProps {
   onShowCompletedChange: (value: boolean) => void;
   sortBy: 'recent' | 'alphabetical' | 'completed';
   onSortChange: (value: 'recent' | 'alphabetical' | 'completed') => void;
+  exportButton?: React.ReactNode;
 }
 
 export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
@@ -28,6 +28,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   onShowCompletedChange,
   sortBy,
   onSortChange,
+  exportButton,
 }) => {
   const { t } = useLanguage();
 
@@ -92,6 +93,13 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          
+          {/* Export Button - Integrado na linha */}
+          {exportButton && (
+            <div className="ml-1">
+              {exportButton}
+            </div>
+          )}
         </div>
 
         {/* Active Filters Display */}

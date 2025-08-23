@@ -249,7 +249,7 @@ export const ListDetail: React.FC = () => {
                     onChange={(e) => setEditTitle(e.target.value)}
                     onKeyDown={handleTitleKeyDown}
                     onBlur={handleSaveTitle}
-                    className="text-2xl font-bold border-primary focus:border-primary flex-1 text-foreground dark:text-white bg-background dark:bg-background border-border dark:border-white/20 min-w-0"
+                    className="text-2xl font-bold border-primary focus:border-primary flex-1 text-foreground dark:text-white bg-background dark:bg-background border-border dark:border-white/20 min-w-0 w-full max-w-xs"
                   />
                   <Button
                     variant="ghost"
@@ -332,6 +332,7 @@ export const ListDetail: React.FC = () => {
             onShowCompletedChange={setShowCompletedFilter}
             sortBy={sortBy}
             onSortChange={setSortBy}
+            exportButton={<ExportButton list={list} />}
           />
         </div>
 
@@ -343,15 +344,12 @@ export const ListDetail: React.FC = () => {
             onShare={shareList}
             onClearCompleted={clearCompleted}
           />
-          <div className="flex justify-end mt-2">
-            <ExportButton list={list} />
-          </div>
         </div>
 
         {/* Pending Items */}
         {pendingItems.length > 0 && (
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-foreground dark:text-white flex items-center gap-2">
+            <h3 className="text-lg font-semibold mb-3 text-foreground dark:text-black flex items-center gap-2">
               <Clock className="w-5 h-5" />
               {t('pending')} ({pendingItems.length})
             </h3>
