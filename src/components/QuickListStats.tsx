@@ -24,41 +24,41 @@ export const QuickListStats: React.FC<QuickListStatsProps> = ({
   if (totalItems === 0) return null;
 
   return (
-    <div className="flex items-center justify-between gap-2 text-sm py-1" style={{minHeight: '32px'}}>
-      <div className="text-foreground font-medium">
+    <div className="flex items-center justify-between gap-1 text-sm py-1 overflow-hidden" style={{minHeight: '32px'}}>
+      {/* Contador de itens - lado esquerdo */}
+      <div className="text-foreground font-medium flex-shrink-0 min-w-0">
         {pendingItems === 0 ? (
-          <span>{t('allCompleted')}</span>
+          <span className="text-xs">{t('allCompleted')}</span>
         ) : (
-          <span>
+          <span className="text-xs truncate">
             {pendingItems} {pendingItems === 1 ? t('oneItemLeft') : t('itemsLeft')}
           </span>
         )}
       </div>
       
-      <div className="flex gap-1 items-center">
-        {/* Export sempre no meio */}
+      {/* Botões centralizados - lado direito */}
+      <div className="flex gap-1 items-center flex-shrink-0">
+        {/* Export no meio */}
         {completedItems > 0 && (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onClearCompleted}
-          className="text-foreground border-border hover:bg-muted text-xs px-2 py-1 h-7"
-          style={{order: 1}}
-        >
-          <CheckCheck className="h-3 w-3" />
-          <span className="text-xs ml-1">Export</span>
-        </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onClearCompleted}
+            className="text-foreground border-border hover:bg-muted text-xs px-1.5 py-0.5 h-6"
+          >
+            <CheckCheck className="h-2.5 w-2.5" />
+            <span className="text-xs ml-0.5 hidden sm:inline">Export</span>
+          </Button>
         )}
         
-        {/* Share sempre por último */}
+        {/* Share por último */}
         <Button
           variant="ghost"
           size="sm"
           onClick={onShare}
-          className="text-foreground hover:text-foreground/80 hover:bg-muted text-xs px-2 py-1 h-7"
-          style={{order: 2}}
+          className="text-foreground hover:text-foreground/80 hover:bg-muted text-xs px-1.5 py-0.5 h-6"
         >
-          <Share2 className="h-3 w-3" />
+          <Share2 className="h-2.5 w-2.5" />
         </Button>
       </div>
     </div>

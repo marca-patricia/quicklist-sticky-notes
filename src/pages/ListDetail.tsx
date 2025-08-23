@@ -14,7 +14,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useLists } from '@/contexts/ListsContext';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, ExternalLink, ChevronDown, ChevronRight, Calendar, Clock, Edit3, Check, X, Sun, Moon } from 'lucide-react';
-import { QuickListIcon } from '@/components/QuickListIcon';
+import { QuickListLogo } from '@/components/QuickListLogo';
 import { DragDropList } from '@/components/DragDropList';
 import { useTheme } from "next-themes";
 
@@ -238,18 +238,18 @@ export const ListDetail: React.FC = () => {
           </Button>
           
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3 flex-1 min-w-0 group">
-              <QuickListIcon className="w-8 h-8 flex-shrink-0" />
+            <div className="flex items-start gap-3 flex-1 min-w-0 group">
+              <QuickListLogo showText={false} size="md" className="flex-shrink-0" />
               
               {isEditingTitle ? (
-                <div className="flex items-center gap-2 flex-1">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
                   <Input
                     ref={titleInputRef}
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
                     onKeyDown={handleTitleKeyDown}
                     onBlur={handleSaveTitle}
-                    className="text-2xl font-bold border-primary focus:border-primary flex-1 text-foreground dark:text-white bg-background dark:bg-background border-border dark:border-white/20"
+                    className="text-2xl font-bold border-primary focus:border-primary flex-1 text-foreground dark:text-white bg-background dark:bg-background border-border dark:border-white/20 min-w-0"
                   />
                   <Button
                     variant="ghost"
@@ -269,9 +269,9 @@ export const ListDetail: React.FC = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="flex items-start gap-2 flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
                   <h1 
-                    className={`text-xl sm:text-2xl font-bold border-l-4 pl-3 break-words leading-tight cursor-pointer hover:text-primary transition-colors text-foreground dark:text-white`}
+                    className={`text-xl sm:text-2xl font-bold border-l-4 pl-3 break-words leading-tight cursor-pointer hover:text-primary transition-colors text-foreground dark:text-white flex-1`}
                     style={{ borderColor: list.color }}
                     onClick={handleEditTitle}
                     title={t('clickToEdit')}
@@ -282,7 +282,7 @@ export const ListDetail: React.FC = () => {
                     variant="ghost"
                     size="sm"
                     onClick={handleEditTitle}
-                    className="text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 opacity-100 transition-all flex-shrink-0"
                   >
                     <Edit3 className="h-4 w-4" />
                   </Button>

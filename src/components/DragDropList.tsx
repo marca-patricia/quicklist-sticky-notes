@@ -73,7 +73,7 @@ export const DragDropList: React.FC<DragDropListProps> = ({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-1">
       {items.map((item, index) => (
         <div
           key={item.id}
