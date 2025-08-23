@@ -10,7 +10,11 @@ import { Plus, Palette } from 'lucide-react';
 import { ColorPicker } from '@/components/ColorPicker';
 import { ListTemplates } from '@/components/ListTemplates';
 
-export const AddListForm: React.FC = () => {
+interface AddListFormProps {
+  onSuccess?: () => void;
+}
+
+export const AddListForm: React.FC<AddListFormProps> = ({ onSuccess }) => {
   const [title, setTitle] = useState('');
   const [selectedColor, setSelectedColor] = useState(pastelColors[0].value);
   const [showTemplates, setShowTemplates] = useState(false);
@@ -39,6 +43,7 @@ export const AddListForm: React.FC = () => {
         description: t('listCreated'),
         duration: 2000,
       });
+      onSuccess?.(); // Close modal when success
     } catch (error) {
       console.error('Error creating list:', error);
       toast({
@@ -63,7 +68,10 @@ export const AddListForm: React.FC = () => {
           </Button>
         </DialogTrigger>
         <DialogContent className="max-w-4xl">
-          <ListTemplates isOpen={showTemplates} onClose={() => setShowTemplates(false)} />
+          <ListTemplates 
+            isOpen={showTemplates} 
+            onClose={() => setShowTemplates(false)} 
+          />
         </DialogContent>
       </Dialog>
 

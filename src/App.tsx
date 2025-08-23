@@ -6,6 +6,7 @@ import { Toaster } from 'sonner';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { OfflineProvider } from '@/contexts/OfflineContext';
+import { ListsProvider } from '@/contexts/ListsContext';
 import Index from '@/pages/Index';
 import AuthPage from '@/pages/AuthPage';
 
@@ -42,6 +43,7 @@ function App() {
       <AuthProvider>
         <LanguageProvider>
           <OfflineProvider>
+            <ListsProvider>
             <Router>
               <div className="min-h-screen bg-background">
                 <Routes>
@@ -58,6 +60,7 @@ function App() {
                 <Toaster position="top-center" />
               </div>
             </Router>
+            </ListsProvider>
           </OfflineProvider>
         </LanguageProvider>
       </AuthProvider>

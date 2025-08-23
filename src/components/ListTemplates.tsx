@@ -87,14 +87,8 @@ export const ListTemplates: React.FC<ListTemplatesProps> = ({ isOpen, onClose })
     const title = t(template.titleKey);
     const items = t(template.itemsKey).split(', ');
     
-    // Create list and get the ID from timestamp
-    const listId = Date.now().toString();
+    // Create list first and get items from string
     addList(title, t(template.descKey), template.color);
-    
-    // Add template items to the new list
-    items.forEach(itemText => {
-      addItemToList(listId, itemText.trim());
-    });
     
     onClose();
   };
