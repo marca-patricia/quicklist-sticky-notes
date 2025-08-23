@@ -38,24 +38,25 @@ All colors MUST be HSL.
     --input: 0 0% 100%;
     --ring: 217 91% 60%;
 
-    /* Sticky note colors kept but slightly softened */
-    --note-yellow: 48 95% 75%;
-    --note-blue: 210 80% 78%;
-    --note-green: 150 75% 75%;
-    --note-pink: 330 80% 78%;
-    --note-orange: 30 90% 75%;
-    --note-purple: 270 65% 78%;
+    /* Sticky note colors - Metallic versions */
+    --note-yellow: 48 95% 75%; /* Metallic Gold */
+    --note-blue: 210 85% 78%; /* Metallic Blue */
+    --note-green: 150 78% 72%; /* Metallic Green */
+    --note-pink: 330 82% 78%; /* Metallic Rose */
+    --note-orange: 25 92% 75%; /* Metallic Orange/Copper */
+    --note-purple: 270 70% 78%; /* Metallic Purple */
     --note-text: 222 22% 15%;
 
     --floating-button: var(--primary);
     --floating-button-text: var(--primary-foreground);
 
-    /* Gradients and shadows */
+    /* Gradients and shadows - Metallic effects */
     --gradient-bg: linear-gradient(135deg, hsl(210 20% 98%) 0%, hsl(210 20% 96%) 100%);
     --gradient-header: linear-gradient(135deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.18) 100%);
+    --gradient-metallic: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.8) 100%);
 
-    --shadow-postit: 0px 3px 8px rgba(0,0,0,0.12);
-    --shadow-postit-hover: 0px 6px 16px rgba(0,0,0,0.15);
+    --shadow-postit: 0px 3px 8px rgba(0,0,0,0.12), inset 0px 1px 0px rgba(255,255,255,0.6);
+    --shadow-postit-hover: 0px 6px 16px rgba(0,0,0,0.15), inset 0px 1px 0px rgba(255,255,255,0.7);
 
     --radius: 0.75rem;
   }
@@ -90,13 +91,13 @@ All colors MUST be HSL.
     --input: 217 33% 14%;
     --ring: 217 91% 60%;
 
-    /* Sticky note colors remain */
-    --note-yellow: 48 95% 75%;
-    --note-blue: 210 80% 78%;
-    --note-green: 150 75% 75%;
-    --note-pink: 330 80% 78%;
-    --note-orange: 30 90% 75%;
-    --note-purple: 270 65% 78%;
+    /* Sticky note colors - Metallic versions (Dark mode) */
+    --note-yellow: 48 95% 75%; /* Metallic Gold */
+    --note-blue: 210 85% 78%; /* Metallic Blue */
+    --note-green: 150 78% 72%; /* Metallic Green */
+    --note-pink: 330 82% 78%; /* Metallic Rose */
+    --note-orange: 25 92% 75%; /* Metallic Orange/Copper */
+    --note-purple: 270 70% 78%; /* Metallic Purple */
     --note-text: 222 22% 15%;
 
     --floating-button: var(--primary);

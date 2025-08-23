@@ -34,7 +34,7 @@ export const ThemeToggle: React.FC = () => {
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      className="h-8 w-8 p-0 rounded-lg transition-all duration-200 shrink-0 shadow-sm"
+      className="h-8 w-8 p-0 rounded-lg transition-all duration-200 shrink-0 shadow-sm hover:scale-105"
       style={{
         backgroundColor: theme === 'dark' ? '#FFFACC' : 'rgba(255, 255, 255, 0.8)',
         border: theme === 'dark' ? '1px solid #FFF066' : '1px solid rgba(0, 0, 0, 0.1)',
