@@ -18,6 +18,7 @@ interface AnalyticsData {
 export const AnalyticsDashboard: React.FC = () => {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('7d');
+  const [error, setError] = useState<string | null>(null);
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -25,42 +26,64 @@ export const AnalyticsDashboard: React.FC = () => {
   }, [timeRange]);
 
   const collectAnalytics = () => {
-    // Simulate analytics data collection
-    // In a real app, this would connect to analytics service
-    const mockData: AnalyticsData = {
-      pageViews: Math.floor(Math.random() * 10000) + 1000,
-      uniqueUsers: Math.floor(Math.random() * 5000) + 500,
-      avgSessionTime: Math.floor(Math.random() * 300) + 120, // seconds
-      bounceRate: Math.floor(Math.random() * 30) + 20, // percentage
-      topPages: [
-        { path: '/', views: 450 },
-        { path: '/sticky-notes', views: 320 },
-        { path: '/statistics', views: 180 },
-        { path: '/templates', views: 120 },
-        { path: '/achievements', views: 80 }
-      ],
-      deviceTypes: [
-        { type: 'Mobile', percentage: 65 },
-        { type: 'Desktop', percentage: 30 },
-        { type: 'Tablet', percentage: 5 }
-      ],
-      countries: [
-        { country: 'Brasil', users: 1200 },
-        { country: 'Portugal', users: 300 },
-        { country: 'Estados Unidos', users: 250 },
-        { country: 'Espanha', users: 180 },
-        { country: 'Outros', users: 470 }
-      ]
-    };
+    try {
+      setError(null);
+      // Simulate analytics data collection
+      // In a real app, this would connect to analytics service
+      const mockData: AnalyticsData = {
+        pageViews: Math.floor(Math.random() * 10000) + 1000,
+        uniqueUsers: Math.floor(Math.random() * 5000) + 500,
+        avgSessionTime: Math.floor(Math.random() * 300) + 120, // seconds
+        bounceRate: Math.floor(Math.random() * 30) + 20, // percentage
+        topPages: [
+          { path: '/', views: 450 },
+          { path: '/sticky-notes', views: 320 },
+          { path: '/statistics', views: 180 },
+          { path: '/templates', views: 120 },
+          { path: '/achievements', views: 80 }
+        ],
+        deviceTypes: [
+          { type: 'Mobile', percentage: 65 },
+          { type: 'Desktop', percentage: 30 },
+          { type: 'Tablet', percentage: 5 }
+        ],
+        countries: [
+          { country: 'Brasil', users: 1200 },
+          { country: 'Portugal', users: 300 },
+          { country: 'Estados Unidos', users: 250 },
+          { country: 'Espanha', users: 180 },
+          { country: 'Outros', users: 470 }
+        ]
+      };
 
-    setAnalytics(mockData);
+      setAnalytics(mockData);
+    } catch (err) {
+      console.error('Error collecting analytics:', err);
+      setError('Failed to load analytics data');
+    }
   };
 
   const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    try {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    } catch (error) {
+      console.warn('Error formatting time:', error);
+      return '0:00';
+    }
   };
+
+  if (error) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-muted-foreground mb-4">{error}</p>
+        <Button onClick={collectAnalytics} variant="outline" size="sm">
+          {t('tryAgain') || 'Try Again'}
+        </Button>
+      </div>
+    );
+  }
 
   if (!analytics) {
     return (

@@ -147,6 +147,8 @@ const translations = {
     'hoursAgo': 'há {{count}} horas', 
     'daysAgo': 'há {{count}} dias',
     'offline': 'Offline',
+    'yes': 'Sim',
+    'no': 'Não',
     
     // Missing translations - Categories
     'startWithDefaultCategories': 'Comece criando algumas categorias padrão para organizar melhor suas tarefas.',
@@ -179,6 +181,14 @@ const translations = {
     'newCategory': 'Nova Categoria',
     'categoryName': 'Nome da categoria',
     'createDefaultCategories': 'Criar Categorias Padrão',
+    'home': 'Início',
+    'statisticsPageDesc': 'Visualize suas estatísticas e analise seu progresso',
+    'confirmDeleteList': 'Excluir Lista?',
+    'confirmDeleteListDesc': 'Esta ação não pode ser desfeita. A lista e todos os seus itens serão removidos.',
+    'listRestored': 'Lista restaurada',
+    'unarchive': 'Desarquivar',
+    'colorChangedSuccessfully': 'Cor alterada com sucesso',
+    'tryAgain': 'Tentar Novamente',
     
     // Statistics and insights
     'insights': 'Insights',
@@ -461,6 +471,8 @@ const translations = {
     'hoursAgo': '{{count}} hours ago',
     'daysAgo': '{{count}} days ago',
     'offline': 'Offline',
+    'yes': 'Yes',
+    'no': 'No',
     
     // Missing translations - Categories
     'startWithDefaultCategories': 'Start by creating some default categories to better organize your tasks.',
@@ -493,6 +505,14 @@ const translations = {
     'newCategory': 'New Category',
     'categoryName': 'Category name',
     'createDefaultCategories': 'Create Default Categories',
+    'home': 'Home',
+    'statisticsPageDesc': 'View your statistics and analyze your progress',
+    'confirmDeleteList': 'Delete List?',
+    'confirmDeleteListDesc': 'This action cannot be undone. The list and all its items will be removed.',
+    'listRestored': 'List restored',
+    'unarchive': 'Unarchive',
+    'colorChangedSuccessfully': 'Color changed successfully',
+    'tryAgain': 'Try Again',
     
     // Statistics and insights
     'insights': 'Insights',

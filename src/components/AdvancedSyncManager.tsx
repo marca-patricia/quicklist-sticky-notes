@@ -21,48 +21,56 @@ export const AdvancedSyncManager: React.FC = () => {
   const { t } = useLanguage();
 
   useEffect(() => {
-    // Monitor online/offline status
-    const handleOnline = () => {
-      setSyncStatus(prev => ({ ...prev, isOnline: true }));
-      // Trigger sync when coming back online
-      triggerSync();
-    };
+    try {
+      // Monitor online/offline status
+      const handleOnline = () => {
+        setSyncStatus(prev => ({ ...prev, isOnline: true }));
+        // Trigger sync when coming back online
+        triggerSync();
+      };
 
-    const handleOffline = () => {
-      setSyncStatus(prev => ({ ...prev, isOnline: false }));
-    };
+      const handleOffline = () => {
+        setSyncStatus(prev => ({ ...prev, isOnline: false }));
+      };
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+      window.addEventListener('online', handleOnline);
+      window.addEventListener('offline', handleOffline);
 
-    // Initialize sync status
-    initializeSyncStatus();
+      // Initialize sync status
+      initializeSyncStatus();
 
-    // Register for background sync if supported
-    if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
-      navigator.serviceWorker.ready.then(registration => {
-        // Register for background sync (type assertion for compatibility)
-        (registration as any).sync?.register('quicklist-sync');
-      }).catch(() => {
-        // Silent fail for unsupported browsers
-      });
+      // Register for background sync if supported
+      if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+        navigator.serviceWorker.ready.then(registration => {
+          // Register for background sync (type assertion for compatibility)
+          (registration as any).sync?.register('quicklist-sync');
+        }).catch(() => {
+          // Silent fail for unsupported browsers
+        });
+      }
+
+      return () => {
+        window.removeEventListener('online', handleOnline);
+        window.removeEventListener('offline', handleOffline);
+      };
+    } catch (error) {
+      console.warn('Error initializing sync manager:', error);
     }
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
   }, []);
 
   const initializeSyncStatus = () => {
-    const lastSyncString = localStorage.getItem('quicklist-last-sync');
-    const pendingActions = JSON.parse(localStorage.getItem('quicklist-pending-actions') || '[]');
-    
-    setSyncStatus(prev => ({
-      ...prev,
-      lastSync: lastSyncString ? new Date(lastSyncString) : null,
-      pendingActions: pendingActions.length
-    }));
+    try {
+      const lastSyncString = localStorage.getItem('quicklist-last-sync');
+      const pendingActions = JSON.parse(localStorage.getItem('quicklist-pending-actions') || '[]');
+      
+      setSyncStatus(prev => ({
+        ...prev,
+        lastSync: lastSyncString ? new Date(lastSyncString) : null,
+        pendingActions: pendingActions.length
+      }));
+    } catch (error) {
+      console.warn('Error initializing sync status:', error);
+    }
   };
 
   const triggerSync = async () => {
@@ -110,18 +118,23 @@ export const AdvancedSyncManager: React.FC = () => {
   };
 
   const formatLastSync = (lastSync: Date | null) => {
-    if (!lastSync) return t('neverSynced');
-    
-    const now = new Date();
-    const diffMs = now.getTime() - lastSync.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
-    
-    if (diffMins < 1) return t('justNow');
-    if (diffMins < 60) return `${diffMins} ${t('minutesAgo').replace('{{count}}', '')}`;
-    if (diffHours < 24) return `${diffHours} ${t('hoursAgo').replace('{{count}}', '')}`;
-    return `${diffDays} ${t('daysAgo').replace('{{count}}', '')}`;
+    try {
+      if (!lastSync) return t('neverSynced');
+      
+      const now = new Date();
+      const diffMs = now.getTime() - lastSync.getTime();
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffHours = Math.floor(diffMs / 3600000);
+      const diffDays = Math.floor(diffMs / 86400000);
+      
+      if (diffMins < 1) return t('justNow');
+      if (diffMins < 60) return `${diffMins} ${t('minutesAgo').replace('{{count}}', '')}`;
+      if (diffHours < 24) return `${diffHours} ${t('hoursAgo').replace('{{count}}', '')}`;
+      return `${diffDays} ${t('daysAgo').replace('{{count}}', '')}`;
+    } catch (error) {
+      console.warn('Error formatting last sync:', error);
+      return t('neverSynced');
+    }
   };
 
   return (
