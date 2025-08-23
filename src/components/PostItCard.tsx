@@ -135,60 +135,6 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
             >
               {list.title}
             </h3>
-            {/* Always visible small action icons as requested */}
-            <div 
-              className={`flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity duration-200 flex-shrink-0`} 
-              onClick={(e) => e.stopPropagation()}
-            >
-              {!isGridView && (
-                <ColorPicker 
-                  selectedColor={list.color}
-                  onColorChange={handleColorChange}
-                  className="w-5 h-5"
-                  aria-label={`Alterar cor da lista ${list.title}`}
-                />
-              )}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleArchiveToggle();
-                }}
-                className="w-5 h-5 p-0 rounded-full transition-all duration-200 hover:scale-110 dark:text-black"
-                style={{ 
-                  backgroundColor: lighterColor,
-                  color: '#1a1a1a',
-                  border: `1px solid ${darkerColor}`
-                }}
-                aria-label={list.archived ? t('unarchive') : t('archiveList')}
-                title={list.archived ? t('unarchive') : t('archiveList')}
-              >
-                {list.archived ? (
-                  <ArchiveRestore className="w-3 h-3" strokeWidth={2.5} />
-                ) : (
-                  <Archive className="w-3 h-3" strokeWidth={2.5} />
-                )}
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowDeleteConfirm(true);
-                }}
-                className="w-5 h-5 p-0 rounded-full transition-all duration-200 hover:scale-110"
-                style={{ 
-                  backgroundColor: lighterColor,
-                  color: '#dc2626',
-                  border: `1px solid ${darkerColor}`
-                }}
-                aria-label={t('deleteList')}
-                title={t('deleteList')}
-              >
-                <Trash2 className="w-3 h-3" strokeWidth={2.5} />
-              </Button>
-            </div>
           </div>
           
           {/* Description for grid view */}
@@ -246,6 +192,60 @@ export const PostItCard: React.FC<PostItCardProps> = ({ list, isGridView = false
                   }}
                 />
               </div>
+            </div>
+
+            {/* Action icons at bottom - inside the post-it */}
+            <div 
+              className="flex justify-center gap-1 pt-2 mt-2 border-t opacity-70 hover:opacity-100 transition-opacity"
+              style={{ borderTopColor: darkerColor }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ColorPicker 
+                selectedColor={list.color}
+                onColorChange={handleColorChange}
+                className="w-5 h-5"
+                aria-label={`Alterar cor da lista ${list.title}`}
+              />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleArchiveToggle();
+                }}
+                className="w-5 h-5 p-0 rounded-full transition-all duration-200 hover:scale-110 dark:text-black"
+                style={{ 
+                  backgroundColor: lighterColor,
+                  color: '#1a1a1a',
+                  border: `1px solid ${darkerColor}`
+                }}
+                aria-label={list.archived ? t('unarchive') : t('archiveList')}
+                title={list.archived ? t('unarchive') : t('archiveList')}
+              >
+                {list.archived ? (
+                  <ArchiveRestore className="w-2.5 h-2.5" strokeWidth={2.5} />
+                ) : (
+                  <Archive className="w-2.5 h-2.5" strokeWidth={2.5} />
+                )}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDeleteConfirm(true);
+                }}
+                className="w-5 h-5 p-0 rounded-full transition-all duration-200 hover:scale-110"
+                style={{ 
+                  backgroundColor: lighterColor,
+                  color: '#dc2626',
+                  border: `1px solid ${darkerColor}`
+                }}
+                aria-label={t('deleteList')}
+                title={t('deleteList')}
+              >
+                <Trash2 className="w-2.5 h-2.5" strokeWidth={2.5} />
+              </Button>
             </div>
 
             {/* Grid view color picker */}
