@@ -63,7 +63,7 @@ export const AddListForm: React.FC = () => {
           </Button>
         </DialogTrigger>
         <DialogContent className="max-w-4xl">
-          <ListTemplates onClose={() => setShowTemplates(false)} />
+          <ListTemplates isOpen={showTemplates} onClose={() => setShowTemplates(false)} />
         </DialogContent>
       </Dialog>
 
