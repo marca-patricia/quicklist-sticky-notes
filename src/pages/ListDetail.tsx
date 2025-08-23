@@ -213,30 +213,33 @@ export const ListDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="flex justify-end p-4 gap-2">
+      <div className="flex items-center justify-between p-4">
         <Button 
           variant="ghost" 
-          size="sm"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="text-foreground hover:bg-accent"
+          size="sm" 
+          className="text-foreground dark:text-white hover:bg-accent/20"
+          onClick={() => navigate('/')}
         >
-          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          {t('allLists')}
         </Button>
-        <LanguageSwitch />
-      </div>
-      
-      <div className="container max-w-2xl mx-auto px-4 py-8">
-        {/* Header - CORRIGIDO */}
-        <div className="mb-6">
+        
+        <div className="flex items-center gap-2">
           <Button 
             variant="ghost" 
-            size="sm" 
-            className="mb-4 text-foreground dark:text-white hover:bg-accent/20"
-            onClick={() => navigate('/')}
+            size="sm"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="text-foreground hover:bg-accent"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            {t('allLists')}
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </Button>
+          <LanguageSwitch />
+        </div>
+      </div>
+      
+      <div className="container max-w-2xl mx-auto px-4 py-2">
+        {/* Header */}
+        <div className="mb-4">
           
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-start gap-3 flex-1 min-w-0 group">
