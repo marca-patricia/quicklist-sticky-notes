@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { LanguageSwitch } from '@/components/LanguageSwitch';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function AuthPage() {
   const { signIn, signUp, user } = useAuth();
@@ -16,6 +18,7 @@ export default function AuthPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -86,14 +89,26 @@ export default function AuthPage() {
                     required
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 relative">
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder={t('auth.password')}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="pr-10"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
                 </div>
                 <Button 
                   type="submit" 
@@ -116,15 +131,27 @@ export default function AuthPage() {
                     required
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 relative">
                   <Input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder={t('auth.passwordMin')}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
+                    className="pr-10"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
                 </div>
                 <Button 
                   type="submit" 
