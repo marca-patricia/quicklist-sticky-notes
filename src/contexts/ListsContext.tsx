@@ -1,5 +1,6 @@
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import * as React from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { Category } from '@/components/CategoryManager';
 
 export interface ListItem {
@@ -55,55 +56,52 @@ export const pastelColors = [
 export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lists, setLists] = useState<TodoList[]>([]);
 
-  // Load lists from localStorage with error handling
+  // Migrate old data and load lists
   useEffect(() => {
-    try {
-      const savedLists = localStorage.getItem('quicklist-lists');
-      const oldItems = localStorage.getItem('quicklist-items');
-      
-      if (savedLists) {
+    const savedLists = localStorage.getItem('quicklist-lists');
+    const oldItems = localStorage.getItem('quicklist-items');
+    
+    if (savedLists) {
+      try {
         const parsed = JSON.parse(savedLists);
-        const processedLists = parsed.map((list: any) => ({
+        setLists(parsed.map((list: any) => ({
           ...list,
           createdAt: new Date(list.createdAt),
-          items: (list.items || []).map((item: any) => ({
+          items: list.items.map((item: any) => ({
             ...item,
             createdAt: new Date(item.createdAt),
             dueDate: item.dueDate ? new Date(item.dueDate) : undefined
           }))
-        }));
-        setLists(processedLists);
-      } else if (oldItems) {
-        // Migrate old single list data
+        })));
+      } catch (error) {
+        // Error loading saved lists - silent in production
+      }
+    } else if (oldItems) {
+      // Migrate old single list data
+      try {
         const parsed = JSON.parse(oldItems);
         if (parsed.length > 0) {
           const migratedList: TodoList = {
             id: Date.now().toString(),
             title: 'Minha Lista',
-            color: pastelColors[0].value,
+      color: pastelColors[0].value,
             items: parsed.map((item: any) => ({
               ...item,
               createdAt: new Date(item.createdAt)
             })),
-            createdAt: new Date(),
-            categories: []
+            createdAt: new Date()
           };
           setLists([migratedList]);
         }
+      } catch (error) {
+        // Error migrating old data - silent in production
       }
-    } catch (error) {
-      console.error('Error loading saved lists:', error);
-      setLists([]);
     }
   }, []);
 
-  // Save lists to localStorage with error handling
+  // Save lists to localStorage
   useEffect(() => {
-    try {
-      localStorage.setItem('quicklist-lists', JSON.stringify(lists));
-    } catch (error) {
-      console.error('Error saving lists:', error);
-    }
+    localStorage.setItem('quicklist-lists', JSON.stringify(lists));
   }, [lists]);
 
   const addList = (title: string, description?: string, color?: string) => {
@@ -213,22 +211,20 @@ export const ListsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return lists.find(list => list.id === listId);
   };
 
-  const value = {
-    lists,
-    addList,
-    deleteList,
-    updateList,
-    addItemToList,
-    toggleItemInList,
-    deleteItemFromList,
-    updateItemInList,
-    getListById,
-    addCategoryToList,
-    deleteCategoryFromList
-  };
-
   return (
-    <ListsContext.Provider value={value}>
+    <ListsContext.Provider value={{
+      lists,
+      addList,
+      deleteList,
+      updateList,
+      addItemToList,
+      toggleItemInList,
+      deleteItemFromList,
+      updateItemInList,
+      getListById,
+      addCategoryToList,
+      deleteCategoryFromList
+    }}>
       {children}
     </ListsContext.Provider>
   );

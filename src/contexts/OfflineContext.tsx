@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface OfflineContextType {
@@ -19,6 +18,7 @@ export const OfflineProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setIsOnline(true);
       setLastSync(new Date());
     };
+    
     const handleOffline = () => setIsOnline(false);
 
     window.addEventListener('online', handleOnline);

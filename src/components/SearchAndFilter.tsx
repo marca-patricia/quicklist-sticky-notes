@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -18,8 +19,6 @@ interface SearchAndFilterProps {
   onShowCompletedChange: (value: boolean) => void;
   sortBy: 'recent' | 'alphabetical' | 'completed';
   onSortChange: (value: 'recent' | 'alphabetical' | 'completed') => void;
-  exportButton?: React.ReactNode;
-  shareButton?: React.ReactNode;
 }
 
 export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
@@ -29,8 +28,6 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   onShowCompletedChange,
   sortBy,
   onSortChange,
-  exportButton,
-  shareButton,
 }) => {
   const { t } = useLanguage();
 
@@ -48,18 +45,18 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         />
       </div>
 
-      {/* Filter and Sort Controls */}
-      <div className="flex flex-col gap-2 w-full">
-        <div className="flex flex-wrap gap-2 items-center w-full">
+      {/* Compact Filter and Sort Controls - Single Row */}
+      <div className="flex gap-2 items-center justify-between w-full">
+        <div className="flex gap-2 items-center flex-shrink-0">
           {/* Show/Hide Completed Toggle */}
           <Button
             variant={showCompleted ? "default" : "outline"}
             size="sm"
             onClick={() => onShowCompletedChange(!showCompleted)}
-            className="text-foreground dark:text-white border-border dark:border-white/20 text-[10px] px-2 py-1 h-6 flex-shrink-0 whitespace-nowrap"
+            className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-8 flex-shrink-0"
           >
-            <Filter className="w-2 h-2 mr-1" />
-            <span className="text-[10px]">{showCompleted ? 'Ocultar' : 'Mostrar'}</span>
+            <Filter className="w-3 h-3 mr-1" />
+            {showCompleted ? t('hideCompleted') : t('showCompleted')}
           </Button>
 
           {/* Sort Dropdown */}
@@ -68,13 +65,13 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               <Button 
                 variant="outline" 
                 size="sm"
-                className="text-foreground dark:text-white border-border dark:border-white/20 text-[10px] px-2 py-1 h-6 flex-shrink-0 whitespace-nowrap"
+                className="text-foreground dark:text-white border-border dark:border-white/20 text-xs px-2 py-1 h-8 flex-shrink-0"
               >
-                <SortAsc className="w-2 h-2 mr-1" />
-                <span className="text-[10px]">{t(sortBy)}</span>
+                <SortAsc className="w-3 h-3 mr-1" />
+                <span className="truncate">{t('sortBy')}: {t(sortBy)}</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20 z-50">
+            <DropdownMenuContent className="bg-background dark:bg-background border-border dark:border-white/20">
               <DropdownMenuItem 
                 onClick={() => onSortChange('recent')}
                 className="text-foreground dark:text-white hover:bg-accent/20 dark:hover:bg-white/10"
@@ -95,10 +92,6 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          
-          {/* Export and Share Buttons */}
-          {exportButton && exportButton}
-          {shareButton && shareButton}
         </div>
 
         {/* Active Filters Display */}

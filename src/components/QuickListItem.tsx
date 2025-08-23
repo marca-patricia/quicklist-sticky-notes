@@ -200,7 +200,7 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
 
       <Card 
         ref={itemRef}
-        className={`p-1.5 transition-smooth hover:shadow-notepad border border-border rounded-lg cursor-pointer select-none group animate-slide-in-left ${
+        className={`p-3 transition-smooth hover:shadow-notepad border border-border rounded-lg cursor-pointer select-none group animate-slide-in-left ${
           isDeleting ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
         } ${completed ? 'opacity-70' : 'opacity-100'}`}
         style={{
@@ -215,7 +215,7 @@ export const QuickListItem: React.FC<QuickListItemProps> = ({
         onMouseDown={handleMouseDown}
       >
         {/* Compact mobile-optimized layout */}
-        <div className="space-y-1">
+        <div className="space-y-2">
           {/* Main row: Checkbox and Text aligned perfectly */}
           <div className="flex items-center gap-3">
             {/* Checkbox */}

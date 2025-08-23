@@ -123,25 +123,25 @@ export const AchievementsPage: React.FC = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-        <div className="container max-w-6xl mx-auto px-3 py-3">
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 min-w-0 flex-1">
+        <div className="container max-w-6xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/')}
-                className="flex items-center gap-1 shrink-0"
+                className="flex items-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
-                <span className="hidden xs:inline">{language === 'pt' ? 'Voltar' : 'Back'}</span>
+                {language === 'pt' ? 'Voltar' : 'Back'}
               </Button>
-              <h1 className="text-lg sm:text-2xl font-bold flex items-center gap-2 truncate">
-                <Trophy className="w-5 h-5 sm:w-7 sm:h-7 text-yellow-600 shrink-0" />
-                <span className="truncate">{t('achievements')}</span>
+              <h1 className="text-2xl font-bold flex items-center gap-2">
+                <Trophy className="w-7 h-7 text-yellow-600" />
+                {t('achievements')}
               </h1>
             </div>
             
-            <div className="flex items-center gap-1 shrink-0">
+            <div className="flex items-center gap-2">
               <LanguageSwitch />
               <ThemeToggle />
             </div>

@@ -9,36 +9,51 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ListsProvider } from "@/contexts/ListsContext";
 import { OfflineProvider } from "@/contexts/OfflineContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { AchievementsProvider } from "@/contexts/AchievementsContext";
 import { ListsOverview } from "./pages/ListsOverview";
 import { ListDetail } from "./pages/ListDetail";
+import { StickyNotesPage } from "./pages/StickyNotesPage";
+import { TemplatesPage } from "./pages/TemplatesPage";
+import { StatisticsPage } from "./pages/StatisticsPage";
+import { AchievementsPage } from "./pages/AchievementsPage";
+import AuthPage from "./pages/AuthPage";
 import { LoadingSpinner } from "./components/LoadingSpinner";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+import { PerformanceMonitor } from "./components/PerformanceMonitor";
+import { AccessibilityAnnouncer } from "./components/AccessibilityAnnouncer";
+import { KeyboardShortcuts } from "./components/KeyboardShortcuts";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  console.log('App: Starting render');
-  
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <ThemeProvider
-          attribute="class"  
-          defaultTheme="light"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <TooltipProvider>
-            <OfflineProvider>
-              <LanguageProvider>
-                <ListsProvider>
-                  <AppContent />
-                </ListsProvider>
-              </LanguageProvider>
-            </OfflineProvider>
-          </TooltipProvider>
-        </ThemeProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem={false}
+            disableTransitionOnChange
+          >
+            <TooltipProvider>
+              <OfflineProvider>
+                <LanguageProvider>
+                  <AuthProvider>
+                    <ListsProvider>
+                      <AchievementsProvider>
+                        <AppContent />
+                      </AchievementsProvider>
+                    </ListsProvider>
+                  </AuthProvider>
+                </LanguageProvider>
+              </OfflineProvider>
+            </TooltipProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 
@@ -46,8 +61,6 @@ const AppContent = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log('AppContent: Component mounted');
-    
     // Register service worker for PWA
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
@@ -56,15 +69,11 @@ const AppContent = () => {
     }
 
     // Simulate initial loading
-    const timer = setTimeout(() => {
-      console.log('AppContent: Loading complete');
-      setIsLoading(false);
-    }, 800);
+    const timer = setTimeout(() => setIsLoading(false), 800);
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    console.log('AppContent: Showing loading screen');
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center animate-fade-in-up">
@@ -75,15 +84,20 @@ const AppContent = () => {
     );
   }
 
-  console.log('AppContent: Rendering main content');
-
   return (
     <>
+      <AccessibilityAnnouncer />
+      <KeyboardShortcuts />
       <div role="application" aria-label="QuickList - Gerenciador de Tarefas">
         <main id="main-content">
           <Routes>
             <Route path="/" element={<ListsOverview />} />
             <Route path="/list/:listId" element={<ListDetail />} />
+            <Route path="/sticky-notes" element={<StickyNotesPage />} />
+            <Route path="/templates" element={<TemplatesPage />} />
+            <Route path="/statistics" element={<StatisticsPage />} />
+            <Route path="/achievements" element={<AchievementsPage />} />
+            <Route path="/auth" element={<AuthPage />} />
             <Route path="*" element={
               <div className="min-h-screen bg-background flex items-center justify-center">
                 <div className="text-center" role="alert" aria-live="assertive">
@@ -97,6 +111,7 @@ const AppContent = () => {
       </div>
       <Toaster />
       <Sonner />
+      <PerformanceMonitor />
     </>
   );
 };

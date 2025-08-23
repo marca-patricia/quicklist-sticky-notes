@@ -398,6 +398,19 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowMobileMenu(false);
+                    // Color change functionality - could open a color picker
+                  }}
+                  className="w-full justify-start text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <Palette className="w-4 h-4 mr-2" />
+                  Mudar Cor
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMobileMenu(false);
                     // Archive functionality
                   }}
                   className="w-full justify-start text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"

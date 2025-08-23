@@ -74,6 +74,41 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
           >
             {list.title}
           </h3>
+          <div className={`flex items-center ${isGridView ? 'gap-1' : 'gap-2'}`} onClick={(e) => e.preventDefault()}>
+            {!isGridView && (
+              <ColorPicker 
+                selectedColor={list.color}
+                onColorChange={(color) => updateList(list.id, { color })}
+                aria-label={`Alterar cor da lista ${list.title}`}
+              />
+            )}
+            <Button
+              variant="ghost"
+              size={isGridView ? "sm" : "sm"}
+              onClick={(e) => {
+                e.preventDefault();
+                handleArchiveToggle();
+              }}
+              className="text-muted-foreground hover:text-foreground"
+              aria-label={list.archived ? t('unarchive') : t('archiveList')}
+              title={list.archived ? t('unarchive') : t('archiveList')}
+            >
+              {list.archived ? <ArchiveRestore className="w-3 h-3" /> : <Archive className="w-3 h-3" />}
+            </Button>
+            <Button
+              variant="ghost"
+              size={isGridView ? "sm" : "sm"}
+              onClick={(e) => {
+                e.preventDefault();
+                setShowDeleteConfirm(true);
+              }}
+              className="text-destructive hover:text-destructive/90"
+              aria-label={t('deleteList')}
+              title={t('deleteList')}
+            >
+              <Trash2 className="w-3 h-3" />
+            </Button>
+          </div>
         </div>
         
         {/* Description for grid view */}
@@ -100,42 +135,6 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
                 style={{ width: `${progress}%` }}
               />
             </div>
-          </div>
-
-          {/* Action icons at bottom - inside the card */}
-          <div className="flex justify-center gap-1 pt-2 border-t border-border/50" onClick={(e) => e.preventDefault()}>
-            <ColorPicker 
-              selectedColor={list.color}
-              onColorChange={(color) => updateList(list.id, { color })}
-              aria-label={`Alterar cor da lista ${list.title}`}
-              className="w-6 h-6"
-            />
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-                handleArchiveToggle();
-              }}
-              className="w-6 h-6 p-0 text-muted-foreground hover:text-foreground"
-              aria-label={list.archived ? t('unarchive') : t('archiveList')}
-              title={list.archived ? t('unarchive') : t('archiveList')}
-            >
-              {list.archived ? <ArchiveRestore className="w-3 h-3" /> : <Archive className="w-3 h-3" />}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowDeleteConfirm(true);
-              }}
-              className="w-6 h-6 p-0 text-destructive hover:text-destructive/90"
-              aria-label={t('deleteList')}
-              title={t('deleteList')}
-            >
-              <Trash2 className="w-3 h-3" />
-            </Button>
           </div>
 
           {/* Grid view color picker */}

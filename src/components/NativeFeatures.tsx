@@ -9,99 +9,73 @@ export const NativeFeatures: React.FC = () => {
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [isInstallable, setIsInstallable] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [notificationPermission, setNotificationPermission] = useState(
-    typeof window !== 'undefined' && 'Notification' in window ? Notification.permission : 'default'
-  );
-  const [error, setError] = useState<string | null>(null);
+  const [notificationPermission, setNotificationPermission] = useState(Notification.permission);
   const { t } = useLanguage();
   const { toast } = useToast();
 
   useEffect(() => {
-    try {
-      // Handle PWA install prompt
-      const handleBeforeInstallPrompt = (e: Event) => {
-        e.preventDefault();
-        setDeferredPrompt(e);
-        setIsInstallable(true);
-      };
+    // Handle PWA install prompt
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setIsInstallable(true);
+    };
 
-      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-      // Check if app is already installed
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        setIsInstallable(false);
-      }
-
-      return () => {
-        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      };
-    } catch (err) {
-      console.warn('Error initializing native features:', err);
-      setError('Failed to initialize native features');
+    // Check if app is already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsInstallable(false);
     }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
   }, []);
 
   const handleInstallPWA = async () => {
-    try {
-      if (!deferredPrompt) return;
+    if (!deferredPrompt) return;
 
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      
-      if (outcome === 'accepted') {
-        toast({
-          title: t('appInstalled'),
-          description: t('appInstalledDesc'),
-        });
-      }
-      
-      setDeferredPrompt(null);
-      setIsInstallable(false);
-    } catch (error) {
-      console.error('Error installing PWA:', error);
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
       toast({
-        title: t('error'),
-        description: t('exportError'),
-        variant: 'destructive',
+        title: t('appInstalled'),
+        description: t('appInstalledDesc'),
       });
     }
+    
+    setDeferredPrompt(null);
+    setIsInstallable(false);
   };
 
   const handleShare = async () => {
-    try {
-      const shareData = {
-        title: 'QuickList',
-        text: t('shareAppText'),
-        url: window.location.origin
-      };
+    const shareData = {
+      title: 'QuickList',
+      text: t('shareAppText'),
+      url: window.location.origin
+    };
 
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-          toast({
-            title: t('sharedSuccessfully'),
-            description: t('sharedSuccessfullyDesc'),
-          });
-        } catch (error) {
-          if ((error as Error).name !== 'AbortError') {
-            fallbackShare();
-          }
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        toast({
+          title: t('sharedSuccessfully'),
+          description: t('sharedSuccessfullyDesc'),
+        });
+      } catch (error) {
+        if ((error as Error).name !== 'AbortError') {
+          fallbackShare();
         }
-      } else {
-        fallbackShare();
       }
-    } catch (error) {
-      console.error('Error sharing app:', error);
+    } else {
       fallbackShare();
     }
   };
 
   const fallbackShare = () => {
-    try {
-      setShowShareDialog(true);
-    } catch (error) {
-      console.error('Error showing share dialog:', error);
-    }
+    setShowShareDialog(true);
   };
 
   const copyToClipboard = async (text: string) => {
@@ -114,26 +88,17 @@ export const NativeFeatures: React.FC = () => {
       setShowShareDialog(false);
     } catch (error) {
       // Fallback for older browsers
-      try {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        toast({
-          title: t('copiedToClipboard'),
-          description: text,
-        });
-        setShowShareDialog(false);
-      } catch (fallbackError) {
-        console.error('Error copying to clipboard:', fallbackError);
-        toast({
-          title: t('error'),
-          description: t('exportError'),
-          variant: 'destructive',
-        });
-      }
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      toast({
+        title: t('copiedToClipboard'),
+        description: text,
+      });
+      setShowShareDialog(false);
     }
   };
 
@@ -260,17 +225,6 @@ export const NativeFeatures: React.FC = () => {
     };
     input.click();
   };
-
-  if (error) {
-    return (
-      <div className="text-center py-4">
-        <p className="text-muted-foreground mb-2">{error}</p>
-        <Button onClick={() => setError(null)} variant="outline" size="sm">
-          {t('tryAgain')}
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <>

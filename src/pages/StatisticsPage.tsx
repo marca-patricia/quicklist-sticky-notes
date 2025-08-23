@@ -176,19 +176,11 @@ export const StatisticsPage: React.FC = () => {
       {/* Main Content */}
       <main className="container max-w-6xl mx-auto px-4 py-8">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 h-auto p-1 gap-1">
-            <TabsTrigger value="overview" className="text-xs sm:text-sm px-2 py-2 text-center leading-tight">
-              {t('overview')}
-            </TabsTrigger>
-            <TabsTrigger value="analytics" className="text-xs sm:text-sm px-2 py-2 text-center leading-tight">
-              {t('analytics')}
-            </TabsTrigger>
-            <TabsTrigger value="sync" className="text-xs sm:text-sm px-1 py-2 text-center leading-tight">
-              {t('sync')}
-            </TabsTrigger>
-            <TabsTrigger value="tools" className="text-xs sm:text-sm px-2 py-2 text-center leading-tight">
-              {t('tools')}
-            </TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
+            <TabsTrigger value="analytics">{t('analytics')}</TabsTrigger>
+            <TabsTrigger value="sync">{t('sync')}</TabsTrigger>
+            <TabsTrigger value="tools">{t('tools')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
