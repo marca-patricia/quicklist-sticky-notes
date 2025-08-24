@@ -1,35 +1,36 @@
 
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from 'sonner';
-import { AuthProvider, useAuth } from '@/contexts/AuthContext';
+import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { OfflineProvider } from '@/contexts/OfflineContext';
 import { ListsProvider } from '@/contexts/ListsContext';
+import { AchievementsProvider } from '@/contexts/AchievementsContext';
+import { useAchievementNotifications } from '@/hooks/useAchievementNotifications';
 import Index from '@/pages/Index';
-import AuthPage from '@/pages/AuthPage';
+import { ListsOverview } from '@/pages/ListsOverview';
+import { StickyNotesPage } from '@/pages/StickyNotesPage';
+import { AchievementsPage } from '@/pages/AchievementsPage';
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
+// Inner component to use hooks that require providers
+function AppInner() {
+  useAchievementNotifications();
   
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-  
-  if (!user) {
-    return <Navigate to="/auth" replace />;
-  }
-  
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/lists" element={<ListsOverview />} />
+        <Route path="/sticky-notes" element={<StickyNotesPage />} />
+        <Route path="/achievements" element={<AchievementsPage />} />
+      </Routes>
+    </div>
+  );
 }
 
 function App() {
-  const queryClient = React.useMemo(() => new QueryClient({
+  const queryClient = useMemo(() => new QueryClient({
     defaultOptions: {
       queries: {
         retry: 1,
@@ -40,30 +41,18 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <LanguageProvider>
-          <OfflineProvider>
+      <LanguageProvider>
+        <OfflineProvider>
+          <AchievementsProvider>
             <ListsProvider>
-            <Router>
-              <div className="min-h-screen bg-background">
-                <Routes>
-                  <Route path="/auth" element={<AuthPage />} />
-                  <Route
-                    path="/"
-                    element={
-                      <ProtectedRoute>
-                        <Index />
-                      </ProtectedRoute>
-                    }
-                  />
-                </Routes>
-                <Toaster position="top-center" />
-              </div>
-            </Router>
+              <Router>
+                <AppInner />
+                <Toaster />
+              </Router>
             </ListsProvider>
-          </OfflineProvider>
-        </LanguageProvider>
-      </AuthProvider>
+          </AchievementsProvider>
+        </OfflineProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }
