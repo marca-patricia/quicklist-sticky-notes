@@ -83,6 +83,24 @@ const translations = {
     'eventDesc': 'Planeje seu evento ou festa sem esquecer detalhes',
     'eventItems': 'Definir local, Fazer convites, Comprar decoração, Preparar comida, Organizar música',
 
+    // Missing translations
+    'chooseColor': 'Escolher cor',
+    'clickToUndo': 'Clique para desfazer',
+    'undo': 'Desfazer',
+    'undone': 'Desfeito',
+    'toggleTheme': 'Alternar tema',
+    
+    // Sticky Notes
+    'Digite o título...': 'Digite o título...',
+    'Título (opcional)': 'Título (opcional)',
+    'Escreva sua nota...': 'Escreva sua nota...',
+    'Título da lista': 'Título da lista',
+    'Item': 'Item',
+    'Adicionar item': 'Adicionar item',
+    'Nome da categoria': 'Nome da categoria',
+    'Ou escolha uma existente:': 'Ou escolha uma existente:',
+    'Salvar': 'Salvar',
+    
     // Auth
     'auth.title': 'QuickList',
     'auth.login': 'Entrar',
@@ -170,6 +188,24 @@ const translations = {
     'eventDesc': 'Plan your event or party without forgetting details',
     'eventItems': 'Define venue, Make invitations, Buy decorations, Prepare food, Organize music',
 
+    // Missing translations
+    'chooseColor': 'Choose color',
+    'clickToUndo': 'Click to undo',
+    'undo': 'Undo',
+    'undone': 'Undone',
+    'toggleTheme': 'Toggle theme',
+    
+    // Sticky Notes
+    'Digite o título...': 'Enter title...',
+    'Título (opcional)': 'Title (optional)',
+    'Escreva sua nota...': 'Write your note...',
+    'Título da lista': 'List title',
+    'Item': 'Item',
+    'Adicionar item': 'Add item',
+    'Nome da categoria': 'Category name',
+    'Ou escolha uma existente:': 'Or choose an existing one:',
+    'Salvar': 'Save',
+    
     // Auth
     'auth.title': 'QuickList',
     'auth.login': 'Login',

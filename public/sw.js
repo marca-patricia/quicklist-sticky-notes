@@ -9,7 +9,7 @@ const urlsToCache = [
   '/static/css/main.css',
   '/favicon.ico',
   '/manifest.json',
-  '/assets/quicklist-icon.png'
+  '/lovable-uploads/76e442a8-3773-480b-9b45-fd2f2680dcfb.png'
 ];
 
 // Install Service Worker
@@ -121,8 +121,8 @@ self.addEventListener('sync', (event) => {
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'Nova notificação do QuickList',
-    icon: '/assets/quicklist-icon.png',
-    badge: '/assets/quicklist-icon.png',
+    icon: '/lovable-uploads/76e442a8-3773-480b-9b45-fd2f2680dcfb.png',
+    badge: '/lovable-uploads/76e442a8-3773-480b-9b45-fd2f2680dcfb.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
@@ -132,12 +132,12 @@ self.addEventListener('push', (event) => {
       {
         action: 'explore',
         title: 'Ver Detalhes',
-        icon: '/assets/quicklist-icon.png'
+        icon: '/lovable-uploads/76e442a8-3773-480b-9b45-fd2f2680dcfb.png'
       },
       {
         action: 'close',
         title: 'Fechar',
-        icon: '/assets/quicklist-icon.png'
+        icon: '/lovable-uploads/76e442a8-3773-480b-9b45-fd2f2680dcfb.png'
       }
     ]
   };
