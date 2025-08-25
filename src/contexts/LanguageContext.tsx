@@ -31,6 +31,15 @@ const translations = {
     'hideArchived': 'Ocultar Arquivadas',
     'showArchived': 'Mostrar Arquivadas',
     
+    // App and Lists
+    'app.title': 'QuickList',
+    'lists.new': 'Nova Lista',
+    'lists.empty': 'Nenhuma lista ainda',
+    'lists.empty.description': 'Crie sua primeira lista para começar',
+    'lists.completed': 'completos',
+    'lists.moreItems': 'mais itens...',
+    'lists.deleteTitle': 'Excluir lista',
+    
     // List actions
     'openList': 'Abrir lista',
     'editList': 'Editar lista',
@@ -108,6 +117,15 @@ const translations = {
     'noArchivedLists': 'No archived lists',
     'hideArchived': 'Hide Archived',
     'showArchived': 'Show Archived',
+    
+    // App and Lists
+    'app.title': 'QuickList',
+    'lists.new': 'New List',
+    'lists.empty': 'No lists yet',
+    'lists.empty.description': 'Create your first list to get started',
+    'lists.completed': 'completed',
+    'lists.moreItems': 'more items...',
+    'lists.deleteTitle': 'Delete list',
     
     // List actions
     'openList': 'Open list',

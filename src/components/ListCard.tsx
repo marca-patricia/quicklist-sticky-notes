@@ -19,7 +19,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
   const progress = list.items.length > 0 ? (completedItems.length / list.items.length) * 100 : 0;
 
   const handleDeleteList = () => {
-    if (confirm(t('confirmDeleteList') || 'Tem certeza que deseja excluir esta lista?')) {
+    if (confirm(t('confirmDeleteList'))) {
       deleteList(list.id);
     }
   };
@@ -42,7 +42,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
             size="sm"
             onClick={handleDeleteList}
             className="text-destructive hover:text-destructive/90 h-8 w-8 p-0"
-            title="Excluir lista"
+            title={t('lists.deleteTitle')}
           >
             <Trash2 className="w-3 h-3" />
           </Button>
@@ -52,7 +52,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
       <div className="flex-1 flex flex-col justify-end">
         <div className="mb-3">
           <div className="flex justify-between text-sm mb-1">
-            <span className="text-foreground font-medium">{completedItems.length}/{list.items.length} completos</span>
+            <span className="text-foreground font-medium">{completedItems.length}/{list.items.length} {t('lists.completed')}</span>
             <span className="text-foreground">{Math.round(progress)}%</span>
           </div>
           <div 
@@ -84,7 +84,7 @@ export const ListCard: React.FC<ListCardProps> = ({ list, isGridView = false }) 
           ))}
           {list.items.length > 3 && (
             <div className="text-xs text-muted-foreground">
-              +{list.items.length - 3} mais itens...
+              +{list.items.length - 3} {t('lists.moreItems')}
             </div>
           )}
         </div>
